@@ -3,7 +3,6 @@
       "module": "commonjs",
       "target": "es2018",
       "outDir": "dist",
-      "declarationDir": "typings",
       "lib": [
         "ESNext",
         "ESNext.Array",
@@ -24,7 +23,7 @@
       "strictNullChecks": false,
       "noImplicitThis": true,
       "allowJs": true,
-      "declaration": true,
+      "declaration": false,
       "skipLibCheck": true,
       "skipDefaultLibCheck": true
     },

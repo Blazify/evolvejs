@@ -3,3 +3,5 @@ dist
 Bot
 
 node_modules
+
+Config.ts

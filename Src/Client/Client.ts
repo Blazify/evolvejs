@@ -1,6 +1,7 @@
 import { EventEmitter } from "events"
 import { Websocket, ClientMember } from ".."
 import { GetGuild } from "../API/GetGuild";
+import { sendMessage } from "../API/SendMessage";
 
 export class Client extends EventEmitter {
     private ws: Websocket = new Websocket(this);
@@ -19,5 +20,8 @@ export class Client extends EventEmitter {
     }
     async getGuild(guild: string) {
         await GetGuild(this, guild)
+    }
+    async sendMessage(content, channelID, tts = false) {
+        await sendMessage(this, content, channelID, tts)
     }
 }
