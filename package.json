@@ -2,7 +2,7 @@
   "name": "zodiac_ts_js",
   "version": "1.0.0",
   "description": "A discord Library made in Typescript for both Typescript and Javascript",
-  "main": "dist/index.js",
+  "main": "Bot/Bot.js",
   "scripts": {
     "test": "node ."
   },
@@ -19,6 +19,7 @@
   "dependencies": {
     "@types/ws": "^7.2.6",
     "node-fetch": "^2.6.0",
+    "nodemon": "^2.0.4",
     "ws": "^7.3.1"
   }
 }

@@ -20,3 +20,4 @@ export * from "./Interfaces/Payload"
 API
 */
 export * from "./API/SendMessage"
+export * from "./API/GetGuild"

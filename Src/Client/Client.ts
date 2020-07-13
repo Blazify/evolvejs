@@ -1,5 +1,6 @@
 import { EventEmitter } from "events"
 import { Websocket, ClientMember } from ".."
+import { GetGuild } from "../API/GetGuild";
 
 export class Client extends EventEmitter {
     private ws: Websocket = new Websocket(this);
@@ -15,5 +16,8 @@ export class Client extends EventEmitter {
     }
     get member() {
         return this._member;
+    }
+    async getGuild(guild: string) {
+        await GetGuild(this, guild)
     }
 }

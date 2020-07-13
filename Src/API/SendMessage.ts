@@ -8,7 +8,7 @@ const message = {
     "content": content,
     "tts": tts,
 }
-const fetched = await fetch(`${API}/channels/${channelID}/messages`, {
+await fetch(`${API}/channels/${channelID}/messages`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json",
@@ -16,7 +16,4 @@ const fetched = await fetch(`${API}/channels/${channelID}/messages`, {
     },
     "body": JSON.stringify(message)
 })
-
-const json = await fetched.json()
-console.log(json)
 }

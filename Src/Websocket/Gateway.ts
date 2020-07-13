@@ -19,9 +19,13 @@ export async function Gateway(data: any, client: Client, token: string, websocke
     websocket.send(JSON.stringify(Identify))
 
     } else if(t) {
+        try {
       const { default: module } = await import(`../Events/${t}`)
      await module(client, payload)
+    } catch (e) {
+        throw new Error(e)
     }
+}
     } catch(e) { 
         throw new Error(e)
      }
