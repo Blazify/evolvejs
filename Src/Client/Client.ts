@@ -1,8 +1,19 @@
 import { EventEmitter } from "events"
-import { Websocket } from ".."
+import { Websocket, ClientMember } from ".."
+
 export class Client extends EventEmitter {
     private ws: Websocket = new Websocket(this);
+    public token: string;
+    private _member: ClientMember
     async init(token: string) {
-        this.ws.init(token)
+        this.token = token
+        if(!token) throw new Error("No Token was Provided")
+        this.ws.init(this.token)
+    }
+    set member(member: ClientMember) {
+        this._member = member
+    }
+    get member() {
+        return this._member;
     }
 }

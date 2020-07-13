@@ -18,6 +18,7 @@
   "homepage": "https://github.com/IamGoDsoIamBest/ZodiacTS#readme",
   "dependencies": {
     "@types/ws": "^7.2.6",
+    "node-fetch": "^2.6.0",
     "ws": "^7.3.1"
   }
 }

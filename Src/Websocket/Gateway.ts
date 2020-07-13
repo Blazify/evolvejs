@@ -11,7 +11,6 @@ export async function Gateway(data: any, client: Client, token: string, websocke
         if(op === OPCODE.Hello) {
 
         setInterval(() => {
-            console.log(`Sent Hearbeat at ${heartbeat_interval}`)
             websocket.send(JSON.stringify(Heartbeat))
         }, heartbeat_interval)
 
@@ -24,6 +23,6 @@ export async function Gateway(data: any, client: Client, token: string, websocke
      await module(client, payload)
     }
     } catch(e) { 
-        console.log(e)
+        throw new Error(e)
      }
 }

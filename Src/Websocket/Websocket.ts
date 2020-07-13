@@ -10,7 +10,6 @@ export class Websocket {
     async init(token: string) {
     try {
         this.ws = new WebSocket("wss://gateway.discord.gg/?v=6&encoding=json")
-        console.log(`Connected to Websocket`)
         this.ws.on('message', async (data) => {
           return await Gateway(data, this.client, token, this.ws);
           });
