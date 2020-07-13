@@ -1,0 +1,23 @@
+{
+  "name": "zodiac_ts_js",
+  "version": "1.0.0",
+  "description": "A discord Library made in Typescript for both Typescript and Javascript",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IamGoDsoIamBest/Zodiac.git"
+  },
+  "author": "god",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IamGoDsoIamBest/Zodiac/issues"
+  },
+  "homepage": "https://github.com/IamGoDsoIamBest/ZodiacTS#readme",
+  "dependencies": {
+    "@types/ws": "^7.2.6",
+    "ws": "^7.3.1"
+  }
+}
