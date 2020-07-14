@@ -1,6 +1,7 @@
 import WebSocket from "ws"
 import { Client } from "..";
 import { Gateway } from "./Gateway";
+import { Constants } from "../Constants/Constants";
 
 export class Websocket {
     public ws: WebSocket;
@@ -9,7 +10,7 @@ export class Websocket {
     }
     async init(token: string) {
     try {
-        this.ws = new WebSocket("wss://gateway.discord.gg/?v=6&encoding=json")
+        this.ws = new WebSocket(Constants.GATEWAY)
         this.ws.on('message', async (data) => {
           return await Gateway(data, this.client, token, this.ws);
           });

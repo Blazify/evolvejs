@@ -1,14 +1,13 @@
 import fetch from "node-fetch"
 import { Client } from ".."
+import { Constants } from "../Constants/Constants"
 
 export async function sendMessage(client: Client, content: string, channelID: string, tts: boolean = false) {
-let API = "https://discord.com/api/v6"
-
 const message = {
     "content": content,
     "tts": tts,
 }
-let fetched = await fetch(`${API}/channels/${channelID}/messages`, {
+let fetched = await fetch(`${Constants.API}/channels/${channelID}/messages`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json",
