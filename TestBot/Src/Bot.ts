@@ -17,10 +17,10 @@ client.on("messageSent", async (message) => {
         console.log(guild)
     }
     if(message.content === "test") {
-    await client.sendMessage("https://github.com/ZodiacTS/Zodiac", message.channel_id)
+    await message.send("https://github.com/ZodiacTS/Zodiac")
     }
     if(message.content === "shutdown"){
-        await client.sendMessage("Shutting Down", message.channel_id)
+        await message.send("Shutting Down", message.channel_id)
         await client.shutdown()
     }
 })
