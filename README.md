@@ -1,20 +1,19 @@
 <div align="center">
   <br />
   <p>
-   <img src="https://cdn.discordapp.com/avatars/719482391223205918/045ef202ee95380e8e13acab5d3f9d91.webp?size=2048" alt="Zodiac Logo" />
+   <img src="https://cdn.discordapp.com/avatars/719482391223205918/045ef202ee95380e8e13acab5d3f9d91.webp?size=2048" alt="zodiac.ts Logo" />
   </p>
   <br />
   <p>
 <a href="https://discord.gg/UDuBXKW"><img src="https://discordapp.com/api/guilds/714874374070599720/widget.png?style=shield" alt="Discord" /></a>
     <a href="https://twitter.com/ABlazify"><img src="https://img.shields.io/twitter/follow/ABlazify?label=Follow&style=social" alt="Twitter" /></a>
-    <a href="https://github.com/ZodiacTS/Zodiac/blob/master/LICENSE"><img src="https://img.shields.io/npm/l/zodiac" alt="License" /></a>
-    <a href="https://npmjs.com/package/zodiac"><img src="https://img.shields.io/npm/dt/zodiac" alt="Downloads" /></a>
-    <a href="https://david-dm.org/Projects-Me/LavaJS"><img src="https://img.shields.io/david/ZodiacTS/Zodiac" alt="Dependencies" /></a>
-    <a href="https://twitter.com/ABlazify"><img src="https://img.shields.io/twitter/follow/ThatAnonyG?label=Follow&style=social" alt="Twitter" /></a>
+    <a href="https://github.com/zodiac.tsTS/zodiac.ts/blob/master/LICENSE"><img src="https://img.shields.io/npm/l/zodiac.ts" alt="License" /></a>
+    <a href="https://npmjs.com/package/zodiac.ts"><img src="https://img.shields.io/npm/dt/zodiac.ts" alt="Downloads" /></a>
+    <a href="https://david-dm.org/ZodiacTS/Zodiac.ts"><img src="https://img.shields.io/david/zodiac.tsTS/zodiac.ts" alt="Dependencies" /></a>
   </p>
   <br />
   <p>
-    <a href="https://nodei.co/npm/zodiac/"><img src="https://nodei.co/npm/zodiac.png?downloads=true&stars=true" alt="Status Banner"></a>
+    <a href="https://nodei.co/npm/zodiac.ts/"><img src="https://nodei.co/npm/zodiac.ts.png?downloads=true&stars=true" alt="Status Banner"></a>
   </p>
 </div>
 
@@ -27,7 +26,7 @@
 **Using the Node Package Manager (NPM)**
 
 ```shell script
-npm install zodiac
+npm install zodiac.ts
 ```
 
 # Important
@@ -49,14 +48,14 @@ npm install zodiac
 **Example code for running the client:**
 
 ```ts
-import Zodiac from "zodiac"
-const client = new Zodiac.Client()
+import zodiac from "zodiac.ts"
+const client = new zodiac.Client()
 
 /*
  or u can do in the below given way
 */
 
-import { Client } from "zodiac"
+import { Client } from "zodiac.ts"
 const client = new Client();
 
 //Initialize the client
@@ -72,7 +71,7 @@ client.on("ready", () => {
 
 # Bot Examples
 
-- **[Official Bot](https://github.com/ZodiacTS/Zodiac/tree/master/TestBot) - The official example bot from Zodiac team.**
+- **[Official Bot](https://github.com/zodiac.tsTS/zodiac.ts/tree/master/TestBot) - The official example bot from zodiac.ts team.**
 
 
 # Contributor
@@ -82,5 +81,5 @@ client.on("ready", () => {
 # Author
 
 - **IamGoDsoIamBest (GoD)**
-- **Links: [GitHub](https://github.com/ZodiacTS) | [Twitter](https://twitter.com/ABlazify)**
+- **Links: [GitHub](https://github.com/zodiac.tsTS) | [Twitter](https://twitter.com/ABlazify)**
 - [**Donate The Development**](https://paypal.me/roahgaming)

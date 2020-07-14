@@ -11,10 +11,9 @@ export declare class Message {
     author: Author;
     editedTimestamp: number | null;
     attachments: Array<string>;
-    guild: Guild;
     content: string;
-    send: (content: string) => Promise<void>;
-    constructor(sentAt: string, id: string, pinned: boolean, mentions: Array<string>, rolementions: Array<string>, mentionEveryone: boolean, member: Member, author: Author, editedTimestamp: number | null, attachments: Array<string>, guild: Guild, content: string, send: (content: string) => Promise<void>);
+    guild: Guild;
+    constructor(sentAt: string, id: string, pinned: boolean, mentions: Array<string>, rolementions: Array<string>, mentionEveryone: boolean, member: Member, author: Author, editedTimestamp: number | null, attachments: Array<string>, content: string, guild: Guild);
 }
 interface Member {
     roles: Array<string>;
@@ -32,5 +31,6 @@ interface Author {
 }
 interface Guild {
     id: string;
+    send: (content: string) => Promise<void>;
 }
 export {};

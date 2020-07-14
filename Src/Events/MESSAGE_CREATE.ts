@@ -18,9 +18,11 @@ export default function(client: Client, payload: Payload) {
         d.author,
         d.edited_timestamp,
         d.attachments,
-        d.guild_id,
         d.content,
-        SendMessage
+        {
+           "id": d.guild_id,
+           "send": SendMessage
+        },
     )
     client.emit("messageSent", (message))
 }
@@ -37,9 +39,8 @@ export class Message {
         public author: Author,
         public editedTimestamp: number | null,
         public attachments: Array<string>,
-        public guild: Guild,
         public content: string,
-        public send: (content: string) => Promise<void>
+        public guild: Guild,
     ) {
 
     }
@@ -62,5 +63,6 @@ interface Author {
 }
 
 interface Guild {
-    id: string
+    id: string,
+    send: (content: string) => Promise<void>
 }

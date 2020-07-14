@@ -22,7 +22,7 @@ export const Identify: Payload = {
       token: "",
       properties: {
         $os: "linux",
-        $browser: "zodiac_ts",
+        $browser: "zodiac.ts_ts",
         $device: "discord"
       }
     }
