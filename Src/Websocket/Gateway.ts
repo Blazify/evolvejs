@@ -2,7 +2,7 @@ import { Payload, Heartbeat, Identify, OPCODE } from "..";
 import { Client } from "../Client/Client";
 import WebSocket from "ws";
 
-export async function Gateway(data: any, client: Client, token: string, websocket: WebSocket) {
+export async function Gateway(data: any, client: Client, token: string, ws: WebSocket) {
     try {
         let payload: Payload = await JSON.parse(data);
         const { t, s, op, d } = payload;
@@ -11,12 +11,12 @@ export async function Gateway(data: any, client: Client, token: string, websocke
         if(op === OPCODE.Hello) {
 
         setInterval(() => {
-            websocket.send(JSON.stringify(Heartbeat))
+            ws.send(JSON.stringify(Heartbeat))
         }, heartbeat_interval)
 
         Identify.d.token = token;
 
-    websocket.send(JSON.stringify(Identify))
+    ws.send(JSON.stringify(Identify))
 
     } else if(t) {
         try {

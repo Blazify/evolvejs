@@ -5,7 +5,7 @@ export async function GetGuild(client: Client, guildID: string) {
 let API = "https://discord.com/api/v6"
 
 
-let fetched = await fetch(`${API}/guilds/${guildID}`, {
+let fetched: fetch = await fetch(`${API}/guilds/${guildID}`, {
     method: "GET",
     headers: {
         "Content-Type": "application/json",
@@ -13,5 +13,5 @@ let fetched = await fetch(`${API}/guilds/${guildID}`, {
     },
 })
 
-console.log(await fetched.json())
+return await fetched.json();
 }

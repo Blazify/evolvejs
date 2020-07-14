@@ -12,5 +12,5 @@ export default function(client: Client, payload: Payload) {
         user.bot,
         user.avatar
     )
-    client.emit("ready", (client))
+    client.emit("ready")
 }

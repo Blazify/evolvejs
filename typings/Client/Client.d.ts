@@ -6,8 +6,9 @@ export declare class Client extends EventEmitter {
     token: string;
     private _member;
     init(token: string): Promise<void>;
+    shutdown(): Promise<void>;
     set member(member: ClientMember);
     get member(): ClientMember;
-    getGuild(guild: string): Promise<void>;
-    sendMessage(content: any, channelID: any, tts?: boolean): Promise<void>;
+    getGuild(guild: string): Promise<any>;
+    sendMessage(content: any, channelID: any, tts?: boolean): Promise<any>;
 }
