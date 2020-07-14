@@ -6,7 +6,7 @@ client.init(token)
 
 
 client.on("ready", () => {
-    console.log(`${client.member.name + "#" + client.member.discriminator} has logged in`)
+    console.log(`${client.user.name + "#" + client.user.discriminator} has logged in`)
 })
 client.on("messageSent", async (message) => {
     console.log(message);
@@ -17,10 +17,10 @@ client.on("messageSent", async (message) => {
         console.log(guild)
     }
     if(message.content === "test") {
-    await message.send("https://github.com/zodiac.tsTS/zodiac.ts")
+    await message.guild.send("https://github.com/ZodiacTS/zodiac.ts")
     }
     if(message.content === "shutdown"){
-        await message.send("Shutting Down", message.channel_id)
+        await message.guild.send("Shutting Down", message.channel_id)
         await client.shutdown()
     }
 })

@@ -1,10 +1,10 @@
 import { EventEmitter } from "events"
-import { Websocket, ClientMember, sendMessage, GetGuild } from ".."
+import { Websocket, ClientUser, sendMessage, GetGuild } from ".."
 
 export class Client extends EventEmitter {
     private ws: Websocket = new Websocket(this);
     public token: string;
-    private _member: ClientMember
+    private _user: ClientUser
     async init(token: string) {
         this.token = token
         if(!token) throw new Error("No Token was Provided")
@@ -14,11 +14,11 @@ export class Client extends EventEmitter {
         this.ws.ws.close()
         process.exit()
     }
-    set member(member: ClientMember) {
-        this._member = member
+    set user(user: ClientUser) {
+        this._user = user
     }
     get member() {
-        return this._member;
+        return this._user;
     }
     async getGuild(guild: string) {
        let data = await GetGuild(this, guild)

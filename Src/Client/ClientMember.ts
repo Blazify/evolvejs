@@ -1,4 +1,4 @@
-export class ClientMember {
+export class ClientUser {
     constructor(
         public name: string,
         public discriminator: string,

@@ -1,8 +1,8 @@
-import { Client, Payload, ClientMember } from ".."
+import { Client, Payload, ClientUser } from ".."
 
 export default function(client: Client, payload: Payload) {
     const { user } = payload.d;
-    client.member = new ClientMember(
+    client.user = new ClientUser(
         user.username,
         user.discriminator,
         user.verified,

@@ -19,10 +19,10 @@ export default function(client: Client, payload: Payload) {
         d.edited_timestamp,
         d.attachments,
         d.content,
-        {
+        ({
            "id": d.guild_id,
            "send": SendMessage
-        },
+        })
     )
     client.emit("messageSent", (message))
 }
