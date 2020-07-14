@@ -1,5 +1,8 @@
 import { EventEmitter } from "events"
 import { Websocket, ClientUser, sendMessage, GetGuild } from ".."
+import { deleteMessage } from "../API/DeleteMessage";
+import { banAdd } from "../API/BanAdd";
+import { banRemove } from "../API/BanRemove";
 
 export class Client extends EventEmitter {
     private ws: Websocket = new Websocket(this);
@@ -20,12 +23,26 @@ export class Client extends EventEmitter {
     get member() {
         return this._user;
     }
+
+
     async getGuild(guild: string) {
-       let data = await GetGuild(this, guild)
-    return data;
+       return await GetGuild(this, guild)
     }
+
+
     async sendMessage(content, channelID, tts = false) { 
-       let data = await sendMessage(this, content, channelID, tts)
-    return data;
+       return await sendMessage(this, content, channelID, tts)
+    }
+
+    async deleteMessage(messageID: string, channelID: string) {
+        return await deleteMessage(this, channelID, messageID)
+    }
+
+    async banAdd(userID: string, guildID: string) {
+        return await banAdd(this, guildID, userID)
+    }
+
+    async banRemove(userID: string, guildID: string) {
+        return await banRemove(this, guildID, userID)
     }
 }

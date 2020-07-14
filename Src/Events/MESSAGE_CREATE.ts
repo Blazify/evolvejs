@@ -7,6 +7,10 @@ export default function(client: Client, payload: Payload) {
         await client.sendMessage(content, d.channel_id)
     }
 
+    const DeleteMessage = async () => {
+        await client.deleteMessage(d.id, d.channel_id)
+    }
+
     const message = new Message(
         d.timestamp,
         d.id,
@@ -21,7 +25,8 @@ export default function(client: Client, payload: Payload) {
         d.content,
         ({
            "id": d.guild_id,
-           "send": SendMessage
+           "send": SendMessage,
+           "delete": DeleteMessage
         })
     )
     client.emit("messageSent", (message))
@@ -65,4 +70,5 @@ interface Author {
 interface Guild {
     id: string,
     send: (content: string) => Promise<void>
+    delete: () => Promise<void>
 }
