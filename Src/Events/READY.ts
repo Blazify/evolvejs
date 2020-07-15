@@ -1,6 +1,7 @@
 import { Client, Payload, ClientUser } from ".."
 
-export default function(client: Client, payload: Payload) {
+export default class {
+constructor(client: Client, payload: Payload) {
     const { user } = payload.d;
     client.user = new ClientUser(
         user.username,
@@ -13,4 +14,5 @@ export default function(client: Client, payload: Payload) {
         user.avatar
     )
     client.emit("ready")
+}
 }

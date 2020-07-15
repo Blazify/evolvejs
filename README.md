@@ -17,9 +17,13 @@
   </p>
 </div>
 
+
 ## Note
 **The module has not been released publicly just the README is made ready**
 
+# What is EvolveJS?
+**EvolveJS is a Discord Library in which bots can be made. We provide high control over the module so that the customizability can be the top of the level.
+The module was founded by IamGoDsoIamBest and the Main Developers are IamGDsoIamBest and ThatAnonymousG. Have fun with the library and happy coding :)**
 
 # Installation
 
@@ -52,11 +56,11 @@ import EvolveJS from "EvolveJS"
 const client = new EvolveJS.Client()
 
 /*
- or u can do in the below given way
+ Or you can do in the below given way
 */
 
 import { Client } from "EvolveJS"
-const client = new Client();
+const client: Client = new Client();
 
 //Initialize the client
 client.init("your super secret token")

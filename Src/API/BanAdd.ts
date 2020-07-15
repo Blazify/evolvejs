@@ -1,5 +1,6 @@
 import { Client } from ".."
 import { Constants } from "../Constants/Constants"
+import fetch from "node-fetch"
 
 export async function banAdd(client: Client, guildID: string, userID: string) {
 

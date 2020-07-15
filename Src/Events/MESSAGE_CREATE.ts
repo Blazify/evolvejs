@@ -1,17 +1,37 @@
 import { Client, Payload } from ".."
 
-export default function(client: Client, payload: Payload) {
+export default class {
+    constructor(client: Client, payload: Payload) {
     const { d } = payload
 
-    const SendMessage = async (content: string) => {
-        await client.sendMessage(content, d.channel_id)
+    const SendMessage = async (content: string): Promise<Message> => {
+        let msg = await client.sendMessage(content, d.channel_id)
+        msg = new Message(
+            msg.timestamp,
+            msg.id,
+            msg.pinned,
+            msg.mentions,
+            msg.mention_roles,
+            msg.mention_everyone,
+            msg.member,
+            msg.author,
+            msg.edited_timestamp,
+            msg.attachments,
+            msg.content,
+            {
+               "id": d.guild_id,
+               "send": SendMessage,
+               "delete": async (time: number = 0) => {
+                   setTimeout(async () => {
+                    return await client.deleteMessage(msg.id, msg.channel_id);
+                   }, time)
+               }
+            }
+        )
+        return msg;
     }
 
-    const DeleteMessage = async () => {
-        await client.deleteMessage(d.id, d.channel_id)
-    }
-
-    const message = new Message(
+    const message: Message = new Message(
         d.timestamp,
         d.id,
         d.pinned,
@@ -23,13 +43,18 @@ export default function(client: Client, payload: Payload) {
         d.edited_timestamp,
         d.attachments,
         d.content,
-        ({
+        {
            "id": d.guild_id,
            "send": SendMessage,
-           "delete": DeleteMessage
-        })
+           "delete": async (time: number = 0) => {
+            setTimeout(async () => {
+             return await client.deleteMessage(d.id, d.channel_id);
+            }, time)
+        }
+        }
     )
     client.emit("messageSent", (message))
+}
 }
 
 export class Message {
@@ -69,6 +94,6 @@ interface Author {
 
 interface Guild {
     id: string,
-    send: (content: string) => Promise<void>
-    delete: () => Promise<void>
+    send: (content: string) => Promise<Message>,
+    delete: (time: number) => Promise<void>
 }

@@ -21,7 +21,7 @@ export async function Gateway(data: any, client: Client, token: string, ws: WebS
     } else if(t) {
         try {
       const { default: module } = await import(`../Events/${t}`)
-     await module(client, payload)
+     await new module(client, payload)
     } catch (e) {
         throw new Error(e)
     }
