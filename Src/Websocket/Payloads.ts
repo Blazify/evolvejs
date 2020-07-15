@@ -22,7 +22,7 @@ export const Identify: Payload = {
       token: "",
       properties: {
         $os: "linux",
-        $browser: "zodiac.ts_ts",
+        $browser: "EvolveJS_ts",
         $device: "discord"
       }
     }

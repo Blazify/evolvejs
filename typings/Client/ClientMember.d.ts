@@ -1,4 +1,4 @@
-export declare class ClientMember {
+export declare class ClientUser {
     name: string;
     discriminator: string;
     verfied: boolean;

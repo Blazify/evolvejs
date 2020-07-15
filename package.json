@@ -1,5 +1,5 @@
 {
-  "name": "zodiac.ts",
+  "name": "evolvejs",
   "version": "1.0.0",
   "description": "A discord Library made in Typescript for both Typescript and Javascript",
   "main": "TestBot/dist/Bot.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/IamGoDsoIamBest/zodiac.ts.git"
+    "url": "git+https://github.com/IamGoDsoIamBest/EvolveJS.git"
   },
   "author": "god",
   "license": "GNU Affero General Public License v3.0",
   "bugs": {
-    "url": "https://github.com/IamGoDsoIamBest/zodiac.ts/issues"
+    "url": "https://github.com/IamGoDsoIamBest/EvolveJS/issues"
   },
-  "homepage": "https://github.com/IamGoDsoIamBest/zodiac.tsTS#readme",
+  "homepage": "https://github.com/IamGoDsoIamBest/EvolveJSTS#readme",
   "dependencies": {
     "@types/node": "^14.0.23",
     "@types/ws": "^7.2.6",

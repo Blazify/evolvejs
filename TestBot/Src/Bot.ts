@@ -17,7 +17,7 @@ client.on("messageSent", async (message) => {
         console.log(guild)
     }
     if(message.content === "test") {
-    await message.guild.send("https://github.com/ZodiacTS/zodiac.ts")
+    await message.guild.send("https://github.com/EvolveJSTS/EvolveJS")
     }
     if(message.content === "shutdown"){
         await message.guild.send("Shutting Down", message.channel_id)

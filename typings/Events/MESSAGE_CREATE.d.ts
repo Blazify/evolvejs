@@ -32,5 +32,6 @@ interface Author {
 interface Guild {
     id: string;
     send: (content: string) => Promise<void>;
+    delete: () => Promise<void>;
 }
 export {};
