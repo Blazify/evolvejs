@@ -2,6 +2,7 @@ import { Client, Payload } from ".."
 import GuildMember from "../Structures/GuildMember"
 import Guild from "../Structures/Guild"
 import User from "../Structures/User"
+import { Message } from "../Structures/Message"
 
 export default class {
     constructor(client: Client, payload: Payload) {
@@ -56,23 +57,4 @@ export default class {
 }
 }
 
-export class Message {
-    constructor(
-        public sentAt: string,
-        public id: string,
-        public pinned: boolean,
-        public mentions: Array<string>,
-        public rolementions: Array<string>,
-        public mentionEveryone: boolean,
-        public member: GuildMember,
-        public author: User,
-        public editedTimestamp: number | null,
-        public attachments: Array<string>,
-        public content: string,
-        public guild: Guild,
-        public send: (content: string) => Promise<Message>,
-        public purge: (time: number) => Promise<void>
-    ) {
 
-    }
-}
