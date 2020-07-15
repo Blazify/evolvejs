@@ -1,4 +1,7 @@
 import { Client, Payload } from ".."
+import GuildMember from "../Structures/GuildMember"
+import Guild from "../Structures/Guild"
+import User from "../Structures/User"
 
 export default class {
     constructor(client: Client, payload: Payload) {
@@ -18,18 +21,16 @@ export default class {
             msg.edited_timestamp,
             msg.attachments,
             msg.content,
-            {
-               "id": d.guild_id,
-               "send": SendMessage,
-               "delete": async (time: number = 0) => {
+            d.guild_id,
+            SendMessage,
+            async (time: number = 0) => {
                    setTimeout(async () => {
                     return await client.deleteMessage(msg.id, msg.channel_id);
                    }, time)
                }
-            }
         )
-        return msg;
-    }
+               return msg;
+            }
 
     const message: Message = new Message(
         d.timestamp,
@@ -43,14 +44,12 @@ export default class {
         d.edited_timestamp,
         d.attachments,
         d.content,
-        {
-           "id": d.guild_id,
-           "send": SendMessage,
-           "delete": async (time: number = 0) => {
+        d.guild_id,
+        SendMessage,
+        async (time: number = 0) => {
             setTimeout(async () => {
              return await client.deleteMessage(d.id, d.channel_id);
             }, time)
-        }
         }
     )
     client.emit("messageSent", (message))
@@ -65,35 +64,15 @@ export class Message {
         public mentions: Array<string>,
         public rolementions: Array<string>,
         public mentionEveryone: boolean,
-        public member: Member,
-        public author: Author,
+        public member: GuildMember,
+        public author: User,
         public editedTimestamp: number | null,
         public attachments: Array<string>,
         public content: string,
         public guild: Guild,
+        public send: (content: string) => Promise<Message>,
+        public purge: (time: number) => Promise<void>
     ) {
 
     }
-}
-
-interface Member {
-    roles: Array<string>,
-    muted: boolean,
-    joinedAt: string,
-    hoistedRole: string,
-    deaf: boolean
-}
-
-interface Author {
-    username: string,
-    flags: number,
-    id: string,
-    discriminator: string,
-    avatar: string
-}
-
-interface Guild {
-    id: string,
-    send: (content: string) => Promise<Message>,
-    delete: (time: number) => Promise<void>
 }

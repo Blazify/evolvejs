@@ -10,7 +10,7 @@ export default class {
         private user: User,
         private roles: Array<Role["id"]>,
         private game: Activity,
-        private guildID: Guild["id"],
+        private guild: Guild,
         private status: string,
         private activities: Array<Activity>,
         private clientStatus: ClientStatus,

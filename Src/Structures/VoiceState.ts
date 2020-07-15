@@ -6,9 +6,9 @@ import GuildMember from "./GuildMember";
 export default class {
 
     constructor(
-        private guildID: Guild["id"],
-        private channelID: Channel["id"],
-        private userID: User["id"],
+        private guild: Guild,
+        private channel: Channel,
+        private user: User,
         private member: GuildMember,
         private sessionID: string,
         private deaf: boolean,

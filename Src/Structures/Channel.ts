@@ -7,7 +7,7 @@ export default class {
     constructor(
         private id: string,
         private type: ChannelTypes,
-        private guild: Guild["id"],
+        private guild: Guild,
         private position: number,
         private permissionOverwrites: Array<Overwrite>,
         private name: string,
