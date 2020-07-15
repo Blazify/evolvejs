@@ -1,0 +1,14 @@
+tsconfig.json
+tsconfig.tsbuildinfo
+
+.npmignore
+.gitignore
+
+.github
+.idea
+.vscode
+
+src
+
+node_modules
+package-lock.json
