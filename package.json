@@ -4,18 +4,20 @@
   "description": "A discord Library made in Typescript for both Typescript and Javascript",
   "main": "TestBot/dist/Bot.js",
   "scripts": {
-    "test": "node ."
+    "start": "nodemon TestBot/dist/Bot.js",
+    "build": "tsc",
+    "botBuild": "tsc ./TestBot/Src/Bot.ts"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/IamGoDsoIamBest/EvolveJS.git"
+    "url": "git+https://github.com/EvolveJS/EvolveJS.git"
   },
   "author": "god",
   "license": "GNU Affero General Public License v3.0",
   "bugs": {
-    "url": "https://github.com/IamGoDsoIamBest/EvolveJS/issues"
+    "url": "https://github.com/EvolveJS/EvolveJS/issues"
   },
-  "homepage": "https://github.com/IamGoDsoIamBest/EvolveJS#readme",
+  "homepage": "https://github.com/EvolveJS/EvolveJS#readme",
   "dependencies": {
     "@types/node": "^14.0.23",
     "@types/ws": "^7.2.6",
