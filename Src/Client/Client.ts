@@ -20,7 +20,7 @@ export class Client extends EventEmitter {
     set user(user: ClientUser) {
         this._user = user
     }
-    get member() {
+    get user() {
         return this._user;
     }
 

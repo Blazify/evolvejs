@@ -1,6 +1,6 @@
 import { token } from "./Config";
 
-const { Client } = require("../../dist");
+import { Client } from "../../dist";
 const client = new Client();
 client.init(token)
 
@@ -17,7 +17,7 @@ client.on("messageSent", async (message) => {
         console.log(guild)
     }
     if(message.content === "test") {
-    await message.guild.send("https://github.com/EvolveJSTS/EvolveJS")
+    await message.guild.send("https://github.com/EvolveJS/EvolveJS")
     }
     if(message.content === "shutdown"){
         await message.guild.send("Shutting Down", message.channel_id)

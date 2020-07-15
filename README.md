@@ -7,9 +7,9 @@
   <p>
 <a href="https://discord.gg/UDuBXKW"><img src="https://discordapp.com/api/guilds/714874374070599720/widget.png?style=shield" alt="Discord" /></a>
     <a href="https://twitter.com/ABlazify"><img src="https://img.shields.io/twitter/follow/ABlazify?label=Follow&style=social" alt="Twitter" /></a>
-    <a href="https://github.com/EvolveJSTS/EvolveJS/blob/master/LICENSE"><img src="https://img.shields.io/npm/l/EvolveJS" alt="License" /></a>
+    <a href="https://github.com/EvolveJS/EvolveJS/blob/master/LICENSE"><img src="https://img.shields.io/npm/l/EvolveJS" alt="License" /></a>
     <a href="https://npmjs.com/package/EvolveJS"><img src="https://img.shields.io/npm/dt/EvolveJS" alt="Downloads" /></a>
-    <a href="https://david-dm.org/EvolveJSTS/EvolveJS"><img src="https://img.shields.io/david/EvolveJSTS/EvolveJS" alt="Dependencies" /></a>
+    <a href="https://david-dm.org/EvolveJS/EvolveJS"><img src="https://img.shields.io/david/EvolveJS/EvolveJS" alt="Dependencies" /></a>
   </p>
   <br />
   <p>
@@ -71,7 +71,7 @@ client.on("ready", () => {
 
 # Bot Examples
 
-- **[Official Bot](https://github.com/EvolveJSTS/EvolveJS/tree/master/TestBot) - The official example bot from EvolveJS team.**
+- **[Official Bot](https://github.com/EvolveJS/EvolveJS/tree/master/TestBot) - The official example bot from EvolveJS team.**
 
 
 # Contributor
@@ -81,5 +81,5 @@ client.on("ready", () => {
 # Author
 
 - **IamGoDsoIamBest (GoD)**
-- **Links: [GitHub](https://github.com/EvolveJSTS) | [Twitter](https://twitter.com/ABlazify)**
+- **Links: [GitHub](https://github.com/EvolveJS) | [Twitter](https://twitter.com/ABlazify)**
 - [**Donate The Development**](https://paypal.me/roahgaming)

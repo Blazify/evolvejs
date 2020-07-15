@@ -7,7 +7,7 @@ export * from "./Websocket/Payloads"
 Client Files Export
 */
 export * from "./Client/Client"
-export * from "./Client/ClientMember"
+export * from "./Client/ClientUser"
 /*
 Constant Files Exports 
 */
