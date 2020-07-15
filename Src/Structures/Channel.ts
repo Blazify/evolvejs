@@ -1,6 +1,7 @@
 import User from "./User";
 import { ChannelTypes } from "../Constants/ChannelTypes";
 import Guild from "./Guild";
+import Overwrite from "./Overwrite";
 
 export default class {
 
@@ -27,10 +28,3 @@ export default class {
     }
 }
 
-
-interface Overwrite {
-    id: string,
-    type: string,
-    allow: number,
-    deny: number
-}
