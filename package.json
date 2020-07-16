@@ -1,6 +1,7 @@
 {
 	"name": "@evolvejs/objex",
-	"version": "1.0.0-beta",
+	"version": "1.0.0",
+	"typings": "./typings/index.d.ts",
 	"description": "Data handling module for EvolveJS",
 	"main": "dist/index.js",
 	"publishConfig": { "registry": "https://npm.pkg.github.com/" },
