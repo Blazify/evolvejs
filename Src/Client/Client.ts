@@ -4,9 +4,13 @@ import { API } from '../API/API';
 import { ClientUser } from './ClientUser';
 import { EvolveErr } from './Error';
 import { Snowflake } from '../Constants/Constants';
+import Guild from '../Structures/Guild';
+import { defaultMaxListeners } from 'ws';
+import { Objex } from '@evolvejs/objex';
 
 export class Client extends EventEmitter {
 	public token: string;
+	public guilds: Objex<string, Guild> = new Objex();
 	private ws: Websocket = new Websocket(this);
 	private api: API = new API(this);
 	private _user?: ClientUser;
@@ -16,6 +20,7 @@ export class Client extends EventEmitter {
 		this.token = token;
 		if (!this.token) throw new EvolveErr('TOKEN_ERROR');
 	}
+	defaultMaxListeners = 50;
 
 	get user() {
 		return this._user!;

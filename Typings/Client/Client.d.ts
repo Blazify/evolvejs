@@ -2,15 +2,19 @@
 import { EventEmitter } from 'events';
 import { ClientUser } from './ClientUser';
 import { Snowflake } from '../Constants/Constants';
+import Guild from '../Structures/Guild';
+import { Objex } from '@evolvejs/objex';
 export declare class Client extends EventEmitter {
-    token?: string;
+    token: string;
+    guilds: Objex<string, Guild>;
     private ws;
     private api;
     private _user?;
-    constructor();
+    constructor(token: string);
+    defaultMaxListeners: number;
     get user(): ClientUser;
     set user(user: ClientUser);
-    init(token: string): Promise<void>;
+    init(): Promise<void>;
     shutdown(): Promise<void>;
     getGuild(guildID: Snowflake): Promise<any>;
     sendMessage(content: string, channelID: Snowflake, tts?: boolean): Promise<any>;

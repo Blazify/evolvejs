@@ -28,13 +28,13 @@ export function Gateway(
 		}
 		else if (t) {
 			try {
-				const { handler } = require(`../Events/${t}`);
-				handler(client, payload);
+				const { default: handler } = require(`../Events/${t}`);
+				new handler(client, payload);
 			} catch (e) {
-				throw new EvolveErr('UNKOWN', e.message);
+				console.log(e);
 			}
 		}
 	} catch (e) {
-		throw new EvolveErr('UNKOWN', e.message);
+		throw new Error(e);
 	}
 }
