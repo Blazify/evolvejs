@@ -1,32 +1,40 @@
-import { Payload, Heartbeat, Identify, OPCODE } from "..";
-import { Client } from "../Client/Client";
-import WebSocket from "ws";
+import { OPCODE } from '../Constants/OpCodes';
+import { Payload } from '../Interfaces/Payload';
+import { Heartbeat, Identify } from '../Constants/Payloads';
+import { Client } from '../Client/Client';
+import WebSocket from 'ws';
+import { EvolveErr } from '../Client/Error';
 
-export async function Gateway(data: any, client: Client, token: string, ws: WebSocket) {
-    try {
-        let payload: Payload = await JSON.parse(data);
-        const { t, s, op, d } = payload;
-        if(d === null || d === undefined) return;
-        const { heartbeat_interval } = d;
-        if(op === OPCODE.Hello) {
+export function Gateway(
+	data: any,
+	client: Client,
+	token: string,
+	ws: WebSocket
+) {
+	try {
+		let payload: Payload = JSON.parse(data);
 
-        setInterval(() => {
-            ws.send(JSON.stringify(Heartbeat))
-        }, heartbeat_interval)
+		const { op, t, s, d } = payload;
+		if (!d) return;
 
-        Identify.d.token = token;
+		if (op === OPCODE.Hello) {
+			Identify.d.token = token;
 
-    ws.send(JSON.stringify(Identify))
+			setInterval(() => {
+				ws.send(JSON.stringify(Heartbeat));
+			}, d.heartbeat_interval);
 
-    } else if(t) {
-        try {
-      const { default: module } = await import(`../Events/${t}`)
-     await new module(client, payload)
-    } catch (e) {
-        throw new Error(e)
-    }
-}
-    } catch(e) { 
-        throw new Error(e)
-     }
+			ws.send(JSON.stringify(Identify));
+		}
+		else if (t) {
+			try {
+				const { handler } = require(`../Events/${t}`);
+				handler(client, payload);
+			} catch (e) {
+				throw new EvolveErr('UNKOWN', e.message);
+			}
+		}
+	} catch (e) {
+		throw new EvolveErr('UNKOWN', e.message);
+	}
 }

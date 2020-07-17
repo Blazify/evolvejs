@@ -1,48 +1,57 @@
-import { EventEmitter } from "events"
-import { Websocket, ClientUser, sendMessage, GetGuild } from ".."
-import { deleteMessage } from "../API/DeleteMessage";
-import { banAdd } from "../API/BanAdd";
-import { banRemove } from "../API/BanRemove";
+import { EventEmitter } from 'events';
+import { Websocket } from '../Websocket/Websocket';
+import { API } from '../API/API';
+import { ClientUser } from './ClientUser';
+import { EvolveErr } from './Error';
+import { Snowflake } from '../Constants/Constants';
 
 export class Client extends EventEmitter {
-    private ws: Websocket = new Websocket(this);
-    public token: string;
-    private _user: ClientUser
-    async init(token: string) {
-        this.token = token
-        if(!token) throw new Error("No Token was Provided")
-        this.ws.init(this.token)
-    }
-    async shutdown() {
-        this.ws.ws.close()
-        process.exit()
-    }
-    set user(user: ClientUser) {
-        this._user = user
-    }
-    get user() {
-        return this._user;
-    }
+	public token?: string;
+	private ws: Websocket = new Websocket(this);
+	private api: API = new API(this);
+	private _user?: ClientUser;
 
+	public constructor() {
+		super();
+	}
 
-    async getGuild(guild: string) {
-       return await GetGuild(this, guild)
-    }
+	get user() {
+		return this._user!;
+	}
 
+	set user(user: ClientUser) {
+		this._user = user;
+	}
 
-    async sendMessage(content, channelID, tts = false) { 
-       return await sendMessage(this, content, channelID, tts)
-    }
+	async init(token: string) {
+		if (!token) throw new EvolveErr('TOKEN_ERROR');
 
-    async deleteMessage(messageID: string, channelID: string) {
-        return await deleteMessage(this, channelID, messageID)
-    }
+		this.token = token;
+		this.ws.init(this.token);
+	}
 
-    async banAdd(userID: string, guildID: string) {
-        return await banAdd(this, guildID, userID)
-    }
+	async shutdown() {
+		this.ws.socket.close();
+		process.exit();
+	}
 
-    async banRemove(userID: string, guildID: string) {
-        return await banRemove(this, guildID, userID)
-    }
+	async getGuild(guildID: Snowflake) {
+		return await this.api.request('GetGuild', { guildID });
+	}
+
+	async sendMessage(content: string, channelID: Snowflake, tts?: boolean) {
+		return await this.api.request('SendMessage', { content, channelID, tts });
+	}
+
+	async deleteMessage(messageID: Snowflake, channelID: Snowflake) {
+		return await this.api.request('DeleteMessage', { channelID, messageID });
+	}
+
+	async banAdd(userID: Snowflake, guildID: Snowflake) {
+		return await this.api.request('BanAdd', { guildID, userID });
+	}
+
+	async banRemove(userID: Snowflake, guildID: Snowflake) {
+		return await this.api.request('BanRemove', { guildID, userID });
+	}
 }

@@ -1,7 +1,7 @@
-import { Client, Payload } from ".."
+import { Client, Payload } from '..';
 
 export default class {
-constructor(client: Client, payload: Payload) {
-    client.emit("roleChange", (payload.d))
-}
+	constructor(client: Client, payload: Payload) {
+		client.emit('roleChange', payload.d);
+	}
 }

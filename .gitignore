@@ -1,9 +1,10 @@
-dist
+TestBot/
+test.js
+tsconfig.tsbuildinfo
 
-Bot
+package-lock.json
+Dist/
+node_modules/
 
-node_modules
-
-Config.ts
-
-.idea
+.idea/
+.vscode/

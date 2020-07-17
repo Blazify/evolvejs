@@ -1,36 +1,24 @@
 {
-    "compilerOptions": {
-      "module": "commonjs",
-      "target": "es2018",
-      "outDir": "dist",
-      "lib": [
-        "ESNext",
-        "ESNext.Array",
-        "ESNext.AsyncIterable",
-        "ESNext.Intl",
-        "ESNext.Symbol",
-        "dom"
-      ],
-      "sourceMap": false,
-      "inlineSourceMap": true,
-      "inlineSources": true,
-      "incremental": true,
-      "esModuleInterop": true,
-      "experimentalDecorators": true,
-      "emitDecoratorMetadata": true,
-      "removeComments": true,
-      "strict": false,
-      "strictNullChecks": false,
-      "noImplicitThis": true,
-      "allowJs": true,
-      "declaration": true,
-      "skipLibCheck": true,
-      "skipDefaultLibCheck": true
-    },
-    "include": [
-      "Src/**/*"
-    ],
-    "exclude": [
-      "node_modules",
-    ]
-  }
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "esnext",
+    "outDir": "./Dist/",
+    "rootDir": "./Src/",
+    "lib": ["es6", "ESNext", "DOM"],
+    "declaration": true,
+    "declarationDir": "./Typings/",
+    "incremental": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "noImplicitThis": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "esModuleInterop": true,
+    "watch": true
+  },
+  "include": ["Src"],
+  "exclude": ["node_modules", "dist"]
+}

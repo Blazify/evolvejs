@@ -1,7 +1,6 @@
-import { Client, Payload } from ".."
+import { Client } from '../Client/Client';
+import { Payload } from '../Interfaces/Payload';
 
-export default class {
-constructor(client: Client, payload: Payload) {
-    client.emit("botJoin", (payload.d))
-}
+export function handler(client: Client, payload: Payload) {
+	client.emit('botJoin', payload.d);
 }

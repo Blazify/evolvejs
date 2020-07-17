@@ -1,14 +1,20 @@
-import { Client } from ".."
-import { Constants } from "../Constants/Constants"
-import fetch from "node-fetch"
+import { Client } from '../Client/Client';
+import { CONSTANTS } from '../Constants/Constants';
+import { IAPIParams } from '../Interfaces/APIParams';
+import fetch from 'node-fetch';
 
-export async function deleteMessage(client: Client, channelID: string, messageID: string) {
-
-await fetch(`${Constants.API}/channels/${channelID}/messages/${messageID}`, {
-    method: "DELETE",
-    headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bot ${client.token}`
-    }
-})
+export default async function deleteMessage(
+	client: Client,
+	options: IAPIParams
+) {
+	await fetch(
+		`${CONSTANTS.API}/channels/${options.channelID!}/messages/${options.messageID!}`,
+		{
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bot ${client.token}`
+			}
+		}
+	);
 }

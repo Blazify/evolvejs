@@ -1,15 +1,16 @@
-import fetch from "node-fetch"
-import { Client } from ".."
-import { Constants } from "../Constants/Constants";
+import { Client } from '../Client/Client';
+import { CONSTANTS } from '../Constants/Constants';
+import { IAPIParams } from '../Interfaces/APIParams';
+import fetch from 'node-fetch';
 
-export async function GetGuild(client: Client, guildID: string) {
-let fetched: fetch = await fetch(`${Constants.API}/guilds/${guildID}`, {
-    method: "GET",
-    headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bot ${client.token}`
-    },
-})
+export default async function GetGuild(client: Client, options: IAPIParams) {
+	let fetched = await fetch(`${CONSTANTS.API}/guilds/${options.guildID!}`, {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: `Bot ${client.token}`
+		}
+	});
 
-return await fetched.json();
+	return await fetched.json();
 }
