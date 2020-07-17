@@ -6,13 +6,15 @@ import { EvolveErr } from './Error';
 import { Snowflake } from '../Constants/Constants';
 
 export class Client extends EventEmitter {
-	public token?: string;
+	public token: string;
 	private ws: Websocket = new Websocket(this);
 	private api: API = new API(this);
 	private _user?: ClientUser;
 
-	public constructor() {
+	public constructor(token: string) {
 		super();
+		this.token = token;
+		if (!this.token) throw new EvolveErr('TOKEN_ERROR');
 	}
 
 	get user() {
@@ -23,10 +25,7 @@ export class Client extends EventEmitter {
 		this._user = user;
 	}
 
-	async init(token: string) {
-		if (!token) throw new EvolveErr('TOKEN_ERROR');
-
-		this.token = token;
+	async init() {
 		this.ws.init(this.token);
 	}
 
