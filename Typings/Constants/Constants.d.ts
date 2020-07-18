@@ -12,4 +12,4 @@ export declare enum CHANNELTYPES {
     STORE = 6
 }
 export declare type Snowflake = string;
-export declare type APIMethods = 'BanAdd' | 'BanRemove' | 'DeleteMessage' | 'GetGuild' | 'SendMessage';
+export declare type APIMethods = 'BanAdd' | 'BanRemove' | 'DeleteMessage' | 'GetGuild' | 'SendMessage' | 'GetGuildChannels' | 'GetGuildMembers' | 'GetUser';

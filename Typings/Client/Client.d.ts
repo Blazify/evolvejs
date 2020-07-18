@@ -4,9 +4,17 @@ import { ClientUser } from './ClientUser';
 import { Snowflake } from '../Constants/Constants';
 import Guild from '../Structures/Guild';
 import { Objex } from '@evolvejs/objex';
+import Role from '../Structures/Role';
+import Channel from '../Structures/Channel';
+import User from '../Structures/User';
+import Emoji from '../Structures/Emoji';
 export declare class Client extends EventEmitter {
     token: string;
-    guilds: Objex<string, Guild>;
+    guilds: Objex<Snowflake, Guild>;
+    roles: Objex<Snowflake, Role>;
+    channels: Objex<Snowflake, Channel>;
+    users: Objex<Snowflake, User>;
+    emojis: Objex<Snowflake, Emoji>;
     private ws;
     private api;
     private _user?;
@@ -17,6 +25,9 @@ export declare class Client extends EventEmitter {
     init(): Promise<void>;
     shutdown(): Promise<void>;
     getGuild(guildID: Snowflake): Promise<any>;
+    getGuildChannels(guildID: Snowflake): Promise<any>;
+    getUser(userID: Snowflake): Promise<any>;
+    getGuildMembers(guildID: Snowflake): Promise<any>;
     sendMessage(content: string, channelID: Snowflake, tts?: boolean): Promise<any>;
     deleteMessage(messageID: Snowflake, channelID: Snowflake): Promise<any>;
     banAdd(userID: Snowflake, guildID: Snowflake): Promise<any>;

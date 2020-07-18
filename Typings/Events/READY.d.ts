@@ -1,4 +1,2 @@
 import { Client, Payload } from '..';
-export default class {
-    constructor(client: Client, payload: Payload);
-}
+export default function (client: Client, payload: Payload): Promise<void>;

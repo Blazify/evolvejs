@@ -20,4 +20,7 @@ export type APIMethods =
 	| 'BanRemove'
 	| 'DeleteMessage'
 	| 'GetGuild'
-	| 'SendMessage';
+	| 'SendMessage'
+	| 'GetGuildChannels'
+	| 'GetGuildMembers'
+	| 'GetUser';

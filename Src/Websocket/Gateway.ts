@@ -4,6 +4,7 @@ import { Heartbeat, Identify } from '../Constants/Payloads';
 import { Client } from '../Client/Client';
 import WebSocket from 'ws';
 import { EvolveErr } from '../Client/Error';
+import { handler } from '../Events/BOT_ADD';
 
 export function Gateway(
 	data: any,
@@ -28,8 +29,13 @@ export function Gateway(
 		}
 		else if (t) {
 			try {
+				if(t !== "READY") {
 				const { default: handler } = require(`../Events/${t}`);
 				new handler(client, payload);
+				} else if(t === "READY") {
+					const { default: module } = require(`../Events/${t}`)
+				module(client, payload)	
+				}
 			} catch (e) {
 				console.log(e);
 			}
