@@ -6,14 +6,14 @@ import Activity from './Activity';
 
 export default class {
 	constructor(
-		private user: User,
-		private roles: Array<Role['id']>,
-		private game: Activity,
-		private guild: Guild,
-		private status: string,
-		private activities: Array<Activity>,
-		private clientStatus: ClientStatus,
-		private premiumFrom: number,
-		private nick: string
+		public user: User,
+		public roles: Array<Role['id']>,
+		public game: Activity,
+		public guild: Guild,
+		public status: string,
+		public activities: Array<Activity>,
+		public clientStatus: ClientStatus,
+		public premiumFrom: number,
+		public nick: string
 	) {}
 }

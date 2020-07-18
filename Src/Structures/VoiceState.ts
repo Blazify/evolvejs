@@ -5,17 +5,17 @@ import GuildMember from './GuildMember';
 
 export default class {
 	constructor(
-		private guild: Guild,
-		private channel: Channel,
-		private user: User,
-		private member: GuildMember,
-		private sessionID: string,
-		private deaf: boolean,
-		private mute: boolean,
-		private selfDeaf: boolean,
-		private selfMute: boolean,
-		private selfStream: boolean,
-		private selfVideo: boolean,
-		private supress: boolean
+		public guild: Guild,
+		public channel: Channel,
+		public user: User,
+		public member: GuildMember,
+		public sessionID: string,
+		public deaf: boolean,
+		public mute: boolean,
+		public selfDeaf: boolean,
+		public selfMute: boolean,
+		public selfStream: boolean,
+		public selfVideo: boolean,
+		public supress: boolean
 	) {}
 }

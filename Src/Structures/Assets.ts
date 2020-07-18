@@ -1,8 +1,8 @@
 export default class {
 	constructor(
-		private largeImage: string,
-		private largeText: string,
-		private smallImage: string,
-		private smallText: string
+		public largeImage: string,
+		public largeText: string,
+		public smallImage: string,
+		public smallText: string
 	) {}
 }

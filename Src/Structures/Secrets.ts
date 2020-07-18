@@ -1,7 +1,7 @@
 export default class {
 	constructor(
-		private join: string,
-		private spectate: string,
-		private match: string
+		public join: string,
+		public spectate: string,
+		public match: string
 	) {}
 }

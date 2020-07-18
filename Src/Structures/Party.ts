@@ -1,3 +1,3 @@
 export default class {
-	constructor(private id: string, private size: Map<number, number>) {}
+	constructor(public id: string, public size: Map<number, number>) {}
 }

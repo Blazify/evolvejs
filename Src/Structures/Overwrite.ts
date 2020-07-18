@@ -1,8 +1,8 @@
 export default class {
 	constructor(
-		private id: string,
-		private type: string,
-		private allow: number,
-		private deny: number
+		public id: string,
+		public type: string,
+		public allow: number,
+		public deny: number
 	) {}
 }

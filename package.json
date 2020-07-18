@@ -4,9 +4,8 @@
   "description": "A discord Library made in Typescript for both Typescript and Javascript",
   "main": "TestBot/dist/Bot.js",
   "scripts": {
-    "start": "node TestBot/Dist/Bot.js",
-    "build": "tsc",
-    "botBuild": "tsc ./TestBot/Src/Bot.ts"
+    "start": "node test.js",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",

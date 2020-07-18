@@ -1,12 +1,12 @@
 export default class {
 	constructor(
-		private id: string,
-		private name: string,
-		private color: number,
-		private hoist: boolean,
-		private position: number,
-		private permissions: number,
-		private managed: boolean,
-		private mentionable: boolean
+		public id: string,
+		public name: string,
+		public color: number,
+		public hoist: boolean,
+		public position: number,
+		public permissions: number,
+		public managed: boolean,
+		public mentionable: boolean
 	) {}
 }

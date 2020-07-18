@@ -1,6 +1,6 @@
 export default class {
-    private desktop;
-    private mobile;
-    private web;
+    desktop: string;
+    mobile: string;
+    web: string;
     constructor(desktop: string, mobile: string, web: string);
 }

@@ -1,6 +1,6 @@
 export default class {
-    private join;
-    private spectate;
-    private match;
+    join: string;
+    spectate: string;
+    match: string;
     constructor(join: string, spectate: string, match: string);
 }

@@ -5,22 +5,22 @@ import Overwrite from './Overwrite';
 
 export default class {
 	constructor(
-		private id: string,
-		private type: CHANNELTYPES,
-		private guild: Guild,
-		private position: number,
-		private permissionOverwrites: Array<Overwrite>,
-		private name: string,
-		private topic: string,
-		private nsfw: boolean,
-		private bitrate: number,
-		private userLimit: number,
-		private rateLimitPerUser: number,
-		private recipients: Array<User>,
-		private icon: string,
-		private ownerID: string,
-		private applicationID: string,
-		private parentID: string,
-		private lastpinTimestamp: number
+		public id: string,
+		public type: CHANNELTYPES,
+		public guild: Guild,
+		public position: number,
+		public permissionOverwrites: Array<Overwrite>,
+		public name: string,
+		public topic: string,
+		public nsfw: boolean,
+		public bitrate: number,
+		public userLimit: number,
+		public rateLimitPerUser: number,
+		public recipients: Array<User>,
+		public icon: string,
+		public ownerID: string,
+		public applicationID: string,
+		public parentID: string,
+		public lastpinTimestamp: number
 	) {}
 }

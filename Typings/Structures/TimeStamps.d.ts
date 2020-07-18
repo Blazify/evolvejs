@@ -1,5 +1,5 @@
 export default class {
-    private start;
-    private end;
+    start: number;
+    end: number;
     constructor(start: number, end: number);
 }

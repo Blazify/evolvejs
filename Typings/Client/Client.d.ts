@@ -16,10 +16,8 @@ export declare class Client extends EventEmitter {
     users: Objex<Snowflake, User>;
     emojis: Objex<Snowflake, Emoji>;
     private ws;
-    private api;
     private _user?;
     constructor(token: string);
-    defaultMaxListeners: number;
     get user(): ClientUser;
     set user(user: ClientUser);
     init(): Promise<void>;
@@ -28,8 +26,8 @@ export declare class Client extends EventEmitter {
     getGuildChannels(guildID: Snowflake): Promise<any>;
     getUser(userID: Snowflake): Promise<any>;
     getGuildMembers(guildID: Snowflake): Promise<any>;
-    sendMessage(content: string, channelID: Snowflake, tts?: boolean): Promise<any>;
+    sendMessage(content: string, channelID: Snowflake): Promise<any>;
     deleteMessage(messageID: Snowflake, channelID: Snowflake): Promise<any>;
-    banAdd(userID: Snowflake, guildID: Snowflake): Promise<any>;
+    banAdd(guildID: Snowflake, userID: Snowflake): Promise<any>;
     banRemove(userID: Snowflake, guildID: Snowflake): Promise<any>;
 }

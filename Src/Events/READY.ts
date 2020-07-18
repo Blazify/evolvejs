@@ -1,4 +1,5 @@
-import { Client, Payload, ClientUser } from '..';
+import { Client, ClientUser } from '..';
+import { Payload } from "../Interfaces/Payload";
 import Guild from '../Structures/Guild';
 import Role from '../Structures/Role';
 import Channel from '../Structures/Channel';
@@ -19,8 +20,8 @@ export default async function (client: Client, payload: Payload) {
 			user.avatar
 		);
 
-		for(let guild of guilds) {
-			let g = await client.getGuild(guild.id);
+		for(var g of guilds) {
+			g = await client.getGuild(g.id);
 			g = new Guild(
 			g.id,
 			g.name,
@@ -68,8 +69,9 @@ export default async function (client: Client, payload: Payload) {
 			g.approximate_member_count,
 			g.approximate_presence_count
 			)
-
-			if(g.emojis !== []) {
+			client.guilds.set(g.id, g)
+		}
+		if(g.emojis !== []) {
 			for(let e of g.emojis) {
 				e = new Emoji(
 					e.id,
@@ -81,12 +83,11 @@ export default async function (client: Client, payload: Payload) {
 					e.animated,
 					e.available
 				)
-				g.emoji = e
+				g.emoji.push(e)
 				client.emojis.set(e.id, e)
 			}
 		}
-
-			let members = await client.getGuildMembers(guild.id)
+		let members = await client.getGuildMembers(g.id)
 			for(let m of members) {
 
 				m = new GuildMember(
@@ -99,7 +100,7 @@ export default async function (client: Client, payload: Payload) {
 					m.mute
 				)
 
-				g.members = m
+				g.members.push(m)
 				let user = await client.getUser(m.user.id)
 
 				user = new User(
@@ -122,9 +123,23 @@ export default async function (client: Client, payload: Payload) {
 				client.users.set(user.id, user)
 			}
 
+		for(let role of g.roles) {
+			let r = new Role(
+				role.id,
+				role.name,
+				role.color,
+				role.hoist,
+				role.position,
+				role.permissions,
+				role.managed,
+				role.metionable
+			)
 
-			client.guilds.set(g.id, g)
-			let channels = await client.getGuildChannels(guild.id);
+
+			client.roles.set(role.id, r);
+			g.roles.push(r);
+		}
+		let channels = await client.getGuildChannels(g.id);
 			for(let c of channels) {
 			c = new Channel(
 				c.id,
@@ -145,28 +160,10 @@ export default async function (client: Client, payload: Payload) {
 				c.parent_id,
 				c.last_pin_timestamp
 			)
-			g.channels = c
+			g.channels.push(c)
 			client.channels.set(c.id, c)
 			}
 
-			for(let role of g.roles) {
-				let r = new Role(
-					role.id,
-					role.name,
-					role.color,
-					role.hoist,
-					role.position,
-					role.permissions,
-					role.managed,
-					role.metionable
-				)
 
-
-				client.roles.set(role.id, r);
-				g.roles = r;
-			}
-			console.log(g)
-
-		}
 		client.emit('ready');
 	}

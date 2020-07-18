@@ -1,17 +1,17 @@
 export default class {
 	constructor(
-		private id: string,
-		private name: string,
-		private discriminator: string,
-		private avatar: string,
-		private bot: boolean,
-		private system: boolean,
-		private mfaEnabled: boolean,
-		private locale: string,
-		private verified: boolean,
-		private email: string,
-		private flags: number,
-		private premiumType: number,
-		private publicFlags: number
+		public id: string,
+		public name: string,
+		public discriminator: string,
+		public avatar: string,
+		public bot: boolean,
+		public system: boolean,
+		public mfaEnabled: boolean,
+		public locale: string,
+		public verified: boolean,
+		public email: string,
+		public flags: number,
+		public premiumType: number,
+		public publicFlags: number
 	) {}
 }

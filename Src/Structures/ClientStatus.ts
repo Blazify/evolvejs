@@ -1,7 +1,7 @@
 export default class {
 	constructor(
-		private desktop: string,
-		private mobile: string,
-		private web: string
+		public desktop: string,
+		public mobile: string,
+		public web: string
 	) {}
 }

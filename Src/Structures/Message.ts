@@ -4,19 +4,19 @@ import Guild from './Guild';
 
 export class Message {
 	constructor(
-		private sentAt: string,
-		private id: string,
-		private pinned: boolean,
-		private mentions: Array<string>,
-		private rolementions: Array<string>,
-		private mentionEveryone: boolean,
-		private member: GuildMember,
-		private author: User,
-		private editedTimestamp: number | null,
-		private attachments: Array<string>,
-		private content: string,
-		private guild: Guild,
-		private send: (content: string) => Promise<Message>,
-		private purge: (time: number) => Promise<void>
+		public sentAt: string,
+		public id: string,
+		public pinned: boolean,
+		public mentions: Array<string>,
+		public rolementions: Array<string>,
+		public mentionEveryone: boolean,
+		public member: GuildMember,
+		public author: User,
+		public editedTimestamp: number | null,
+		public attachments: Array<string>,
+		public content: string,
+		public guild: Guild,
+		public send: (content: string) => Promise<Message>,
+		public purge: (time: number) => Promise<void>
 	) {}
 }

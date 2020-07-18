@@ -3,13 +3,13 @@ import User from './User';
 
 export default class {
 	constructor(
-		private id: string,
-		private name: string,
-		private roles: Array<Role['id']>,
-		private user: User,
-		private reqColons: boolean,
-		private managed: boolean,
-		private animated: boolean,
-		private available: boolean
+		public id: string,
+		public name: string,
+		public roles: Array<Role['id']>,
+		public user: User,
+		public reqColons: boolean,
+		public managed: boolean,
+		public animated: boolean,
+		public available: boolean
 	) {}
 }

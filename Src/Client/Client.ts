@@ -1,16 +1,15 @@
 import { EventEmitter } from 'events';
 import { Websocket } from '../Websocket/Websocket';
-import { API } from '../API/API';
 import { ClientUser } from './ClientUser';
 import { EvolveErr } from './Error';
 import { Snowflake } from '../Constants/Constants';
 import Guild from '../Structures/Guild';
-import { defaultMaxListeners } from 'ws';
 import { Objex } from '@evolvejs/objex';
 import Role from '../Structures/Role';
 import Channel from '../Structures/Channel';
 import User from '../Structures/User';
 import Emoji from '../Structures/Emoji';
+import RestAPIHandler from '../API/RestAPIHandler';
 
 export class Client extends EventEmitter {
 	public token: string;
@@ -20,7 +19,6 @@ export class Client extends EventEmitter {
 	public users: Objex<Snowflake, User> = new Objex();
 	public emojis: Objex<Snowflake, Emoji> = new Objex()
 	private ws: Websocket = new Websocket(this);
-	private api: API = new API(this);
 	private _user?: ClientUser;
 
 	public constructor(token: string) {
@@ -28,54 +26,77 @@ export class Client extends EventEmitter {
 		this.token = token;
 		if (!this.token) throw new EvolveErr('TOKEN_ERROR');
 	}
-	defaultMaxListeners = 50;
-
-	get user() {
+	public get user() {
 		return this._user!;
 	}
 
-	set user(user: ClientUser) {
+	public set user(user: ClientUser) {
 		this._user = user;
 	}
 
-	async init() {
+	public async init() {
 		this.ws.init(this.token);
 	}
 
-	async shutdown() {
+	public async shutdown() {
 		this.ws.socket.close();
 		process.exit();
 	}
 
-	async getGuild(guildID: Snowflake) {
-		return await this.api.request('GetGuild', { guildID });
+	public async getGuild(guildID: Snowflake) {
+		return await RestAPIHandler(this, {
+			"endpoint": `guilds/${guildID}`,
+			"method": "GET",
+		})
 	}
 
-	async getGuildChannels(guildID: Snowflake) {
-		return await this.api.request('GetGuildChannels', { guildID })
+	public async getGuildChannels(guildID: Snowflake) {
+		return await RestAPIHandler(this, {
+			"endpoint": `guilds/${guildID}/channels`,
+			"method": "GET",
+		})
 	}
 
-	async getUser(userID: Snowflake) {
-		return await this.api.request("GetUser", { userID })
+	public async getUser(userID: Snowflake) {
+		return await RestAPIHandler(this, {
+			"endpoint": `users/${userID}`,
+			"method": "GET",
+		})
 	}
 
-	async getGuildMembers(guildID: Snowflake) {
-		return await this.api.request('GetGuildMembers', { guildID })
+	public async getGuildMembers(guildID: Snowflake) {
+		return await RestAPIHandler(this, {
+			"endpoint": `guilds/${guildID}/members`,
+			"method": "GET",
+		})
 	}
 
-	async sendMessage(content: string, channelID: Snowflake, tts?: boolean) {
-		return await this.api.request('SendMessage', { content, channelID, tts });
+	public async sendMessage(content: string, channelID: Snowflake) {
+		return await RestAPIHandler(this, {
+			"endpoint": `channels/${channelID}/messages`,
+			"method": "GET",
+			"content": content
+		})
 	}
 
-	async deleteMessage(messageID: Snowflake, channelID: Snowflake) {
-		return await this.api.request('DeleteMessage', { channelID, messageID });
+	public async deleteMessage(messageID: Snowflake, channelID: Snowflake) {
+		return await RestAPIHandler(this, {
+			"endpoint": `/channels/${channelID}/messages/${messageID}`,
+			"method": "DELETE",
+		})
 	}
 
-	async banAdd(userID: Snowflake, guildID: Snowflake) {
-		return await this.api.request('BanAdd', { guildID, userID });
+	public async banAdd(guildID: Snowflake, userID: Snowflake) {
+		return await RestAPIHandler(this, {
+			"endpoint": `guilds/${guildID}/bans/${userID}`,
+			"method": "PUT",
+		})
 	}
 
-	async banRemove(userID: Snowflake, guildID: Snowflake) {
-		return await this.api.request('BanRemove', { guildID, userID });
+	public async banRemove(userID: Snowflake, guildID: Snowflake) {
+		return await RestAPIHandler(this, {
+			"endpoint": `guilds/${guildID}/bans/${userID}`,
+			"method": "DELETE",
+		})
 	}
 }

@@ -1,5 +1,5 @@
 export default class {
-    private id;
-    private size;
+    id: string;
+    size: Map<number, number>;
     constructor(id: string, size: Map<number, number>);
 }

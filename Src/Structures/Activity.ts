@@ -6,18 +6,18 @@ import Secrets from './Secrets';
 
 export default class {
 	constructor(
-		private name: string,
-		private type: number,
-		private url: string,
-		private createdAt: number,
-		private timeStamp: TimeStamps,
-		private applicationID: string,
-		private details: string,
-		private emoji: Emoji,
-		private party: Party,
-		private assets: Assets,
-		private secrets: Secrets,
-		private instance: boolean,
-		private flags: number
+		public name: string,
+		public type: number,
+		public url: string,
+		public createdAt: number,
+		public timeStamp: TimeStamps,
+		public applicationID: string,
+		public details: string,
+		public emoji: Emoji,
+		public party: Party,
+		public assets: Assets,
+		public secrets: Secrets,
+		public instance: boolean,
+		public flags: number
 	) {}
 }

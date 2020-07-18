@@ -1,7 +1,7 @@
 export default class {
-    private id;
-    private type;
-    private allow;
-    private deny;
+    id: string;
+    type: string;
+    allow: number;
+    deny: number;
     constructor(id: string, type: string, allow: number, deny: number);
 }

@@ -3,12 +3,12 @@ import Role from './Role';
 
 export default class {
 	constructor(
-		private user: User,
-		private nick: string,
-		private roles: Array<Role['id']>,
-		private joinedAt: number,
-		private premiumFrom: number,
-		private deaf: boolean,
-		private mute: boolean
+		public user: User,
+		public nick: string,
+		public roles: Array<Role['id']>,
+		public joinedAt: number,
+		public premiumFrom: number,
+		public deaf: boolean,
+		public mute: boolean
 	) {}
 }

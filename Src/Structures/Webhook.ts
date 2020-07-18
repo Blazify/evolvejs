@@ -5,14 +5,14 @@ import User from "./User";
 
 export default class {
     constructor(
-        private id: Snowflake,
-        private type: number,
-        private guild: Guild,
-        private channel: Channel,
-        private user: User,
-        private name: string,
-        private avatar: string,
-        private token: string
+        public id: Snowflake,
+        public type: number,
+        public guild: Guild,
+        public channel: Channel,
+        public user: User,
+        public name: string,
+        public avatar: string,
+        public token: string
     ) {
 
     }
