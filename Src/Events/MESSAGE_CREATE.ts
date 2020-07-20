@@ -10,7 +10,7 @@ export default class {
 		const { d } = payload;
 
 		const SendMessage = async (content: string): Promise<Message> => {
-			let msg = await client.sendMessage(content, d.channel_id);
+			let msg = await client.api.sendMessage(content, d.channel_id);
 			msg = new Message(
 				msg.timestamp,
 				msg.id,
@@ -27,7 +27,7 @@ export default class {
 				SendMessage,
 				async (time: number = 0) => {
 					setTimeout(async () => {
-						return await client.deleteMessage(msg.id, msg.channel_id);
+						return await client.api.deleteMessage(msg.id, msg.channel_id);
 					}, time);
 				}
 			);
@@ -50,7 +50,7 @@ export default class {
 			SendMessage,
 			async (time: number = 0) => {
 				setTimeout(async () => {
-					return await client.deleteMessage(d.id, d.channel_id);
+					return await client.api.deleteMessage(d.id, d.channel_id);
 				}, time);
 			}
 		);

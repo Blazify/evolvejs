@@ -21,7 +21,7 @@ export default async function (client: Client, payload: Payload) {
 		);
 
 		for(var g of guilds) {
-			g = await client.getGuild(g.id);
+			g = await client.api.getGuild(g.id);
 			g = new Guild(
 			g.id,
 			g.name,
@@ -87,7 +87,7 @@ export default async function (client: Client, payload: Payload) {
 				client.emojis.set(e.id, e)
 			}
 		}
-		let members = await client.getGuildMembers(g.id)
+		let members = await client.api.getGuildMembers(g.id)
 			for(let m of members) {
 
 				m = new GuildMember(
@@ -101,7 +101,7 @@ export default async function (client: Client, payload: Payload) {
 				)
 
 				g.members.push(m)
-				let user = await client.getUser(m.user.id)
+				let user = await client.api.getUser(m.user.id)
 
 				user = new User(
 					user.id,
@@ -139,7 +139,7 @@ export default async function (client: Client, payload: Payload) {
 			client.roles.set(role.id, r);
 			g.roles.push(r);
 		}
-		let channels = await client.getGuildChannels(g.id);
+		let channels = await client.api.getGuildChannels(g.id);
 			for(let c of channels) {
 			c = new Channel(
 				c.id,

@@ -1,10 +1,14 @@
-import { Client } from '../Client/Client';
-import { IAPIParams } from '../Interfaces/APIParams';
-import { Objex } from '@evolvejs/objex';
-import { APIMethods } from '../Constants/Constants';
-export declare class API {
+import { Snowflake } from "../Constants/Constants";
+import { Client } from "../Client/Client";
+export default class API {
     client: Client;
-    methods: Objex<string, Function>;
-    constructor(client: Client);
-    request(method: APIMethods, params: IAPIParams): Promise<any>;
+    constructor();
+    getGuild(guildID: Snowflake): Promise<any>;
+    getGuildChannels(guildID: Snowflake): Promise<any>;
+    getUser(userID: Snowflake): Promise<any>;
+    getGuildMembers(guildID: Snowflake): Promise<any>;
+    sendMessage(content: string, channelID: Snowflake): Promise<any>;
+    deleteMessage(messageID: Snowflake, channelID: Snowflake): Promise<any>;
+    banAdd(guildID: Snowflake, userID: Snowflake): Promise<any>;
+    banRemove(userID: Snowflake, guildID: Snowflake): Promise<any>;
 }
