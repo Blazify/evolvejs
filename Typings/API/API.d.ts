@@ -2,7 +2,7 @@ import { Snowflake } from "../Constants/Constants";
 import { Client } from "../Client/Client";
 export default class API {
     client: Client;
-    constructor();
+    constructor(client: Client);
     getGuild(guildID: Snowflake): Promise<any>;
     getGuildChannels(guildID: Snowflake): Promise<any>;
     getUser(userID: Snowflake): Promise<any>;

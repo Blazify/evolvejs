@@ -9,7 +9,6 @@ import Role from '../Structures/Role';
 import Channel from '../Structures/Channel';
 import User from '../Structures/User';
 import Emoji from '../Structures/Emoji';
-import RestAPIHandler from '../API/RestAPIHandler';
 import API from '../API/API';
 
 export class Client extends EventEmitter {
@@ -21,7 +20,7 @@ export class Client extends EventEmitter {
 	public emojis: Objex<Snowflake, Emoji> = new Objex()
 	private ws: Websocket = new Websocket(this);
 	public user?: ClientUser;
-	public api!: API;
+	public api: API = new API(this);
 
 	public constructor(token: string) {
 		super();

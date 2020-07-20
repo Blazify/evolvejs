@@ -4,7 +4,8 @@ import { Client } from "../Client/Client"
 
 export default class API {
     public client!: Client
-    constructor() {
+    constructor(client: Client) {
+        this.client = client
     }
     public async getGuild(guildID: Snowflake) {
 		return await RestAPIHandler(this.client, {
