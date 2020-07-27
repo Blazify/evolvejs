@@ -1,3 +1,3 @@
+import { EvolveSocket } from './Websocket';
 import { Client } from '../Client/Client';
-import WebSocket from 'ws';
-export declare function Gateway(data: any, client: Client, token: string, ws: WebSocket): void;
+export declare function Gateway(data: any, client: Client, ws: EvolveSocket): void;

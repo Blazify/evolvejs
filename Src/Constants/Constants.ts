@@ -1,26 +1,51 @@
+import { IDMChannel } from '../Interfaces/DMChannelOptions';
+import { ITextChannel } from '../Interfaces/TextChannelOptions';
+import { ICategoryChannel } from '../Interfaces/CategoryChannelOptions';
+import { INewsChannel } from '../Interfaces/NewsChannelOptions';
+import { IVoiceChannel } from '../Interfaces/VoiceChannelOptions';
+import { IGroupChannel } from '../Interfaces/GroupChannelOptions';
+import { IStoreChannel } from '../Interfaces/StoreChannelOptions';
+
 export enum CONSTANTS {
-	GATEWAY = 'wss://gateway.discord.gg/?v=6&encoding=json',
-	API = 'https://discord.com/api/v6'
+	Gateway = 'wss://gateway.discord.gg/?v=6&encoding=json',
+	Api = 'https://discord.com/api/v6'
 }
 
 export enum CHANNELTYPES {
-	TEXT = 0,
-	DM = 1,
-	VOICE = 2,
-	GROUP = 3,
-	CATEGORY = 4,
-	NEWS = 5,
-	STORE = 6
+	Text = 0,
+	Direct = 1,
+	Voice = 2,
+	Group = 3,
+	Category = 4,
+	News = 5,
+	Store = 6
 }
 
-export type Snowflake = string;
+export enum ACTIVITY {
+	Game = 0,
+	Stream = 1,
+	Listening = 2,
+	Custom = 3
+}
 
-export type APIMethods =
-	| 'BanAdd'
-	| 'BanRemove'
-	| 'DeleteMessage'
-	| 'GetGuild'
-	| 'SendMessage'
-	| 'GetGuildChannels'
-	| 'GetGuildMembers'
-	| 'GetUser';
+export const NITRO = {
+	0: 'None',
+	1: 'Nitro Classic',
+	2: 'Nitro'
+};
+
+export enum WEBHOOKTYPE {
+	Incoming = 1,
+	Channel_Follower = 2
+}
+
+export type Visibility = 'idle' | 'dnd' | 'online' | 'offline';
+export type Snowflake = string;
+export type ChannelResolvable =
+	| ITextChannel
+	| IDMChannel
+	| IVoiceChannel
+	| IGroupChannel
+	| ICategoryChannel
+	| INewsChannel
+	| IStoreChannel;

@@ -1,8 +1,9 @@
-import { Payload } from '../Interfaces/Payload';
+import { Payload } from '../Interfaces/Interfaces';
 import { OPCODE } from './OpCodes';
 
 export const Heartbeat: Payload = {
-	op: OPCODE.Heartbeat
+	op: OPCODE.Heartbeat,
+	d: null
 };
 
 export const Identify: Payload = {
@@ -11,7 +12,7 @@ export const Identify: Payload = {
 		token: '',
 		properties: {
 			$os: 'linux',
-			$browser: 'EvolveJS_ts',
+			$browser: 'evolvejs',
 			$device: 'discord'
 		}
 	}

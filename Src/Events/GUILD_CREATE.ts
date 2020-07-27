@@ -1,11 +1,9 @@
-import { Client } from "..";
-import { Payload } from "../Interfaces/Payload"
-
+import { Client } from '../Client/Client';
+import { Payload } from '../Interfaces/Interfaces';
+import { EVENTS } from '../Constants/Events';
 
 export default class {
 	constructor(client: Client, payload: Payload) {
-		let { d } = payload
-		
-		client.emit('guildCreate', (client.guilds));
+		client.emit(EVENTS.GUILD_CREATE, payload.d);
 	}
 }

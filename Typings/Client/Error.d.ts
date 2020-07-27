@@ -1,7 +1,7 @@
 import { codes } from '../Constants/Errors';
 declare const symCode: unique symbol;
 declare const EvolveErr: {
-    new (code: codes, ...params: string[]): {
+    new (code: codes, ...params: any[]): {
         [x: string]: any;
         readonly name: string;
         readonly code: string;
@@ -10,7 +10,7 @@ declare const EvolveErr: {
     [x: string]: any;
 };
 declare const TypeErr: {
-    new (code: codes, ...params: string[]): {
+    new (code: codes, ...params: any[]): {
         [x: string]: any;
         readonly name: string;
         readonly code: string;
@@ -19,7 +19,7 @@ declare const TypeErr: {
     [x: string]: any;
 };
 declare const RangeErr: {
-    new (code: codes, ...params: string[]): {
+    new (code: codes, ...params: any[]): {
         [x: string]: any;
         readonly name: string;
         readonly code: string;

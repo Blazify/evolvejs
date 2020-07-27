@@ -1,3 +1,3 @@
-export enum PERMISSION {
+export enum PERMISSIONS {
 	ADMINISTRATOR = ''
 }

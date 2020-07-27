@@ -1,13 +1,13 @@
-import Role from './Role';
 import User from './User';
+import { Snowflake } from '../Constants/Constants';
 export default class {
-    id: string;
+    id: Snowflake;
     name: string;
-    roles: Array<Role['id']>;
+    roles: Snowflake[];
     user: User;
     reqColons: boolean;
     managed: boolean;
     animated: boolean;
     available: boolean;
-    constructor(id: string, name: string, roles: Array<Role['id']>, user: User, reqColons: boolean, managed: boolean, animated: boolean, available: boolean);
+    constructor(id: Snowflake, name: string, roles: Snowflake[], user: User, reqColons: boolean, managed: boolean, animated: boolean, available: boolean);
 }

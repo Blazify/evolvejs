@@ -1,8 +1,8 @@
 import ws from 'ws';
 import { Client } from '../Client/Client';
-export declare class Websocket {
+export declare class EvolveSocket extends ws {
     client: Client;
-    socket: ws;
+    seq?: number;
     constructor(client: Client);
-    init(token: string): void;
+    init(): void;
 }

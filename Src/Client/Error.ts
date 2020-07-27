@@ -6,14 +6,14 @@ function newError(Type: any) {
 	return class EvolveError extends Type {
 		public [symCode]: string;
 
-		constructor(code: codes, ...params: string[]) {
+		constructor(code: codes, ...params: any[]) {
 			super(createMsg(code, params));
 			this[symCode] = code;
 			if (Error.captureStackTrace) Error.captureStackTrace(this, EvolveError);
 		}
 
 		public get name() {
-			return `${chalk.hex('#247BA0')('EvolveError')} [${chalk.hex('#FFD23F')(
+			return `${chalk.hex('#247BA0')('EvolveError')} [${chalk.grey(
 				this[symCode]
 			)}]`;
 		}
@@ -24,11 +24,11 @@ function newError(Type: any) {
 	};
 }
 
-function createMsg(name: string, params: string[]) {
+function createMsg(name: string, params: any[]) {
 	let message = Errors.get(name);
 	if (!message) throw new Error(`No error found with name: ${name}.`);
 	if (typeof message === 'function') message = message(...params);
-	return chalk.hex('#A5243D')(message);
+	return chalk.red(message);
 }
 
 const EvolveErr = newError(Error);

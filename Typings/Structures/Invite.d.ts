@@ -1,6 +1,6 @@
-import Guild from "./Guild";
-import Channel from "./Channel";
-import User from "./User";
+import Guild from './Guild';
+import Channel from './Channel';
+import User from './User';
 export default class {
     code: string;
     guild: Guild;
