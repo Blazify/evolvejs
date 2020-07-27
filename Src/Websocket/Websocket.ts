@@ -26,6 +26,9 @@ export class EvolveSocket extends ws {
 				console.log(JSON.parse(data.toString()));
 				return Gateway(data, this.client, this);
 			});
+			this.socket.onclose = function() {
+				throw new EvolveErr('TOKEN_ERROR')
+			};
 		} catch (e) {
 			throw new EvolveErr('UNKOWN', e.message);
 		}

@@ -11,7 +11,13 @@ import { Payload } from '../Interfaces/Interfaces';
 import { EVENTS } from '../Constants/Events';
 
 export default class {
-	constructor(public client: Client, public payload: Payload) {
+	public client: Client;
+	public payload: Payload;
+
+	constructor(client: Client, payload: Payload) {
+		this.client = client;
+		this.payload = payload;
+
 		(async () => await this.generate(payload))();
 		client.emit(EVENTS.READY);
 	}
@@ -36,45 +42,7 @@ export default class {
 				? this.client.getChannel(g.afk_channel_id)
 				: null;
 
-			const guild = new Guild(
-				g.id,
-				g.name,
-				g.icon,
-				g.splash,
-				g.discovery_splash,
-				g.owner,
-				g.owner_id,
-				g.permissions,
-				g.region,
-				g.afk_channel_id,
-				g.afk_timeout,
-				g.verification_level,
-				g.default_message_notifications,
-				g.explicit_content_filter,
-				g.mfa_level,
-				g.application_id,
-				g.widget_enabled,
-				g.widget_channel_id,
-				g.system_channel_id,
-				g.system_channel_flags,
-				g.rules_channel_id,
-				g.joined_at,
-				g.large,
-				g.unavailable,
-				g.member_count,
-				g.max_presences,
-				g.max_members,
-				g.vanity_url_code,
-				g.description,
-				g.banner,
-				g.premium_tier,
-				g.premium_subscription_count,
-				g.preferred_locale,
-				g.public_updates_channel_id,
-				g.max_video_channel_users,
-				g.approximate_member_count,
-				g.approximate_presence_count
-			);
+			const guild = new Guild(g, this.client);
 			this.client.guilds.set(guild.id, guild);
 
 			let channels = await this.client.getGuildChannels(g.id);
