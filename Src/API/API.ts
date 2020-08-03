@@ -64,4 +64,16 @@ export default class API {
 			method: 'DELETE'
 		});
 	}
+	public async getChannel(channelID: Snowflake) {
+		return await RestAPIHandler(this.client, {
+			endpoint: `/channels/${channelID}`,
+			method: "GET"
+		})
+	}
+	public async getGuildChannel(guildID: Snowflake) {
+		return await RestAPIHandler(this.client, {
+			endpoint: `/guilds/${guildID}/channels`,
+			method: "GET"
+		})
+	}
 }

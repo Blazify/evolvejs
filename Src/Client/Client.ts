@@ -10,6 +10,7 @@ import Emoji from '../Structures/Guild/Emoji';
 import { EvolveErr } from './Error';
 import { Snowflake, ChannelResolvable } from '../Constants/Constants';
 import { IGuild } from '../Interfaces/GuildOptions';
+import API from '../API/API';
 
 export class Client extends EventEmitter {
 	public token: string;
@@ -19,6 +20,7 @@ export class Client extends EventEmitter {
 	public emojis: Objex<Snowflake, Emoji> = new Objex();
 	private ws: EvolveSocket = new EvolveSocket(this);
 	private _user?: ClientUser;
+	public api: API = new API(this)
 
 	public constructor(token: string) {
 		super();
@@ -41,71 +43,5 @@ export class Client extends EventEmitter {
 	async shutdown() {
 		this.ws.close();
 		process.exit();
-	}
-
-	public async getGuild(guildID: Snowflake): Promise<IGuild> {
-		return await RestAPIHandler(this, {
-			endpoint: `guilds/${guildID}`,
-			method: 'GET'
-		});
-	}
-
-	public async getChannel(channelID: Snowflake): Promise<ChannelResolvable> {
-		return await RestAPIHandler(this, {
-			endpoint: `channels/${channelID}`,
-			method: 'GET'
-		});
-	}
-
-	public async getGuildChannels(
-		guildID: Snowflake
-	): Promise<ChannelResolvable[]> {
-		return await RestAPIHandler(this, {
-			endpoint: `guilds/${guildID}/channels`,
-			method: 'GET'
-		});
-	}
-
-	public async getUser(userID: Snowflake) {
-		return await RestAPIHandler(this, {
-			endpoint: `users/${userID}`,
-			method: 'GET'
-		});
-	}
-
-	public async getGuildMembers(guildID: Snowflake) {
-		return await RestAPIHandler(this, {
-			endpoint: `guilds/${guildID}/members`,
-			method: 'GET'
-		});
-	}
-
-	public async sendMessage(content: string, channelID: Snowflake) {
-		return await RestAPIHandler(this, {
-			endpoint: `channels/${channelID}/messages`,
-			method: 'POST',
-			content: content
-		});
-	}
-
-	public async deleteMessage(messageID: Snowflake, channelID: Snowflake) {
-		return await RestAPIHandler(this, {
-			endpoint: `/channels/${channelID}/messages/${messageID}`,
-			method: 'DELETE'
-		});
-	}
-
-	public async banAdd(guildID: Snowflake, userID: Snowflake) {
-		return await RestAPIHandler(this, {
-			endpoint: `guilds/${guildID}/bans/${userID}`,
-			method: 'PUT'
-		});
-	}
-
-	public async banRemove(userID: Snowflake, guildID: Snowflake) {
-		return await RestAPIHandler(this, {
-			endpoint: `guilds/${guildID}/bans/${userID}`,
-			method: 'DELETE'
-		});
 	}
 }

@@ -30,14 +30,8 @@ export function Gateway(data: any, client: Client, ws: EvolveSocket) {
 		}
 		else if (t) {
 			try {
-				if (t !== 'READY') {
 					const { default: handler } = require(`../Events/${t}`);
 					new handler(client, payload);
-				}
-				else if (t === 'READY') {
-					const { default: module } = require(`../Events/${t}`);
-					module(client, payload);
-				}
 			} catch (e) {
 				throw new EvolveErr('UNKOWN', e.message);
 			}
