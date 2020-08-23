@@ -1,11 +1,11 @@
 import { EvolveSocket } from './Websocket';
-import { Client } from '../Client/Client';
+import { EvolveClient } from '../Client/EvolveClient';
 import { OPCODE } from '../Constants/OpCodes';
 import { Payload } from '../Interfaces/Interfaces';
 import { Heartbeat, Identify } from '../Constants/Payloads';
 import { EvolveErr } from '../Client/Error';
 
-export function Gateway(data: any, client: Client, ws: EvolveSocket) {
+export function Gateway(data: any, client: EvolveClient, ws: EvolveSocket) {
 	try {
 		let payload: Payload = JSON.parse(data);
 		const { op, t, s, d } = payload;

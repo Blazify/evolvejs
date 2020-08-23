@@ -2,7 +2,7 @@ import Channel from './Channel';
 import { IStoreChannel } from '../../Interfaces/StoreChannelOptions';
 import { Snowflake, CHANNELTYPES } from '../../Constants/Constants';
 import Overwrite from './Overwrite';
-import { Client } from '../../Client/Client';
+import { EvolveClient } from '../../Client/EvolveClient';
 import {Guild} from '../Guild/Guild';
 import CategoryChannel from './CategoryChannel';
 import { Objex } from '@evolvejs/objex';
@@ -17,7 +17,7 @@ export default class extends Channel {
 	public rateLimit: number;
 	public parent?: CategoryChannel;
 
-	constructor(data: IStoreChannel, client: Client) {
+	constructor(data: IStoreChannel, client: EvolveClient) {
 		super(data.id, CHANNELTYPES.Store, client);
 		this.guild = this.client.guilds.get(data.guild_id)!;
 		this.position = data.position;

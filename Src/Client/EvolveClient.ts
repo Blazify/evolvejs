@@ -12,7 +12,7 @@ import API from '../API/API';
 import { ClientOptions } from './ClientOptions';
 import { Message } from '../Structures/Message/Message';
 
-export class Client extends EventEmitter {
+export class EvolveClient extends EventEmitter {
 	public token: string;
 	public options: ClientOptions;
 	public guilds: Objex<Snowflake, Guild> = new Objex();
@@ -20,20 +20,12 @@ export class Client extends EventEmitter {
 	public users: Objex<Snowflake, User> = new Objex();
 	public emojis: Objex<Snowflake, Emoji> = new Objex();
 	public messages: Objex<Snowflake, Message> = new Objex()
-	private ws: EvolveSocket = new EvolveSocket(this);
 	private _user?: ClientUser;
 	public api: API = new API(this)
 
 	public constructor (
 		token: string, 
-		options: ClientOptions = {
-		enableGuildCache: true,
-		enableChannelCache: true,
-		enableEmojiCache: true,
-		enableUsersCache: true,
-		enableMessageCache: false,
-		capturePromiseRejection: true
-		}
+		options: ClientOptions
 	) {
 		super({ captureRejections: options.capturePromiseRejection });
 		this.token = token;
@@ -47,14 +39,5 @@ export class Client extends EventEmitter {
 
 	public set user(user: ClientUser) {
 		this._user = user;
-	}
-
-	init() {
-		this.ws.init();
-	}
-
-	async shutdown() {
-		this.ws.close();
-		process.exit();
 	}
 }

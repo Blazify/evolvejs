@@ -2,7 +2,7 @@ import Channel from './Channel';
 import { ITextChannel } from '../../Interfaces/TextChannelOptions';
 import { CHANNELTYPES, Snowflake } from '../../Constants/Constants';
 import Overwrite from './Overwrite';
-import { Client } from '../../Client/Client';
+import { EvolveClient } from '../../Client/EvolveClient';
 import {Guild} from '../Guild/Guild';
 import CategoryChannel from './CategoryChannel';
 import { Objex } from '@evolvejs/objex';
@@ -23,7 +23,7 @@ export default class extends Channel {
 	public send!: (content: string) => Promise<API["sendMessage"]>;
 	public purge!: (time?: number) => Promise<NodeJS.Timeout>;
 
-	constructor(data: ITextChannel, client: Client) {
+	constructor(data: ITextChannel, client: EvolveClient) {
 		super(data.id, CHANNELTYPES.Text, client);
 
 		this.guild = this.client.guilds.get(data.guild_id)!;

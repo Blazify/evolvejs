@@ -1,4 +1,3 @@
-import Emoji from '../Guild/Emoji';
 import {
 	IActivity,
 	IParty,

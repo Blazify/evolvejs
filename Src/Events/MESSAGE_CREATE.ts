@@ -1,10 +1,10 @@
-import { Client } from '../Client/Client';
+import { EvolveClient } from '../Client/EvolveClient';
 import { Payload } from '../Interfaces/Interfaces';
 import { EVENTS } from '../Constants/Events';
 import { Message } from '../Structures/Message/Message';
 
 export default class {
-	constructor(client: Client, payload: Payload) {
+	constructor(client: EvolveClient, payload: Payload) {
 		let message = new Message(payload.d, client)
 		message.channel.send = async (content: string) => {
 			return await client.api.sendMessage(content, message.channel.id);

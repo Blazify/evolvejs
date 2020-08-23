@@ -7,10 +7,10 @@ import PresenceUpdate from '../User/PresenceUpdate';
 import { Objex } from '@evolvejs/objex';
 import { Snowflake } from '../../Constants/Constants';
 import { IGuild } from '../../Interfaces/GuildOptions';
-import { Client } from '../../Client/Client';
+import { EvolveClient } from '../../Client/EvolveClient';
 
 export class Guild {
-	public client: Client;
+	public client: EvolveClient;
 	public members: Objex<Snowflake, GuildMember> = new Objex();
 	public channels: Objex<Snowflake, Channel> = new Objex();
 	public roles: Objex<Snowflake, Role> = new Objex();
@@ -55,7 +55,7 @@ export class Guild {
 	public updatesChannel?: Channel;
 	public maxChannelUsers?: number;
 
-	constructor(data: IGuild, client: Client) {
+	constructor(data: IGuild, client: EvolveClient) {
 		this.client = client;
 		this.id = data.id;
 		this.name = data.name;

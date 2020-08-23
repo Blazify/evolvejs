@@ -1,12 +1,12 @@
 import { CHANNELTYPES, Snowflake } from '../../Constants/Constants';
-import { Client } from '../../Client/Client';
+import { EvolveClient } from '../../Client/EvolveClient';
 
 export default class {
-	public client: Client;
+	public client: EvolveClient;
 	public id: string;
 	public type: CHANNELTYPES;
 
-	constructor(id: Snowflake, type: CHANNELTYPES, client: Client) {
+	constructor(id: Snowflake, type: CHANNELTYPES, client: EvolveClient) {
 		this.client = client;
 		this.id = id;
 		this.type = type;

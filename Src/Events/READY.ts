@@ -1,4 +1,4 @@
-import { Client } from '../Client/Client';
+import { EvolveClient } from '../Client/EvolveClient';
 import { ClientUser } from '../Client/ClientUser';
 import { Guild } from '../Structures/Guild/Guild';
 import Role from '../Structures/Guild/Role';
@@ -18,10 +18,10 @@ import TextChannel from '../Structures/Channel/TextChannel';
 import VoiceChannel from '../Structures/Channel/VoiceChannel';
 
 export default class {
-	public client: Client;
+	public client: EvolveClient;
 	public payload: Payload;
 
-	constructor(client: Client, payload: Payload) {
+	constructor(client: EvolveClient, payload: Payload) {
 		this.client = client;
 		this.payload = payload;
 

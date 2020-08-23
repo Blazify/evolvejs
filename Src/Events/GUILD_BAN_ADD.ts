@@ -1,10 +1,10 @@
-import { Client } from '../Client/Client';
+import { EvolveClient } from '../Client/EvolveClient';
 import { Payload } from '../Interfaces/Interfaces';
 import { EVENTS } from '../Constants/Events';
 
 
 export default class {
-	constructor(client: Client, payload: Payload) {
+	constructor(client: EvolveClient, payload: Payload) {
 		client.emit(EVENTS.GUILD_BAN_ADD, payload.d);
 	}
 }

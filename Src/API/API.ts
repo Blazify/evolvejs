@@ -1,11 +1,11 @@
 import { Snowflake } from '../Constants/Constants';
 import RestAPIHandler from './RestAPIHandler';
-import { Client } from '../Client/Client';
+import { EvolveClient } from '../Client/EvolveClient';
 
 export default class API {
-	public client: Client;
+	public client: EvolveClient;
 
-	constructor(client: Client) {
+	constructor(client: EvolveClient) {
 		this.client = client;
 	}
 	public async getGuild(guildID: Snowflake) {

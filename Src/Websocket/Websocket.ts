@@ -1,5 +1,5 @@
 import ws from 'ws';
-import { Client } from '../Client/Client';
+import { EvolveClient } from '../Client/EvolveClient';
 import { Gateway } from './Gateway';
 import { CONSTANTS } from '../Constants/Constants';
 import { EvolveErr } from '../Client/Error';
@@ -7,7 +7,7 @@ import { EvolveErr } from '../Client/Error';
 export class EvolveSocket extends ws {
 	public seq?: number;
 
-	constructor(public client: Client) {
+	constructor(public client: EvolveClient) {
 		super(CONSTANTS.Gateway);
 		this.client = client;
 	}

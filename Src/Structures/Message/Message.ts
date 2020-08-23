@@ -2,7 +2,7 @@ import { GuildMember } from '../Guild/GuildMember';
 import { User } from '../User/User';
 import { Guild } from '../Guild/Guild';
 import { IMessage } from '../../Interfaces/MessageOptions';
-import { Client } from '../../Client/Client';
+import { EvolveClient } from '../../Client/EvolveClient';
 import TextChannel from '../Channel/TextChannel';
 
 export class Message {
@@ -20,7 +20,7 @@ export class Message {
 	public guild!: Guild;
 	public channel!: TextChannel
 
-	constructor(data: IMessage, client: Client) {
+	constructor(data: IMessage, client: EvolveClient) {
 		this.sentAt = data.sent_at
 		this.id = data.id
 		this.pinned = data.pinned

@@ -2,7 +2,7 @@ import Channel from './Channel';
 import { IGroupChannel } from '../../Interfaces/GroupChannelOptions';
 import { Snowflake, CHANNELTYPES } from '../../Constants/Constants';
 import { User } from '../User/User';
-import { Client } from '../../Client/Client';
+import { EvolveClient } from '../../Client/EvolveClient';
 import { Objex } from '@evolvejs/objex';
 
 export default class extends Channel {
@@ -15,7 +15,7 @@ export default class extends Channel {
 	public applicationID?: Snowflake;
 	public lastPin?: number;
 
-	constructor(data: IGroupChannel, client: Client) {
+	constructor(data: IGroupChannel, client: EvolveClient) {
 		super(data.id, CHANNELTYPES.Group, client);
 		(async (data: IGroupChannel) => {
 			const user = await this.client.api.getUser(data.owner_id);

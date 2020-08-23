@@ -2,7 +2,7 @@ import Channel from './Channel';
 import { ICategoryChannel } from '../../Interfaces/CategoryChannelOptions';
 import { CHANNELTYPES, Snowflake } from '../../Constants/Constants';
 import Overwrite from './Overwrite';
-import { Client } from '../../Client/Client';
+import { EvolveClient } from '../../Client/EvolveClient';
 import {Guild} from '../Guild/Guild';
 import { Objex } from '@evolvejs/objex';
 
@@ -13,7 +13,7 @@ export default class extends Channel {
 	public position: number;
 	public name: string;
 
-	constructor(data: ICategoryChannel, client: Client) {
+	constructor(data: ICategoryChannel, client: EvolveClient) {
 		super(data.id, CHANNELTYPES.Category, client);
 		this.guild = this.client.guilds.get(data.guild_id)!;
 		this.position = data.position;
