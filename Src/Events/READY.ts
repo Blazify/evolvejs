@@ -1,10 +1,9 @@
 import { Client } from '../Client/Client';
 import { ClientUser } from '../Client/ClientUser';
-import Guild from '../Structures/Guild/Guild';
+import { Guild } from '../Structures/Guild/Guild';
 import Role from '../Structures/Guild/Role';
-import Channel from '../Structures/Channel/Channel';
-import GuildMember from '../Structures/Guild/GuildMember';
-import User from '../Structures/User/User';
+import { GuildMember } from '../Structures/Guild/GuildMember';
+import { User } from '../Structures/User/User';
 import Emoji from '../Structures/Guild/Emoji';
 import { IGuild } from '../Interfaces/GuildOptions';
 import { Payload } from '../Interfaces/Interfaces';
@@ -31,7 +30,7 @@ export default class {
 	}
 
 	private async generate(payload: Payload) {
-		const { user, guilds }: { user: any; guilds: IGuild[] } = payload.d;
+		const { user, guilds } = payload.d;
 
 		this.client.user = new ClientUser(
 			user.username,
@@ -46,29 +45,25 @@ export default class {
 
 		for (let x of guilds) {
 			const g = await this.client.api.getGuild(x.id);
-			const afkChannel = g.afk_channel_id
-				? this.client.api.getChannel(g.afk_channel_id)
-				: null;
 
 			const guild = new Guild(g, this.client);
-			this.client.guilds.set(guild.id, guild);
+			if(this.client.options.enableGuildCache) this.client.guilds.set(guild.id, guild);
 
 			let channels = await this.client.api.getGuildChannels(g.id);
 			for (let c of channels) {
-				if(c.type === CHANNELTYPES.Category) {
+				if(c.type === CHANNELTYPES.Category && this.client.options.enableChannelCache) {
 				guild.channels.set(c.id, new CategoryChannel(c, this.client));
-				} else if(c.type === CHANNELTYPES.Direct) {
+				} else if(c.type === CHANNELTYPES.Direct && this.client.options.enableChannelCache) {
 					guild.channels.set(c.id, new DMChannel(c, this.client));
-				}
-				else if(c.type === CHANNELTYPES.Group) {
+				} else if(c.type === CHANNELTYPES.Group && this.client.options.enableChannelCache) {
 					guild.channels.set(c.id, new GroupChannel(c, this.client));
-				} else if(c.type === CHANNELTYPES.News) {
+				} else if(c.type === CHANNELTYPES.News && this.client.options.enableChannelCache) {
 					guild.channels.set(c.id, new NewsChannel(c, this.client));
-				} else if(c.type === CHANNELTYPES.Store) {
+				} else if(c.type === CHANNELTYPES.Store && this.client.options.enableChannelCache) {
 					guild.channels.set(c.id, new StoreChannel(c, this.client));
-				} else if(c.type === CHANNELTYPES.Text) {
+				} else if(c.type === CHANNELTYPES.Text && this.client.options.enableChannelCache) {
 					guild.channels.set(c.id, new TextChannel(c, this.client));
-				} else if(c.type === CHANNELTYPES.Voice) {
+				} else if(c.type === CHANNELTYPES.Voice && this.client.options.enableChannelCache) {
 					guild.channels.set(c.id, new VoiceChannel(c, this.client));
 				}
 			}
@@ -90,15 +85,7 @@ export default class {
 
 			let members = await this.client.api.getGuildMembers(guild.id);
 			for (var m of members) {
-				const member = new GuildMember(
-					m.user,
-					m.nick,
-					m.roles,
-					m.joined_at,
-					m.premium_since,
-					m.deaf,
-					m.mute
-				);
+				const member = new GuildMember(m);
 				guild.members.set(m.id, member);
 			}
 
@@ -115,7 +102,7 @@ export default class {
 						e.available
 					);
 					guild.emojis.set(emoji.id, emoji);
-					this.client.emojis.set(emoji.id, emoji);
+					if(this.client.options.enableEmojiCache) this.client.emojis.set(emoji.id, emoji);
 				}
 			}
 
@@ -124,7 +111,7 @@ export default class {
 			user = new User(user)
 
 			m.user = user;
-			this.client.users.set(user.id, user);
+			if(this.client.options.enableUsersCache) this.client.users.set(user.id, user);
 		}
 	}
 }

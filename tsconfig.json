@@ -6,7 +6,6 @@
     "rootDir": "./Src/",
     "lib": ["es6", "ESNext", "DOM"],
     "declaration": true,
-    "declarationDir": "./Typings/",
     "incremental": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,

@@ -1,7 +1,7 @@
 import Channel from './Channel';
 import { IGroupChannel } from '../../Interfaces/GroupChannelOptions';
 import { Snowflake, CHANNELTYPES } from '../../Constants/Constants';
-import User from '../User/User';
+import { User } from '../User/User';
 import { Client } from '../../Client/Client';
 import { Objex } from '@evolvejs/objex';
 
@@ -17,10 +17,8 @@ export default class extends Channel {
 
 	constructor(data: IGroupChannel, client: Client) {
 		super(data.id, CHANNELTYPES.Group, client);
-
-		this.setCache(data);
 		(async (data: IGroupChannel) => {
-			const user = await this.client.getUser(data.owner_id);
+			const user = await this.client.api.getUser(data.owner_id);
 			this.owner = new User(user);
 		})(data);
 
@@ -29,9 +27,5 @@ export default class extends Channel {
 		this.icon = data.icon || undefined;
 		this.applicationID = data.application_id;
 		this.lastPin = data.last_pin_timestamp;
-	}
-
-	private setCache(data: IGroupChannel) {
-		for (let raw of data.recipients) this.recipients.set(raw.id, new User(raw));
 	}
 }

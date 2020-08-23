@@ -9,7 +9,7 @@ export function Gateway(data: any, client: Client, ws: EvolveSocket) {
 	try {
 		let payload: Payload = JSON.parse(data);
 		const { op, t, s, d } = payload;
-		if (d === null || d === undefined) return;
+		if (!d) return;
 
 		if (op === OPCODE.Hello) {
 			// Command: Heartbeat
@@ -31,6 +31,7 @@ export function Gateway(data: any, client: Client, ws: EvolveSocket) {
 		else if (t) {
 			try {
 					const { default: handler } = require(`../Events/${t}`);
+					console.log(t)
 					new handler(client, payload);
 			} catch (e) {
 				throw new EvolveErr('UNKOWN', e.message);

@@ -2,14 +2,14 @@ import Role from './Role';
 import Emoji from './Emoji';
 import Channel from '../Channel/Channel';
 import VoiceState from './VoiceState';
-import GuildMember from './GuildMember';
+import {GuildMember} from './GuildMember';
 import PresenceUpdate from '../User/PresenceUpdate';
 import { Objex } from '@evolvejs/objex';
 import { Snowflake } from '../../Constants/Constants';
 import { IGuild } from '../../Interfaces/GuildOptions';
 import { Client } from '../../Client/Client';
 
-export default class {
+export class Guild {
 	public client: Client;
 	public members: Objex<Snowflake, GuildMember> = new Objex();
 	public channels: Objex<Snowflake, Channel> = new Objex();
@@ -56,8 +56,6 @@ export default class {
 	public maxChannelUsers?: number;
 
 	constructor(data: IGuild, client: Client) {
-		this.setCache(data);
-
 		this.client = client;
 		this.id = data.id;
 		this.name = data.name;
@@ -106,5 +104,4 @@ export default class {
 		this.maxChannelUsers = data.max_video_channel_users;
 	}
 
-	private setCache(data: IGuild) {}
 }

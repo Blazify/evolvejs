@@ -23,7 +23,6 @@ export class EvolveSocket extends ws {
 			});
 
 			this.on('message', (data) => {
-				console.log(JSON.parse(data.toString()));
 				return Gateway(data, this.client, this);
 			});
 			this.onclose = function() {

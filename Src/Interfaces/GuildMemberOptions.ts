@@ -1,8 +1,9 @@
 import { Snowflake } from '../Constants/Constants';
 import { IUser } from './UserOptions';
+import { User } from '../Structures/User/User';
 
 export interface IGuildMember {
-	user?: IUser; // The member's user object
+	user?: User; // The member's user object
 	nick: string | null; // This users guild nickname
 	roles: Snowflake[]; // Array of role IDs
 	joined_at: number; // Timestamp	when the user joined the guild

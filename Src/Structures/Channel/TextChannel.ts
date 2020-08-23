@@ -3,9 +3,10 @@ import { ITextChannel } from '../../Interfaces/TextChannelOptions';
 import { CHANNELTYPES, Snowflake } from '../../Constants/Constants';
 import Overwrite from './Overwrite';
 import { Client } from '../../Client/Client';
-import Guild from '../Guild/Guild';
+import {Guild} from '../Guild/Guild';
 import CategoryChannel from './CategoryChannel';
 import { Objex } from '@evolvejs/objex';
+import API from '../../API/API';
 
 export default class extends Channel {
 	public overwrites: Objex<Snowflake, Overwrite> = new Objex();
@@ -19,11 +20,11 @@ export default class extends Channel {
 	public rateLimit: number;
 	public parent?: CategoryChannel;
 	public lastPin?: number;
+	public send!: (content: string) => Promise<API["sendMessage"]>;
+	public purge!: (time?: number) => Promise<NodeJS.Timeout>;
 
 	constructor(data: ITextChannel, client: Client) {
 		super(data.id, CHANNELTYPES.Text, client);
-
-		this.setCache(data);
 
 		this.guild = this.client.guilds.get(data.guild_id)!;
 		this.position = data.position;
@@ -37,8 +38,4 @@ export default class extends Channel {
 		this.lastPin = data.last_pin_timestamp;
 	}
 
-	private setCache(data: ITextChannel) {
-		for (let raw of data.permission_overwrites)
-			this.overwrites.set(raw.id, new Overwrite(raw));
-	}
 }

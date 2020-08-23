@@ -1,5 +1,6 @@
 TestBot/
 test.js
+test.ts
 tsconfig.tsbuildinfo
 
 package-lock.json

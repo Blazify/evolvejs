@@ -1,6 +1,6 @@
-import Guild from './Guild';
+import { Guild } from './Guild';
 import Channel from '../Channel/Channel';
-import User from '../User/User';
+import {User} from '../User/User';
 
 export default class {
 	constructor(

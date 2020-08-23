@@ -3,7 +3,7 @@ import { IStoreChannel } from '../../Interfaces/StoreChannelOptions';
 import { Snowflake, CHANNELTYPES } from '../../Constants/Constants';
 import Overwrite from './Overwrite';
 import { Client } from '../../Client/Client';
-import Guild from '../Guild/Guild';
+import {Guild} from '../Guild/Guild';
 import CategoryChannel from './CategoryChannel';
 import { Objex } from '@evolvejs/objex';
 
@@ -19,9 +19,6 @@ export default class extends Channel {
 
 	constructor(data: IStoreChannel, client: Client) {
 		super(data.id, CHANNELTYPES.Store, client);
-
-		this.setCache(data);
-
 		this.guild = this.client.guilds.get(data.guild_id)!;
 		this.position = data.position;
 		this.name = data.name;
@@ -30,10 +27,5 @@ export default class extends Channel {
 		this.parent = data.parent_id
 			? this.client.channels.get(data.parent_id) as CategoryChannel
 			: undefined;
-	}
-
-	private setCache(data: IStoreChannel) {
-		for (let raw of data.permission_overwrites)
-			this.overwrites.set(raw.id, new Overwrite(raw));
 	}
 }

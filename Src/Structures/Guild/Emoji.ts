@@ -1,5 +1,5 @@
-import User from './User';
-import { Snowflake } from '../Constants/Constants';
+import {User} from '../User/User';
+import { Snowflake } from '../../Constants/Constants';
 
 export default class {
 	constructor(

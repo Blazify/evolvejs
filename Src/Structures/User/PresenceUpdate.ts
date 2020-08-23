@@ -1,7 +1,7 @@
-import User from './User';
+import {User} from './User';
 import Role from '../Guild/Role';
-import Guild from '../Guild/Guild';
-import ClientStatus from './ClientStatus';
+import { Guild } from '../Guild/Guild';
+import ClientStatus from '../Miscs/ClientStatus';
 import Activity from './Activity';
 
 export default class {

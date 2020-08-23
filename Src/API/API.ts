@@ -44,12 +44,14 @@ export default class API {
 		});
 	}
 
-	public async deleteMessage(messageID: Snowflake, channelID: Snowflake) {
-		return await RestAPIHandler(this.client, {
+	public async deleteMessage(messageID: Snowflake, channelID: Snowflake, time: number) {
+	return setTimeout(async() => {
+			return await RestAPIHandler(this.client, {
 			endpoint: `/channels/${channelID}/messages/${messageID}`,
 			method: 'DELETE'
 		});
-	}
+	}, time)
+}
 
 	public async banAdd(guildID: Snowflake, userID: Snowflake) {
 		return await RestAPIHandler(this.client, {

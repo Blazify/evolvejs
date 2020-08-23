@@ -1,10 +1,11 @@
-import Emoji from './Emoji';
+import Emoji from '../Guild/Emoji';
 import {
 	IActivity,
 	IParty,
 	IAssets,
-	ISecrets
-} from '../Interfaces/ActivityOptions';
+	ISecrets,
+	IActivityEmoji
+} from '../../Interfaces/ActivityOptions';
 
 export default class {
 	public name: string;
@@ -16,7 +17,7 @@ export default class {
 	public applicationID?: string;
 	public details?: string | null;
 	public state?: string | null;
-	public emoji?: Emoji | null;
+	public emoji?: IActivityEmoji | null;
 	public party?: IParty;
 	public assets?: IAssets;
 	public secrets?: ISecrets;
@@ -33,7 +34,7 @@ export default class {
 		this.applicationID = data.application_id;
 		this.state = data.state;
 		this.details = data.details;
-		this.emoji = Emoji;
+		this.emoji = data.emoji;
 		this.party = data.party;
 		this.assets = data.assets;
 		this.secrets = data.secrets;

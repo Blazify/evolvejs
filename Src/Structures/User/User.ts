@@ -1,7 +1,7 @@
 import { IUser } from '../../Interfaces/UserOptions';
 import { NITRO } from '../../Constants/Constants';
 
-export default class {
+export class User {
 	public id: string;
 	public username: string;
 	public discriminator: string;
