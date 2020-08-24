@@ -2,7 +2,7 @@ import { EvolveClient } from '../Client/EvolveClient';
 import { CONSTANTS } from '../Constants/Constants';
 import { IAPIParams } from '../Interfaces/Interfaces';
 import fetch from 'node-fetch';
-import { EvolveErr } from '../Client/Error';
+
 
 export default async function(client: EvolveClient, options: IAPIParams) {
 	try {
@@ -27,6 +27,6 @@ export default async function(client: EvolveClient, options: IAPIParams) {
 			return await fetched.json();
 		}
 	} catch (e) {
-		throw new EvolveErr('APIError', e.message);
+		throw Error(e);
 	}
 }

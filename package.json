@@ -20,6 +20,7 @@
 	"dependencies": {
 		"@evolvejs/objex": "^1.0.0",
 		"chalk": "^4.1.0",
+		"moment": "^2.27.0",
 		"node-fetch": "^2.6.0",
 		"ws": "^7.3.1"
 	},

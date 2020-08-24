@@ -1,12 +1,10 @@
 import { EventEmitter } from 'events';
-import { EvolveSocket } from '../Websocket/Websocket';
 import { ClientUser } from './ClientUser';
 import { Objex } from '@evolvejs/objex';
 import { Guild } from '../Structures/Guild/Guild';
 import Channel from '../Structures/Channel/Channel';
 import { User } from '../Structures/User/User';
 import Emoji from '../Structures/Guild/Emoji';
-import { EvolveErr } from './Error';
 import { Snowflake } from '../Constants/Constants';
 import API from '../API/API';
 import { ClientOptions } from './ClientOptions';
@@ -30,7 +28,7 @@ export class EvolveClient extends EventEmitter {
 		super({ captureRejections: options.capturePromiseRejection });
 		this.token = token;
 		this.options = options
-		if (!this.token) throw new EvolveErr('TOKEN_ERROR');
+		if (!this.token) throw Error('TOKEN_ERROR');
 	}
 
 	public get user() {

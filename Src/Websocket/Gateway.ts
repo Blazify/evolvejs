@@ -3,7 +3,7 @@ import { EvolveClient } from '../Client/EvolveClient';
 import { OPCODE } from '../Constants/OpCodes';
 import { Payload } from '../Interfaces/Interfaces';
 import { Heartbeat, Identify } from '../Constants/Payloads';
-import { EvolveErr } from '../Client/Error';
+
 
 export function Gateway(data: any, client: EvolveClient, ws: EvolveSocket) {
 	try {
@@ -35,10 +35,10 @@ export function Gateway(data: any, client: EvolveClient, ws: EvolveSocket) {
 					console.log(t)
 					new handler(client, payload);
 			} catch (e) {
-				throw new EvolveErr('UNKOWN', e.message);
+				throw Error(e);
 			}
 		}
 	} catch (e) {
-		throw new EvolveErr('UNKOWN', e.message);
+		throw Error(e);
 	}
 }

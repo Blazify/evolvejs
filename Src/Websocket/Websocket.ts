@@ -2,7 +2,7 @@ import ws from 'ws';
 import { EvolveClient } from '../Client/EvolveClient';
 import { Gateway } from './Gateway';
 import { CONSTANTS } from '../Constants/Constants';
-import { EvolveErr } from '../Client/Error';
+
 
 export class EvolveSocket extends ws {
 	public seq?: number;
@@ -15,21 +15,21 @@ export class EvolveSocket extends ws {
 	init() {
 		try {
 			this.on('error', (err) => {
-				throw new EvolveErr('WSError', err.message);
+				throw Error(err.toString());
 			});
 
 			this.on('close', (code, res) => {
-				throw new EvolveErr('WSClose', code, res);
+				throw Error(code + res);
 			});
 
 			this.on('message', (data) => {
 				return Gateway(data, this.client, this);
 			});
 			this.onclose = function() {
-				throw new EvolveErr('TOKEN_ERROR')
+				throw Error('TOKEN_ERROR')
 			};
 		} catch (e) {
-			throw new EvolveErr('UNKOWN', e.message);
+			throw Error(e);
 		}
 	}
 }
