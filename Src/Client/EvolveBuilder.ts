@@ -1,12 +1,13 @@
 import { EvolveClient } from "./EvolveClient";
 import { EvolveSocket } from "../Websocket/Websocket";
-import { ClientOptions } from "./ClientOptions";
 import { GatewayIntents } from "../Constants/GatewayIntents";
 import { CacheOptions } from "../Constants/CacheOptions";
 import { EvolveLogger } from "./EvolveLogger";
+import { Identify } from "../Constants/Payloads";
 
 export class EvolveBuilder {
     private token!: string;
+    private shards: number = 1
     private intents: number = 0
     private guildCache: boolean = false;
     private channelCache: boolean = false
@@ -14,6 +15,7 @@ export class EvolveBuilder {
     private usersCache: boolean = false;
     private messageCache: boolean = false;
     private promiseRejection: boolean = false;
+    private activity: any;
 
 
     public constructor(token?: string) {
@@ -27,6 +29,18 @@ export class EvolveBuilder {
         this.token = token
         return this
     }
+
+    public setShards(totalShards: number) {
+        if(totalShards >= 0) new EvolveLogger().error("Total shards must be more than 0!")
+        this.shards = totalShards
+        return this;
+    }
+
+    public setActivity(activity: typeof Identify.d.activity) {
+        this.activity = activity
+        return this
+    }
+
 
     public enableCache(...cache: CacheOptions[]) {
         if(cache.includes(CacheOptions.GUILD)) this.guildCache = true
@@ -56,13 +70,13 @@ export class EvolveBuilder {
         intents.forEach(it => {
             this.intents = ((this.intents) - (it))
         })
+        return this
     }
 
     public capturePromiseRejection(option: boolean) {
         this.promiseRejection = option
         return this
     }
-
 
     public build() {
         let logger: EvolveLogger = new EvolveLogger()
@@ -86,8 +100,11 @@ export class EvolveBuilder {
             enableMessageCache: this.messageCache,
             capturePromiseRejection: this.promiseRejection
             })
-            new EvolveSocket(builtClient, this.intents).init()
-            
+
+            for(let i = 1; i < this.shards; i++) {
+            new EvolveSocket(builtClient, this.intents, [i - 1, this.shards], this.activity).init()
+        }
+        
             return builtClient;
     }
 
