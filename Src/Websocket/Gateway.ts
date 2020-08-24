@@ -20,6 +20,7 @@ export function Gateway(data: any, client: EvolveClient, ws: EvolveSocket) {
 
 			// Command: Identify
 			Identify.d.token = client.token;
+			Identify.d.intents = ws.intents
 			ws.send(JSON.stringify(Identify));
 		}
 		else if (op === OPCODE.Reconnect) {

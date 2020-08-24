@@ -10,6 +10,7 @@ export const Identify: Payload = {
 	op: OPCODE.Identify,
 	d: {
 		token: '',
+		intents: -1,
 		properties: {
 			$os: 'linux',
 			$browser: 'evolvejs',

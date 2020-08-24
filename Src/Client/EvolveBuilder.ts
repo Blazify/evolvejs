@@ -1,8 +1,12 @@
 import { EvolveClient } from "./EvolveClient";
 import { EvolveSocket } from "../Websocket/Websocket";
+import { ClientOptions } from "./ClientOptions";
+import { GatewayIntents } from "../Constants/GatewayIntents";
+import { CacheOptions } from "../Constants/CacheOptions";
 
 export class EvolveBuilder {
     private token!: string;
+    public intents: number = -1
     private guildCache: boolean = false;
     private channelCache: boolean = false
     private emojiCache: boolean = false;
@@ -23,28 +27,19 @@ export class EvolveBuilder {
         return this
     }
 
-    public enableGuildCache(option: boolean) {
-        this.guildCache = option
+    public enableCache(...cache: CacheOptions[]) {
+        if(cache.includes(CacheOptions.GUILD)) this.guildCache = true
+        if(cache.includes(CacheOptions.USERS)) this.usersCache = true
+        if(cache.includes(CacheOptions.CHANNELS)) this.channelCache = true
+        if(cache.includes(CacheOptions.MESSAGES)) this.messageCache = true
         return this
     }
 
-    public enableChannelCache(option: boolean) {
-        this.channelCache = option
-        return this
-    }
 
-    public enableEmojiCache(option: boolean) {
-        this.emojiCache = option
-        return this
-    }
-
-    public enableUsersCache(option: boolean) {
-        this.usersCache = option
-        return this
-    }
-
-    public enableMessageCache(option: boolean) {
-        this.messageCache = option
+    public enableIntents(...intents: GatewayIntents[]) {
+        intents.forEach(it => {
+            this.intents = this.intents + (it)
+        })
         return this
     }
 
@@ -53,9 +48,14 @@ export class EvolveBuilder {
         return this
     }
 
+
     public build() {
         if(!this.token) {
             throw Error("EvolveBuilder#build Error.. -> No token Provided for EvolveClient to be initialized")
+        }
+
+        if(!this.guildCache) {
+            console.warn("The Guild Cache is disabled so the READY event guilds will be emmited again in GUILD_CREATE Event and to avoid this use the EvolveBuilder#enableGuildCache")
         }
 
         let builtClient: EvolveClient = new EvolveClient(this.token, {
@@ -66,7 +66,7 @@ export class EvolveBuilder {
             enableMessageCache: this.messageCache,
             capturePromiseRejection: this.promiseRejection
             })
-            new EvolveSocket(builtClient).init()
+            new EvolveSocket(builtClient, this.intents).init()
             
             return builtClient;
     }

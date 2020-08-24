@@ -7,7 +7,7 @@ import { EvolveErr } from '../Client/Error';
 export class EvolveSocket extends ws {
 	public seq?: number;
 
-	constructor(public client: EvolveClient) {
+	constructor(public client: EvolveClient, public intents: number) {
 		super(CONSTANTS.Gateway);
 		this.client = client;
 	}
