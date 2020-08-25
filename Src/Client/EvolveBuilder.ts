@@ -154,7 +154,6 @@ export class EvolveBuilder {
 
             for(let i = 1; i < this.shards; i++) {
                 let shardArray: Array<number> = [i-1, this.shards]
-                builtClient.emit("shardReady", (shardArray))
             new EvolveSocket(builtClient, this, shardArray).init()
         }
         
