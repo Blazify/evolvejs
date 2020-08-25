@@ -3,6 +3,7 @@ import { EvolveClient } from '../Client/EvolveClient';
 import { Gateway } from './Gateway';
 import { CONSTANTS } from '../Constants/Constants';
 import { Identify } from '../Constants/Payloads';
+import { EvolveBuilder } from '../Client/EvolveBuilder';
 
 
 export class EvolveSocket extends ws {
@@ -10,9 +11,8 @@ export class EvolveSocket extends ws {
 
 	constructor(
 		public client: EvolveClient,
-		public intents: number,
-		public shardArray: Array<Number>,
-		public activity: typeof Identify.d.activity
+		public builder: EvolveBuilder,
+		public shards: Array<Number>
 		) {
 		super(CONSTANTS.Gateway);
 		this.client = client;

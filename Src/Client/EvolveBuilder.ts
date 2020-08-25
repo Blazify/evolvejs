@@ -7,15 +7,15 @@ import { Identify } from "../Constants/Payloads";
 
 export class EvolveBuilder {
     private token!: string;
-    private shards: number = 1
-    private intents: number = 0
+    public shards: number = 1
+    public intents: number = 0
     private guildCache: boolean = false;
     private channelCache: boolean = false
     private emojiCache: boolean = false;
     private usersCache: boolean = false;
     private messageCache: boolean = false;
     private promiseRejection: boolean = false;
-    private activity: any;
+    public activity: any;
 
 
     public constructor(token?: string) {
@@ -24,25 +24,46 @@ export class EvolveBuilder {
         }
     }
 
-    
-    public setToken(token: string) {
+    /**
+     * 
+     * @param token 
+     * @returns The EvolveBuilder Class
+     */
+    public setToken(token: string): EvolveBuilder {
         this.token = token
         return this
     }
 
+    /**
+     * 
+     * @param totalShards 
+     * @note It must be greater than 0
+     * @returns The EvolveBuilder Class
+     */
     public setShards(totalShards: number) {
         if(totalShards >= 0) new EvolveLogger().error("Total shards must be more than 0!")
         this.shards = totalShards
         return this;
     }
 
+    /**
+     * 
+     * @param activity 
+     * @note The input should be the same as given in the discord api docs
+     * @returns The EvolveBuilder Class
+     */
     public setActivity(activity: typeof Identify.d.activity) {
         this.activity = activity
         return this
     }
 
-
-    public enableCache(...cache: CacheOptions[]) {
+    /**
+     * 
+     * @param cache 
+     * @enables The Cache Options for the library
+     * @returns The EvolveBuilder Client
+     */
+    public enableCache(...cache: CacheOptions[]): EvolveBuilder {
         if(cache.includes(CacheOptions.GUILD)) this.guildCache = true
         if(cache.includes(CacheOptions.USERS)) this.usersCache = true
         if(cache.includes(CacheOptions.CHANNELS)) this.channelCache = true
@@ -50,7 +71,13 @@ export class EvolveBuilder {
         return this
     }
 
-    
+
+    /**
+     * 
+     * @param cache 
+     * @disables The Cache Options for the Library
+     * @returns EvolveBuilder Class
+     */
     public disableCache(...cache: CacheOptions[]) {
         if(cache.includes(CacheOptions.GUILD)) this.guildCache = false
         if(cache.includes(CacheOptions.USERS)) this.usersCache = false
@@ -59,6 +86,13 @@ export class EvolveBuilder {
         return this
     }
 
+    /**
+     * 
+     * @param intents 
+     * @enables The Required Intents for the Bot
+     * @returns EvolveBuilder Class
+     * @warning No intents are applied at default so you wont receive any events except some exceptions
+     */
     public enableIntents(...intents: GatewayIntents[]) {
         intents.forEach(it => {
             this.intents = ((this.intents) + (it))
@@ -66,6 +100,12 @@ export class EvolveBuilder {
         return this
     }
 
+    /**
+     * 
+     * @param intents 
+     * @disables The Intents for your bot
+     * @returns EvolveBuilder Class
+     */
     public disableIntents(...intents: GatewayIntents[]) {
         intents.forEach(it => {
             this.intents = ((this.intents) - (it))
@@ -73,12 +113,23 @@ export class EvolveBuilder {
         return this
     }
 
+
+    /**
+     * 
+     * @param option 
+     * @enables The capturePromiseRejection for the EventEmitter
+     * @returns EvolveBuilderClass
+     */
     public capturePromiseRejection(option: boolean) {
         this.promiseRejection = option
         return this
     }
 
-    public build() {
+    /**
+     * @param none
+     * @returns {EvolveClient} A Initialized EvolveClient Instance
+     */
+    public build(): EvolveClient {
         let logger: EvolveLogger = new EvolveLogger()
         if(!this.token) {
             logger.error("EvolveBuilder#build Error.. -> No token Provided for EvolveClient to be initialized")
@@ -102,7 +153,9 @@ export class EvolveBuilder {
             })
 
             for(let i = 1; i < this.shards; i++) {
-            new EvolveSocket(builtClient, this.intents, [i - 1, this.shards], this.activity).init()
+                let shardArray: Array<number> = [i-1, this.shards]
+                builtClient.emit("shardReady", (shardArray))
+            new EvolveSocket(builtClient, this, shardArray).init()
         }
         
             return builtClient;

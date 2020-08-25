@@ -3,7 +3,7 @@ import { Payload } from '../Interfaces/Interfaces';
 import { EVENTS } from '../Constants/Events';
 
 export default class {
-	constructor(client: EvolveClient, payload: Payload) {
-		client.emit(EVENTS.MESSAGE_DELETE_BULK, payload.d);
+	constructor(client: EvolveClient, payload: Payload, shards: Array<number>) {
+		client.emit(EVENTS.MESSAGE_DELETE_BULK, (payload.d, shards));
 	}
 }

@@ -19,8 +19,12 @@ export function Gateway(data: any, ws: EvolveSocket) {
 
 			// Command: Identify
 			Identify.d.token = ws.client.token 
-			Identify.d.intents = ws.intents
-			Identify.d.shards = ws.shardArray
+			Identify.d.intents = ws.builder.intents
+			Identify.d.shards = ws.shards
+
+			if(ws.builder.activity) {
+				Identify.d.activity = ws.builder.activity
+			}
 			ws.send(JSON.stringify(Identify));
 		}
 		else if (op === OPCODE.Reconnect) {
@@ -33,7 +37,7 @@ export function Gateway(data: any, ws: EvolveSocket) {
 			try {
 					const { default: handler } = require(`../Events/${t}`);
 					console.log(t)
-					new handler(ws.client, payload);
+					new handler(ws.client, payload, ws.shards);
 			} catch (e) {
 				throw Error(e);
 			}
