@@ -26,6 +26,8 @@ export function Gateway(data: any, ws: EvolveSocket) {
 				Identify.d.activity = ws.builder.activity
 			}
 			ws.send(JSON.stringify(Identify));
+
+			ws.client.emit("shardReady", (ws.shards))
 		}
 		else if (op === OPCODE.Reconnect) {
 			//console.log(payload);
