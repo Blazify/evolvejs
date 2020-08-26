@@ -7,17 +7,27 @@ import { Objex } from '@evolvejs/objex';
 
 
 export class Gateway {
-	public shards: Objex<number, Gateway> = new Objex()
+	public shards: Objex<number, number> = new Objex()
 	constructor(
 		public data: Data, 
 		public ws: EvolveSocket, 
 		) {
-			for(let i = 1; i < this.ws.builder.shards + 1; i++) {
-				this.init(i - 1)
+			if(ws.builder.shards == 0) {
+				this.spawn(0)
+			} else {
+				for(let i = 0; i < ws.builder.shards; i++) {
+					this.shards.set(i, ws.builder.shards)
+				}
+				this.shards.forEach((v, k) => {
+						setTimeout(() => { 
+							this.spawn(k)
+						}, 5000 * k)
+				})
 			}
 		}
-		public init(shard: number) {
+		public spawn(shard: number) {
 			try {
+				
 				let payload: Payload = JSON.parse(this.data.toString());
 				const { op, t, d } = payload;
 				if (!d) return;
@@ -31,8 +41,6 @@ export class Gateway {
 		
 					// Command: Identify
 
-					if(!this.shards.get(shard)) {
-						console.log(shard)
 					Identify.d.token = this.ws.client.token 
 					Identify.d.intents = this.ws.builder.intents
 					Identify.d.shards = [shard, this.ws.builder.shards]
@@ -40,11 +48,10 @@ export class Gateway {
 					if(this.ws.builder.activity) {
 						Identify.d.activity = this.ws.builder.activity
 					}
+
 					this.ws.send(JSON.stringify(Identify));
-					this.shards.set(shard, this)
-		
 					this.ws.client.emit("shardReady", shard, this.ws.builder.shards)
-					}
+					
 				}
 				else if (op === OPCODE.Reconnect) {
 					//console.log(payload);
