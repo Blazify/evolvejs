@@ -2,7 +2,7 @@
 	"name": "evolvejs",
 	"version": "1.0.0",
 	"description": "An advanced discord API wrapper with TS and JS support",
-	"main": "TestBot/dist/Bot.js",
+	"main": "test.js",
 	"scripts": {
 		"start": "node test.js",
 		"build": "tsc"

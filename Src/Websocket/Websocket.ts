@@ -3,6 +3,7 @@ import { EvolveClient } from '../Client/EvolveClient';
 import { Gateway } from './Gateway';
 import { CONSTANTS } from '../Constants/Constants';
 import { EvolveBuilder } from '../Client/EvolveBuilder';
+import { EvolveLogger } from '../Client/EvolveLogger';
 
 
 export class EvolveSocket extends ws {
@@ -23,16 +24,14 @@ export class EvolveSocket extends ws {
 			});
 
 			this.on('close', (code, res) => {
-				throw Error(code + res);
+				EvolveLogger.error(`Code: ${code}, Response: ${res}`)
 			});
 
 			this.on('message', (data) => {
-				for(let i = 1; i < this.builder.shards; i++) {
-				return new Gateway(data, this, [i-1, this.builder.shards]);
-				}
+				return new Gateway(data, this)
 			});
-			this.onclose = function() {
-				throw Error('TOKEN_ERROR')
+			this.onclose = function(err) {
+				EvolveLogger.error(err.reason)
 			};
 		} catch (e) {
 			throw Error(e);

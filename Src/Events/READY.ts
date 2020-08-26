@@ -21,12 +21,12 @@ export default class {
 	public client: EvolveClient;
 	public payload: Payload;
 
-	constructor(client: EvolveClient, payload: Payload, shard: Array<number>) {
+	constructor(client: EvolveClient, payload: Payload, shard: number) {
 		this.client = client;
 		this.payload = payload;
 
 		(async () => await this.generate(payload))();
-		client.emit(EVENTS.READY);
+		client.emit(EVENTS.READY, shard);
 	}
 
 	private async generate(payload: Payload) {

@@ -3,7 +3,7 @@ import { Payload } from '../Interfaces/Interfaces';
 import { EVENTS } from '../Constants/Events';
 
 export default class {
-	constructor(client: EvolveClient, payload: Payload, shard: Array<number>) {
+	constructor(client: EvolveClient, payload: Payload, shard: number) {
 		client.emit(EVENTS.GUILD_MEMBER_UPDATE, (payload.d, shard));
 	}
 }

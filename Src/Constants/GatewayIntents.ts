@@ -1,5 +1,3 @@
-import { EvolveBuilder } from "../Client/EvolveBuilder";
-
 export enum GatewayIntents {
     GUILD = 1 << 0,
     GUILD_MEMBERS = 1 << 1,

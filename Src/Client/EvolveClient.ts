@@ -40,4 +40,5 @@ export class EvolveClient extends EventEmitter {
 	public set user(user: ClientUser) {
 		this._user = user;
 	}
+
 }
