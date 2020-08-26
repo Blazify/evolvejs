@@ -2,11 +2,17 @@ import { EvolveSocket } from './Websocket';
 import { OPCODE } from '../Constants/OpCodes';
 import { Payload } from '../Interfaces/Interfaces';
 import { Heartbeat, Identify } from '../Constants/Payloads';
+import { Data } from 'ws';
 
 
-export function Gateway(data: any, ws: EvolveSocket) {
+export class Gateway {
+	constructor(
+		data: Data, 
+		ws: EvolveSocket, 
+		shardArray: Array<number>
+		) {
 	try {
-		let payload: Payload = JSON.parse(data);
+		let payload: Payload = JSON.parse(data.toString());
 		const { op, t, d } = payload;
 		if (!d) return;
 
@@ -18,16 +24,17 @@ export function Gateway(data: any, ws: EvolveSocket) {
 			}, d.heartbeat_interval);
 
 			// Command: Identify
+
 			Identify.d.token = ws.client.token 
 			Identify.d.intents = ws.builder.intents
-			Identify.d.shards = ws.shards
+			Identify.d.shards = shardArray
 
 			if(ws.builder.activity) {
 				Identify.d.activity = ws.builder.activity
 			}
 			ws.send(JSON.stringify(Identify));
 
-			ws.client.emit("shardReady", (ws.shards))
+			ws.client.emit("shardReady", (shardArray))
 		}
 		else if (op === OPCODE.Reconnect) {
 			//console.log(payload);
@@ -38,8 +45,7 @@ export function Gateway(data: any, ws: EvolveSocket) {
 		else if (t) {
 			try {
 					const { default: handler } = require(`../Events/${t}`);
-					console.log(t)
-					new handler(ws.client, payload, ws.shards);
+					new handler(ws.client, payload, shardArray);
 			} catch (e) {
 				throw Error(e);
 			}
@@ -47,4 +53,5 @@ export function Gateway(data: any, ws: EvolveSocket) {
 	} catch (e) {
 		throw Error(e);
 	}
+}
 }

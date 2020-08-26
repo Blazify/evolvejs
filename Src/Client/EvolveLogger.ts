@@ -2,23 +2,23 @@ import chalk from "chalk"
 import moment from "moment";
 
 export class EvolveLogger {
-    async log (content: string, { color = 'grey', tag = 'Log' } = {}) {
-        await this.write(content, {color, tag});
+    static async log (content: string, { color = 'grey', tag = 'Log' } = {}) {
+        await EvolveLogger.write(content, {color, tag});
     }
-    async info (content: string, { color = 'blueBright', tag = 'Info' } = {}) {
-        await this.write(content, {color, tag});
+    static async info (content: string, { color = 'blueBright', tag = 'Info' } = {}) {
+        await EvolveLogger.write(content, {color, tag});
     }
-    async warn (content: string, { color = 'yellow', tag = 'Warn' } = {}) {
-        await this.write(content, {color, tag});
+    static async warn (content: string, { color = 'yellow', tag = 'Warn' } = {}) {
+        await EvolveLogger.write(content, {color, tag});
     }
-    async error (content: string, { color = 'red', tag = 'Error' } = {}) {
-        await this.write(content, {color, tag, error: true});
+    static async error (content: string, { color = 'red', tag = 'Error' } = {}) {
+        await EvolveLogger.write(content, {color, tag, error: true});
         process.exit()
     }
-    async stacktrace (content: string, { color = 'white', tag = 'Error' } = {}) {
-        await this.write(content, {color, tag, error: true});
+    static async stacktrace (content: string, { color = 'white', tag = 'Error' } = {}) {
+        await EvolveLogger.write(content, {color, tag, error: true});
     }
-    async write(content: string, { color = 'grey', tag = 'Log', error = false } = {}) {
+    static async write(content: string, { color = 'grey', tag = 'Log', error = false } = {}) {
         let text;
         const timestamp = chalk.white(`[${moment().format('MM-DD-YYYY HH:mm:ss')}]:`);
         const levelTag = chalk.bold.green(`[${tag}]:`); 

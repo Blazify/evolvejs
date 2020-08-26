@@ -4,7 +4,7 @@ import { EVENTS } from '../Constants/Events';
 import { Message } from '../Structures/Message/Message';
 
 export default class {
-	constructor(client: EvolveClient, payload: Payload, shards: Array<number>) {
+	constructor(client: EvolveClient, payload: Payload, shard: Array<number>) {
 		let message = new Message(payload.d, client)
 		message.channel.send = async (content: string) => {
 			return await client.api.sendMessage(content, message.channel.id);
@@ -18,6 +18,6 @@ export default class {
 			client.messages.set(message.id, message)
 		}
 
-		client.emit(EVENTS.MESSAGE_CREATE, message, shards);
+		client.emit(EVENTS.MESSAGE_CREATE, message, shard);
 	}
 }

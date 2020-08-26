@@ -41,7 +41,7 @@ export class EvolveBuilder {
      * @returns The EvolveBuilder Class
      */
     public setShards(totalShards: number) {
-        if(totalShards >= 0) new EvolveLogger().error("Total shards must be more than 0!")
+        if(totalShards <= 0) EvolveLogger.error("Total shards must be more than 0!")
         this.shards = totalShards
         return this;
     }
@@ -130,17 +130,16 @@ export class EvolveBuilder {
      * @returns {EvolveClient} A Initialized EvolveClient Instance
      */
     public build(): EvolveClient {
-        let logger: EvolveLogger = new EvolveLogger()
         if(!this.token) {
-            logger.error("EvolveBuilder#build Error.. -> No token Provided for EvolveClient to be initialized")
+            EvolveLogger.error("EvolveBuilder#build Error.. -> No token Provided for EvolveClient to be initialized")
         }
 
         if(!this.guildCache) {
-           logger.warn("The Guild Cache is disabled so the READY event guilds will be emmited again in GUILD_CREATE Event and to avoid this use the EvolveBuilder#enableGuildCache")
+            EvolveLogger.warn("The Guild Cache is disabled so the READY event guilds will be emmited again in GUILD_CREATE Event and to avoid this use the EvolveBuilder#enableGuildCache")
         }
 
         if(this.intents == 0) {
-            logger.warn("No Intents are given, you will not get any events except some...")
+            EvolveLogger.warn("No Intents are given, you will not get any events except some...")
         }
 
         let builtClient: EvolveClient = new EvolveClient(this.token, {
@@ -152,10 +151,7 @@ export class EvolveBuilder {
             capturePromiseRejection: this.promiseRejection
             })
 
-            for(let i = 1; i < this.shards; i++) {
-                let shardArray: Array<number> = [i-1, this.shards]
-            new EvolveSocket(builtClient, this, shardArray).init()
-        }
+            new EvolveSocket(builtClient, this).init()
         
             return builtClient;
     }

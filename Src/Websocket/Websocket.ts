@@ -2,7 +2,6 @@ import ws from 'ws';
 import { EvolveClient } from '../Client/EvolveClient';
 import { Gateway } from './Gateway';
 import { CONSTANTS } from '../Constants/Constants';
-import { Identify } from '../Constants/Payloads';
 import { EvolveBuilder } from '../Client/EvolveBuilder';
 
 
@@ -12,7 +11,6 @@ export class EvolveSocket extends ws {
 	constructor(
 		public client: EvolveClient,
 		public builder: EvolveBuilder,
-		public shards: Array<Number>
 		) {
 		super(CONSTANTS.Gateway);
 		this.client = client;
@@ -29,7 +27,9 @@ export class EvolveSocket extends ws {
 			});
 
 			this.on('message', (data) => {
-				return Gateway(data, this);
+				for(let i = 1; i < this.builder.shards; i++) {
+				return new Gateway(data, this, [i-1, this.builder.shards]);
+				}
 			});
 			this.onclose = function() {
 				throw Error('TOKEN_ERROR')

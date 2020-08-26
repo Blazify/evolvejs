@@ -9,6 +9,7 @@ import { Snowflake } from '../Constants/Constants';
 import API from '../API/API';
 import { ClientOptions } from './ClientOptions';
 import { Message } from '../Structures/Message/Message';
+import { EvolveLogger } from './EvolveLogger';
 
 export class EvolveClient extends EventEmitter {
 	public token: string;
@@ -19,6 +20,7 @@ export class EvolveClient extends EventEmitter {
 	public emojis: Objex<Snowflake, Emoji> = new Objex();
 	public messages: Objex<Snowflake, Message> = new Objex()
 	private _user?: ClientUser;
+	public logger: EvolveLogger = EvolveLogger
 	public api: API = new API(this)
 
 	public constructor (
