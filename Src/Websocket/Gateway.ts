@@ -3,31 +3,28 @@ import { OPCODE } from '../Constants/OpCodes';
 import { Payload } from '../Interfaces/Interfaces';
 import { Heartbeat, Identify } from '../Constants/Payloads';
 import { Data } from 'ws';
-import { Objex } from '@evolvejs/objex';
+import { EvolveLogger } from '../Client/EvolveLogger';
 
 
 export class Gateway {
-	public shards: Objex<number, number> = new Objex()
+	public launchedShards: Set<number> = new Set()
 	constructor(
 		public data: Data, 
 		public ws: EvolveSocket, 
 		) {
-			if(ws.builder.shards == 0) {
-				this.spawn(0)
-			} else {
-				for(let i = 0; i < ws.builder.shards; i++) {
-					this.shards.set(i, ws.builder.shards)
-				}
-				this.shards.forEach((v, k) => {
-						setTimeout(() => { 
-							this.spawn(k)
-						}, 5000 * k)
-				})
+			for(let i = 0; i  < ws.builder.shards; i++) {
+				setTimeout(() => {
+				this.spawn(i)
+				}, (5000 * i))
 			}
 		}
 		public spawn(shard: number) {
 			try {
-				
+				if(this.launchedShards.has(shard)) {
+					EvolveLogger.error("Internal Shard Spawning Error (Double Shard Instances)")
+				} else if(!this.launchedShards.has(shard)) {
+					this.launchedShards.add(shard)
+				}
 				let payload: Payload = JSON.parse(this.data.toString());
 				const { op, t, d } = payload;
 				if (!d) return;
