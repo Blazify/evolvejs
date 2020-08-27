@@ -94,9 +94,9 @@ export class EvolveBuilder {
      * @warning No intents are applied at default so you wont receive any events except some exceptions
      */
     public enableIntents(...intents: GatewayIntents[]) {
-        intents.forEach(it => {
-            this.intents = ((this.intents) + (it))
-        })
+        for(let intent of intents) {
+            this.intents = ((this.intents) + (intent))
+        }
         return this
     }
 
@@ -107,9 +107,9 @@ export class EvolveBuilder {
      * @returns EvolveBuilder Class
      */
     public disableIntents(...intents: GatewayIntents[]) {
-        intents.forEach(it => {
-            this.intents = ((this.intents) - (it))
-        })
+        for(let intent of intents) {
+            this.intents = ((this.intents) - (intent))
+        }
         return this
     }
 

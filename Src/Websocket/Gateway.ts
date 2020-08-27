@@ -5,37 +5,19 @@ import { Heartbeat, Identify } from '../Constants/Payloads';
 import { Data } from 'ws';
 import { EvolveLogger } from '../Client/EvolveLogger';
 
-
-
 export class Gateway {
+	public data!: Data;
+	public ws!: EvolveSocket;
 	public launchedShards: Set<number> = new Set()
-	constructor(
-		public data: Data, 
-		public ws: EvolveSocket, 
-		) {
-			for(let i = 0; i  < ws.builder.shards; i++) {
-					new Promise((resolve, reject) => {
-						setTimeout(() => {
-							try {
-								this.spawn(i)
-								this.ws.client.emit("shardReady", i, resolve)
-							} catch {
-							reject(new Error(`Shard Spawning Failed`))
-							}
-					}, (5000 * i));
-					});
-			}
-		}
-		public spawn(shard: number) {
-			try {
-				console.log(shard)
+	
+	public constructor() {}
 
-				if(this.launchedShards.has(shard)) {
-					EvolveLogger.error("Internal Shard Spawning Error (Double Shard Instances)")
-				} else if(!this.launchedShards.has(shard)) {
-					this.launchedShards.add(shard)
-				}
-				let payload: Payload = JSON.parse(this.data.toString());
+		public init(data: Data, ws: EvolveSocket) {
+			this.data = data;
+			this.ws = ws;
+
+			try {
+				const payload: Payload = JSON.parse(this.data.toString());
 				const { op, t, d } = payload;
 				if (!d) return;
 		
@@ -46,18 +28,18 @@ export class Gateway {
 						this.ws.send(JSON.stringify(Heartbeat));
 					}, d.heartbeat_interval);
 		
-					// Command: Identify
-
-					Identify.d.token = this.ws.client.token 
-					Identify.d.intents = this.ws.builder.intents
-					Identify.d.shards = [shard, this.ws.builder.shards]
-		
-					if(this.ws.builder.activity) {
-						Identify.d.activity = this.ws.builder.activity
-					}
-
-					this.ws.send(JSON.stringify(Identify));
-					
+					for(let i = 0; i  < this.ws.builder.shards; i++) {
+						new Promise((resolve, reject) => {
+							setTimeout(() => {
+								try {
+									this.spawn(i)
+									this.ws.client.emit("shardReady", i, resolve)
+								} catch {
+								reject(new Error(`Shard Spawning Failed`))
+								}
+						}, (5000 * i));
+					});
+			}
 				}
 				else if (op === OPCODE.Reconnect) {
 					//console.log(payload);
@@ -68,7 +50,7 @@ export class Gateway {
 				else if (t) {
 					try {
 							const { default: handler } = require(`../Events/${t}`);
-							new handler(this.ws.client, payload, shard);
+							new handler(this.ws.client, payload);
 					} catch (e) {
 						throw Error(e);
 					}
@@ -77,4 +59,18 @@ export class Gateway {
 				throw Error(e);
 			}
 		}
-}
+
+		public spawn(shard: number) {
+			 if(this.launchedShards.has(shard)) {
+				 	EvolveLogger.error("Internal Shard Spawning Error (Double Shard Instances)")
+				 } else if(!this.launchedShards.has(shard)) {
+				 	this.launchedShards.add(shard)
+				}
+
+				Identify.d.token = this.ws.client.token
+				Identify.d.activity = this.ws.builder.activity
+				Identify.d.shard = [shard, this.ws.builder.shards]
+
+				this.ws.send(JSON.stringify(Identify))
+		}
+	}

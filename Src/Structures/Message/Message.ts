@@ -24,9 +24,9 @@ export class Message {
 		this.sentAt = data.sent_at
 		this.id = data.id
 		this.pinned = data.pinned
-		data.mentions.forEach(it => {
+		for(let it of data.mentions) {
 			this.mentions.push(new User(it))
-		})
+		}
 		this.rolementions = data.mention_roles
 		this.mentionEveryone = data.mention_everyone
 		this.member = data.member
