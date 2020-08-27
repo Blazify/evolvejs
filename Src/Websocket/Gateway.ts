@@ -6,6 +6,7 @@ import { Data } from 'ws';
 import { EvolveLogger } from '../Client/EvolveLogger';
 
 
+
 export class Gateway {
 	public launchedShards: Set<number> = new Set()
 	constructor(
@@ -13,13 +14,22 @@ export class Gateway {
 		public ws: EvolveSocket, 
 		) {
 			for(let i = 0; i  < ws.builder.shards; i++) {
-				setTimeout(() => {
-				this.spawn(i)
-				}, (5000 * i))
+					new Promise((resolve, reject) => {
+						setTimeout(() => {
+							try {
+								this.spawn(i)
+								this.ws.client.emit("shardReady", i, resolve)
+							} catch {
+							reject(new Error(`Shard Spawning Failed`))
+							}
+					}, (5000 * i));
+					});
 			}
 		}
 		public spawn(shard: number) {
 			try {
+				console.log(shard)
+
 				if(this.launchedShards.has(shard)) {
 					EvolveLogger.error("Internal Shard Spawning Error (Double Shard Instances)")
 				} else if(!this.launchedShards.has(shard)) {
@@ -47,7 +57,6 @@ export class Gateway {
 					}
 
 					this.ws.send(JSON.stringify(Identify));
-					this.ws.client.emit("shardReady", shard, this.ws.builder.shards)
 					
 				}
 				else if (op === OPCODE.Reconnect) {
