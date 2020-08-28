@@ -4,6 +4,7 @@ import { Payload } from '../Interfaces/Interfaces';
 import { Heartbeat, Identify } from '../Constants/Payloads';
 import { Data } from 'ws';
 import { EvolveLogger } from '../Client/EvolveLogger';
+import { promisify } from 'util';
 
 export class Gateway {
 	public data!: Data;
@@ -29,17 +30,10 @@ export class Gateway {
 					}, d.heartbeat_interval);
 		
 					for(let i = 0; i  < this.ws.builder.shards; i++) {
-						new Promise((resolve, reject) => {
-							setTimeout(() => {
-								try {
-									this.spawn(i)
-									this.ws.client.emit("shardReady", i, resolve)
-								} catch {
-								reject(new Error(`Shard Spawning Failed`))
-								}
-						}, (5000 * i));
-					});
-			}
+						promisify(setTimeout)(5000 * i).then(() => {
+							this.spawn(i)
+						})
+					}
 				}
 				else if (op === OPCODE.Reconnect) {
 					//console.log(payload);
