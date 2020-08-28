@@ -6,13 +6,6 @@ import { Message } from '../Structures/Message/Message';
 export default class {
 	constructor(client: EvolveClient, payload: Payload, shard: number) {
 		let message = new Message(payload.d, client)
-		message.channel.send = async (content: string) => {
-			return await client.api.sendMessage(content, message.channel.id);
-		}
-
-		message.channel.purge = async (time: number = 0) => {
-			return await client.api.deleteMessage(message.id, message.channel.id, time)
-		}
 
 		if(client.options.enableMessageCache) {
 			client.messages.set(message.id, message)

@@ -7,6 +7,7 @@ import {Guild} from '../Guild/Guild';
 import CategoryChannel from './CategoryChannel';
 import { Objex } from '@evolvejs/objex';
 import API from '../../API/API';
+import { Message } from '../Message/Message';
 
 export default class extends Channel {
 	public overwrites: Objex<Snowflake, Overwrite> = new Objex();
@@ -20,7 +21,7 @@ export default class extends Channel {
 	public rateLimit: number;
 	public parent?: CategoryChannel;
 	public lastPin?: number;
-	public send!: (content: string) => Promise<API["sendMessage"]>;
+	public send!:  (content: string) => Promise<Message>;
 	public purge!: (time?: number) => Promise<NodeJS.Timeout>;
 
 	constructor(data: ITextChannel, client: EvolveClient) {

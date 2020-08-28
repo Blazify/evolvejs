@@ -36,5 +36,12 @@ export class Message {
 		this.content = data.content
 		client.api.getGuild(data.guild_id!).then(it => this.guild = it)
 		client.api.getChannel(data.channel_id).then(it => this.channel = it)
+		this.channel.send = async (content: string) => {
+			return await client.api.sendMessage(content, this.channel.id);
+		}
+
+		this.channel.purge = async (time: number = 0) => {
+			return await client.api.deleteMessage(this.id, this.channel.id, time)
+		}
 	}
 }

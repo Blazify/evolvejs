@@ -14,7 +14,7 @@ export default async function(client: EvolveClient, options: IAPIParams) {
 					Authorization: `Bot ${client.token}`
 				},
 			});
-			return await fetched.json();
+			return fetched.json();
 		} else {
 			let fetched = await fetch(`${CONSTANTS.Api}/${options.endpoint}`, {
 				method: options.method,
@@ -24,7 +24,7 @@ export default async function(client: EvolveClient, options: IAPIParams) {
 				},
 				body: JSON.stringify(options.content)
 			});
-			return await fetched.json();
+			return fetched.json();
 		}
 	} catch (e) {
 		throw Error(e);

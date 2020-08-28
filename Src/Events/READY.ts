@@ -46,29 +46,15 @@ export default class {
 		for (let x of guilds) {
 			const g = await this.client.api.getGuild(x.id);
 
-			const guild = new Guild(g, this.client);
+			const guild = new Guild(x, this.client);
 			if(this.client.options.enableGuildCache) this.client.guilds.set(guild.id, guild);
 
 			let channels = await this.client.api.getGuildChannels(g.id);
-			for (let c of channels) {
-				if(c.type === CHANNELTYPES.Category && this.client.options.enableChannelCache) {
-				guild.channels.set(c.id, new CategoryChannel(c, this.client));
-				} else if(c.type === CHANNELTYPES.Direct && this.client.options.enableChannelCache) {
-					guild.channels.set(c.id, new DMChannel(c, this.client));
-				} else if(c.type === CHANNELTYPES.Group && this.client.options.enableChannelCache) {
-					guild.channels.set(c.id, new GroupChannel(c, this.client));
-				} else if(c.type === CHANNELTYPES.News && this.client.options.enableChannelCache) {
-					guild.channels.set(c.id, new NewsChannel(c, this.client));
-				} else if(c.type === CHANNELTYPES.Store && this.client.options.enableChannelCache) {
-					guild.channels.set(c.id, new StoreChannel(c, this.client));
-				} else if(c.type === CHANNELTYPES.Text && this.client.options.enableChannelCache) {
-					guild.channels.set(c.id, new TextChannel(c, this.client));
-				} else if(c.type === CHANNELTYPES.Voice && this.client.options.enableChannelCache) {
-					guild.channels.set(c.id, new VoiceChannel(c, this.client));
-				}
-			}
+			  for(let c of channels) {
+				  guild.channels.set(c.id, c)
+			  }
 
-			for (let role of g.roles) {
+			for (let role of x.roles) {
 				let r = new Role(
 					role.id,
 					role.name,
@@ -80,17 +66,16 @@ export default class {
 					role.mentionable
 				);
 
-				g.roles.push(r);
+				g.roles.set(r.id, r);
 			}
 
 			let members = await this.client.api.getGuildMembers(guild.id);
-			for (var m of members) {
-				const member = new GuildMember(m);
-				guild.members.set(m.id, member);
-			}
+			for (let m of members) {
+				guild.members.set(m.user!.id, m);
+			
 
-			if (g.emojis.length) {
-				for (let e of g.emojis) {
+			if (x.emojis.length) {
+				for (let e of x.emojis) {
 					const emoji = new Emoji(
 						e.id,
 						e.name,
@@ -106,11 +91,10 @@ export default class {
 				}
 			}
 
-			let user = await this.client.api.getUser(m.user.id);
-
-			user = new User(user)
+			let user = await this.client.api.getUser(m.user!.id);
 
 			m.user = user;
+		}
 			if(this.client.options.enableUsersCache) this.client.users.set(user.id, user);
 		}
 	}
