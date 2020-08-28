@@ -22,6 +22,12 @@ export default class API {
 		});
 	}
 
+	public async getAuditLogs(guildID: Snowflake) {
+		return await RestAPIHandler(this.client, {
+			endpoint: `/guilds/${guildID}/audit-logs`,
+			method: 'POST'
+	})
+}
 	public async getUser(userID: Snowflake) {
 		return await RestAPIHandler(this.client, {
 			endpoint: `users/${userID}`,

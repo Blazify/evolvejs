@@ -16,7 +16,7 @@ export class EvolveBuilder {
     private messageCache: boolean = false;
     private promiseRejection: boolean = false;
     public activity: any;
-
+    private secret!: string;
 
     public constructor(token?: string) {
         if(token) {
@@ -113,6 +113,10 @@ export class EvolveBuilder {
         return this
     }
 
+    public setSecret(clientSecret: string) {
+        this.secret = clientSecret;
+        return this
+    }
 
     /**
      * 
@@ -152,7 +156,7 @@ export class EvolveBuilder {
             })
 
             new EvolveSocket(builtClient, this).init()
-        
+            builtClient.secret = this.secret;
             return builtClient;
     }
 
