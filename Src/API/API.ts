@@ -34,19 +34,19 @@ export default class API {
 		let channelArray = new Array()
 
 		for(let c of channel) {
-			if(c.type === CHANNELTYPES.Category && this.client.options.enableChannelCache) {
-				return new CategoryChannel(c, this.client);
-				} else if(c.type === CHANNELTYPES.Direct && this.client.options.enableChannelCache) {
+			if(c.type === CHANNELTYPES.Category) {
+				channelArray.push(new CategoryChannel(c, this.client));
+				} else if(c.type === CHANNELTYPES.Direct) {
 					channelArray.push(new DMChannel(c, this.client));
-				} else if(c.type === CHANNELTYPES.Group && this.client.options.enableChannelCache) {
+				} else if(c.type === CHANNELTYPES.Group) {
 					channelArray.push(new GroupChannel(c, this.client));
-				} else if(c.type === CHANNELTYPES.News && this.client.options.enableChannelCache) {
+				} else if(c.type === CHANNELTYPES.News) {
 				    channelArray.push(new NewsChannel(c, this.client));
-				} else if(c.type === CHANNELTYPES.Store && this.client.options.enableChannelCache) {
+				} else if(c.type === CHANNELTYPES.Store) {
 					channelArray.push(new StoreChannel(c, this.client));
-				} else if(c.type === CHANNELTYPES.Text && this.client.options.enableChannelCache) {
+				} else if(c.type === CHANNELTYPES.Text) {
 					channelArray.push(new TextChannel(c, this.client));
-				} else if(c.type === CHANNELTYPES.Voice && this.client.options.enableChannelCache) {
+				} else if(c.type === CHANNELTYPES.Voice) {
 					channelArray.push(new VoiceChannel(c, this.client));
 				}
 		}
@@ -112,15 +112,26 @@ export default class API {
 		});
 	}
 	public async getChannel(channelID: Snowflake) {
-		return await RestAPIHandler(this.client, {
+		let c = await RestAPIHandler(this.client, {
 			endpoint: `/channels/${channelID}`,
 			method: "GET"
 		})
-	}
-	public async getGuildChannel(guildID: Snowflake) {
-		return await RestAPIHandler(this.client, {
-			endpoint: `/guilds/${guildID}/channels`,
-			method: "GET"
-		})
+
+		if(c.type === CHANNELTYPES.Category) {
+			return(new CategoryChannel(c, this.client));
+			} else if(c.type === CHANNELTYPES.Direct) {
+				return(new DMChannel(c, this.client));
+			} else if(c.type === CHANNELTYPES.Group) {
+				return(new GroupChannel(c, this.client));
+			} else if(c.type === CHANNELTYPES.News) {
+				return(new NewsChannel(c, this.client));
+			} else if(c.type === CHANNELTYPES.Store) {
+				return(new StoreChannel(c, this.client));
+			} else if(c.type === CHANNELTYPES.Text) {
+				return(new TextChannel(c, this.client));
+			} else if(c.type === CHANNELTYPES.Voice) {
+				return(new VoiceChannel(c, this.client));
+			}
+			return c;
 	}
 }

@@ -1,5 +1,5 @@
 import { EvolveClient } from "../Client/EvolveClient";
-import { TokenAccessOptions } from "../Client/TokenAccessOptions";
+import { TokenAccessOptions } from "../Constants/TokenAccessOptions";
 import { CONSTANTS } from "../Constants/Constants";
 
 export async function Oauth2Token(

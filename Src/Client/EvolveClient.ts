@@ -10,7 +10,7 @@ import API from '../API/API';
 import { ClientOptions } from './ClientOptions';
 import { Message } from '../Structures/Message/Message';
 import { EvolveLogger } from './EvolveLogger';
-import { TokenAccessOptions } from './TokenAccessOptions';
+import { TokenAccessOptions } from '../Constants/TokenAccessOptions';
 import { Oauth2Token } from '../Oauth2/Oauth2Token';
 
 export class EvolveClient extends EventEmitter {
