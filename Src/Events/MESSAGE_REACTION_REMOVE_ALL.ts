@@ -9,8 +9,6 @@ export default class {
 		let channel = client.channels.get(channel_id)
 		let message = client.messages.get(message_id)
 		let guild = client.guilds.get(guild_id)
-		let nEmoji = client.emojis.get(emoji.id)
-		client.emit(EVENTS.MESSAGE_REACTION_REMOVE_EMOJI, nEmoji, message, channel, guild)
+		client.emit(EVENTS.MESSAGE_REACTION_REMOVE_All, message, channel, guild)
 	}
 }
-

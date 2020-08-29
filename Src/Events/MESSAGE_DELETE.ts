@@ -4,6 +4,10 @@ import { EVENTS } from '../Constants/Events';
 
 export default class {
 	constructor(client: EvolveClient, payload: Payload, shard: number) {
-		client.emit(EVENTS.MESSAGE_DELETE, (payload.d, shard));
+		const { id, guild_id, channel_id } = payload.d
+		let message = client.messages.get(id)
+		let guild = client.guilds.get(guild_id)
+		let channel = client.channels.get(channel_id)
+		client.emit(EVENTS.MESSAGE_DELETE, message, guild, channel);
 	}
 }

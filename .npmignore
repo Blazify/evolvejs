@@ -1,0 +1,11 @@
+Src
+.gitignore
+test.js
+.npmignore
+tsconfig.json
+tsconfig.buildinfo
+node_modules
+.github
+.idea
+.vscode
+package-lock.json

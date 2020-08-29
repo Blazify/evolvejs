@@ -4,6 +4,8 @@ import { EVENTS } from '../Constants/Events';
 
 export default class {
 	constructor(client: EvolveClient, payload: Payload, shard: number) {
-		client.emit(EVENTS.CHANNEL_CREATE, (payload.d, shard));
+		client.api.getChannel(payload.d.id).then(o => 
+		client.emit(EVENTS.CHANNEL_CREATE, o)
+	);
 	}
 }

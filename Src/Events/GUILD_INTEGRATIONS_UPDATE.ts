@@ -4,6 +4,9 @@ import { EVENTS } from '../Constants/Events';
 
 export default class {
 	constructor(client: EvolveClient, payload: Payload, shard: number) {
-		client.emit(EVENTS.GUILD_INTEGRATIONS_UPDATE, (payload.d, shard));
+		(async() => {
+			let guild = await client.api.getGuild(payload.d.guild)
+			client.emit(EVENTS.GUILD_INTEGRATIONS_UPDATE, guild)
+		});
 	}
 }

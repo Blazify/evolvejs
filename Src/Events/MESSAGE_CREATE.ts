@@ -5,7 +5,7 @@ import { Message } from '../Structures/Message/Message';
 
 export default class {
 	constructor(client: EvolveClient, payload: Payload, shard: number) {
-		let message = new Message(payload.d, client)
+		let message = new Message(payload.d.message, client)
 
 		if(client.options.enableMessageCache) {
 			client.messages.set(message.id, message)
