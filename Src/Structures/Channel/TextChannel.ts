@@ -1,23 +1,21 @@
 import Channel from './Channel';
 import { ITextChannel } from '../../Interfaces/TextChannelOptions';
-import { CHANNELTYPES, Snowflake } from '../../Constants/Constants';
 import Overwrite from './Overwrite';
-import { EvolveClient } from '../../Client/EvolveClient';
+import { EvolveClient, CHANNELTYPES } from '../..';
 import {Guild} from '../Guild/Guild';
 import CategoryChannel from './CategoryChannel';
 import { Objex } from '@evolvejs/objex';
-import API from '../../API/API';
 import { Message } from '../Message/Message';
 
 export default class extends Channel {
-	public overwrites: Objex<Snowflake, Overwrite> = new Objex();
+	public overwrites: Objex<string, Overwrite> = new Objex();
 
 	public guild: Guild;
 	public position: number;
 	public name: string;
 	public topic?: string;
 	public nsfw: boolean;
-	public lastMessage?: Snowflake;
+	public lastMessage?: string;
 	public rateLimit: number;
 	public parent?: CategoryChannel;
 	public lastPin?: number;

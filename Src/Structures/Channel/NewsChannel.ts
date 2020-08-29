@@ -1,24 +1,23 @@
 import Channel from './Channel';
 import { INewsChannel } from '../../Interfaces/NewsChannelOptions';
-import { Snowflake, CHANNELTYPES } from '../../Constants/Constants';
 import Overwrite from './Overwrite';
-import { EvolveClient } from '../../Client/EvolveClient';
+import { EvolveClient, CHANNELTYPES } from '../..';
 import {Guild} from '../Guild/Guild';
 import CategoryChannel from './CategoryChannel';
 import { Objex } from '@evolvejs/objex';
 
 export default class extends Channel {
-	public overwrites: Objex<Snowflake, Overwrite> = new Objex();
+	public overwrites: Objex<string, Overwrite> = new Objex();
 
 	public guild: Guild;
 	public position: number;
 	public name: string;
 	public topic?: string;
 	public nsfw: boolean;
-	public lastMessage?: Snowflake;
+	public lastMessage?: string;
 	public rateLimit: number;
 	public parentID?: CategoryChannel;
-	public lastPin?: Snowflake;
+	public lastPin?: string;
 
 	constructor(data: INewsChannel, client: EvolveClient) {
 		super(data.id, CHANNELTYPES.News, client);

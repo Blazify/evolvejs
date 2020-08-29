@@ -1,6 +1,6 @@
-import { EvolveClient } from '../Client/EvolveClient';
+
 import { Payload } from '../Interfaces/Interfaces';
-import { EVENTS } from '../Constants/Events';
+import { EvolveClient, EVENTS } from '..';
 import { GuildMember } from '../Structures/Guild/GuildMember';
 
 export default class {
@@ -17,10 +17,10 @@ export default class {
 	}
 }
 /*
-user_id	snowflake	the id of the user
-channel_id	snowflake	the id of the channel
-message_id	snowflake	the id of the message
-guild_id?	snowflake	the id of the guild
+user_id	string	the id of the user
+channel_id	string	the id of the channel
+message_id	string	the id of the message
+guild_id?	string	the id of the guild
 member?	member object	the member who reacted if this happened in a guild
 emoji	a partial emoji object	the emoji used to react - example
 */

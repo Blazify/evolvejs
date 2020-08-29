@@ -1,6 +1,6 @@
-import { EvolveClient } from '../Client/EvolveClient';
+
 import { Payload } from '../Interfaces/Interfaces';
-import { EVENTS } from '../Constants/Events';
+import { EvolveClient, EVENTS } from '..';
 import { GuildMember } from '../Structures/Guild/GuildMember';
 
 export default class {

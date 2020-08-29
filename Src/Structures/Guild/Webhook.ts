@@ -1,12 +1,11 @@
-import { Snowflake } from '../../Constants/Constants';
 import { Guild } from './Guild';
 import Channel from '../Channel/Channel';
 import {User} from '../User/User';
 import { IWebhook } from '../../Interfaces/WebhookOptions';
-import { EvolveClient } from '../../Client/EvolveClient';
+import { EvolveClient } from '../..';
 
 export default class {
-	public id!: Snowflake;
+	public id!: string;
 	public type!: number;
 	public guild!: Guild;
 	public channel!: Channel;

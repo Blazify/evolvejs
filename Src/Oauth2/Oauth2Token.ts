@@ -1,12 +1,11 @@
-import { EvolveClient } from "../Client/EvolveClient";
-import { TokenAccessOptions } from "../Constants/TokenAccessOptions";
-import { CONSTANTS } from "../Constants/Constants";
+import { EvolveClient, TokenAccessOptions, CONSTANTS } from "..";
+
 
 export async function Oauth2Token(
         client: EvolveClient,
-        options: TokenAccessOptions 
+        options: TokenAccessOptions
 ) {
-   
+
         let string = ""
         for (const [key, value] of Object.entries({
             client_id: client.user.id,
@@ -27,6 +26,7 @@ export async function Oauth2Token(
             method: "POST",
             body: string.substring(1)
         })
+
 
         return fetched.json()
     }

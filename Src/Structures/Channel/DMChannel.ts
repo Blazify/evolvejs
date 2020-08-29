@@ -1,14 +1,13 @@
 import Channel from './Channel';
 import { IDMChannel } from '../../Interfaces/DMChannelOptions';
-import { Snowflake, CHANNELTYPES } from '../../Constants/Constants';
-import { EvolveClient } from '../../Client/EvolveClient';
+import { EvolveClient, CHANNELTYPES } from '../..';
 import {User} from '../User/User';
 import { Objex } from '@evolvejs/objex';
 
 export default class extends Channel {
-	public recipients: Objex<Snowflake, User> = new Objex();
+	public recipients: Objex<string, User> = new Objex();
 
-	public lastMessage?: Snowflake;
+	public lastMessage?: string;
 	public lastPin?: number;
 
 	constructor(data: IDMChannel, client: EvolveClient) {

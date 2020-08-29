@@ -1,4 +1,4 @@
-import { Snowflake, ACTIVITY } from '../Constants/Constants';
+import { ACTIVITY } from '..';
 
 export interface IActivity {
 	name: string; // The activity name
@@ -6,7 +6,7 @@ export interface IActivity {
 	created_at: number; // Timestamp of when the activity was added to the user's session
 	url?: string | null; // Stream url, is validated when type is 1
 	timestamps?: ITimestamps; // Timestamps for start and/or end of the game
-	application_id?: Snowflake; // Application id for the game
+	application_id?: string; // Application id for the game
 	details?: string | null; // What the player is currently doing
 	state?: string | null; // The user's current party status
 	emoji?: IActivityEmoji | null; // The emoji used for a custom status
@@ -24,7 +24,7 @@ export interface ITimestamps {
 
 export interface IActivityEmoji {
 	name: string; // Emoji name
-	id?: Snowflake; // Emoji ID
+	id?: string; // Emoji ID
 	animated?: boolean; // Whether the emoji is animated
 }
 

@@ -5,30 +5,28 @@ import { Guild } from '../Structures/Guild/Guild';
 import Channel from '../Structures/Channel/Channel';
 import { User } from '../Structures/User/User';
 import Emoji from '../Structures/Guild/Emoji';
-import { Snowflake } from '../Constants/Constants';
 import API from '../API/API';
 import { ClientOptions } from './ClientOptions';
 import { Message } from '../Structures/Message/Message';
-import { EvolveLogger } from './EvolveLogger';
-import { TokenAccessOptions } from '../Constants/TokenAccessOptions';
+import { EvolveLogger, TokenAccessOptions } from "..";
 import { Oauth2Token } from '../Oauth2/Oauth2Token';
 import { Role } from '../Structures/Guild/Role';
 
 export class EvolveClient extends EventEmitter {
 	public token: string;
 	public options: ClientOptions;
-	public guilds: Objex<Snowflake, Guild> = new Objex();
-	public channels: Objex<Snowflake, Channel> = new Objex();
-	public users: Objex<Snowflake, User> = new Objex();
-	public emojis: Objex<Snowflake | null, Emoji> = new Objex();
-	public roles: Objex<Snowflake, Role> = new Objex()
-	public messages: Objex<Snowflake, Message> = new Objex()
+	public guilds: Objex<string, Guild> = new Objex();
+	public channels: Objex<string, Channel> = new Objex();
+	public users: Objex<string, User> = new Objex();
+	public emojis: Objex<string | null, Emoji> = new Objex();
+	public roles: Objex<string, Role> = new Objex()
+	public messages: Objex<string, Message> = new Objex()
 	private _user?: ClientUser;
 	public api: API = new API(this)
 	public secret!: string;
 
 	public constructor (
-		token: string, 
+		token: string,
 		options: ClientOptions
 	) {
 		super({ captureRejections: options.capturePromiseRejection });

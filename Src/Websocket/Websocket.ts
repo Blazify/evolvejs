@@ -1,9 +1,6 @@
 import ws from 'ws';
-import { EvolveClient } from '../Client/EvolveClient';
 import { Gateway } from './Gateway';
-import { CONSTANTS } from '../Constants/Constants';
-import { EvolveBuilder } from '../Client/EvolveBuilder';
-import { EvolveLogger } from '../Client/EvolveLogger';
+import { EvolveBuilder, EvolveLogger, EvolveClient, CONSTANTS } from "..";
 
 
 export class EvolveSocket extends ws {

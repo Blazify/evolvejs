@@ -1,16 +1,14 @@
 import { EvolveSocket } from './Websocket';
-import { OPCODE } from '../Constants/OpCodes';
+import { OPCODE, Heartbeat, Identify, EvolveLogger } from '..';
 import { Payload } from '../Interfaces/Interfaces';
-import { Heartbeat, Identify } from '../Constants/Payloads';
 import { Data } from 'ws';
-import { EvolveLogger } from '../Client/EvolveLogger';
 import { promisify } from 'util';
 
 export class Gateway {
 	public data!: Data;
 	public ws!: EvolveSocket;
 	public launchedShards: Set<number> = new Set()
-	
+
 	public constructor() {}
 
 		public init(data: Data, ws: EvolveSocket) {
@@ -21,14 +19,14 @@ export class Gateway {
 				const payload: Payload = JSON.parse(this.data.toString());
 				const { op, t, d } = payload;
 				if (!d) return;
-		
+
 				if (op === OPCODE.Hello) {
 					// Command: Heartbeat
 					setInterval(() => {
 						if (this.ws.seq) Heartbeat.d = this.ws.seq;
 						this.ws.send(JSON.stringify(Heartbeat));
 					}, d.heartbeat_interval);
-		
+
 					for(let i = 0; i  < this.ws.builder.shards; i++) {
 						promisify(setTimeout)(5000 * i).then(() => {
 							this.spawn(i)
@@ -44,6 +42,7 @@ export class Gateway {
 				else if (t) {
 					try {
 							const { default: handler } = require(`../Events/${t}`);
+							console.log(JSON.stringify(payload));
 							new handler(this.ws.client, payload);
 					} catch (e) {
 						throw Error(e);

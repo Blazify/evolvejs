@@ -1,8 +1,7 @@
-import { EvolveClient } from '../Client/EvolveClient';
+
 import { Payload } from '../Interfaces/Interfaces';
-import { EVENTS } from '../Constants/Events';
+import { EvolveClient, EVENTS } from '..';
 import { Objex } from '@evolvejs/objex';
-import { Snowflake } from '../Constants/Constants';
 import { GuildMember } from '../Structures/Guild/GuildMember';
 import PresenceUpdate from '../Structures/User/PresenceUpdate';
 
@@ -11,18 +10,18 @@ export default class {
 		(async() => {
 			let { guild_id, members, chunk_index, chunk_count, not_found, presences, nonce } = payload.d
 			let guild = await client.api.getGuild(guild_id)
-			let memberObjex: Objex<Snowflake, GuildMember> = new Objex()
+			let memberObjex: Objex<string, GuildMember> = new Objex()
 			for(let member of members) {
 				memberObjex.set(member.user.id, new GuildMember(member))
 			}
 
-			let presenceObjex: Objex<Snowflake, PresenceUpdate> = new Objex()
+			let presenceObjex: Objex<string, PresenceUpdate> = new Objex()
 			for(let presence of presences) {
 				presenceObjex.set(presence.user.id, new PresenceUpdate(presence, client))
 			}
-			
+
 			client.emit(EVENTS.GUILD_MEMBERS_CHUNK, guild, memberObjex, presenceObjex, [chunk_index, chunk_count], not_found, nonce)
-		});
+		})();
 	}
 }
 /*

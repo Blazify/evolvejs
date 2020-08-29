@@ -1,4 +1,4 @@
-import { OPCODE } from '../Constants/OpCodes';
+import { OPCODE } from '..';
 
 export interface IAPIParams {
 	endpoint: string;

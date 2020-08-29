@@ -1,8 +1,7 @@
 import { IOverwrite } from '../../Interfaces/OverwriteOptions';
-import { Snowflake } from '../../Constants/Constants';
 
 export default class {
-	public id: Snowflake;
+	public id: string;
 	public type: IOverwrite['type'];
 	public allow: number;
 	public deny: number;

@@ -1,14 +1,14 @@
 import Channel from './Channel';
 import { IVoiceChannel } from '../../Interfaces/VoiceChannelOptions';
-import { CHANNELTYPES, Snowflake } from '../../Constants/Constants';
 import Overwrite from './Overwrite';
-import { EvolveClient } from '../../Client/EvolveClient';
+import { EvolveClient, CHANNELTYPES } from '../..';
 import {Guild} from '../Guild/Guild';
 import CategoryChannel from './CategoryChannel';
 import { Objex } from '@evolvejs/objex';
 
+
 export default class extends Channel {
-	public overwrites: Objex<Snowflake, Overwrite> = new Objex();
+	public overwrites: Objex<string, Overwrite> = new Objex();
 
 	public guild: Guild;
 	public position: number;

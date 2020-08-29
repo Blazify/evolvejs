@@ -1,6 +1,6 @@
-import { EvolveClient } from '../Client/EvolveClient';
+
 import { Payload } from '../Interfaces/Interfaces';
-import { EVENTS } from '../Constants/Events';
+import { EvolveClient, EVENTS } from '..';
 import { IGuildMember } from '../Interfaces/GuildMemberOptions';
 import { GuildMember } from '../Structures/Guild/GuildMember';
 
@@ -18,7 +18,7 @@ export default class {
 		})
 
 		client.api.getGuild(guild_id).then(o => {
-		
+
 		client.emit(EVENTS.GUILD_MEMBER_UPDATE, member, o);
 		})
 	}

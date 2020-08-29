@@ -1,14 +1,13 @@
-import { EvolveClient } from '../Client/EvolveClient';
+
 import { Payload } from '../Interfaces/Interfaces';
-import { EVENTS } from '../Constants/Events';
+import { EvolveClient, EVENTS } from '..';
 import { Objex } from '@evolvejs/objex';
-import { Snowflake } from '../Constants/Constants';
 import { Message } from '../Structures/Message/Message';
 
 export default class {
 	constructor(client: EvolveClient, payload: Payload, shard: number) {
 		const { ids, channel_id, guild_id } = payload.d
-		const messageObjex: Objex<Snowflake, Message> = new Objex()
+		const messageObjex: Objex<string, Message> = new Objex()
 		for(let id of ids) {
 			messageObjex.set(id, client.messages.get(id)!)
 		}

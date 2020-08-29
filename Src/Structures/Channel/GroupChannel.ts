@@ -1,18 +1,17 @@
 import Channel from './Channel';
 import { IGroupChannel } from '../../Interfaces/GroupChannelOptions';
-import { Snowflake, CHANNELTYPES } from '../../Constants/Constants';
 import { User } from '../User/User';
-import { EvolveClient } from '../../Client/EvolveClient';
+import { EvolveClient, CHANNELTYPES } from '../..';
 import { Objex } from '@evolvejs/objex';
 
 export default class extends Channel {
-	public recipients: Objex<Snowflake, User> = new Objex();
+	public recipients: Objex<string, User> = new Objex();
 
 	public name?: string;
-	public lastMessage?: Snowflake;
+	public lastMessage?: string;
 	public icon?: string;
 	public owner?: User;
-	public applicationID?: Snowflake;
+	public applicationID?: string;
 	public lastPin?: number;
 
 	constructor(data: IGroupChannel, client: EvolveClient) {

@@ -1,9 +1,6 @@
-import { EvolveClient } from "./EvolveClient";
+import { EvolveClient, EvolveLogger, CacheOptions, GatewayIntents, Identify } from "..";
 import { EvolveSocket } from "../Websocket/Websocket";
-import { GatewayIntents } from "../Constants/GatewayIntents";
-import { CacheOptions } from "../Constants/CacheOptions";
-import { EvolveLogger } from "./EvolveLogger";
-import { Identify } from "../Constants/Payloads";
+
 
 export class EvolveBuilder {
     private token!: string;
@@ -25,8 +22,8 @@ export class EvolveBuilder {
     }
 
     /**
-     * 
-     * @param token 
+     *
+     * @param token
      * @returns The EvolveBuilder Class
      */
     public setToken(token: string): EvolveBuilder {
@@ -35,8 +32,8 @@ export class EvolveBuilder {
     }
 
     /**
-     * 
-     * @param totalShards 
+     *
+     * @param totalShards
      * @note It must be greater than 0
      * @returns The EvolveBuilder Class
      */
@@ -47,8 +44,8 @@ export class EvolveBuilder {
     }
 
     /**
-     * 
-     * @param activity 
+     *
+     * @param activity
      * @note The input should be the same as given in the discord api docs
      * @returns The EvolveBuilder Class
      */
@@ -58,8 +55,8 @@ export class EvolveBuilder {
     }
 
     /**
-     * 
-     * @param cache 
+     *
+     * @param cache
      * @enables The Cache Options for the library
      * @returns The EvolveBuilder Client
      */
@@ -73,8 +70,8 @@ export class EvolveBuilder {
 
 
     /**
-     * 
-     * @param cache 
+     *
+     * @param cache
      * @disables The Cache Options for the Library
      * @returns EvolveBuilder Class
      */
@@ -87,8 +84,8 @@ export class EvolveBuilder {
     }
 
     /**
-     * 
-     * @param intents 
+     *
+     * @param intents
      * @enables The Required Intents for the Bot
      * @returns EvolveBuilder Class
      * @warning No intents are applied at default so you wont receive any events except some exceptions
@@ -101,8 +98,8 @@ export class EvolveBuilder {
     }
 
     /**
-     * 
-     * @param intents 
+     *
+     * @param intents
      * @disables The Intents for your bot
      * @returns EvolveBuilder Class
      */
@@ -119,8 +116,8 @@ export class EvolveBuilder {
     }
 
     /**
-     * 
-     * @param option 
+     *
+     * @param option
      * @enables The capturePromiseRejection for the EventEmitter
      * @returns EvolveBuilderClass
      */

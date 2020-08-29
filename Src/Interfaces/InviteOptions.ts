@@ -1,4 +1,4 @@
-import { Snowflake, ChannelResolvable } from '../Constants/Constants';
+import { ChannelResolvable } from '..';
 import { IGuild } from './GuildOptions';
 import { IUser } from './UserOptions';
 

@@ -1,10 +1,9 @@
-import { Snowflake } from '../Constants/Constants';
 import { IGuildMember } from './GuildMemberOptions';
 
 export interface IVoiceState {
-	guild_id?: Snowflake; // The guild ID this voice state is for
-	channel_id: Snowflake | null; // The channel ID this user is connected to
-	user_id: Snowflake; // The user ID this voice state is for
+	guild_id?: string; // The guild ID this voice state is for
+	channel_id: string | null; // The channel ID this user is connected to
+	user_id: string; // The user ID this voice state is for
 	member?: IGuildMember; // The guild member this voice state is for
 	session_id: string; // The session ID for this voice state
 	deaf: boolean; // Whether this user is deafened by the server

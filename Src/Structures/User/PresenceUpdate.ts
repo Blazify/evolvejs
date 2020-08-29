@@ -5,12 +5,11 @@ import Activity from './Activity';
 import { Role } from '../Guild/Role';
 import { IPresenceUpdate } from '../../Interfaces/PresenceUpdateOptions';
 import { Objex } from '@evolvejs/objex';
-import { Snowflake } from '../../Constants/Constants';
-import { EvolveClient } from '../../Client/EvolveClient';
+import { EvolveClient } from '../..';
 
 export default class {
 	    public user!: User;
-		public roles: Objex<Snowflake, Role> = new Objex();
+		public roles: Objex<string, Role> = new Objex();
 		public game!: Activity;
 		public guild!: Guild;
 		public status!: string;

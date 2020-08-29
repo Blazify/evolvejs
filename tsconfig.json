@@ -2,8 +2,8 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "esnext",
-    "outDir": "./Dist/",
-    "rootDir": "./Src/",
+    "outDir": "dist",
+    "rootDir": "./src/",
     "lib": ["es6", "ESNext", "DOM"],
     "declaration": true,
     "incremental": true,
@@ -18,6 +18,8 @@
     "esModuleInterop": true,
     "watch": true
   },
-  "include": ["Src"],
-  "exclude": ["node_modules", "dist", "test.js"]
+  "include": [
+    "src"
+  ],
+  "exclude": ["node_modules", "dist", "test.js", "TestBot"]
 }

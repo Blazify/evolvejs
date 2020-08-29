@@ -2,7 +2,7 @@ import { Guild } from './Guild';
 import Channel from '../Channel/Channel';
 import {User} from '../User/User';
 import { IInvite } from '../../Interfaces/InviteOptions';
-import { EvolveClient } from '../../Client/EvolveClient';
+import { EvolveClient } from '../..';
 
 export default class {
 	    public code: string;

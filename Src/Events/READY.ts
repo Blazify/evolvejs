@@ -1,10 +1,9 @@
-import { EvolveClient } from '../Client/EvolveClient';
 import { ClientUser } from '../Client/ClientUser';
 import { Guild } from '../Structures/Guild/Guild';
 import {Role} from '../Structures/Guild/Role';
 import Emoji from '../Structures/Guild/Emoji';
 import { Payload } from '../Interfaces/Interfaces';
-import { EVENTS } from '../Constants/Events';
+import { EvolveClient, EVENTS } from '..';
 
 export default class {
 	public client: EvolveClient;
@@ -32,32 +31,39 @@ export default class {
 			user.avatar
 		);
 
-		for (let x of guilds) {
+		console.log(guilds);
+		for (let i = 0; i < guilds.length; i++) {
+		    const x = guilds[i];
+
+		    if(x.unavailable) return;
+
 			const g = await this.client.api.getGuild(x.id);
 
 			const guild = new Guild(x, this.client);
 			if(this.client.options.enableGuildCache) this.client.guilds.set(guild.id, guild);
 
 			let channels = await this.client.api.getGuildChannels(g.id);
-			  for(let c of channels) {
-				  guild.channels.set(c.id, c)
-			  }
 
-			for (let role of x.roles) {
-				let r = new Role(role);
+			console.log(guild);
+			for(let i = 0; i < channels.length; i++) guild.channels.set(channels[i].id, channels[i]);
+			for (let i = 0; i < x.roles.length; i++) {
+			    const role = x.roles[i];
+				const r = new Role(role);
 
 				g.roles.set(r.id, r);
 				this.client.roles.set(r.id, r)
 			}
 
 			let members = await this.client.api.getGuildMembers(guild.id);
-			for (let m of members) {
+			for (let i = 0; i < members.length; i++) {
+			    const m = members[i];
+
 				guild.members.set(m.user!.id, m);
-			
+
 
 			if (x.emojis.length) {
-				for (let e of x.emojis) {
-					const emoji = new Emoji(e);
+				for (let i = 0; i < x.emojis.length; i++) {
+					const emoji = new Emoji(x.emojis[i]);
 
 					guild.emojis.set(emoji.id, emoji);
 					if(this.client.options.enableEmojiCache) this.client.emojis.set(emoji.id, emoji);

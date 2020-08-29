@@ -1,5 +1,4 @@
-import { EvolveClient } from '../Client/EvolveClient';
-import { CONSTANTS } from '../Constants/Constants';
+import { EvolveClient, CONSTANTS } from '..';
 import { IAPIParams } from '../Interfaces/Interfaces';
 import fetch from 'node-fetch';
 

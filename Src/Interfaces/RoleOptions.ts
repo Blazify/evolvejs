@@ -1,7 +1,6 @@
-import { Snowflake } from '../Constants/Constants';
 
 export interface IRole {
-	id: Snowflake; // Role ID
+	id: string; // Role ID
 	name: string; // Role name
 	color: number; // Integer representation of hexadecimal color code
 	hoist: boolean; // Whether the role is separately hoisted

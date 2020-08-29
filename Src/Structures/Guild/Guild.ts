@@ -5,21 +5,20 @@ import VoiceState from './VoiceState';
 import {GuildMember} from './GuildMember';
 import PresenceUpdate from '../User/PresenceUpdate';
 import { Objex } from '@evolvejs/objex';
-import { Snowflake } from '../../Constants/Constants';
 import { IGuild } from '../../Interfaces/GuildOptions';
-import { EvolveClient } from '../../Client/EvolveClient';
+import { EvolveClient } from '../..';
 
 export class Guild {
 	public client: EvolveClient;
-	public members: Objex<Snowflake, GuildMember> = new Objex();
-	public channels: Objex<Snowflake, Channel> = new Objex();
-	public roles: Objex<Snowflake, Role> = new Objex();
-	public emojis: Objex<Snowflake | null, Emoji> = new Objex();
-	public voiceStates: Objex<Snowflake, VoiceState> = new Objex();
-	public presences: Objex<Snowflake, PresenceUpdate> = new Objex();
-	public features: Array<string> = new Array();
+	public members: Objex<string, GuildMember> = new Objex();
+	public channels: Objex<string, Channel> = new Objex();
+	public roles: Objex<string, Role> = new Objex();
+	public emojis: Objex<string | null, Emoji> = new Objex();
+	public voiceStates: Objex<string, VoiceState> = new Objex();
+	public presences: Objex<string, PresenceUpdate> = new Objex();
+	public features: Array<string> = [];
 
-	public id: Snowflake;
+	public id: string;
 	public name: string;
 	public icon: string;
 	public splash?: string;
@@ -34,7 +33,7 @@ export class Guild {
 	public defMessageNotify: number;
 	public explicitContentFilter: number;
 	public mfaLevel: number;
-	public applicationID?: Snowflake;
+	public applicationID?: string;
 	public widgetEnabled: boolean;
 	public widgetChannel?: Channel;
 	public systemChannel?: Channel;

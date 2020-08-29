@@ -3,7 +3,7 @@ import Channel from '../Channel/VoiceChannel';
 import {User} from '../User/User';
 import {GuildMember} from './GuildMember';
 import { IVoiceState } from '../../Interfaces/VoiceStateOptions';
-import { EvolveClient } from '../../Client/EvolveClient';
+import { EvolveClient } from '../..';
 
 export default class {
 	public guild!: Guild;
