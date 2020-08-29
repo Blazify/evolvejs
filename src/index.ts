@@ -1,4 +1,4 @@
-export class Objex<K, V> extends Map<K, V> {
+export class Objex<K, V>  extends Map<K, V> {
 	private array: [K, V][] | null = [];
 	private valueArray: V[] | null = [];
 	private keyArray: K[] | null = [];

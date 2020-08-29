@@ -4,14 +4,20 @@
 	"typings": "./typings/index.d.ts",
 	"description": "Data handling module for EvolveJS",
 	"main": "dist/index.js",
-	"publishConfig": { "registry": "https://npm.pkg.github.com/" },
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/EvolveJS/Objex.git"
 	},
-	"keywords": [ "objex", "map", "data", "storage", "custom-map", "evolve" ],
+	"keywords": [
+		"objex",
+		"map",
+		"data",
+		"storage",
+		"custom-map",
+		"evolve"
+	],
 	"author": "EvolveJS",
-	"license": "AGPL-3.0",
+	"license": "AGPL-3.0-or-later",
 	"bugs": {
 		"url": "https://github.com/EvolveJS/Objex/issues"
 	},
