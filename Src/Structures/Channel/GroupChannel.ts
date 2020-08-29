@@ -18,8 +18,7 @@ export default class extends Channel {
 	constructor(data: IGroupChannel, client: EvolveClient) {
 		super(data.id, CHANNELTYPES.Group, client);
 		(async (data: IGroupChannel) => {
-			const user = await this.client.api.getUser(data.owner_id);
-			this.owner = new User(user);
+			this.owner = await this.client.api.getUser(data.owner_id);
 		})(data);
 
 		this.name = data.name;

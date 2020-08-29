@@ -1,11 +1,14 @@
+import { IClientStatus } from "../../Interfaces/PresenceUpdateOptions";
 
 export default class {
-
+    public desktop!: string;
+    public mobile!: string;
+    public web!: string;
     constructor(
-        private desktop: string,
-        private mobile: string,
-        private web: string
+        data: IClientStatus
     ) {
-
+        this.desktop = data.desktop!
+        this.mobile = data.mobile!
+        this.web = data.web!
     }
 }

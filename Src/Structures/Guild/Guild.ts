@@ -1,4 +1,4 @@
-import Role from './Role';
+import {Role} from './Role';
 import Emoji from './Emoji';
 import Channel from '../Channel/Channel';
 import VoiceState from './VoiceState';
@@ -14,7 +14,7 @@ export class Guild {
 	public members: Objex<Snowflake, GuildMember> = new Objex();
 	public channels: Objex<Snowflake, Channel> = new Objex();
 	public roles: Objex<Snowflake, Role> = new Objex();
-	public emojis: Objex<Snowflake, Emoji> = new Objex();
+	public emojis: Objex<Snowflake | null, Emoji> = new Objex();
 	public voiceStates: Objex<Snowflake, VoiceState> = new Objex();
 	public presences: Objex<Snowflake, PresenceUpdate> = new Objex();
 	public features: Array<string> = new Array();

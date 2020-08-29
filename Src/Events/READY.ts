@@ -1,21 +1,10 @@
 import { EvolveClient } from '../Client/EvolveClient';
 import { ClientUser } from '../Client/ClientUser';
 import { Guild } from '../Structures/Guild/Guild';
-import Role from '../Structures/Guild/Role';
-import { GuildMember } from '../Structures/Guild/GuildMember';
-import { User } from '../Structures/User/User';
+import {Role} from '../Structures/Guild/Role';
 import Emoji from '../Structures/Guild/Emoji';
-import { IGuild } from '../Interfaces/GuildOptions';
 import { Payload } from '../Interfaces/Interfaces';
 import { EVENTS } from '../Constants/Events';
-import { CHANNELTYPES } from '../Constants/Constants';
-import CategoryChannel from '../Structures/Channel/CategoryChannel';
-import DMChannel from '../Structures/Channel/DMChannel';
-import GroupChannel from '../Structures/Channel/GroupChannel';
-import NewsChannel from '../Structures/Channel/NewsChannel';
-import StoreChannel from '../Structures/Channel/StoreChannel';
-import TextChannel from '../Structures/Channel/TextChannel';
-import VoiceChannel from '../Structures/Channel/VoiceChannel';
 
 export default class {
 	public client: EvolveClient;
@@ -55,18 +44,10 @@ export default class {
 			  }
 
 			for (let role of x.roles) {
-				let r = new Role(
-					role.id,
-					role.name,
-					role.color,
-					role.hoist,
-					role.position,
-					role.permissions,
-					role.managed,
-					role.mentionable
-				);
+				let r = new Role(role);
 
 				g.roles.set(r.id, r);
+				this.client.roles.set(r.id, r)
 			}
 
 			let members = await this.client.api.getGuildMembers(guild.id);
@@ -76,16 +57,8 @@ export default class {
 
 			if (x.emojis.length) {
 				for (let e of x.emojis) {
-					const emoji = new Emoji(
-						e.id,
-						e.name,
-						e.roles,
-						e.user,
-						e.req_colons,
-						e.managed,
-						e.animated,
-						e.available
-					);
+					const emoji = new Emoji(e);
+
 					guild.emojis.set(emoji.id, emoji);
 					if(this.client.options.enableEmojiCache) this.client.emojis.set(emoji.id, emoji);
 				}

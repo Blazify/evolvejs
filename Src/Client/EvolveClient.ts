@@ -12,6 +12,7 @@ import { Message } from '../Structures/Message/Message';
 import { EvolveLogger } from './EvolveLogger';
 import { TokenAccessOptions } from '../Constants/TokenAccessOptions';
 import { Oauth2Token } from '../Oauth2/Oauth2Token';
+import { Role } from '../Structures/Guild/Role';
 
 export class EvolveClient extends EventEmitter {
 	public token: string;
@@ -19,7 +20,8 @@ export class EvolveClient extends EventEmitter {
 	public guilds: Objex<Snowflake, Guild> = new Objex();
 	public channels: Objex<Snowflake, Channel> = new Objex();
 	public users: Objex<Snowflake, User> = new Objex();
-	public emojis: Objex<Snowflake, Emoji> = new Objex();
+	public emojis: Objex<Snowflake | null, Emoji> = new Objex();
+	public roles: Objex<Snowflake, Role> = new Objex()
 	public messages: Objex<Snowflake, Message> = new Objex()
 	private _user?: ClientUser;
 	public api: API = new API(this)

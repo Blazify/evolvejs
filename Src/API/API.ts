@@ -12,6 +12,7 @@ import VoiceChannel from '../Structures/Channel/VoiceChannel';
 import { User } from '../Structures/User/User';
 import { GuildMember } from '../Structures/Guild/GuildMember';
 import { Message } from '../Structures/Message/Message';
+import { Role } from '../Structures/Guild/Role';
 
 export default class API {
 	public client: EvolveClient;
@@ -19,6 +20,8 @@ export default class API {
 	constructor(client: EvolveClient) {
 		this.client = client;
 	}
+	
+
 	public async getGuild(guildID: Snowflake) {
 		return new Guild(await RestAPIHandler(this.client, {
 			endpoint: `guilds/${guildID}`,

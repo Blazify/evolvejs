@@ -1,5 +1,5 @@
 import { User } from '../User/User';
-import Role from './Role';
+import {Role} from './Role';
 import {IGuildMember} from "../../Interfaces/GuildMemberOptions"
 import { IUser } from '../../Interfaces/UserOptions';
 export class GuildMember {

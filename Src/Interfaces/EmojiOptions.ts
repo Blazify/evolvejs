@@ -1,12 +1,13 @@
 import { Snowflake } from '../Constants/Constants';
 import { IRole } from './RoleOptions';
 import { IUser } from './UserOptions';
+import { User } from '../Structures/User/User';
 
 export interface IEmoji {
 	id: Snowflake | null; // ID of the emoji
 	name: string | null; // Name of the emoji
 	roles?: IRole[]; // Roles the emoji is available to
-	user?: IUser; // User who added the emoji
+	user: IUser; // User who added the emoji
 	require_colons?: boolean; // Whether it needs to be wrapped in colons
 	managed?: boolean; // Whether it is managed
 	animated?: boolean; // Whether the emoji is animated
