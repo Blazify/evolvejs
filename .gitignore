@@ -4,10 +4,8 @@ test.ts
 tsconfig.tsbuildinfo
 
 package-lock.json
-Dist/
+dist/
 node_modules/
 
 .idea/
 .vscode/
-
-Typings
