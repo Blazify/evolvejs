@@ -61,7 +61,7 @@ client.on("clientReady", () => {
 
 client.on("newMessage", (msg) => {
   if(msg.content == "ping") {
-    message.channel.sendMessage("Pong")
+    message.channel.send("Pong")
   }
 })
 ```

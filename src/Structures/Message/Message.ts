@@ -5,6 +5,7 @@ import { Guild } from "../Guild/Guild";
 import { IMessage } from "../../Interfaces/MessageOptions";
 import { EvolveClient } from "../..";
 import TextChannel from "../Channel/TextChannel";
+import { MessageEmbed } from "../../Utils/Embed/MessageEmbed";
 
 export class Message {
     public sentAt!: string;
@@ -40,7 +41,7 @@ export class Message {
     	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
     	//@ts-ignore
     	client.api.getChannel(data.channel_id).then(it => this.channel = it);
-    	this.channel.send = (content: string): Promise<Message> => {
+    	this.channel.sendMessage = (content: string | MessageEmbed): Promise<Message> => {
     		return client.api.sendMessage(content, this.channel.id);
     	};
 

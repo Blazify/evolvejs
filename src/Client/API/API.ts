@@ -13,6 +13,7 @@ import { User } from "../../Structures/User/User";
 import { GuildMember } from "../../Structures/Guild/GuildMember";
 import { Message } from "../../Structures/Message/Message";
 import Channel from "../../Structures/Channel/Channel";
+import { MessageEmbed } from "../../Utils/Embed/MessageEmbed";
 
 const Channels = [TextChannel, DMChannel, VoiceChannel, GroupChannel, CategoryChannel, NewsChannel, StoreChannel];
 
@@ -79,7 +80,7 @@ export default class API {
     	return memberArray;
     }
 
-    public async sendMessage(content: string, channelID: string): Promise<Message> {
+    public async sendMessage(content: string | MessageEmbed, channelID: string): Promise<Message> {
     	return new Message(await RestAPIHandler(this.client, {
     		endpoint: `channels/${ channelID }/messages`,
     		method: "POST",

@@ -6,6 +6,7 @@ import {Guild} from "../Guild/Guild";
 import CategoryChannel from "./CategoryChannel";
 import { Objex } from "@evolvejs/objex";
 import { Message } from "../Message/Message";
+import { MessageEmbed } from "../../Utils/Embed/MessageEmbed";
 
 export default class extends Channel {
 	public overwrites: Objex<string, Overwrite> = new Objex();
@@ -19,7 +20,7 @@ export default class extends Channel {
 	public rateLimit: number;
 	public parent?: CategoryChannel;
 	public lastPin?: number;
-	public send!:  (content: string) => Promise<Message>;
+	public sendMessage!:  (content: string | MessageEmbed) => Promise<Message>;
 	public purge!: (time?: number) => Promise<NodeJS.Timeout>;
 
 	constructor(data: ITextChannel, client: EvolveClient) {
