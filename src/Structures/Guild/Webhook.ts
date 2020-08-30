@@ -1,8 +1,9 @@
-import { Guild } from './Guild';
-import Channel from '../Channel/Channel';
-import {User} from '../User/User';
-import { IWebhook } from '../../Interfaces/WebhookOptions';
-import { EvolveClient } from '../..';
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { Guild } from "./Guild";
+import Channel from "../Channel/Channel";
+import {User} from "../User/User";
+import { IWebhook } from "../../Interfaces/WebhookOptions";
+import { EvolveClient } from "../..";
 
 export default class {
 	public id!: string;
@@ -17,13 +18,13 @@ export default class {
 		data: IWebhook,
 		client: EvolveClient
 	) {
-		this.id = data.id
-		this.type = data.type
-		client.api.getGuild(data.guild_id!).then(o => this.guild = o)
-		client.api.getChannel(data.channel_id).then(o => this.channel = o)
-		this.user = new User(data.user!)
-		this.name = data.name!
-		this.avatar = data.avatar!
-		this.token = data.token!
+		this.id = data.id;
+		this.type = data.type;
+		client.api.getGuild(data.guild_id!).then(o => this.guild = o);
+		client.api.getChannel(data.channel_id).then(o => this.channel = o);
+		this.user = new User(data.user!);
+		this.name = data.name!;
+		this.avatar = data.avatar!;
+		this.token = data.token!;
 	}
 }

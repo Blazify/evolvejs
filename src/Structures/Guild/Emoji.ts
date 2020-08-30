@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import { User } from "../User/User";
 import { IEmoji } from "../../Interfaces/EmojiOptions";
 import { Role } from "./Role";
@@ -14,13 +15,13 @@ export default class {
     public available?: boolean
 
     constructor(data: IEmoji) {
-        this.id = data.id;
-        this.name = data.name
-        data.roles?.forEach(i => this.roles.set(i.id, new Role(i)))
-        this.user = new User(data.user)
-        this.reqColons = data.require_colons
-        this.managed = data.managed
-        this.animated = data.animated
-        this.available = data.available
+    	this.id = data.id;
+    	this.name = data.name;
+        data.roles?.forEach(i => this.roles.set(i.id, new Role(i)));
+        this.user = new User(data.user);
+        this.reqColons = data.require_colons;
+        this.managed = data.managed;
+        this.animated = data.animated;
+        this.available = data.available;
     }
 }

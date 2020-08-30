@@ -20,9 +20,9 @@ export enum ACTIVITY {
 }
 
 export const NITRO = {
-    0: "None",
-    1: "Nitro Classic",
-    2: "Nitro"
+	0: "None",
+	1: "Nitro Classic",
+	2: "Nitro"
 };
 
 export enum WEBHOOKTYPE {
@@ -111,31 +111,31 @@ export enum OPCODE {
 
 
 export const Heartbeat: Payload = {
-    op: OPCODE.Heartbeat,
-    d: null
+	op: OPCODE.Heartbeat,
+	d: null
 };
 
 export const Identify: Payload = {
-    op: OPCODE.Identify,
-    d: {
-        token: "",
-        intents: 0,
-        shard: [0, 1],
-        properties: {
-            $os: process.platform,
-            $browser: "discord",
-            $device: "evolvejs"
-        },
-        presence: {
-            since: Date.now(),
-            game: {
-                name: "EvolveJS",
-                type: ActivityTypes.PLAYING
-            },
-            status: "",
-            afk: false
-        }
-    }
+	op: OPCODE.Identify,
+	d: {
+		token: "",
+		intents: 0,
+		shard: [0, 1],
+		properties: {
+			$os: process.platform,
+			$browser: "discord",
+			$device: "evolvejs"
+		},
+		presence: {
+			since: Date.now(),
+			game: {
+				name: "EvolveJS",
+				type: ActivityTypes.PLAYING
+			},
+			status: "",
+			afk: false
+		}
+	}
 };
 
 export interface TokenAccessOptions {

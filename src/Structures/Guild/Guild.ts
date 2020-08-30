@@ -1,12 +1,12 @@
-import {Role} from './Role';
-import Emoji from './Emoji';
-import Channel from '../Channel/Channel';
-import VoiceState from './VoiceState';
-import {GuildMember} from './GuildMember';
-import PresenceUpdate from '../User/PresenceUpdate';
-import { Objex } from '@evolvejs/objex';
-import { IGuild } from '../../Interfaces/GuildOptions';
-import { EvolveClient } from '../..';
+import {Role} from "./Role";
+import Emoji from "./Emoji";
+import Channel from "../Channel/Channel";
+import VoiceState from "./VoiceState";
+import {GuildMember} from "./GuildMember";
+import PresenceUpdate from "../User/PresenceUpdate";
+import { Objex } from "@evolvejs/objex";
+import { IGuild } from "../../Interfaces/GuildOptions";
+import { EvolveClient } from "../..";
 
 export class Guild {
 	public client: EvolveClient;
@@ -24,7 +24,7 @@ export class Guild {
 	public splash?: string;
 	public discoverySplash?: string;
 	public isOwner?: boolean;
-	public owner: GuildMember;
+	public owner?: GuildMember;
 	public permissions?: number;
 	public region: string;
 	public afkChannel?: Channel;
@@ -62,7 +62,7 @@ export class Guild {
 		this.splash = data.splash || undefined;
 		this.discoverySplash = data.discovery_splash || undefined;
 		this.isOwner = data.owner;
-		this.owner = this.members.get(data.owner_id)!;
+		this.owner = this.members.get(data.owner_id);
 		this.permissions = data.permissions;
 		this.region = data.region;
 		this.afkChannel = data.afk_channel_id

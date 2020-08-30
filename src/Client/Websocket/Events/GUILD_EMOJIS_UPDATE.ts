@@ -1,20 +1,20 @@
 
-import { Payload } from '../../../Interfaces/Interfaces';
-import { EvolveClient, EVENTS } from '../../..';
-import { Objex } from '@evolvejs/objex';
-import Emoji from '../../../Structures/Guild/Emoji';
+import { Payload } from "../../../Interfaces/Interfaces";
+import { EvolveClient, EVENTS } from "../../..";
+import { Objex } from "@evolvejs/objex";
+import Emoji from "../../../Structures/Guild/Emoji";
 
 export default class {
-	constructor(client: EvolveClient, payload: Payload, shard: number) {
-		const { guild_id, emojis } = payload.d
+	constructor(client: EvolveClient, payload: Payload) {
+		const { guild_id, emojis } = payload.d;
 
 		(async() => {
-			let guild = await client.api.getGuild(guild_id)
-			let emojiObjex: Objex<string | null, Emoji> = new Objex()
-			for(let emoji of emojis) {
-				emojiObjex.set(emoji.id, new Emoji(emoji))
+			const guild = await client.api.getGuild(guild_id);
+			const emojiObjex: Objex<string | null, Emoji> = new Objex();
+			for(const emoji of emojis) {
+				emojiObjex.set(emoji.id, new Emoji(emoji));
 			}
-			client.emit(EVENTS.GUILD_EMOJIS_UPDATE, emojiObjex, guild)
-		})
+			client.emit(EVENTS.GUILD_EMOJIS_UPDATE, emojiObjex, guild);
+		});
 	}
 }

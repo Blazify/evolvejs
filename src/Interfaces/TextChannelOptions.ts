@@ -1,5 +1,5 @@
-import { CHANNELTYPES } from '..';
-import { IOverwrite } from './OverwriteOptions';
+import { CHANNELTYPES } from "..";
+import { IOverwrite } from "./OverwriteOptions";
 
 export interface ITextChannel {
 	id: string; // The ID of this channel

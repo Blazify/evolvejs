@@ -1,8 +1,9 @@
-import { Visibility } from '..';
-import { IActivity } from './ActivityOptions';
+import { Visibility } from "..";
+import { IActivity } from "./ActivityOptions";
+import { IUser } from "./UserOptions";
 
 export interface IPresenceUpdate {
-	user: any; // The user presence is being updated for
+	user: IUser; // The user presence is being updated for
 	roles: string[]; // Roles this user is in
 	game: IActivity[] | null; // The user's current activity
 	guild_id: string; // ID of the guild

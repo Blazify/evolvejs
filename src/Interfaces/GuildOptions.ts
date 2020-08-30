@@ -1,9 +1,9 @@
-import { ChannelResolvable } from '..';
-import { IEmoji } from './EmojiOptions';
-import { IRole } from './RoleOptions';
-import { IVoiceState } from './VoiceStateOptions';
-import { IGuildMember } from './GuildMemberOptions';
-import { IPresenceUpdate } from './PresenceUpdateOptions';
+import { ChannelResolvable } from "..";
+import { IEmoji } from "./EmojiOptions";
+import { IRole } from "./RoleOptions";
+import { IVoiceState } from "./VoiceStateOptions";
+import { IGuildMember } from "./GuildMemberOptions";
+import { IPresenceUpdate } from "./PresenceUpdateOptions";
 
 export interface IGuild {
 	id: string; // ID of the guild

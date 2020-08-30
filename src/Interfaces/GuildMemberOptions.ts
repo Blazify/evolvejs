@@ -1,4 +1,4 @@
-import { User } from '../Structures/User/User';
+import { User } from "../Structures/User/User";
 
 export interface IGuildMember {
 	user?: User; // The member's user object

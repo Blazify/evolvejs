@@ -1,4 +1,4 @@
-import { ACTIVITY } from '..';
+import { ACTIVITY } from "..";
 
 export interface IActivity {
 	name: string; // The activity name

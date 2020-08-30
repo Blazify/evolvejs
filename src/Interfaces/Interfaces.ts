@@ -1,8 +1,9 @@
-import { OPCODE } from '..';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { OPCODE } from "..";
 
 export interface IAPIParams {
 	endpoint: string;
-	method: 'GET' | 'POST' | 'DELETE' | 'PUT';
+	method: "GET" | "POST" | "DELETE" | "PUT";
 	content?: string;
 }
 

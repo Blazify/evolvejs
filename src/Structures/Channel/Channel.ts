@@ -1,4 +1,4 @@
-import { EvolveClient, CHANNELTYPES } from '../..';
+import { EvolveClient, CHANNELTYPES } from "../..";
 
 export default class {
 	public client: EvolveClient;

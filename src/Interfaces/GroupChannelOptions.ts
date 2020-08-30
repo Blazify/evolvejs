@@ -1,5 +1,5 @@
-import { CHANNELTYPES } from '..';
-import { IUser } from './UserOptions';
+import { CHANNELTYPES } from "..";
+import { IUser } from "./UserOptions";
 
 export interface IGroupChannel {
 	id: string; // The ID of this channel

@@ -1,6 +1,7 @@
-import { IUser } from './UserOptions';
-import { GuildMember } from '../Structures/Guild/GuildMember';
-import { User } from '../Structures/User/User';
+/* eslint-disable @typescript-eslint/ban-types */
+import { IUser } from "./UserOptions";
+import { GuildMember } from "../Structures/Guild/GuildMember";
+import { User } from "../Structures/User/User";
 
 export interface IMessage {
 	id: string; // ID of the message

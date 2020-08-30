@@ -1,5 +1,5 @@
-import { WEBHOOKTYPE } from '..';
-import { IUser } from './UserOptions';
+import { WEBHOOKTYPE } from "..";
+import { IUser } from "./UserOptions";
 
 export interface IWebhook {
 	id: string; // The ID of the webhook

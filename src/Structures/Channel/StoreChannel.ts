@@ -1,15 +1,15 @@
-import Channel from './Channel';
-import { IStoreChannel } from '../../Interfaces/StoreChannelOptions';
-import Overwrite from './Overwrite';
-import { EvolveClient, CHANNELTYPES } from '../..';
-import {Guild} from '../Guild/Guild';
-import CategoryChannel from './CategoryChannel';
-import { Objex } from '@evolvejs/objex';
+import Channel from "./Channel";
+import { IStoreChannel } from "../../Interfaces/StoreChannelOptions";
+import Overwrite from "./Overwrite";
+import { EvolveClient, CHANNELTYPES } from "../..";
+import {Guild} from "../Guild/Guild";
+import CategoryChannel from "./CategoryChannel";
+import { Objex } from "@evolvejs/objex";
 
 export default class extends Channel {
 	public overwrites: Objex<string, Overwrite> = new Objex();
 
-	public guild: Guild;
+	public guild?: Guild;
 	public position: number;
 	public name: string;
 	public nsfw: boolean;
@@ -18,7 +18,7 @@ export default class extends Channel {
 
 	constructor(data: IStoreChannel, client: EvolveClient) {
 		super(data.id, CHANNELTYPES.Store, client);
-		this.guild = this.client.guilds.get(data.guild_id)!;
+		this.guild = this.client.guilds.get(data.guild_id);
 		this.position = data.position;
 		this.name = data.name;
 		this.nsfw = data.nsfw;

@@ -1,5 +1,5 @@
-import { IUser } from '../../Interfaces/UserOptions';
-import { NITRO } from '../..';
+import { IUser } from "../../Interfaces/UserOptions";
+import { NITRO } from "../..";
 
 export class User {
 	public id: string;
@@ -28,7 +28,7 @@ export class User {
 		this.verified = data.verified || false;
 		this.email = data.email || undefined;
 		this.flags = data.flags;
-		this.premiumType = data.premium_type ? NITRO[data.premium_type] : 'None';
+		this.premiumType = data.premium_type ? NITRO[data.premium_type] : "None";
 		this.publicFlags = data.public_flags;
 	}
 }

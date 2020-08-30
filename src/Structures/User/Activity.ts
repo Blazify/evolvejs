@@ -4,7 +4,7 @@ import {
 	IAssets,
 	ISecrets,
 	IActivityEmoji
-} from '../../Interfaces/ActivityOptions';
+} from "../../Interfaces/ActivityOptions";
 
 export default class {
 	public name: string;
@@ -28,8 +28,8 @@ export default class {
 		this.type = data.type;
 		this.createdAt = data.created_at;
 		this.url = data.url;
-		this.startTime = data.timestamps!.start;
-		this.endTime = data.timestamps!.end;
+		this.startTime = data.timestamps?.start;
+		this.endTime = data.timestamps?.end;
 		this.applicationID = data.application_id;
 		this.state = data.state;
 		this.details = data.details;

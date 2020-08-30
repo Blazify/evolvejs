@@ -1,12 +1,12 @@
 
-import { Payload } from '../../../Interfaces/Interfaces';
-import { EvolveClient, EVENTS } from '../../..';
+import { Payload } from "../../../Interfaces/Interfaces";
+import { EvolveClient, EVENTS } from "../../..";
 
 export default class {
-	constructor(client: EvolveClient, payload: Payload, shard: number) {
+	constructor(client: EvolveClient, payload: Payload) {
 		(async() => {
-			let guild = await client.api.getGuild(payload.d.guild)
-			client.emit(EVENTS.GUILD_INTEGRATIONS_UPDATE, guild)
+			const guild = await client.api.getGuild(payload.d.guild);
+			client.emit(EVENTS.GUILD_INTEGRATIONS_UPDATE, guild);
 		})();
 	}
 }
