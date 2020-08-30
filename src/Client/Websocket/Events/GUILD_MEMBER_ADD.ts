@@ -6,6 +6,6 @@ import { GuildMember } from "../../../Structures/Guild/GuildMember";
 export default class {
 	constructor(client: EvolveClient, payload: Payload) {
 		const guild_member = payload.d;
-		client.emit(EVENTS.GUILD_MEMBER_ADD, new GuildMember(guild_member));
+		client.emitEvent(EVENTS.GUILD_MEMBER_ADD, new GuildMember(guild_member));
 	}
 }

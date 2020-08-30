@@ -12,6 +12,6 @@ export default class {
 			messageObjex.set(id, client.messages.get(id));
 		}
 
-		client.emit(EVENTS.MESSAGE_DELETE_BULK, messageObjex, client.channels.get(channel_id), client.guilds.get(guild_id));
+		client.emitEvent(EVENTS.MESSAGE_DELETE_BULK, messageObjex, client.channels.get(channel_id), client.guilds.get(guild_id));
 	}
 }

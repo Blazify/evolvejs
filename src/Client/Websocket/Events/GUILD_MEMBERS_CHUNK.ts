@@ -20,7 +20,7 @@ export default class {
 				presenceObjex.set(presence.user.id, new PresenceUpdate(presence, client));
 			}
 
-			client.emit(EVENTS.GUILD_MEMBERS_CHUNK, guild, memberObjex, presenceObjex, [chunk_index, chunk_count], not_found, nonce);
+			client.emitEvent(EVENTS.GUILD_MEMBERS_CHUNK, guild, memberObjex, presenceObjex, [chunk_index, chunk_count], not_found, nonce);
 		})();
 	}
 }

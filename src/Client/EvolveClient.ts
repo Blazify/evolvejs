@@ -1,4 +1,3 @@
-import { EventEmitter } from "events";
 import { ClientUser } from "./ClientUser";
 import { Objex } from "@evolvejs/objex";
 import { Guild } from "../Structures/Guild/Guild";
@@ -11,8 +10,9 @@ import { Message } from "../Structures/Message/Message";
 import { EvolveLogger, TokenAccessOptions } from "..";
 import { Oauth2Token } from "../Oauth2/Oauth2Token";
 import { Role } from "../Structures/Guild/Role";
+import { EvolveEmitter } from "../Utils/EventEmitter/EvolveEmitter";
 
-export class EvolveClient extends EventEmitter {
+export class EvolveClient extends EvolveEmitter {
 	public token: string;
 	public options: ClientOptions;
 	public guilds: Objex<string, Guild> = new Objex();
@@ -29,11 +29,12 @@ export class EvolveClient extends EventEmitter {
 		token: string,
 		options: ClientOptions
 	) {
-		super({ captureRejections: options.capturePromiseRejection });
+		super();
 		this.token = token;
 		this.options = options;
 		if (!this.token) throw Error("TOKEN_ERROR");
 	}
+
 
 	public get user(): ClientUser {
 		return this._user;

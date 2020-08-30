@@ -18,7 +18,7 @@ export default class {
 
 		client.api.getGuild(guild_id).then(o => {
 
-			client.emit(EVENTS.GUILD_MEMBER_UPDATE, member, o);
+			client.emitEvent(EVENTS.GUILD_MEMBER_UPDATE, member, o);
 		});
 	}
 }

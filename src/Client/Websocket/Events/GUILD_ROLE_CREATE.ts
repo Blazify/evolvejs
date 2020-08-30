@@ -9,7 +9,7 @@ export default class {
 			const { guild_id, role } = payload.d;
 			const guild = await client.api.getGuild(guild_id);
 
-			client.emit(EVENTS.GUILD_ROLE_CREATE, new Role(role), guild);
+			client.emitEvent(EVENTS.GUILD_ROLE_CREATE, new Role(role), guild);
 		});
 	}
 }

@@ -15,7 +15,7 @@ export default class {
 		this.payload = payload;
 
 		(async () => await this.generate(payload))();
-		client.emit(EVENTS.READY);
+		client.emitEvent(EVENTS.READY);
 	}
 
 	private async generate(payload: Payload) {

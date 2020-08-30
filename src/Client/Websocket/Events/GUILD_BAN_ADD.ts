@@ -11,7 +11,7 @@ export default class {
 			let { guild_id, user } = payload.d;
 			const guild = await client.api.getGuild(guild_id);
 			user = new User(user);
-			client.emit(EVENTS.GUILD_BAN_ADD, guild, user);
+			client.emitEvent(EVENTS.GUILD_BAN_ADD, guild, user);
 		});
 	}
 }

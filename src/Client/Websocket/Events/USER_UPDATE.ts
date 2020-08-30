@@ -5,6 +5,6 @@ import { User } from "../../../Structures/User/User";
 
 export default class {
 	constructor(client: EvolveClient, payload: Payload) {
-		client.emit(EVENTS.USER_UPDATE, new User(payload.d));
+		client.emitEvent(EVENTS.USER_UPDATE, new User(payload.d));
 	}
 }

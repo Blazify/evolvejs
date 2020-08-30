@@ -21,5 +21,5 @@
   "include": [
     "src"
   ],
-  "exclude": ["node_modules", "dist", "test.js", "TestBot"]
+  "exclude": ["node_modules", "dist", "test.ts", "TestBot"]
 }

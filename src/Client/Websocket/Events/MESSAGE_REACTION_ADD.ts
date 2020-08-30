@@ -13,7 +13,7 @@ export default class {
 		const guild = client.guilds.get(guild_id);
 		const gMember = new GuildMember(member);
 		const nEmoji = client.emojis.get(emoji.id);
-		client.emit(EVENTS.MESSAGE_REACTION_ADD, nEmoji, gMember, message, user, channel, guild);
+		client.emitEvent(EVENTS.MESSAGE_REACTION_ADD, nEmoji, gMember, message, user, channel, guild);
 	}
 }
 /*

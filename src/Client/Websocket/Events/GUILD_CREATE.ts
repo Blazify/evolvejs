@@ -11,7 +11,7 @@ export default class {
 		} else {
 			const newGuild = new Guild(guild, client);
 
-			client.emit(EVENTS.GUILD_CREATE, (newGuild));
+			client.emitEvent(EVENTS.GUILD_CREATE, (newGuild));
 		}
 	}
 }
