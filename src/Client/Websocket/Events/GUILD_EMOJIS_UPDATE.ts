@@ -13,6 +13,6 @@ export default class {
 				emojiObjex.set(emoji.id, new Emoji(emoji));
 			}
 			client.emitEvent(EVENTS.GUILD_EMOJIS_UPDATE, emojiObjex, guild);
-		});
+		})();
 	}
 }

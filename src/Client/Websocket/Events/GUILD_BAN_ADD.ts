@@ -10,6 +10,6 @@ export default class {
 			const guild = await client.api.getGuild(guild_id);
 			user = new User(user);
 			client.emitEvent(EVENTS.GUILD_BAN_ADD, guild, user);
-		});
+		})();
 	}
 }

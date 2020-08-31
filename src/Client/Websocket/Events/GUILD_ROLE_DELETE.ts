@@ -9,6 +9,6 @@ export default class {
 			const role = client.roles.get(role_id);
 
 			client.emitEvent(EVENTS.GUILD_ROLE_DELETE, role, guild);
-		});
+		})();
 	}
 }

@@ -43,7 +43,7 @@ export class Gateway {
 					(async() => {
 						const { default: handler } = await import(`./Events/${t}`);
 						new handler(this.ws.client, payload);
-					});
+					})();
 				} catch (e) {
 					throw Error(e);
 				}

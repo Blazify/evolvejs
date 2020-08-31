@@ -7,13 +7,13 @@
   <p>
 <a href="https://discord.gg/9bnpjqY"><img src="https://discordapp.com/api/guilds/714874374070599720/widget.png?style=shield" alt="Discord" /></a>
     <a href="https://twitter.com/ABlazify"><img src="https://img.shields.io/twitter/follow/ABlazify?label=Follow&style=social" alt="Twitter" /></a>
-    <a href="https://github.com/EvolveJS/EvolveJS/blob/master/LICENSE"><img src="https://img.shields.io/npm/l/evolvejs/evolvejs" alt="License" /></a>
-    <a href="https://npmjs.com/package/evolvejs/evolvejs"><img src="https://img.shields.io/npm/dt/evolvejs/evolvejs" alt="Downloads" /></a>
+    <a href="https://github.com/EvolveJS/EvolveJS/blob/master/LICENSE"><img src="https://img.shields.io/npm/l/@evolvejs/evolvejs" alt="License" /></a>
+    <a href="https://npmjs.com/package/@evolvejs/evolvejs"><img src="https://img.shields.io/npm/dt/@evolvejs/evolvejs" alt="Downloads" /></a>
     <a href="https://david-dm.org/EvolveJS/EvolveJS"><img src="https://img.shields.io/david/EvolveJS/EvolveJS" alt="Dependencies" /></a>
   </p>
   <br />
   <p>
-    <a href="https://nodei.co/npm/EvolveJS/"><img src="https://nodei.co/npm/evolvejs/evolvejs.png?downloads=true&stars=true" alt="Status Banner"></a>
+    <a href="https://nodei.co/npm/EvolveJS/"><img src="https://nodei.co/npm/@evolvejs/evolvejs.png?downloads=true&stars=true" alt="Status Banner"></a>
   </p>
 </div>
 
@@ -44,6 +44,12 @@ npm install @evolvejs/evolvejs
 
 - **For any further query and support join us at [EvolveJS](https://discord.gg/9bnpjqY) discord.**
 
+# Current Features 
+- **API Class, All Websocket Events, Sharding, API Ratelimiting, Collectors, Embeds, All Structures**
+
+# Upcoming Features
+- **Voice Support, All API Endpoints and basically everything more advanced stuff**
+
 # Basic Startup Guide
 
 **Example code for running the client
@@ -51,11 +57,11 @@ npm install @evolvejs/evolvejs
 ```js
 const { EvolveBuilder, GatewayIntents, CacheOptions } = require("@evolvejs/evolvejs")
 const client = new EvolveBuilder()
-                        .setToken("")
-                        .setShards(2)
-                        .enableIntents(GatewayIntent.GUILD)
-                        .enableCache(CacheOptions.GUILD)
-                        .build()
+                    .setToken("")
+                    .setShards(2)
+                    .enableIntents(GatewayIntent.GUILD)
+                    .enableCache(CacheOptions.GUILD)
+                    .build()
 
 client.on("clientReady", () => {
   console.log(client.user.username)

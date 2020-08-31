@@ -8,6 +8,6 @@ export default class {
 			const guild = await client.api.getGuild(guild_id);
 
 			client.emitEvent(EVENTS.GUILD_ROLE_CREATE, new Role(role), guild);
-		});
+		})();
 	}
 }

@@ -6,6 +6,6 @@ export default class {
 		(async() => {
 			const channel = await client.api.getChannel(payload.d.channel.id);
 			client.emitEvent(EVENTS.CHANNEL_UPDATE, channel);
-		});
+		})();
 	}
 }

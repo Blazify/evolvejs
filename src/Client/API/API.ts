@@ -1,7 +1,6 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 
-import { TextChannel, DMChannel, VoiceChannel, GroupChannel, CategoryChannel, NewsChannel, StoreChannel, EvolveClient, Guild, Channel, User, GuildMember, MessageEmbed, Message, CHANNELTYPES } from "../..";
-import RestAPIHandler from "./RestAPIHandler";
+import { RestAPIHandler ,TextChannel, DMChannel, VoiceChannel, GroupChannel, CategoryChannel, NewsChannel, StoreChannel, EvolveClient, Guild, Channel, User, GuildMember, MessageEmbed, Message, CHANNELTYPES } from "../..";
 
 const Channels = [TextChannel, DMChannel, VoiceChannel, GroupChannel, CategoryChannel, NewsChannel, StoreChannel];
 
@@ -11,22 +10,23 @@ const Channels = [TextChannel, DMChannel, VoiceChannel, GroupChannel, CategoryCh
  * @param {client} - Your EvolveClient
  */
 export default class API {
-    public client: EvolveClient;
+	public client: EvolveClient;
+	public handler: RestAPIHandler = new RestAPIHandler(this.client)
 
-    constructor(client: EvolveClient) {
+	constructor(client: EvolveClient) {
     	this.client = client;
-    }
+	}
 
 
-    public async getGuild(guildID: string): Promise<Guild> {
-    	return new Guild(await RestAPIHandler(this.client, {
-    		endpoint: `guilds/${ guildID }`,
-    		method: "GET"
-    	}), this.client);
-    }
+	public async getGuild(guildID: string): Promise<Guild> {
+    	return new Guild(await this.handler.fetch({
+			endpoint: `guilds/${guildID}`,
+			method: "GET"
+		}), this.client);
+	}
 
-    public async getGuildChannels(guildID: string): Promise<Channel[]> {
-    	const channel = await RestAPIHandler(this.client, {
+	public async getGuildChannels(guildID: string): Promise<Channel[]> {
+    	const channel = await this.handler.fetch({
     		endpoint: `guilds/${ guildID }/channels`,
     		method: "GET"
     	});
@@ -38,25 +38,25 @@ export default class API {
     	}
 
     	return channelArray;
-    }
+	}
 
-    public async getAuditLogs(guildID: string): Promise<void> {
-    	return await RestAPIHandler(this.client, {
+	public async getAuditLogs(guildID: string): Promise<void> {
+    	return await this.handler.fetch({
     		endpoint: `/guilds/${ guildID }/audit-logs`,
     		method: "POST"
     	}); 
-    }
+	}
 
-    public async getUser(userID: string): Promise<User> {
-    	return new User(await RestAPIHandler(this.client, {
+	public async getUser(userID: string): Promise<User> {
+    	return new User(await this.handler.fetch( {
     		endpoint: `users/${ userID }`,
     		method: "GET"
     	}));
-    }
+	}
 
-    public async getGuildMembers(guildID: string): Promise<GuildMember[]> {
+	public async getGuildMembers(guildID: string): Promise<GuildMember[]> {
     	const memberArray = new Array<GuildMember>();
-    	const member = await RestAPIHandler(this.client, {
+    	const member = await this.handler.fetch( {
     		endpoint: `guilds/${ guildID }/members`,
     		method: "GET"
     	});
@@ -66,41 +66,41 @@ export default class API {
     	}
 
     	return memberArray;
-    }
+	}
 
-    public async sendMessage(content: string | MessageEmbed, channelID: string): Promise<Message> {
-    	return new Message(await RestAPIHandler(this.client, {
+	public async sendMessage(content: string | MessageEmbed, channelID: string): Promise<Message> {
+    	return new Message(await this.handler.fetch( {
     		endpoint: `channels/${ channelID }/messages`,
     		method: "POST",
     		content: content
     	}), this.client);
-    }
+	}
 
-    public async deleteMessage(messageID: string, channelID: string, time: number): Promise<NodeJS.Timeout> {
+	public async deleteMessage(messageID: string, channelID: string, time: number): Promise<NodeJS.Timeout> {
     	return setTimeout(async () => {
-    		return await RestAPIHandler(this.client, {
+    		return await this.handler.fetch( {
     			endpoint: `/channels/${ channelID }/messages/${ messageID }`,
     			method: "DELETE"
     		});
     	}, time);
-    }
+	}
 
-    public async banAdd(guildID: string, userID: string): Promise<void> {
-    	return await RestAPIHandler(this.client, {
+	public async banAdd(guildID: string, userID: string): Promise<void> {
+    	return await this.handler.fetch( {
     		endpoint: `guilds/${ guildID }/bans/${ userID }`,
     		method: "PUT"
     	});
-    }
+	}
 
-    public async banRemove(userID: string, guildID: string): Promise<void> {
-    	return await RestAPIHandler(this.client, {
+	public async banRemove(userID: string, guildID: string): Promise<void> {
+    	return await this.handler.fetch( {
     		endpoint: `guilds/${ guildID }/bans/${ userID }`,
     		method: "DELETE"
     	});
-    }
+	}
 
-    public async getChannel(channelID: string): Promise<Channel> {
-    	const c = await RestAPIHandler(this.client, {
+	public async getChannel(channelID: string): Promise<Channel> {
+    	const c = await this.handler.fetch( {
     		endpoint: `/channels/${ channelID }`,
     		method: "GET"
     	});
@@ -121,5 +121,5 @@ export default class API {
     		return (new VoiceChannel(c, this.client));
     	}
     	return c;
-    }
+	}
 }
