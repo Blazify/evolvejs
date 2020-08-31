@@ -3,6 +3,7 @@ import { BaseCollector } from "./BaseCollector";
 import { TextChannel } from "../../Structures/Channel/TextChannel";
 import { Message } from "../../Structures/Message/Message";
 import { Objex } from "@evolvejs/objex";
+import { MessageReaction } from "../../Structures/Message/MessageReaction";
 
 export class MessageCollector extends BaseCollector {
 	constructor(
@@ -11,12 +12,11 @@ export class MessageCollector extends BaseCollector {
 	) {
 		super(channel.client, filter);
 		this.channel.client.on("newMessage", (msg: Message) => {
-			if(msg.channel !== this.channel) return;
 			filter(msg);
 		});
 	}
     
-	public end(): Objex<string, Message> {
+	public end(): Objex<string, Message | MessageReaction> {
 		this.channel.client.off("newMessage", msg => this.handle(msg));
 		return this.collected;
 	}

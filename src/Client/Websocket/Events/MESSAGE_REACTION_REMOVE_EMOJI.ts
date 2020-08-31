@@ -1,15 +1,9 @@
 
-import { EvolveClient, EVENTS, Payload } from "../../..";
+import { EvolveClient, EVENTS, Payload, MessageReaction } from "../../..";
 
 export default class {
 	constructor(client: EvolveClient, payload: Payload) {
-		const { channel_id, message_id, guild_id, emoji } = payload.d;
-
-		const channel = client.channels.get(channel_id);
-		const message = client.messages.get(message_id);
-		const guild = client.guilds.get(guild_id);
-		const nEmoji = client.emojis.get(emoji.id);
-		client.emitEvent(EVENTS.MESSAGE_REACTION_REMOVE_EMOJI, nEmoji, message, channel, guild);
+		client.emitEvent(EVENTS.MESSAGE_REACTION_REMOVE_EMOJI, new MessageReaction(payload.d, client));
 	}
 }
 
