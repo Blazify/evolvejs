@@ -1,7 +1,7 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-import { User } from "../User/User";
-import {Role} from "./Role";
-import {IGuildMember} from "../../Interfaces/GuildMemberOptions";
+
+import { User, Role, IGuildMember } from "../..";
+
 
 export class GuildMember {
 	    public user!: User | undefined;

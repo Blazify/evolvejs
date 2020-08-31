@@ -1,10 +1,7 @@
-import Channel from "./Channel";
-import { IGroupChannel } from "../../Interfaces/GroupChannelOptions";
-import { User } from "../User/User";
-import { EvolveClient, CHANNELTYPES } from "../..";
+import { Channel, User, IGroupChannel, EvolveClient, CHANNELTYPES } from "../..";
 import { Objex } from "@evolvejs/objex";
 
-export default class extends Channel {
+export class GroupChannel extends Channel {
 	public recipients: Objex<string, User> = new Objex();
 
 	public name?: string;

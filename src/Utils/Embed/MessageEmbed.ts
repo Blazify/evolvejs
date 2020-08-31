@@ -1,9 +1,4 @@
-import { IEmbedFooter } from "./EmbedFooter";
-import { IEmbedImage } from "./EmbedImage";
-import { IEmbedVideo } from "./EmbedVideo";
-import { IEmbedProvider } from "./EmbedProvider";
-import { IEmbedAuthor } from "./EmbedAuthor";
-import { IEmbedField } from "./EmbedField";
+import { IEmbedFooter, IEmbedImage, IEmbedVideo, IEmbedProvider, IEmbedAuthor, IEmbedField } from "../..";
 
 export interface MessageEmbed {
     title: string,

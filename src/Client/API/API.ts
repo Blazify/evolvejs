@@ -1,19 +1,7 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
+
+import { TextChannel, DMChannel, VoiceChannel, GroupChannel, CategoryChannel, NewsChannel, StoreChannel, EvolveClient, Guild, Channel, User, GuildMember, MessageEmbed, Message, CHANNELTYPES } from "../..";
 import RestAPIHandler from "./RestAPIHandler";
-import { EvolveClient, CHANNELTYPES } from "../..";
-import { Guild } from "../../Structures/Guild/Guild";
-import CategoryChannel from "../../Structures/Channel/CategoryChannel";
-import DMChannel from "../../Structures/Channel/DMChannel";
-import GroupChannel from "../../Structures/Channel/GroupChannel";
-import NewsChannel from "../../Structures/Channel/NewsChannel";
-import StoreChannel from "../../Structures/Channel/StoreChannel";
-import TextChannel from "../../Structures/Channel/TextChannel";
-import VoiceChannel from "../../Structures/Channel/VoiceChannel";
-import { User } from "../../Structures/User/User";
-import { GuildMember } from "../../Structures/Guild/GuildMember";
-import { Message } from "../../Structures/Message/Message";
-import Channel from "../../Structures/Channel/Channel";
-import { MessageEmbed } from "../../Utils/Embed/MessageEmbed";
 
 const Channels = [TextChannel, DMChannel, VoiceChannel, GroupChannel, CategoryChannel, NewsChannel, StoreChannel];
 

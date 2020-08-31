@@ -1,9 +1,6 @@
 
-import { Payload } from "../../../Interfaces/Interfaces";
-import { EvolveClient, EVENTS } from "../../..";
+import { EvolveClient, EVENTS, Payload, GuildMember, PresenceUpdate } from "../../..";
 import { Objex } from "@evolvejs/objex";
-import { GuildMember } from "../../../Structures/Guild/GuildMember";
-import PresenceUpdate from "../../../Structures/User/PresenceUpdate";
 
 export default class {
 	constructor(client: EvolveClient, payload: Payload) {

@@ -1,5 +1,4 @@
-import { Payload } from "../../../Interfaces/Interfaces";
-import { EvolveClient, EVENTS } from "../../..";
+import { EvolveClient, EVENTS, Payload } from "../../..";
 
 export default class {
 	constructor(client: EvolveClient, payload: Payload) {

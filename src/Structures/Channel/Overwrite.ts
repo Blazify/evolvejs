@@ -1,6 +1,6 @@
 import { IOverwrite } from "../../Interfaces/OverwriteOptions";
 
-export default class {
+export class Overwrite {
 	public id: string;
 	public type: IOverwrite["type"];
 	public allow: number;

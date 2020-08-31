@@ -1,8 +1,5 @@
 
-import { Payload } from "../../../Interfaces/Interfaces";
-import { EvolveClient, EVENTS } from "../../..";
-import { GuildMember } from "../../../Structures/Guild/GuildMember";
-
+import { EvolveClient, EVENTS, Payload, GuildMember } from "../../..";
 export default class {
 	constructor(client: EvolveClient, payload: Payload) {
 		const { guild_id, roles, user, nick, joined_at, premium_since } = payload.d;

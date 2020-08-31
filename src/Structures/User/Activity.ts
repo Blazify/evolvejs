@@ -1,12 +1,6 @@
-import {
-	IActivity,
-	IParty,
-	IAssets,
-	ISecrets,
-	IActivityEmoji
-} from "../../Interfaces/ActivityOptions";
+import { IActivityEmoji, IParty, IAssets, ISecrets, IActivity } from "../..";
 
-export default class {
+export class Activity {
 	public name: string;
 	public type: number;
 	public createdAt: number;

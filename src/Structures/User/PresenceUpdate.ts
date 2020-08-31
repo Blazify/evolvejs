@@ -1,13 +1,8 @@
-import {User} from "./User";
-import { Guild } from "../Guild/Guild";
-import ClientStatus from "../Miscs/ClientStatus";
-import Activity from "./Activity";
-import { Role } from "../Guild/Role";
-import { IPresenceUpdate } from "../../Interfaces/PresenceUpdateOptions";
+import { User, Role, Activity, Guild, ClientStatus, IPresenceUpdate, EvolveClient } from "../..";
 import { Objex } from "@evolvejs/objex";
-import { EvolveClient } from "../..";
 
-export default class {
+
+export class PresenceUpdate {
 	public user!: User;
 		public roles: Objex<string, Role> = new Objex();
 		public game!: Activity;

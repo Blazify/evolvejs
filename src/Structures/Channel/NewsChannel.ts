@@ -1,12 +1,8 @@
-import Channel from "./Channel";
-import { INewsChannel } from "../../Interfaces/NewsChannelOptions";
-import Overwrite from "./Overwrite";
-import { EvolveClient, CHANNELTYPES } from "../..";
-import {Guild} from "../Guild/Guild";
-import CategoryChannel from "./CategoryChannel";
+import { Channel, Overwrite, Guild, CategoryChannel, INewsChannel, EvolveClient, CHANNELTYPES } from "../..";
 import { Objex } from "@evolvejs/objex";
 
-export default class extends Channel {
+
+export class NewsChannel extends Channel {
 	public overwrites: Objex<string, Overwrite> = new Objex();
 
 	public guild?: Guild;

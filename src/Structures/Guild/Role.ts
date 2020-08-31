@@ -1,4 +1,5 @@
-import { IRole } from "../../Interfaces/RoleOptions";
+import { IRole } from "../..";
+
 
 export class Role {
 	public id: string;

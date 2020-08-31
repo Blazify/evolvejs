@@ -1,7 +1,5 @@
 
-import { Payload } from "../../../Interfaces/Interfaces";
-import { EvolveClient, EVENTS } from "../../..";
-import Invite from "../../../Structures/Guild/Invite";
+import { EvolveClient, EVENTS, Payload, Invite } from "../../..";
 
 export default class {
 	constructor(client: EvolveClient, payload: Payload) {

@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { Guild } from "./Guild";
-import Channel from "../Channel/Channel";
-import {User} from "../User/User";
-import { IInvite } from "../../Interfaces/InviteOptions";
-import { EvolveClient } from "../..";
 
-export default class {
+import { Guild, Channel, User, IInvite, EvolveClient } from "../..";
+
+
+export class Invite {
    public code: string;
 		public guild: Guild;
 		public channel: Channel;

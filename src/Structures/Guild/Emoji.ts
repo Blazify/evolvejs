@@ -1,10 +1,10 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-import { User } from "../User/User";
-import { IEmoji } from "../../Interfaces/EmojiOptions";
-import { Role } from "./Role";
-import { Objex } from "@evolvejs/objex";
 
-export default class {
+import { Objex } from "@evolvejs/objex";
+import { Role, User, IEmoji } from "../..";
+
+
+export class Emoji {
     public id!: string | null;
     public name!: string | null;
     public roles: Objex<string, Role> = new Objex();

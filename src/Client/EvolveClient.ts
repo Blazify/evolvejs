@@ -1,16 +1,7 @@
-import { ClientUser } from "./ClientUser";
+import { EvolveEmitter, Guild, Channel, User, Emoji, Role, Message, ClientUser, TokenAccessOptions, EvolveLogger, Oauth2Token, ClientOptions } from "..";
 import { Objex } from "@evolvejs/objex";
-import { Guild } from "../Structures/Guild/Guild";
-import Channel from "../Structures/Channel/Channel";
-import { User } from "../Structures/User/User";
-import Emoji from "../Structures/Guild/Emoji";
 import API from "./API/API";
-import { ClientOptions } from "./ClientOptions";
-import { Message } from "../Structures/Message/Message";
-import { EvolveLogger, TokenAccessOptions } from "..";
-import { Oauth2Token } from "../Oauth2/Oauth2Token";
-import { Role } from "../Structures/Guild/Role";
-import { EvolveEmitter } from "../Utils/EventEmitter/EvolveEmitter";
+
 
 export class EvolveClient extends EvolveEmitter {
 	public token: string;

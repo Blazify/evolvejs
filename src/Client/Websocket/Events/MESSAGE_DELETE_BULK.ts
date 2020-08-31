@@ -1,8 +1,6 @@
 
-import { Payload } from "../../../Interfaces/Interfaces";
-import { EvolveClient, EVENTS } from "../../..";
+import { EvolveClient, EVENTS, Payload, Message } from "../../..";
 import { Objex } from "@evolvejs/objex";
-import { Message } from "../../../Structures/Message/Message";
 
 export default class {
 	constructor(client: EvolveClient, payload: Payload) {

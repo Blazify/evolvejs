@@ -1,6 +1,6 @@
 import { EvolveClient, CHANNELTYPES } from "../..";
 
-export default class {
+export class Channel {
 	public client: EvolveClient;
 	public id: string;
 	public type: CHANNELTYPES;

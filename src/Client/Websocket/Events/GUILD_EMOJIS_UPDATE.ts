@@ -1,8 +1,6 @@
 
-import { Payload } from "../../../Interfaces/Interfaces";
-import { EvolveClient, EVENTS } from "../../..";
+import { EvolveClient, EVENTS, Payload, Emoji } from "../../..";
 import { Objex } from "@evolvejs/objex";
-import Emoji from "../../../Structures/Guild/Emoji";
 
 export default class {
 	constructor(client: EvolveClient, payload: Payload) {

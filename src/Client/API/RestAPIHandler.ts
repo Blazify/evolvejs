@@ -1,6 +1,6 @@
-import { EvolveClient, CONSTANTS } from "../..";
-import { IAPIParams } from "../../Interfaces/Interfaces";
+
 import fetch from "node-fetch";
+import { EvolveClient, IAPIParams, CONSTANTS } from "../..";
 
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

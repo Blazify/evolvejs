@@ -1,13 +1,8 @@
-import Channel from "./Channel";
-import { IVoiceChannel } from "../../Interfaces/VoiceChannelOptions";
-import Overwrite from "./Overwrite";
-import { EvolveClient, CHANNELTYPES } from "../..";
-import {Guild} from "../Guild/Guild";
-import CategoryChannel from "./CategoryChannel";
+import { Channel, Overwrite, Guild, CategoryChannel, IVoiceChannel, EvolveClient, CHANNELTYPES } from "../..";
 import { Objex } from "@evolvejs/objex";
 
 
-export default class extends Channel {
+export class VoiceChannel extends Channel {
 	public overwrites: Objex<string, Overwrite> = new Objex();
 
 	public guild?: Guild;

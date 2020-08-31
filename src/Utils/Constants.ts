@@ -1,11 +1,4 @@
-import { Payload } from "../Interfaces/Interfaces";
-import { IDMChannel } from "../Interfaces/DMChannelOptions";
-import { ITextChannel } from "../Interfaces/TextChannelOptions";
-import { ICategoryChannel } from "../Interfaces/CategoryChannelOptions";
-import { INewsChannel } from "../Interfaces/NewsChannelOptions";
-import { IVoiceChannel } from "../Interfaces/VoiceChannelOptions";
-import { IGroupChannel } from "../Interfaces/GroupChannelOptions";
-import { IStoreChannel } from "../Interfaces/StoreChannelOptions";
+import { ITextChannel, IDMChannel, IVoiceChannel, IGroupChannel, ICategoryChannel, INewsChannel, IStoreChannel, Payload } from "..";
 
 export enum CONSTANTS {
     Gateway = "wss://gateway.discord.gg/?v=6&encoding=json", Api = "https://discord.com/api/v6"

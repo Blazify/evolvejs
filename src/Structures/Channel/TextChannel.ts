@@ -1,14 +1,8 @@
-import Channel from "./Channel";
-import { ITextChannel } from "../../Interfaces/TextChannelOptions";
-import Overwrite from "./Overwrite";
-import { EvolveClient, CHANNELTYPES } from "../..";
-import {Guild} from "../Guild/Guild";
-import CategoryChannel from "./CategoryChannel";
+import { Channel, Overwrite, Guild, CategoryChannel, MessageEmbed, Message, ITextChannel, EvolveClient, CHANNELTYPES } from "../..";
 import { Objex } from "@evolvejs/objex";
-import { Message } from "../Message/Message";
-import { MessageEmbed } from "../../Utils/Embed/MessageEmbed";
 
-export default class extends Channel {
+
+export class TextChannel extends Channel {
 	public overwrites: Objex<string, Overwrite> = new Objex();
 
 	public guild?: Guild;

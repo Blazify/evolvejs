@@ -1,10 +1,8 @@
-import Channel from "./Channel";
-import { IDMChannel } from "../../Interfaces/DMChannelOptions";
-import { EvolveClient, CHANNELTYPES } from "../..";
-import {User} from "../User/User";
+import { Channel, User, IDMChannel, EvolveClient, CHANNELTYPES } from "../..";
 import { Objex } from "@evolvejs/objex";
 
-export default class extends Channel {
+
+export class DMChannel extends Channel {
 	public recipients: Objex<string, User> = new Objex();
 
 	public lastMessage?: string;

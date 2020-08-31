@@ -1,11 +1,7 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-import { GuildMember } from "../Guild/GuildMember";
-import { User } from "../User/User";
-import { Guild } from "../Guild/Guild";
-import { IMessage } from "../../Interfaces/MessageOptions";
-import { EvolveClient } from "../..";
-import TextChannel from "../Channel/TextChannel";
-import { MessageEmbed } from "../../Utils/Embed/MessageEmbed";
+
+import { User, GuildMember, Guild, TextChannel, IMessage, EvolveClient, MessageEmbed } from "../..";
+
 
 export class Message {
     public sentAt!: string;

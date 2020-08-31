@@ -1,7 +1,7 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-import { IClientStatus } from "../../Interfaces/PresenceUpdateOptions";
+import { IClientStatus } from "../../";
 
-export default class {
+export class ClientStatus {
     public desktop?: string;
     public mobile?: string;
     public web?: string;

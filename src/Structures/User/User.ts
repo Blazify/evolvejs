@@ -1,5 +1,5 @@
-import { IUser } from "../../Interfaces/UserOptions";
-import { NITRO } from "../..";
+import { IUser, NITRO } from "../..";
+
 
 export class User {
 	public id: string;

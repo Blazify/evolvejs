@@ -1,12 +1,6 @@
-import {Role} from "./Role";
-import Emoji from "./Emoji";
-import Channel from "../Channel/Channel";
-import VoiceState from "./VoiceState";
-import {GuildMember} from "./GuildMember";
-import PresenceUpdate from "../User/PresenceUpdate";
+import { EvolveClient, GuildMember, Channel, Role, Emoji, VoiceState, PresenceUpdate, IGuild } from "../..";
 import { Objex } from "@evolvejs/objex";
-import { IGuild } from "../../Interfaces/GuildOptions";
-import { EvolveClient } from "../..";
+
 
 export class Guild {
 	public client: EvolveClient;

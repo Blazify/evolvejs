@@ -1,10 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { ClientUser } from "../../ClientUser";
-import { Guild } from "../../../Structures/Guild/Guild";
-import {Role} from "../../../Structures/Guild/Role";
-import Emoji from "../../../Structures/Guild/Emoji";
-import { Payload } from "../../../Interfaces/Interfaces";
-import { EvolveClient, EVENTS } from "../../..";
+
+import { EvolveClient, Payload, EVENTS, ClientUser, Guild, Role, Emoji } from "../../..";
+
 
 export default class {
 	public client: EvolveClient;

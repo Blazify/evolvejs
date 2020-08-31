@@ -1,12 +1,10 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-import Channel from "./Channel";
-import { ICategoryChannel } from "../../Interfaces/CategoryChannelOptions";
-import Overwrite from "./Overwrite";
-import { EvolveClient, CHANNELTYPES } from "../..";
-import { Guild } from "../Guild/Guild";
+
+import { Channel, Overwrite, Guild, ICategoryChannel, EvolveClient, CHANNELTYPES } from "../..";
 import { Objex } from "@evolvejs/objex";
 
-export default class extends Channel {
+
+export class CategoryChannel extends Channel {
     public overwrites: Objex<string, Overwrite> = new Objex();
 
     public guild?: Guild;

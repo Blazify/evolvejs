@@ -1,14 +1,7 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 
 import { URL } from "url";
-import {  IEmbedThumbnail, EmbedThumbnailBuilder } from "./EmbedThumbnail";
-import { IEmbedVideo, EmbedVideoBuilder } from "./EmbedVideo";
-import { IEmbedImage, EmbedImageBuilder } from "./EmbedImage";
-import { IEmbedAuthor, EmbedAuthorBuilder } from "./EmbedAuthor";
-import { IEmbedFooter, EmbedFooterBuilder } from "./EmbedFooter";
-import { IEmbedProvider, EmbedProviderBuilder } from "./EmbedProvider";
-import { IEmbedField, EmbedFieldBuilder } from "./EmbedField";
-import { MessageEmbed } from "./MessageEmbed";
+import { IEmbedThumbnail, IEmbedVideo, IEmbedImage, IEmbedAuthor, IEmbedFooter, IEmbedProvider, IEmbedField, EmbedThumbnailBuilder, EmbedVideoBuilder, EmbedImageBuilder, EmbedAuthorBuilder, EmbedFooterBuilder, EmbedProviderBuilder, EmbedFieldBuilder, MessageEmbed } from "../..";
 
 export class EmbedBuilder {
     private title!: string
