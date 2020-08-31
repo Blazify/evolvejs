@@ -62,4 +62,6 @@ export * from "./Utils/Embed/EmbedProvider";
 export * from "./Utils/Embed/EmbedThumbnail";
 export * from "./Utils/Embed/EmbedVideo";
 export * from "./Utils/Embed/MessageEmbed";
+export * from "./Utils/Collectors/BaseCollector";
+export * from "./Utils/Collectors/MessageCollector";
 export * from "./Utils/Constants";

@@ -1,0 +1,27 @@
+/* eslint-disable @typescript-eslint/ban-types */
+import { BaseCollector } from "./BaseCollector";
+import { TextChannel } from "../../Structures/Channel/TextChannel";
+import { Message } from "../../Structures/Message/Message";
+import { Objex } from "@evolvejs/objex";
+
+export class MessageCollector extends BaseCollector {
+	constructor(
+        public channel: TextChannel,
+        public filter: Function
+	) {
+		super(channel.client, filter);
+		this.channel.client.on("newMessage", (msg: Message) => {
+			if(msg.channel !== this.channel) return;
+			filter(msg);
+		});
+	}
+    
+	public end(): Objex<string, Message> {
+		this.channel.client.off("newMessage", msg => this.handle(msg));
+		return this.collected;
+	}
+
+	public handle(message: Message): void {
+		this.collected.set(message.id, message);
+	}
+}
