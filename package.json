@@ -1,16 +1,24 @@
 {
-	"name": "evolve.js",
-	"version": "1.0.0-alpha",
+	"name": "@evolvejs/evolvejs",
+	"version": "0.0.1-alpha",
 	"description": "An advanced discord API wrapper with TS and JS support",
 	"main": "dist/index.js",
 	"scripts": {
-		"build": "tsc",
-		"publish": "npm publish --access public"
+		"build": "tsc"
 	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/EvolveJS/EvolveJS.git"
 	},
+	"keywords": [
+		"evolvejs",
+		"evjs",
+		"discord",
+		"library",
+		"typescript",
+		"javascript",
+		"discord-library"
+	],
 	"author": "evolvejs",
 	"license": "AGPL-3.0-or-later",
 	"bugs": {
