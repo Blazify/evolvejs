@@ -1,13 +1,13 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 
 import { URL } from "url";
-import {  IEmbedThumbnail } from "./EmbedThumbnail";
-import { IEmbedVideo } from "./EmbedVideo";
-import { IEmbedImage } from "./EmbedImage";
-import { IEmbedAuthor } from "./EmbedAuthor";
-import { IEmbedFooter } from "./EmbedFooter";
-import { IEmbedProvider } from "./EmbedProvider";
-import { IEmbedField } from "./EmbedField";
+import {  IEmbedThumbnail, EmbedThumbnailBuilder } from "./EmbedThumbnail";
+import { IEmbedVideo, EmbedVideoBuilder } from "./EmbedVideo";
+import { IEmbedImage, EmbedImageBuilder } from "./EmbedImage";
+import { IEmbedAuthor, EmbedAuthorBuilder } from "./EmbedAuthor";
+import { IEmbedFooter, EmbedFooterBuilder } from "./EmbedFooter";
+import { IEmbedProvider, EmbedProviderBuilder } from "./EmbedProvider";
+import { IEmbedField, EmbedFieldBuilder } from "./EmbedField";
 import { MessageEmbed } from "./MessageEmbed";
 
 export class EmbedBuilder {
@@ -60,44 +60,81 @@ export class EmbedBuilder {
     	return this;
     }
 
-    public setThumbnail(thumbnail: IEmbedThumbnail): EmbedBuilder {
-    	this.thumbnail = thumbnail;
+    public setThumbnail(url: URL, proxyURL?: URL, height?: number, width?: number): EmbedBuilder {
+    	const thumbnail = new EmbedThumbnailBuilder();
+    	if(url) thumbnail.setURL(url);
+    	if(proxyURL) thumbnail.setProxyURL(proxyURL);
+    	if(height) thumbnail.setHeight(height);
+    	if(width) thumbnail.setWidth(width);
+
+    	this.thumbnail = thumbnail.build();
     	return this;
     }
 
-    public setVideo(video: IEmbedVideo): EmbedBuilder {
-    	this.video = video;
+    public setVideo(url: URL, height?: number, width?: number): EmbedBuilder {
+    	const video = new EmbedVideoBuilder();
+    	if(url) video.setURL(url);
+    	if(height) video.setHeight(height);
+    	if(width) video.setWidth(width);
+
+    	this.video = video.build();
     	return this;
     }
 
-    public setImage(image: IEmbedImage): EmbedBuilder {
-    	this.image = image;
+    public setImage(url: URL, proxyURL?: string, height?: number, width?: number): EmbedBuilder {
+    	const image = new EmbedImageBuilder();
+    	if(url) image.setURL(url);
+    	if(proxyURL) image.setProxyURL(url);
+    	if(height) image.setHeight(height);
+    	if(width) image.setWidth(width);
+
+    	this.image = image.build();
     	return this;
     }
 
-    public setAuthor(author: IEmbedAuthor): EmbedBuilder {
-    	this.author = author;
+    public setAuthor(text?: string, url?: URL, iconURL?: URL, proxyIconURL?: URL): EmbedBuilder {
+    	const author = new EmbedAuthorBuilder();
+    	if(text) author.setName(text);
+    	if(url) author.setURL(url);
+    	if(iconURL) author.setIconURL(iconURL);
+    	if(proxyIconURL) author.setProxyIconURL(proxyIconURL);
+
+    	this.author = author.build();
     	return this;
     }
 
-    public setFooter(footer: IEmbedFooter): EmbedBuilder {
-    	this.footer = footer;
+    public setFooter(text?: string, url?: URL, proxyURL?: URL): EmbedBuilder {
+    	const footer = new EmbedFooterBuilder();
+    	if(text) footer.setText(text);
+    	if(url) footer.setIconUrl(url);
+    	if(proxyURL) footer.setProxyIconUrl(proxyURL);
+
+    	this.footer = footer.build();
     	return this;
     }
 
-    public setProvider(provider: IEmbedProvider): EmbedBuilder {
-    	this.provider = provider;
+    public setProvider(name?: string, url?: URL): EmbedBuilder {
+    	const provider = new EmbedProviderBuilder();
+    	if(name) provider.setName(name);
+    	if(url) provider.setURL(url);
+		
+    	this.provider = provider.build();
     	return this;
     }
 
-    public addField(field: IEmbedField): EmbedBuilder {
+    public addField(key: string, value: string, inline = false): EmbedBuilder {
+    	const field: IEmbedField = new EmbedFieldBuilder()
+    		.setName(key)
+    		.setValue(value)
+    		.enableInline(inline)
+    		.build();
     	this.fields.push(field);
     	return this;
     }
 
-    public addFields(...fields: IEmbedField[]): EmbedBuilder {
+    public addFields(...fields: { key: string, value: string, inline?: boolean }[]): EmbedBuilder {
     	for(const field of fields) {
-    		this.addField(field);
+    		this.addField(field.key, field.value, field.inline);
     	}
         
     	return this;

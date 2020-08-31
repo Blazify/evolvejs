@@ -20,7 +20,7 @@ export default class extends Channel {
 	public rateLimit: number;
 	public parent?: CategoryChannel;
 	public lastPin?: number;
-	public sendMessage!:  (content: string | MessageEmbed) => Promise<Message>;
+	public send!:  (content: string | MessageEmbed) => Promise<Message>;
 	public purge!: (time?: number) => Promise<NodeJS.Timeout>;
 
 	constructor(data: ITextChannel, client: EvolveClient) {

@@ -41,7 +41,7 @@ export class Message {
     	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
     	//@ts-ignore
     	client.api.getChannel(data.channel_id).then(it => this.channel = it);
-    	this.channel.sendMessage = (content: string | MessageEmbed): Promise<Message> => {
+    	this.channel.send = (content: string | MessageEmbed): Promise<Message> => {
     		return client.api.sendMessage(content, this.channel.id);
     	};
 
