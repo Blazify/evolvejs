@@ -6,9 +6,10 @@ import { EvolveSocket } from "./Websocket/Websocket";
 export class EvolveBuilder {
     private token!: string;
     public shards = 1
-    public intents = 0
-    private guildCache = false;
-    private channelCache = false
+    public intents = 0;
+    private dontChange = false;
+    private guildCache = true;
+    private channelCache = true;
     private emojiCache = false;
     private usersCache = false;
     private messageCache = false;
@@ -66,6 +67,12 @@ export class EvolveBuilder {
     	if(cache.includes(CacheOptions.USERS)) this.usersCache = true;
     	if(cache.includes(CacheOptions.CHANNELS)) this.channelCache = true;
     	if(cache.includes(CacheOptions.MESSAGES)) this.messageCache = true;
+    	if(cache.includes(CacheOptions.ALL)) {
+    		this.messageCache = true;
+    		this.channelCache = true;
+    		this.guildCache = true;
+    		this.usersCache = true;
+    	}
     	return this;
     }
 
@@ -81,6 +88,12 @@ export class EvolveBuilder {
     	if(cache.includes(CacheOptions.USERS)) this.usersCache = false;
     	if(cache.includes(CacheOptions.CHANNELS)) this.channelCache = false;
     	if(cache.includes(CacheOptions.MESSAGES)) this.messageCache = false;
+    	if(cache.includes(CacheOptions.ALL)) {
+    		this.messageCache = false;
+    		this.channelCache = false;
+    		this.guildCache = false;
+    		this.usersCache = false;
+    	}
     	return this;
     }
 
@@ -108,6 +121,7 @@ export class EvolveBuilder {
     	for(const intent of intents) {
     		this.intents = ((this.intents) - (intent));
     	}
+    	this.dontChange = true;
     	return this;
     }
 
@@ -152,6 +166,10 @@ export class EvolveBuilder {
     		enableMessageCache: this.messageCache,
     		capturePromiseRejection: this.promiseRejection
     	});
+        
+    	if(this.intents == 0 && !this.dontChange) {
+    		this.intents = ((GatewayIntents.GUILD) + (GatewayIntents.GUILD_MESSAGES) + (GatewayIntents.DIRECT_MESSAGES));
+    	}
 
     	new EvolveSocket(builtClient, this).init();
     	builtClient.secret = this.secret;

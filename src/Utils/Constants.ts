@@ -38,7 +38,7 @@ export enum ActivityTypes {
 }
 
 export enum CacheOptions {
-    GUILD = 1, CHANNELS = 2, USERS = 3, MESSAGES = 4
+    GUILD = 1, CHANNELS = 2, USERS = 3, MESSAGES = 4, ALL = 5
 }
 
 export enum EVENTS {
@@ -85,7 +85,22 @@ export enum EVENTS {
 
 
 export enum GatewayIntents {
-    GUILD = 1 << 0, GUILD_MEMBERS = 1 << 1, GUILD_BANS = 1 << 2, GUILD_EMOJIS = 1 << 3, GUILD_INTEGRATIONS = 1 << 4, GUILD_WEBHOOKS = 1 << 5, GUILD_INVITES = 1 << 6, GUILD_VOICE_STATES = 1 << 7, GUILD_PRESENCES = 1 << 8, GUILD_MESSAGES = 1 << 9, GUILD_MESSAGES_REACTIONS = 1 << 10, GUILD_MESSAGE_TYPING = 1 << 11, DIRECT_MESSAGES = 1 << 12, DIRECT_MESSAGES_REACTIONS = 1 << 13, DIRECT_MESSAGES_TYPING = 1 << 14
+    GUILD = 1 << 0, 
+    GUILD_MEMBERS = 1 << 1, 
+    GUILD_BANS = 1 << 2, 
+    GUILD_EMOJIS = 1 << 3, 
+    GUILD_INTEGRATIONS = 1 << 4, 
+    GUILD_WEBHOOKS = 1 << 5, 
+    GUILD_INVITES = 1 << 6, 
+    GUILD_VOICE_STATES = 1 << 7, 
+    GUILD_PRESENCES = 1 << 8, 
+    GUILD_MESSAGES = 1 << 9, 
+    GUILD_MESSAGES_REACTIONS = 1 << 10, 
+    GUILD_MESSAGE_TYPING = 1 << 11,
+    DIRECT_MESSAGES = 1 << 12, 
+    DIRECT_MESSAGES_REACTIONS = 1 << 13, 
+    DIRECT_MESSAGES_TYPING = 1 << 14, 
+    ALL = ((1 << 0) + (1 << 1)  + (1 << 2) + (1 << 3) + (1 << 4) + (1 << 5) + (1 << 6) + (1 << 7) + (1 << 8) + (1 << 9) + (1 << 10) + (1 << 11) + (1 << 12) + (1 << 13) + (1 << 14))
 }
 
 export enum OPCODE {

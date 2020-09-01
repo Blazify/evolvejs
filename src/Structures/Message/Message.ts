@@ -18,9 +18,11 @@ export class Message {
     public attachments!: Array<string>;
     public content!: string;
     public guild!: Guild;
-    public channel!: TextChannel
+	public channel!: TextChannel
+	public delete: (time: number) => Promise<NodeJS.Timeout> = ((time = 0) => this.guild.client.api.deleteMessage(this.id, this.channel.id, time));
 
-    constructor(data: IMessage, channel?: TextChannel, guild?: Guild) {
+
+	constructor(data: IMessage, channel?: TextChannel, guild?: Guild) {
     	 if(data.mentions) for (const it of data.mentions) {
     	 	this.mentions.push(new User(it));
     	 }
@@ -40,6 +42,6 @@ export class Message {
 		
     	this.channel.send = async(content: string | MessageEmbed): Promise<Message> => {
     		return channel!.client.api.sendMessage(content, this.channel.id);
-    	};
-    }
+		};
+	}
 }
