@@ -7,6 +7,6 @@ export default class {
 		const message = client.messages.get(id);
 		const guild = client.guilds.get(guild_id);
 		const channel = client.channels.get(channel_id);
-		client.emitEvent(EVENTS.MESSAGE_DELETE, message, guild, channel);
+		client.emit(EVENTS.MESSAGE_DELETE, message, guild, channel);
 	}
 }

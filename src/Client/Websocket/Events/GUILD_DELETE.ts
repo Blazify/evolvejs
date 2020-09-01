@@ -5,7 +5,7 @@ export default class {
 	constructor(client: EvolveClient, payload: Payload) {
 		const guild = payload.d;
 		client.api.getGuild(guild.id).then(o => {
-			client.emitEvent(EVENTS.GUILD_DELETE, o);
+			client.emit(EVENTS.GUILD_DELETE, o);
 		});
 	}
 }

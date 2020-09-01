@@ -17,11 +17,12 @@ export class Emoji {
     constructor(data: IEmoji) {
     	this.id = data.id;
     	this.name = data.name;
-        data.roles?.forEach(i => this.roles.set(i.id, new Role(i)));
-        this.user = new User(data.user);
-        this.reqColons = data.require_colons;
-        this.managed = data.managed;
-        this.animated = data.animated;
-        this.available = data.available;
+    	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    	data.roles!.forEach(i => this.roles.set(i.id, new Role(i)));
+    	this.user = new User(data.user);
+    	this.reqColons = data.require_colons;
+    	this.managed = data.managed;
+    	this.animated = data.animated;
+    	this.available = data.available;
     }
 }

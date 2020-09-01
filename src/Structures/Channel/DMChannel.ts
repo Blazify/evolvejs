@@ -1,5 +1,6 @@
-import { Channel, User, IDMChannel, EvolveClient, CHANNELTYPES } from "../..";
+import { User, IDMChannel, EvolveClient, CHANNELTYPES } from "../..";
 import { Objex } from "@evolvejs/objex";
+import { Channel } from "./Channel";
 
 
 export class DMChannel extends Channel {

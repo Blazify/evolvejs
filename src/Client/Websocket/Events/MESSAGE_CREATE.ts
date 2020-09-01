@@ -9,6 +9,6 @@ export default class {
 			client.messages.set(message.id, message);
 		}
 
-		client.emitEvent(EVENTS.MESSAGE_CREATE, message);
+		client.emit(EVENTS.MESSAGE_CREATE, message);
 	}
 }

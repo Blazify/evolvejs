@@ -31,12 +31,8 @@ export class Gateway {
 						this.spawn(i);
 					});
 				}
-			}
-			else if (op === OPCODE.Reconnect) {
-				//console.log(payload);
-			}
-			else if (op === OPCODE.Invalid) {
-				//console.log(payload);
+			} else if(op === OPCODE.Voice_State_Update) {
+				console.log(payload);
 			}
 			else if (t) {
 				try {
@@ -55,9 +51,9 @@ export class Gateway {
 
 	public spawn(shard: number): void {
 			 if(this.launchedShards.has(shard)) {
-				 	EvolveLogger.error("Internal Shard Spawning Error (Double Shard Instances)");
-				 } else if(!this.launchedShards.has(shard)) {
-				 	this.launchedShards.add(shard);
+				 EvolveLogger.error("Internal Shard Spawning Error (Double Shard Instances)");
+		} else if(!this.launchedShards.has(shard)) {
+			this.launchedShards.add(shard);
 		}
 
 		Identify.d.token = this.ws.client.token;

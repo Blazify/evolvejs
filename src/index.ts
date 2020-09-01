@@ -53,8 +53,7 @@ export * from "./Structures/Miscs/ClientStatus";
 export * from "./Structures/User/Activity";
 export * from "./Structures/User/PresenceUpdate";
 export * from "./Structures/User/User";
-export * from "./Utils/EventEmitter/EvolveEmitter";
-export * from "./Utils/EventEmitter/EvolveEvents";
+
 export * from "./Utils/Embed/EmbedBuilder";
 export * from "./Utils/Embed/EmbedAuthor";
 export * from "./Utils/Embed/EmbedField";

@@ -12,7 +12,7 @@ export default class {
 			for(const emoji of emojis) {
 				emojiObjex.set(emoji.id, new Emoji(emoji));
 			}
-			client.emitEvent(EVENTS.GUILD_EMOJIS_UPDATE, emojiObjex, guild);
+			client.emit(EVENTS.GUILD_EMOJIS_UPDATE, emojiObjex, guild);
 		})();
 	}
 }

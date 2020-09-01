@@ -1,7 +1,8 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 
-import { Channel, Overwrite, Guild, ICategoryChannel, EvolveClient, CHANNELTYPES } from "../..";
+import { Overwrite, Guild, EvolveClient, CHANNELTYPES, ICategoryChannel } from "../..";
 import { Objex } from "@evolvejs/objex";
+import { Channel } from "./Channel";
 
 
 export class CategoryChannel extends Channel {

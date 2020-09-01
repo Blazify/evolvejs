@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { User, Role, Activity, Guild, ClientStatus, IPresenceUpdate, EvolveClient } from "../..";
 import { Objex } from "@evolvejs/objex";
 
@@ -17,9 +18,8 @@ export class PresenceUpdate {
 			client: EvolveClient
 		) {
 			this.user = new User(data.user);
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			data.roles.forEach(o => this.roles.set(o, client.roles.get(o)!));
-		data.game?.forEach(o => this.game = new Activity(o));
+		data.game!.forEach(o => this.game = new Activity(o));
 		client.api.getGuild(data.guild_id).then(o => this.guild = o);
 		this.status = data.status;
 		this.activities = data.activities;

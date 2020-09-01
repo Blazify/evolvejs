@@ -1,9 +1,8 @@
-import { EvolveEmitter, Guild, Channel, User, Emoji, Role, Message, ClientUser, TokenAccessOptions, EvolveLogger, Oauth2Token, ClientOptions } from "..";
+import { Guild, Channel, User, Emoji, Role, Message, ClientUser, TokenAccessOptions, EvolveLogger, Oauth2Token, ClientOptions, API } from "..";
 import { Objex } from "@evolvejs/objex";
-import API from "./API/API";
+import { EventEmitter } from "events";
 
-
-export class EvolveClient extends EvolveEmitter {
+export class EvolveClient extends EventEmitter {
 	public token: string;
 	public options: ClientOptions;
 	public guilds: Objex<string, Guild> = new Objex();

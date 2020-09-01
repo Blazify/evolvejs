@@ -2,19 +2,18 @@
 
 import { RestAPIHandler ,TextChannel, DMChannel, VoiceChannel, GroupChannel, CategoryChannel, NewsChannel, StoreChannel, EvolveClient, Guild, Channel, User, GuildMember, MessageEmbed, Message, CHANNELTYPES } from "../..";
 
-const Channels = [TextChannel, DMChannel, VoiceChannel, GroupChannel, CategoryChannel, NewsChannel, StoreChannel];
-
 /**
  * API CLASS
  *
  * @param {client} - Your EvolveClient
  */
-export default class API {
+export class API {
 	public client: EvolveClient;
-	public handler: RestAPIHandler = new RestAPIHandler(this.client)
+	public handler: RestAPIHandler
 
 	constructor(client: EvolveClient) {
-    	this.client = client;
+		this.client = client;
+		this.handler = new RestAPIHandler(this.client);
 	}
 
 
@@ -26,15 +25,29 @@ export default class API {
 	}
 
 	public async getGuildChannels(guildID: string): Promise<Channel[]> {
-    	const channel = await this.handler.fetch({
-    		endpoint: `guilds/${ guildID }/channels`,
+    	const channels = await this.handler.fetch({
+    		endpoint: `guilds/${guildID}/channels`,
     		method: "GET"
-    	});
+		});
+
     	const channelArray = [];
 
-    	for (let i = 0; i < channel.length; i++) {
-    		const c = channel[i];
-    		channelArray.push(new Channels[c.type](c, this.client));
+    	for (const c of channels) {
+			if (c.type === CHANNELTYPES.Category) {
+				channelArray.push(new CategoryChannel(c, this.client));
+			} else if (c.type === CHANNELTYPES.Direct) {
+				channelArray.push(new DMChannel(c, this.client));
+			} else if (c.type === CHANNELTYPES.Group) {
+				channelArray.push(new GroupChannel(c, this.client));
+			} else if (c.type === CHANNELTYPES.News) {
+				channelArray.push(new NewsChannel(c, this.client));
+			} else if (c.type === CHANNELTYPES.Store) {
+				channelArray.push(new StoreChannel(c, this.client));
+			} else if (c.type === CHANNELTYPES.Text) {
+				channelArray.push(new TextChannel(c, this.client));
+			} else if (c.type === CHANNELTYPES.Voice) {
+				channelArray.push(new VoiceChannel(c, this.client));
+			}
     	}
 
     	return channelArray;

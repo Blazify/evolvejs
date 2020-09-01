@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { IActivityEmoji, IParty, IAssets, ISecrets, IActivity } from "../..";
 
 export class Activity {
@@ -22,8 +23,8 @@ export class Activity {
 		this.type = data.type;
 		this.createdAt = data.created_at;
 		this.url = data.url;
-		this.startTime = data.timestamps?.start;
-		this.endTime = data.timestamps?.end;
+		this.startTime = data.timestamps!.start;
+		this.endTime = data.timestamps!.end;
 		this.applicationID = data.application_id;
 		this.state = data.state;
 		this.details = data.details;

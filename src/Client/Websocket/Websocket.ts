@@ -2,7 +2,6 @@ import ws from "ws";
 import { Gateway } from "./Gateway";
 import { EvolveBuilder, EvolveLogger, EvolveClient, CONSTANTS } from "../..";
 
-
 export class EvolveSocket extends ws {
 	public seq?: number;
 	public gateway: Gateway = new Gateway()

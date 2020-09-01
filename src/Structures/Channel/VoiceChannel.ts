@@ -1,5 +1,6 @@
-import { Channel, Overwrite, Guild, CategoryChannel, IVoiceChannel, EvolveClient, CHANNELTYPES } from "../..";
+import { Overwrite, Guild, CategoryChannel, IVoiceChannel, EvolveClient, CHANNELTYPES } from "../..";
 import { Objex } from "@evolvejs/objex";
+import { Channel } from "./Channel";
 
 
 export class VoiceChannel extends Channel {

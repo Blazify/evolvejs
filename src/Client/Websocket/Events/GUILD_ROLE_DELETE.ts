@@ -8,7 +8,7 @@ export default class {
 			const guild = await client.api.getGuild(guild_id);
 			const role = client.roles.get(role_id);
 
-			client.emitEvent(EVENTS.GUILD_ROLE_DELETE, role, guild);
+			client.emit(EVENTS.GUILD_ROLE_DELETE, role, guild);
 		})();
 	}
 }

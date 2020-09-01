@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { EvolveClient, GuildMember, Channel, Role, Emoji, VoiceState, PresenceUpdate, IGuild } from "../..";
 import { Objex } from "@evolvejs/objex";
 
@@ -51,6 +52,27 @@ export class Guild {
 	constructor(data: IGuild, client: EvolveClient) {
 		this.client = client;
 		this.id = data.id;
+
+		data.emojis.forEach(o => {
+			this.emojis.set(o.id, new Emoji(o));
+		});
+
+		data.roles.forEach(o => {
+			this.roles.set(o.id, new Role(o));
+		});
+
+		(async() => {
+			const cArray = await client.api.getGuildChannels(data.id);
+			for(const c of cArray) {
+				this.channels.set(c.id, c);
+			}
+
+			const mArray = await client.api.getGuildMembers(data.id);
+			for(const m of mArray) {
+				this.members.set(m.user!.id, m);
+			}
+		})();
+		
 		this.name = data.name;
 		this.icon = data.icon;
 		this.splash = data.splash || undefined;
