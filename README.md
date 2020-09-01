@@ -13,7 +13,7 @@
   </p>
   <br />
   <p>
-    <a href="https://nodei.co/npm/EvolveJS/"><img src="https://nodei.co/npm/@evolvejs/evolvejs.png?downloads=true&stars=true" alt="Status Banner"></a>
+    <a href="https://nodei.co/npm/@evolvejs/evolvejs"><img src="https://nodei.co/npm/@evolvejs/evolvejs.png?downloads=true&stars=true" alt="Status Banner"></a>
   </p>
 </div>
 

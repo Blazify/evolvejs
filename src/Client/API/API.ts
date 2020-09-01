@@ -82,11 +82,26 @@ export class API {
 	}
 
 	public async sendMessage(content: string | MessageEmbed, channelID: string): Promise<Message> {
-    	return new Message(await this.handler.fetch( {
+		let fetched;
+		if(typeof content == "string") {
+			fetched = await this.handler.fetch({
     		endpoint: `channels/${ channelID }/messages`,
     		method: "POST",
-    		content: content
-    	}), this.client);
+    		message: {
+					content: content
+				}
+			});
+		} else {
+			fetched = await this.handler.fetch({
+				endpoint: `channels/${channelID}/messages`,
+				method: "POST",
+				message: {
+					embed: content
+				}
+			});
+		}
+		const channel = await this.getTextChannel(fetched.channel_id);
+		return new Message(fetched, channel, channel.guild);
 	}
 
 	public async deleteMessage(messageID: string, channelID: string, time: number): Promise<NodeJS.Timeout> {
@@ -113,7 +128,7 @@ export class API {
 	}
 
 	public async getChannel(channelID: string): Promise<Channel> {
-    	const c = await this.handler.fetch( {
+    	const c = await this.handler.fetch({
     		endpoint: `/channels/${ channelID }`,
     		method: "GET"
     	});
@@ -132,7 +147,16 @@ export class API {
     		return (new TextChannel(c, this.client));
     	} else if (c.type === CHANNELTYPES.Voice) {
     		return (new VoiceChannel(c, this.client));
-    	}
-    	return c;
+		}
+		
+		return c;
+	}
+
+	public async getTextChannel(channel: string): Promise<TextChannel> {
+		const fetched = new TextChannel(await this.handler.fetch({
+			endpoint: `/channels/${channel}`,
+			method: "GET"
+		}), this.client);
+		return fetched;
 	}
 }

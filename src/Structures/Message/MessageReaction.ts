@@ -10,7 +10,7 @@ export class MessageReaction {
     public emoji?: Emoji;
 
     constructor(data: IMessageReaction, client: EvolveClient) {
-    	this.message = new Message(data.message, client);
+    	this.message = new Message(data.message);
     	this.channel = new TextChannel(data.channel, client);
     	this.emoji = new Emoji(data.emoji);
     	this.user = new User(data.user);

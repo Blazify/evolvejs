@@ -26,7 +26,7 @@ export class RestAPIHandler {
 						"Content-Type": "application/json",
 						Authorization: `Bot ${this.client.token}`
 					},
-					body: JSON.stringify(options.content)
+					body: JSON.stringify(options.message)
 				});
 				return fetched.json();
 			}

@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { IUser } from "./UserOptions";
-import { GuildMember } from "../Structures/Guild/GuildMember";
-import { User } from "../Structures/User/User";
+import { IGuildMember } from "./GuildMemberOptions";
 
 export interface IMessage {
 	id: string; // ID of the message
 	channel_id: string; // ID of the channel the message was sent in
 	guild_id?: string; // ID of the guild the message was sent in
-	author: User; // The author of this message (not guaranteed to be a valid user, see below)
-	member?: GuildMember; // Member properties for this message's author
+	author: IUser; // The author of this message (not guaranteed to be a valid user, see below)
+	member?: IGuildMember; // Member properties for this message's author
 	content: string; // Contents of the message
 	timestamp: number; // Timestamp when this message was sent
 	edited_timestamp: number | null; // Timestamp when this message was edited (or null if never)

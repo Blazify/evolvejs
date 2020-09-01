@@ -1,5 +1,7 @@
-import { Channel, Overwrite, Guild, CategoryChannel, MessageEmbed, Message, ITextChannel, EvolveClient, CHANNELTYPES } from "../..";
+/* eslint-disable no-mixed-spaces-and-tabs */
+import { Channel, Overwrite, Guild, CategoryChannel, ITextChannel, EvolveClient, CHANNELTYPES } from "../..";
 import { Objex } from "@evolvejs/objex";
+import { MessageEmbed } from "../../Utils/Embed/MessageEmbed";
 
 
 export class TextChannel extends Channel {
@@ -14,8 +16,7 @@ export class TextChannel extends Channel {
 	public rateLimit: number;
 	public parent?: CategoryChannel;
 	public lastPin?: number;
-	public send!:  (content: string | MessageEmbed) => Promise<Message>;
-	public purge!: (time?: number) => Promise<NodeJS.Timeout>;
+	public send!: (content: string | MessageEmbed) => Promise<import("/home/romeah/Desktop/EvolveJS/src/index").Message>;
 
 	constructor(data: ITextChannel, client: EvolveClient) {
 		super(data.id, CHANNELTYPES.Text, client);
@@ -31,5 +32,5 @@ export class TextChannel extends Channel {
 			: undefined;
 		this.lastPin = data.last_pin_timestamp;
 	}
-
+	
 }

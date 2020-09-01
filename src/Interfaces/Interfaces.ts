@@ -5,8 +5,14 @@ import { MessageEmbed } from "../Utils/Embed/MessageEmbed";
 export interface IAPIParams {
 	endpoint: string;
 	method: "GET" | "POST" | "DELETE" | "PUT";
-	content?: string | MessageEmbed;
+	message?: MessageOptions
 }
+
+export interface MessageOptions {
+	content?: string;
+	tts?: boolean;
+	embed?: MessageEmbed;
+  }
 
 export interface Payload {
 	op: OPCODE;

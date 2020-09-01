@@ -59,6 +59,7 @@ export class Gateway {
 		Identify.d.token = this.ws.client.token;
 		Identify.d.activity = this.ws.builder.activity;
 		Identify.d.shard = [shard, this.ws.builder.shards];
+		Identify.d.intents = this.ws.builder.intents;
 
 		this.ws.send(JSON.stringify(Identify));
 	}
