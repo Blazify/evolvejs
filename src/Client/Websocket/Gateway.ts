@@ -80,7 +80,7 @@ export class Gateway extends EventEmitter {
 	public sendVoiceStateUpdate(guildID: string, channelID: string, options?: {
         self_deaf: boolean,
         self_mute: boolean
-    }): void {
+    }, initialize = false): void {
 
 		VoiceStateUpdate.d.guild_id = guildID;
 		VoiceStateUpdate.d.channel_id = channelID;
@@ -92,15 +92,16 @@ export class Gateway extends EventEmitter {
 		this.ws.send(JSON.stringify(VoiceStateUpdate));
 
 		this.ws.client.on(EVENTS.VOICE_STATE_UPDATE, (pk) => {
-			this.voiceStateUpdate = pk;
 			if(pk.member.user.id !== this.ws.client.user.id) return;
+			this.voiceStateUpdate = pk;
 		});
 
 		this.ws.client.on(EVENTS.VOICE_SERVER_UPDATE, (pk) => {
 			this.voiceServerUpdate = pk;
 			if(this.voiceStateUpdate && this.voiceServerUpdate) {
 				this.voice = new VoiceGateway(this);
-				this.voice.init();
+				this.voice.emit("packetReady", (this.voiceStateUpdate, this.voiceServerUpdate));
+				if(initialize) this.voice.init();
 			}
 		});
 	}
