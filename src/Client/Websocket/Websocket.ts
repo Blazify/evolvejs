@@ -1,10 +1,8 @@
 import ws from "ws";
-import { Gateway } from "./Gateway";
 import { EvolveBuilder, EvolveLogger, EvolveClient, CONSTANTS } from "../..";
 
 export class EvolveSocket extends ws {
 	public seq?: number;
-	public gateway: Gateway = new Gateway()
 
 	constructor(
 		public client: EvolveClient,
@@ -25,7 +23,7 @@ export class EvolveSocket extends ws {
 			});
 
 			this.on("message", (data) => {
-				this.gateway.init(data, this);
+				this.client.ws.init(data, this);
 			});
 			this.onclose = function(err) {
 				EvolveLogger.error(err.reason);

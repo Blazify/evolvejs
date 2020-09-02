@@ -123,6 +123,27 @@ export const Heartbeat: Payload = {
 	d: null
 };
 
+export const VoiceStateUpdate: Payload = {
+	op: OPCODE.Voice_State_Update,
+	d: {
+		guild_id: "",
+		channel_id: "",
+		self_mute: false,
+		self_deaf: false
+	}
+};
+
+
+export const VoiceIdentify: Payload = {
+	op: 0,
+	d: {
+		server_id: "",
+		user_id: "",
+		session_id: "",
+		token: ""
+	}
+};
+
 export const Identify: Payload = {
 	op: OPCODE.Identify,
 	d: {

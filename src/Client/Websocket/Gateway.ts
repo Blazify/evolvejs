@@ -1,14 +1,23 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { EvolveSocket } from "./Websocket";
-import { OPCODE, Heartbeat, Identify, EvolveLogger } from "../..";
+import { OPCODE, Heartbeat, Identify, VoiceStateUpdate } from "../..";
 import { Payload } from "../../Interfaces/Interfaces";
 import { Data } from "ws";
 import { promisify } from "util";
+import { EventEmitter } from "events";
+import { VoiceGateway } from "./Voice/VoiceGateway";
+import { EVENTS } from "../../Utils/Constants";
+import { VoiceState } from "../../Structures/Guild/VoiceState";
 
-export class Gateway {
+export class Gateway extends EventEmitter {
 	public data!: Data;
 	public ws!: EvolveSocket;
-	public launchedShards: Set<number> = new Set()
+	public launchedShards: Set<Payload> = new Set()
+	public voice: VoiceGateway = new VoiceGateway(this);
+	public voiceStateUpdate!: VoiceState;
+	public voiceServerUpdate!: Payload;
+
 
 	public init(data: Data, ws: EvolveSocket): void {
 		this.data = data;
@@ -27,14 +36,11 @@ export class Gateway {
 				}, d.heartbeat_interval);
 
 				for(let i = 0; i  < this.ws.builder.shards; i++) {
-					promisify(setTimeout)(5000 * i).then(() => {
+					promisify(setTimeout)(5e3 * i).then(() => {
 						this.spawn(i);
 					});
 				}
-			} else if(op === OPCODE.Voice_State_Update) {
-				console.log(payload);
-			}
-			else if (t) {
+			} else if (t) {
 				try {
 					(async() => {
 						const { default: handler } = await import(`./Events/${t}`);
@@ -49,18 +55,51 @@ export class Gateway {
 		}
 	}
 
-	public spawn(shard: number): void {
-			 if(this.launchedShards.has(shard)) {
-				 EvolveLogger.error("Internal Shard Spawning Error (Double Shard Instances)");
-		} else if(!this.launchedShards.has(shard)) {
-			this.launchedShards.add(shard);
-		}
-
+	private spawn(shard: number): void {
 		Identify.d.token = this.ws.client.token;
 		Identify.d.activity = this.ws.builder.activity;
 		Identify.d.shard = [shard, this.ws.builder.shards];
 		Identify.d.intents = this.ws.builder.intents;
 
-		this.ws.send(JSON.stringify(Identify));
+		if(this._debug(Identify)) {
+			this.ws.send(JSON.stringify(Identify));
+		}
+	}
+
+	private _debug(payload: Payload): boolean {
+		if(this.launchedShards.has(payload)) {
+			return false;
+	   } else if(!this.launchedShards.has(payload)) {
+		   this.launchedShards.add(payload);
+	   }
+
+		this.emit("shardSpawn", payload);
+		return true;
+	}
+
+	public sendVoiceStateUpdate(guildID: string, channelID: string, options?: {
+        self_deaf: boolean,
+        self_mute: boolean
+    }): void {
+
+		VoiceStateUpdate.d.guild_id = guildID;
+		VoiceStateUpdate.d.channel_id = channelID;
+		if(options) {
+			VoiceStateUpdate.d.self_deaf = options.self_deaf;
+			VoiceStateUpdate.d.self_mute = options.self_mute;
+		}
+
+		this.ws.send(JSON.stringify(VoiceStateUpdate));
+
+		this.ws.client.on(EVENTS.VOICE_STATE_UPDATE, (pk) => {
+			this.voiceStateUpdate = pk;
+			if(pk.user.id !== this.ws.client.user.id) return;
+			if(this.voiceStateUpdate && this.voiceServerUpdate) this.voice.init();
+		});
+
+		this.ws.client.on(EVENTS.VOICE_SERVER_UPDATE, (pk) => {
+			this.voiceServerUpdate = pk;
+			if(this.voiceStateUpdate && this.voiceServerUpdate) this.voice.init();
+		});
 	}
 }

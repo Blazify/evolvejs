@@ -1,7 +1,7 @@
-import { User } from "../Structures/User/User";
+import { IUser } from "./UserOptions";
 
 export interface IGuildMember {
-	user?: User; // The member's user object
+	user?: IUser; // The member's user object
 	nick: string | null; // This users guild nickname
 	roles: string[]; // Array of role IDs
 	joined_at: number; // Timestamp	when the user joined the guild

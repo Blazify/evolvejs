@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable no-mixed-spaces-and-tabs */
 
 import { User, Role, IGuildMember } from "../..";
@@ -12,7 +13,7 @@ export class GuildMember {
 		public deaf!: boolean;
 		public mute!: boolean;
 		constructor(data: IGuildMember) {
-			this.user = data.user;
+			if(data.user) this.user = new User(data.user);
 			this.nick = data.nick;
 			this.roles = data.roles;
 			this.joinedAt = data.joined_at;

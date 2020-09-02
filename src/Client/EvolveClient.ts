@@ -1,6 +1,7 @@
 import { Guild, Channel, User, Emoji, Role, Message, ClientUser, TokenAccessOptions, EvolveLogger, Oauth2Token, ClientOptions, API } from "..";
 import { Objex } from "@evolvejs/objex";
 import { EventEmitter } from "events";
+import { Gateway } from "./Websocket/Gateway";
 
 export class EvolveClient extends EventEmitter {
 	public token: string;
@@ -13,6 +14,7 @@ export class EvolveClient extends EventEmitter {
 	public messages: Objex<string, Message> = new Objex()
 	private _user!: ClientUser;
 	public api: API = new API(this)
+	public ws: Gateway = new Gateway()
 	public secret!: string;
 
 	public constructor (
