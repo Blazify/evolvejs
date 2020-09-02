@@ -14,7 +14,7 @@ export class Gateway extends EventEmitter {
 	public data!: Data;
 	public ws!: EvolveSocket;
 	public launchedShards: Set<Payload> = new Set()
-	public voice: VoiceGateway = new VoiceGateway(this);
+	public voice!: VoiceGateway;
 	public voiceStateUpdate!: VoiceState;
 	public voiceServerUpdate!: Payload;
 
@@ -93,13 +93,15 @@ export class Gateway extends EventEmitter {
 
 		this.ws.client.on(EVENTS.VOICE_STATE_UPDATE, (pk) => {
 			this.voiceStateUpdate = pk;
-			if(pk.user.id !== this.ws.client.user.id) return;
-			if(this.voiceStateUpdate && this.voiceServerUpdate) this.voice.init();
+			if(pk.member.user.id !== this.ws.client.user.id) return;
 		});
 
 		this.ws.client.on(EVENTS.VOICE_SERVER_UPDATE, (pk) => {
 			this.voiceServerUpdate = pk;
-			if(this.voiceStateUpdate && this.voiceServerUpdate) this.voice.init();
+			if(this.voiceStateUpdate && this.voiceServerUpdate) {
+				this.voice = new VoiceGateway(this);
+				this.voice.init();
+			}
 		});
 	}
 }
