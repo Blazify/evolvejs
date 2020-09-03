@@ -3,7 +3,7 @@
 import { Guild, Channel, User, IWebhook, EvolveClient } from "../..";
 
 
-export default class {
+export class Webhook {
 	public id!: string;
 	public type!: number;
 	public guild!: Guild;
