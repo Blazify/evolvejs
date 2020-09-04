@@ -39,6 +39,9 @@ export class EvolveClient extends EventEmitter {
 	public set user(user: ClientUser) {
 		this._user = user;
 	}
-
-
+	public on(event, ...listener) {
+		if(event === "newMessage") {
+			super.on(event,listener[0](new (this.structures.get("Message"))(listener[0].data, listener[0].channel, listener[0].guild)))
+		}
+	}
 }
