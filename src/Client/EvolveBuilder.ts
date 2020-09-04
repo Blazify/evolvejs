@@ -1,6 +1,7 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { EvolveClient, EvolveLogger, CacheOptions, GatewayIntents, Identify } from "..";
 import { EvolveSocket } from "./Websocket/Websocket";
+import { Oauth2 } from "../Oauth2/Oauth2";
 
 
 export class EvolveBuilder {
@@ -169,6 +170,11 @@ export class EvolveBuilder {
         
     	if(this.intents == 0 && !this.dontChange) {
     		this.intents = ((GatewayIntents.GUILD) + (GatewayIntents.GUILD_MESSAGES) + (GatewayIntents.DIRECT_MESSAGES));
+    	}
+        
+    	if(this.secret) {
+    		builtClient.secret = this.secret;
+    		builtClient.oauth2 = new Oauth2(builtClient);
     	}
 
     	new EvolveSocket(builtClient, this).init();

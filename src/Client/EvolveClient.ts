@@ -15,7 +15,7 @@ export class EvolveClient extends EventEmitter {
 	public messages: Objex<string, Message> = new Objex()
 	private _user!: ClientUser;
 	public api: API = new API(this)
-	public oauth2: Oauth2 = new Oauth2(this);
+	public oauth2!: Oauth2
 	public ws: Gateway = new Gateway()
 	public secret!: string;
 
