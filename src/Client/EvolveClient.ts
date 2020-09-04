@@ -3,6 +3,7 @@ import { Objex } from "@evolvejs/objex";
 import { EventEmitter } from "events";
 import { Gateway } from "./Websocket/Gateway";
 import { Oauth2 } from "../Oauth2/Oauth2";
+import { Structures } from "../Structures/Structures";
 
 export class EvolveClient extends EventEmitter {
 	public token: string;
@@ -18,6 +19,7 @@ export class EvolveClient extends EventEmitter {
 	public oauth2!: Oauth2
 	public ws: Gateway = new Gateway()
 	public secret!: string;
+	public structures: Structures = new Structures();
 
 	public constructor (
 		token: string,
