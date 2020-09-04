@@ -30,7 +30,7 @@ export * from "./Interfaces/VoiceChannelOptions";
 export * from "./Interfaces/VoiceRegionOptions";
 export * from "./Interfaces/VoiceStateOptions";
 export * from "./Interfaces/WebhookOptions";
-export * from "./Oauth2/Oauth2Token";
+export * from "./Oauth2/Oauth2";
 export * from "./Structures/Channel/CategoryChannel";
 export * from "./Structures/Channel/Channel";
 export * from "./Structures/Channel/DMChannel";
