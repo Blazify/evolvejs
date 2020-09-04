@@ -159,4 +159,12 @@ export class API {
 		}), this.client);
 		return fetched;
 	}
+
+	public async getChannelInvites(channelID: string): Promise<TextChannel> {
+		const fetched = new TextChannel(await this.handler.fetch({
+			endpoint: `/channels/${channelID}/invites`,
+			method: "GET"
+		}), this.client)
+		return fetched
+	}
 }
