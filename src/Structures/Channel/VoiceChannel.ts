@@ -13,7 +13,7 @@ export class VoiceChannel extends Channel {
 	public userLimit: number;
 	public parent?: CategoryChannel;
 
-	constructor(data: IVoiceChannel, client: EvolveClient) {
+	constructor(public data: IVoiceChannel, client: EvolveClient) {
 		super(data.id, CHANNELTYPES.Voice, client);
 		this.guild = this.client.guilds.get(data.guild_id);
 		this.position = data.position;

@@ -12,7 +12,7 @@ export class GuildMember {
 		public premiumFrom!: number | undefined | null;
 		public deaf!: boolean;
 		public mute!: boolean;
-		constructor(data: IGuildMember) {
+		constructor(public data: IGuildMember) {
 			if(data.user) this.user = new User(data.user);
 			this.nick = data.nick;
 			this.roles = data.roles;

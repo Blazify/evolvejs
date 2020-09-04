@@ -16,7 +16,7 @@ export class NewsChannel extends Channel {
 	public parentID?: CategoryChannel;
 	public lastPin?: string;
 
-	constructor(data: INewsChannel, client: EvolveClient) {
+	constructor(public data: INewsChannel, client: EvolveClient) {
 		super(data.id, CHANNELTYPES.News, client);
 		this.guild = this.client.guilds.get(data.guild_id);
 		this.position = data.position;

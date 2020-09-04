@@ -14,7 +14,7 @@ export class Emoji {
     public animated?: boolean;
     public available?: boolean
 
-    constructor(data: IEmoji) {
+    constructor(public data: IEmoji) {
     	this.id = data.id;
     	this.name = data.name;
     	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion

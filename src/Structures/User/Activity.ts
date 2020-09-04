@@ -18,7 +18,7 @@ export class Activity {
 	public instance?: boolean;
 	public flags?: number;
 
-	constructor(data: IActivity) {
+	constructor(public data: IActivity) {
 		this.name = data.name;
 		this.type = data.type;
 		this.createdAt = data.created_at;

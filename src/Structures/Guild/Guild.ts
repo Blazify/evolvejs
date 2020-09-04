@@ -49,7 +49,7 @@ export class Guild {
 	public updatesChannel?: Channel;
 	public maxChannelUsers?: number;
 
-	constructor(data: IGuild, client: EvolveClient) {
+	constructor(public data: IGuild, client: EvolveClient) {
 		this.client = client;
 		this.id = data.id;
 

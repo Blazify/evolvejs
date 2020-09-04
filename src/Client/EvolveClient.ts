@@ -1,7 +1,8 @@
-import { Guild, Channel, User, Emoji, Role, Message, ClientUser, TokenAccessOptions, EvolveLogger, Oauth2Token, ClientOptions, API } from "..";
+import { Guild, Channel, User, Emoji, Role, Message, ClientUser, ClientOptions, API } from "..";
 import { Objex } from "@evolvejs/objex";
 import { EventEmitter } from "events";
 import { Gateway } from "./Websocket/Gateway";
+import { Oauth2 } from "../Oauth2/Oauth2";
 
 export class EvolveClient extends EventEmitter {
 	public token: string;
@@ -14,6 +15,7 @@ export class EvolveClient extends EventEmitter {
 	public messages: Objex<string, Message> = new Objex()
 	private _user!: ClientUser;
 	public api: API = new API(this)
+	public oauth2: Oauth2 = new Oauth2(this);
 	public ws: Gateway = new Gateway()
 	public secret!: string;
 
@@ -36,10 +38,5 @@ export class EvolveClient extends EventEmitter {
 		this._user = user;
 	}
 
-	public requestOauth2Token(options: TokenAccessOptions): Promise<void> | undefined {
-		if(!this.secret) return EvolveLogger.error("You need to use EvolveBuilder#setSecret to get the oauth2 token");
-		Oauth2Token(this, options).then(fetched => {
-			return fetched;
-		});
-	}
+
 }

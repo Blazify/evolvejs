@@ -13,7 +13,7 @@ export class StoreChannel extends Channel {
 	public rateLimit: number;
 	public parent?: CategoryChannel;
 
-	constructor(data: IStoreChannel, client: EvolveClient) {
+	constructor(public data: IStoreChannel, client: EvolveClient) {
 		super(data.id, CHANNELTYPES.Store, client);
 		this.guild = this.client.guilds.get(data.guild_id);
 		this.position = data.position;

@@ -42,8 +42,8 @@ export class Structures {
 		}
 	}
 
-	static INSTANCE: Structures;
-	static instance(): Structures {
+	private static INSTANCE: Structures;
+	public static instance(): Structures {
 		if(!this.INSTANCE) {
 			this.INSTANCE = new Structures();
 		}

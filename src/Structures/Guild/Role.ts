@@ -11,7 +11,7 @@ export class Role {
 		public managed: boolean;
 		public mentionable: boolean;
 	
-		constructor(data: IRole) {
+		constructor(public data: IRole) {
 			this.id = data.id;
 			this.name = data.name;
 			this.color = data.color;

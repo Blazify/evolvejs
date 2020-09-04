@@ -13,7 +13,7 @@ export class GroupChannel extends Channel {
 	public applicationID?: string;
 	public lastPin?: number;
 
-	constructor(data: IGroupChannel, client: EvolveClient) {
+	constructor(public data: IGroupChannel, client: EvolveClient) {
 		super(data.id, CHANNELTYPES.Group, client);
 		(async (data: IGroupChannel) => {
 			this.owner = await this.client.api.getUser(data.owner_id);

@@ -13,7 +13,7 @@ export class Invite {
 		public approxPresenceCount?: number;
 		public approxMemberCount?: number;
 		constructor(
-			data: IInvite,
+			public data: IInvite,
 			client: EvolveClient
 		) {
 			this.code = data.code;

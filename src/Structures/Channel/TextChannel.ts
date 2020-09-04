@@ -17,7 +17,7 @@ export class TextChannel extends Channel {
 	public lastPin?: number;
 	public send!: (content: string | MessageEmbed) => Promise<Message>;
 
-	constructor(data: ITextChannel, client: EvolveClient) {
+	constructor(public data: ITextChannel, client: EvolveClient) {
 		super(data.id, CHANNELTYPES.Text, client);
 
 		this.guild = this.client.guilds.get(data.guild_id);

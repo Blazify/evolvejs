@@ -6,7 +6,7 @@ export class ClientStatus {
     public mobile?: string;
     public web?: string;
     constructor(
-    	data: IClientStatus
+    	public data: IClientStatus
     ) {
     	this.desktop = data.desktop;
     	this.mobile = data.mobile;

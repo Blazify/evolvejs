@@ -13,7 +13,7 @@ export class Webhook {
 	public avatar!: string;
 	public token!: string;
 	constructor(
-		data: IWebhook,
+		public data: IWebhook,
 		client: EvolveClient
 	) {
 		this.id = data.id;

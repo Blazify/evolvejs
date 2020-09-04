@@ -14,7 +14,7 @@ export class PresenceUpdate {
 		public premiumFrom?: number | null;
 		public nick?: string | null;
 		constructor(
-			data: IPresenceUpdate,
+			public data: IPresenceUpdate,
 			client: EvolveClient
 		) {
 			this.user = new User(data.user);

@@ -22,7 +22,7 @@ export class Message {
 	public delete: (time: number) => Promise<NodeJS.Timeout> = ((time = 0) => this.guild.client.api.deleteMessage(this.id, this.channel.id, time));
 
 
-	constructor(data: IMessage, channel?: TextChannel, guild?: Guild) {
+	constructor(public data: IMessage, channel?: TextChannel, guild?: Guild) {
     	 if(data.mentions) for (const it of data.mentions) {
     	 	this.mentions.push(new User(it));
     	 }

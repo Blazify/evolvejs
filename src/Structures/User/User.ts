@@ -16,7 +16,7 @@ export class User {
 	public premiumType: string;
 	public publicFlags?: number;
 
-	constructor(data: IUser) {
+	constructor(public data: IUser) {
 		this.id = data.id;
 		this.username = data.username;
 		this.discriminator = data.discriminator;

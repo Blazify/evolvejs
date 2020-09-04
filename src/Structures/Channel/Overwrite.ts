@@ -6,7 +6,7 @@ export class Overwrite {
 	public allow: number;
 	public deny: number;
 
-	constructor(data: IOverwrite) {
+	constructor(public data: IOverwrite) {
 		this.id = data.id;
 		this.type = data.type;
 		this.allow = data.allow;

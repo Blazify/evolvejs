@@ -18,7 +18,7 @@ export class VoiceState {
 	public supress!: boolean;
 
 	constructor(
-		data: IVoiceState,
+		public data: IVoiceState,
 		client: EvolveClient
 	) {
 		client.api.getGuild(data.guild_id!).then(o => this.guild = o);

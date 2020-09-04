@@ -37,7 +37,7 @@ export class Gateway extends EventEmitter {
 
 				for(let i = 0; i  < this.ws.builder.shards; i++) {
 					promisify(setTimeout)(5e3 * i).then(() => {
-						this.spawn(i);
+						this._spawn(i);
 					});
 				}
 			} else if (t) {
@@ -55,7 +55,7 @@ export class Gateway extends EventEmitter {
 		}
 	}
 
-	private spawn(shard: number): void {
+	private _spawn(shard: number): void {
 		Identify.d.token = this.ws.client.token;
 		Identify.d.activity = this.ws.builder.activity;
 		Identify.d.shard = [shard, this.ws.builder.shards];
