@@ -1,10 +1,5 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-import {
-	EvolveClient,
-	CacheOptions,
-	GatewayIntents,
-	Identify,
-} from "..";
+import { EvolveClient, CacheOptions, GatewayIntents, Identify } from "..";
 import { EvolveSocket } from "./Websocket/Websocket";
 import { Oauth2 } from "../Oauth2/Oauth2";
 import { promisify } from "util";
@@ -46,7 +41,6 @@ export class EvolveBuilder {
    * @returns The EvolveBuilder Class
    */
   public setShards(totalShards: number): EvolveBuilder {
-
   	this.shards = totalShards;
   	return this;
   }
@@ -151,8 +145,6 @@ export class EvolveBuilder {
    * @returns {EvolveClient} A Initialized EvolveClient Instance
    */
   public build(): EvolveClient {
-
-
   	const builtClient: EvolveClient = new EvolveClient(this.token, {
   		enableGuildCache: this.guildCache,
   		enableChannelCache: this.channelCache,
@@ -161,7 +153,7 @@ export class EvolveBuilder {
   		enableMessageCache: this.messageCache,
   		capturePromiseRejection: this.promiseRejection,
   	});
-    
+
   	if (!this.token) {
   		builtClient.logger.error(
   			"EvolveBuilder#build Error.. -> No token Provided for EvolveClient to be initialized"
@@ -169,7 +161,7 @@ export class EvolveBuilder {
   	}
   	if (this.shards <= 0)
   		builtClient.logger.error("Total shards must be more than 0!");
-    
+
   	if (!this.guildCache) {
   		builtClient.logger.warn(
   			"The Guild Cache is disabled so the READY event guilds will be emmited again in GUILD_CREATE Event and to avoid this use the EvolveBuilder#enableGuildCache"

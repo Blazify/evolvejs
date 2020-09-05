@@ -32,7 +32,9 @@ export class Structures {
 
   public get(name: string): unknown {
   	if (!this._structures.get(name))
-  		this.client.logger.error("Invalid Structure Name or no new Structure returned");
+  		this.client.logger.error(
+  			"Invalid Structure Name or no new Structure returned"
+  		);
   	return this._structures.get(name);
   }
 

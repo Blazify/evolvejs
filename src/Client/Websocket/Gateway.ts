@@ -39,7 +39,7 @@ export class Gateway extends EventEmitter {
   		} else if (t) {
   			try {
   				(async () => {
-  					const { default: handler } = await import(`./Events/${t}`);
+  					const { default: handler } = await import(`./Handlers/${t}`);
   					new handler(this.ws.client, payload, shard);
   				})();
   			} catch (e) {
