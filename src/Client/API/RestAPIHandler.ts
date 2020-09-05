@@ -1,21 +1,18 @@
-
 import fetch from "node-fetch";
 import { EvolveClient, IAPIParams, CONSTANTS } from "../..";
 
-
 export class RestAPIHandler {
-	constructor(public client: EvolveClient) {
-	} 
+	constructor(public client: EvolveClient) {}
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public async fetch(options: IAPIParams): Promise<any> {
 		try {
-			if(options.method !== "POST") {
+			if (options.method !== "POST") {
 				const fetched = await fetch(`${CONSTANTS.Api}/${options.endpoint}`, {
 					method: options.method,
 					headers: {
 						"Content-Type": "application/json",
-						Authorization: `Bot ${this.client.token}`
+						Authorization: `Bot ${this.client.token}`,
 					},
 				});
 				return fetched.json();
@@ -24,13 +21,13 @@ export class RestAPIHandler {
 					method: options.method,
 					headers: {
 						"Content-Type": "application/json",
-						Authorization: `Bot ${this.client.token}`
+						Authorization: `Bot ${this.client.token}`,
 					},
-					body: JSON.stringify(options.message)
+					body: JSON.stringify(options.message),
 				});
 				return fetched.json();
 			}
-		} catch(e) {
+		} catch (e) {
 			throw Error(e);
 		}
 	}

@@ -6,18 +6,15 @@ import { Objex } from "@evolvejs/objex";
 import { MessageReaction } from "../../Structures/Message/MessageReaction";
 
 export class MessageCollector extends BaseCollector {
-	constructor(
-        public channel: TextChannel,
-        public filter: Function
-	) {
+	constructor(public channel: TextChannel, public filter: Function) {
 		super(channel.client, filter);
 		this.channel.client.on("newMessage", (msg: Message) => {
 			filter(msg);
 		});
 	}
-    
+
 	public end(): Objex<string, Message | MessageReaction> {
-		this.channel.client.off("newMessage", msg => this.handle(msg));
+		this.channel.client.off("newMessage", (msg) => this.handle(msg));
 		return this.collected;
 	}
 

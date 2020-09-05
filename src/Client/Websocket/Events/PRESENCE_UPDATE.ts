@@ -1,9 +1,8 @@
-
 import { EvolveClient, EVENTS, Payload, PresenceUpdate } from "../../..";
 
 export default class {
-	constructor(client: EvolveClient, payload: Payload) {
+	constructor(client: EvolveClient, payload: Payload, shard: number) {
 		const presence = new PresenceUpdate(payload.d, client);
-		client.emit(EVENTS.PRESENCE_UPDATE, presence);
+		client.emit(EVENTS.PRESENCE_UPDATE, presence, shard);
 	}
 }

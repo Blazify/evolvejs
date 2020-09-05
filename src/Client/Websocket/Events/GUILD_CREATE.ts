@@ -1,15 +1,14 @@
-
 import { EvolveClient, EVENTS, Payload, Guild } from "../../..";
 
 export default class {
-	constructor(client: EvolveClient, payload: Payload) {
+	constructor(client: EvolveClient, payload: Payload, shard: number) {
 		const guild = payload.d;
-		if(client.guilds.get(guild.id)) {
+		if (client.guilds.get(guild.id)) {
 			return;
 		} else {
 			const newGuild = new Guild(guild, client);
 
-			client.emit(EVENTS.GUILD_CREATE, (newGuild));
+			client.emit(EVENTS.GUILD_CREATE, newGuild, shard);
 		}
 	}
 }

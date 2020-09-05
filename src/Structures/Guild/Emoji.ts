@@ -3,26 +3,30 @@
 import { Objex } from "@evolvejs/objex";
 import { Role, User, IEmoji } from "../..";
 
-
 export class Emoji {
-    public id!: string | null;
-    public name!: string | null;
-    public roles: Objex<string, Role> = new Objex();
-    public user!: User;
-    public reqColons?: boolean;
-    public managed?: boolean;
-    public animated?: boolean;
-    public available?: boolean
+  public id!: string | null;
+  public name!: string | null;
+  public roles: Objex<string, Role> = new Objex();
+  public user!: User;
+  public reqColons?: boolean;
+  public managed?: boolean;
+  public animated?: boolean;
+  public available?: boolean;
 
-    constructor(public data: IEmoji) {
-    	this.id = data.id;
-    	this.name = data.name;
-    	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    	data.roles!.forEach(i => this.roles.set(i.id, new Role(i)));
-    	this.user = new User(data.user);
-    	this.reqColons = data.require_colons;
-    	this.managed = data.managed;
-    	this.animated = data.animated;
-    	this.available = data.available;
-    }
+  constructor(public data: IEmoji) {
+  	this._handle();
+  }
+
+  private _handle() {
+  	this.id = this.data.id;
+  	this.name = this.data.name;
+  	if (this.data.roles)
+  		this.data.roles.forEach((i) => this.roles.set(i.id, new Role(i)));
+  	this.user = new User(this.data.user);
+  	this.reqColons = this.data.require_colons;
+  	this.managed = this.data.managed;
+  	this.animated = this.data.animated;
+  	this.available = this.data.available;
+  	return this;
+  }
 }

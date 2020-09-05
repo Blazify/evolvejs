@@ -17,7 +17,7 @@
     ],
     "rules": {
         "indent": [
-            "error",
+            "warn",
             "tab"
         ],
         "quotes": [
@@ -27,6 +27,7 @@
         "semi": [
             "error",
             "always"
-        ]
+        ],
+        "no-mixed-spaces-and-tabs": "off"
     }
 }

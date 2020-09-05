@@ -1,7 +1,6 @@
-
 import { EvolveClient, EVENTS, Payload, GuildMember } from "../../..";
 export default class {
-	constructor(client: EvolveClient, payload: Payload) {
+	constructor(client: EvolveClient, payload: Payload, shard: number) {
 		const { guild_id, roles, user, nick, joined_at, premium_since } = payload.d;
 		const member = new GuildMember({
 			user,
@@ -10,12 +9,11 @@ export default class {
 			joined_at,
 			premium_since,
 			deaf: false,
-			mute: false
+			mute: false,
 		});
 
-		client.api.getGuild(guild_id).then(o => {
-
-			client.emit(EVENTS.GUILD_MEMBER_UPDATE, member, o);
+		client.api.getGuild(guild_id).then((o) => {
+			client.emit(EVENTS.GUILD_MEMBER_UPDATE, member, o, shard);
 		});
 	}
 }
