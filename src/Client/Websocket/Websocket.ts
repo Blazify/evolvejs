@@ -1,5 +1,5 @@
 import ws from "ws";
-import { EvolveBuilder, EvolveLogger, EvolveClient, CONSTANTS } from "../..";
+import { EvolveBuilder, EvolveClient, CONSTANTS } from "../..";
 import { Gateway } from "./Gateway";
 
 export class EvolveSocket extends ws {
@@ -22,14 +22,14 @@ export class EvolveSocket extends ws {
   		});
 
   		this.on("close", (code, res) => {
-  			EvolveLogger.error(`Code: ${code}, Response: ${res}`);
+  			this.client.logger.error(`Code: ${code}, Response: ${res}`);
   		});
 
   		this.on("message", (data) => {
   			this.gateway.init(data, this, this.shard);
   		});
   		this.onclose = function (err) {
-  			EvolveLogger.error(err.reason);
+  			this.client.logger.error(err.reason);
   		};
   	} catch (e) {
   		throw Error(e);

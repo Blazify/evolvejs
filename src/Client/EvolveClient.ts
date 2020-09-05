@@ -9,6 +9,7 @@ import {
 	ClientOptions,
 	API,
 } from "..";
+import { Logger } from "sign-logger";
 import { Objex } from "@evolvejs/objex";
 import { EventEmitter } from "events";
 import { Oauth2 } from "../Oauth2/Oauth2";
@@ -28,8 +29,9 @@ export class EvolveClient extends EventEmitter {
   public api: API = new API(this);
   public oauth2!: Oauth2;
   public secret!: string;
-  public structures: Structures = new Structures();
+  public structures: Structures = new Structures(this);
   public shardConnections: Objex<number, EvolveSocket> = new Objex();
+  public logger: Logger = new Logger();
 
   public constructor(token: string, options: ClientOptions) {
   	super();

@@ -3,7 +3,6 @@ import { Gateway } from "../Gateway";
 import { EventEmitter } from "events";
 import ws, { Data } from "ws";
 import { VoiceIdentify, Heartbeat } from "../../../Utils/Constants";
-import { EvolveLogger } from "../../EvolveLogger";
 import { Payload } from "../../..";
 
 export class VoiceGateway extends EventEmitter {
@@ -28,7 +27,7 @@ export class VoiceGateway extends EventEmitter {
   		this.websocket.send(JSON.stringify(VoiceIdentify));
   	});
 
-  	this.websocket.on("error", (e) => EvolveLogger.error(e.message));
+  	this.websocket.on("error", (e) => this.gateway.ws.client.logger.error(e.message));
 
   	this.websocket.on("message", (data: Data) => {
   		this.handle(data);

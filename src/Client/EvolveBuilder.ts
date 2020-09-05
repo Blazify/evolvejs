@@ -1,7 +1,6 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import {
 	EvolveClient,
-	EvolveLogger,
 	CacheOptions,
 	GatewayIntents,
 	Identify,
@@ -47,8 +46,7 @@ export class EvolveBuilder {
    * @returns The EvolveBuilder Class
    */
   public setShards(totalShards: number): EvolveBuilder {
-  	if (totalShards <= 0)
-  		EvolveLogger.error("Total shards must be more than 0!");
+
   	this.shards = totalShards;
   	return this;
   }
@@ -153,23 +151,7 @@ export class EvolveBuilder {
    * @returns {EvolveClient} A Initialized EvolveClient Instance
    */
   public build(): EvolveClient {
-  	if (!this.token) {
-  		EvolveLogger.error(
-  			"EvolveBuilder#build Error.. -> No token Provided for EvolveClient to be initialized"
-  		);
-  	}
 
-  	if (!this.guildCache) {
-  		EvolveLogger.warn(
-  			"The Guild Cache is disabled so the READY event guilds will be emmited again in GUILD_CREATE Event and to avoid this use the EvolveBuilder#enableGuildCache"
-  		);
-  	}
-
-  	if (this.intents == 0) {
-  		EvolveLogger.warn(
-  			"No Intents are given, you will not get any events except some..."
-  		);
-  	}
 
   	const builtClient: EvolveClient = new EvolveClient(this.token, {
   		enableGuildCache: this.guildCache,
@@ -179,6 +161,26 @@ export class EvolveBuilder {
   		enableMessageCache: this.messageCache,
   		capturePromiseRejection: this.promiseRejection,
   	});
+    
+  	if (!this.token) {
+  		builtClient.logger.error(
+  			"EvolveBuilder#build Error.. -> No token Provided for EvolveClient to be initialized"
+  		);
+  	}
+  	if (this.shards <= 0)
+  		builtClient.logger.error("Total shards must be more than 0!");
+    
+  	if (!this.guildCache) {
+  		builtClient.logger.warn(
+  			"The Guild Cache is disabled so the READY event guilds will be emmited again in GUILD_CREATE Event and to avoid this use the EvolveBuilder#enableGuildCache"
+  		);
+  	}
+
+  	if (this.intents == 0) {
+  		builtClient.logger.warn(
+  			"No Intents are given, you will not get any events except some..."
+  		);
+  	}
 
   	if (this.intents == 0 && !this.dontChange) {
   		this.intents =

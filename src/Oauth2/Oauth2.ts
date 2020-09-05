@@ -1,11 +1,10 @@
 import { EvolveClient } from "../Client/EvolveClient";
 import { TokenAccessOptions, CONSTANTS } from "..";
-import { EvolveLogger } from "../Client/EvolveLogger";
 
 export class Oauth2 {
 	constructor(public client: EvolveClient) {
 		if (!this.client.secret)
-			EvolveLogger.error("No secret provided in builder");
+			this.client.logger.error("No Client Secret Provided in EvolveBuilder");
 	}
 
 	public async requestOauth2Token(options: TokenAccessOptions): Promise<JSON> {

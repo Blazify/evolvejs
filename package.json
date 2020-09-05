@@ -1,10 +1,10 @@
 {
 	"name": "@evolvejs/evolvejs",
-	"version": "0.1.5-alpha",
+	"version": "0.1.6-alpha",
 	"description": "An advanced discord API wrapper with TS and JS support",
 	"main": "dist/index.js",
 	"scripts": {
-		"build": "tsc"
+		"start": "tsc"
 	},
 	"repository": {
 		"type": "git",
@@ -30,6 +30,7 @@
 		"chalk": "^4.1.0",
 		"moment": "^2.27.0",
 		"node-fetch": "^2.6.0",
+		"sign-logger": "^1.2.4",
 		"ws": "^7.3.1"
 	},
 	"devDependencies": {

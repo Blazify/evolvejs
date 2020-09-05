@@ -4,12 +4,12 @@
 import { readdirSync } from "fs";
 import { join } from "path";
 import { Objex } from "@evolvejs/objex";
-import { EvolveLogger } from "../Client/EvolveLogger";
+import { EvolveClient } from "../Client/EvolveClient";
 
 export class Structures {
   private _structures: Objex<string, unknown> = new Objex();
 
-  constructor() {
+  constructor(private client: EvolveClient) {
   	this._load();
   }
 
@@ -32,7 +32,7 @@ export class Structures {
 
   public get(name: string): unknown {
   	if (!this._structures.get(name))
-  		EvolveLogger.error("Invalid Structure Name or no new Structure returned");
+  		this.client.logger.error("Invalid Structure Name or no new Structure returned");
   	return this._structures.get(name);
   }
 
