@@ -69,7 +69,7 @@ export class Guild {
 
 			const mArray = await client.api.getGuildMembers(data.id);
 			for(const m of mArray) {
-				this.members.set(m.user!.id, m);
+				if(m.user) this.members.set(m.user.id, m);
 			}
 		})();
 		

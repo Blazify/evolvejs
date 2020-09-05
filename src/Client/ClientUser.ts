@@ -1,4 +1,6 @@
-export class ClientUser {
+import { User } from "../Structures/User/User";
+
+export class ClientUser extends User {
 	constructor(
 		public name: string,
 		public discriminator: string,
@@ -8,5 +10,9 @@ export class ClientUser {
 		public email: string,
 		public bot: boolean,
 		public avatar: string
-	) {}
+	) {
+		super({
+			id, avatar, username: name, discriminator
+		});
+	}
 }

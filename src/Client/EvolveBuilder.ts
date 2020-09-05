@@ -2,6 +2,7 @@
 import { EvolveClient, EvolveLogger, CacheOptions, GatewayIntents, Identify } from "..";
 import { EvolveSocket } from "./Websocket/Websocket";
 import { Oauth2 } from "../Oauth2/Oauth2";
+import { promisify } from "util";
 
 
 export class EvolveBuilder {
@@ -177,10 +178,14 @@ export class EvolveBuilder {
     		builtClient.oauth2 = new Oauth2(builtClient);
     	}
 
-    	new EvolveSocket(builtClient, this).init();
+    	for(let i = 0; i < this.shards; i++) {
+    		promisify(setTimeout)(5000 * i).then(() => {
+    			const socket = new EvolveSocket(builtClient, this, i);
+    			builtClient.shardConnections.set(i, socket);
+    		});
+    	}
     	builtClient.secret = this.secret;
     	return builtClient;
     }
-
 }
 

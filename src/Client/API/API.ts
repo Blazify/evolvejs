@@ -1,6 +1,7 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 
 import { RestAPIHandler ,TextChannel, DMChannel, VoiceChannel, GroupChannel, CategoryChannel, NewsChannel, StoreChannel, EvolveClient, Guild, Channel, User, GuildMember, MessageEmbed, Message, CHANNELTYPES } from "../..";
+import { Invite } from "../../Structures/Guild/Invite";
 
 /**
  * API CLASS
@@ -160,11 +161,16 @@ export class API {
 		return fetched;
 	}
 
-	public async getChannelInvites(channelID: string): Promise<TextChannel> {
-		const fetched = new TextChannel(await this.handler.fetch({
+	public async getChannelInvites(channelID: string): Promise<Array<Invite>> {
+		const fetched = await this.handler.fetch({
 			endpoint: `/channels/${channelID}/invites`,
 			method: "GET"
-		}), this.client)
-		return fetched
+		});
+
+		const inviteArray: Array<Invite> = [];
+		for(const f of fetched) {
+			inviteArray.push(new Invite(f, this.client));
+		}
+		return inviteArray;
 	}
 }

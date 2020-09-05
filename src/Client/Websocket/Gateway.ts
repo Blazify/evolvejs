@@ -4,7 +4,6 @@ import { EvolveSocket } from "./Websocket";
 import { OPCODE, Heartbeat, Identify, VoiceStateUpdate } from "../..";
 import { Payload } from "../../Interfaces/Interfaces";
 import { Data } from "ws";
-import { promisify } from "util";
 import { EventEmitter } from "events";
 import { VoiceGateway } from "./Voice/VoiceGateway";
 import { EVENTS } from "../../Utils/Constants";
@@ -13,13 +12,13 @@ import { VoiceState } from "../../Structures/Guild/VoiceState";
 export class Gateway extends EventEmitter {
 	public data!: Data;
 	public ws!: EvolveSocket;
-	public launchedShards: Set<Payload> = new Set()
+	public launchedShards: Set<number> = new Set()
 	public voice!: VoiceGateway;
 	public voiceStateUpdate!: VoiceState;
 	public voiceServerUpdate!: Payload;
 
 
-	public init(data: Data, ws: EvolveSocket): void {
+	public init(data: Data, ws: EvolveSocket, shard: number): void {
 		this.data = data;
 		this.ws = ws;
 
@@ -35,11 +34,8 @@ export class Gateway extends EventEmitter {
 					this.ws.send(JSON.stringify(Heartbeat));
 				}, d.heartbeat_interval);
 
-				for(let i = 0; i  < this.ws.builder.shards; i++) {
-					promisify(setTimeout)(5e3 * i).then(() => {
-						this._spawn(i);
-					});
-				}
+				this._spawn(shard);
+
 			} else if (t) {
 				try {
 					(async() => {
@@ -61,19 +57,13 @@ export class Gateway extends EventEmitter {
 		Identify.d.shard = [shard, this.ws.builder.shards];
 		Identify.d.intents = this.ws.builder.intents;
 
-		if(this._debug(Identify)) {
+		if(this._debug(shard)) {
 			this.ws.send(JSON.stringify(Identify));
 		}
 	}
 
-	private _debug(payload: Payload): boolean {
-		if(this.launchedShards.has(payload)) {
-			return false;
-	   } else if(!this.launchedShards.has(payload)) {
-		   this.launchedShards.add(payload);
-	   }
-
-		this.emit("shardSpawn", payload);
+	private _debug(shard: number): boolean {
+		this.emit("shardSpawn", shard);
 		return true;
 	}
 
@@ -94,11 +84,16 @@ export class Gateway extends EventEmitter {
 		this.ws.client.on(EVENTS.VOICE_STATE_UPDATE, (pk) => {
 			if(pk.member.user.id !== this.ws.client.user.id) return;
 			this.voiceStateUpdate = pk;
+			if(this.voiceStateUpdate && this.voiceServerUpdate && !this.voice) {
+				this.voice = new VoiceGateway(this);
+				this.voice.emit("packetReady", (this.voiceStateUpdate, this.voiceServerUpdate));
+				if(initialize) this.voice.init();
+			}
 		});
 
 		this.ws.client.on(EVENTS.VOICE_SERVER_UPDATE, (pk) => {
 			this.voiceServerUpdate = pk;
-			if(this.voiceStateUpdate && this.voiceServerUpdate) {
+			if(this.voiceStateUpdate && this.voiceServerUpdate && !this.voice) {
 				this.voice = new VoiceGateway(this);
 				this.voice.emit("packetReady", (this.voiceStateUpdate, this.voiceServerUpdate));
 				if(initialize) this.voice.init();

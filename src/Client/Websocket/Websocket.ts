@@ -7,9 +7,10 @@ export class EvolveSocket extends ws {
 	constructor(
 		public client: EvolveClient,
 		public builder: EvolveBuilder,
+		public shard: number
 	) {
 		super(CONSTANTS.Gateway);
-		this.client = client;
+		this.init();
 	}
 
 	init(): void {
@@ -23,7 +24,7 @@ export class EvolveSocket extends ws {
 			});
 
 			this.on("message", (data) => {
-				this.client.ws.init(data, this);
+				this.client.ws.init(data, this, this.shard);
 			});
 			this.onclose = function(err) {
 				EvolveLogger.error(err.reason);

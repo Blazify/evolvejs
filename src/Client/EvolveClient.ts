@@ -4,6 +4,7 @@ import { EventEmitter } from "events";
 import { Gateway } from "./Websocket/Gateway";
 import { Oauth2 } from "../Oauth2/Oauth2";
 import { Structures } from "../Structures/Structures";
+import { EvolveSocket } from "./Websocket/Websocket";
 
 export class EvolveClient extends EventEmitter {
 	public token: string;
@@ -20,6 +21,7 @@ export class EvolveClient extends EventEmitter {
 	public ws: Gateway = new Gateway()
 	public secret!: string;
 	public structures: Structures = new Structures();
+	public shardConnections: Objex<number, EvolveSocket> = new Objex();
 
 	public constructor (
 		token: string,
@@ -38,15 +40,5 @@ export class EvolveClient extends EventEmitter {
 
 	public set user(user: ClientUser) {
 		this._user = user;
-	}
-	public on(event, ...listener) {
-		if(event === "newMessage") {
-			super.on(event,listener[0](new (this.structures.get("Message"))(listener[0].data, listener[0].channel, listener[0].guild)))
-		}
-	}
-	public emit(event, data) {
-		if(event === "newMessage") {
-		super.emit(event, (new (this.structures.get("Message"))(data.data, data.channel, data.guild)))
-		}
 	}
 }
