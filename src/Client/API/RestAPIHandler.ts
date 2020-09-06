@@ -28,7 +28,7 @@ export class RestAPIHandler {
 				return fetched.json();
 			}
 		} catch (e) {
-			throw Error(e);
+			this.client.logger.error(e);
 		}
 	}
 }
