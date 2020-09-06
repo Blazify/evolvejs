@@ -11,7 +11,8 @@ export default class {
   	this.client = client;
   	this.payload = payload;
 
-  	(async () => await this.generate(payload))();
+	  (async () => await this.generate(payload))();
+	  this.client.sessionID = payload.d.session_id;
   	client.emit(EVENTS.READY, shard);
   }
 

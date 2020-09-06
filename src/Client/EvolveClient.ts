@@ -32,12 +32,13 @@ export class EvolveClient extends EventEmitter {
   public structures: Structures = new Structures(this);
   public shardConnections: Objex<number, EvolveSocket> = new Objex();
   public logger: Logger = new Logger();
+  public sessionID = "";
 
   public constructor(token: string, options: ClientOptions) {
-  	super();
+  	super({ captureRejections: options.capturePromiseRejection});
   	this.token = token;
   	this.options = options;
-  	if (!this.token) throw Error("TOKEN_ERROR");
+  	if (!this.token) this.logger.error("No token provided");
   }
 
   public get user(): ClientUser {

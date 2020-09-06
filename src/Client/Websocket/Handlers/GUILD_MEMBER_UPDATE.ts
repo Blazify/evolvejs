@@ -13,11 +13,12 @@ export default class {
 			mute: false,
 		});
 
-		client.api.getGuild(guild_id).then((o) => {
+		(async () => {
+			const o = await client.api.getGuild(guild_id);
 			client.emit(
 				EVENTS.GUILD_MEMBER_UPDATE,
 				new GuildMemberEvent(client, member, o, shard)
 			);
-		});
+		})();
 	}
 }

@@ -28,7 +28,7 @@ export class VoiceGateway extends EventEmitter {
   	});
 
   	this.websocket.on("error", (e) =>
-  		this.gateway.ws.client.logger.error(e.message)
+  		this.gateway.ws.builder.client.logger.error(e.message)
   	);
 
   	this.websocket.on("message", (data: Data) => {

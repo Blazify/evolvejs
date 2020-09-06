@@ -3,10 +3,9 @@ import { ChannelEvents } from "../../Events/ChannelEvents";
 
 export default class {
 	constructor(client: EvolveClient, payload: Payload, shard: number) {
-		client.api
-			.getChannel(payload.d.id)
-			.then((o) =>
-				client.emit(EVENTS.CHANNEL_DELETE, new ChannelEvents(client, o, shard))
-			);
+		(async() => {
+			const o = await client.api.getChannel(payload.d.id);
+			client.emit(EVENTS.CHANNEL_DELETE, new ChannelEvents(client, o, shard));
+		})();
 	}
 }

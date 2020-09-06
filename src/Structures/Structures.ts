@@ -47,7 +47,7 @@ export class Structures {
   		this._structures.set(name, extended);
   		return extended;
   	} catch (e) {
-  		throw Error(e);
+  		this.client.logger.error(e);
   	}
   }
 }

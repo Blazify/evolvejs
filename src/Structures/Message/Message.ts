@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable no-mixed-spaces-and-tabs */
 
-import { User, GuildMember, Guild, IMessage, MessageEmbed } from "../..";
+import { User, GuildMember, Guild, IMessage } from "../..";
 import { TextChannel } from "../Channel/TextChannel";
 import { EvolveClient } from "../../Client/EvolveClient";
 
@@ -19,8 +19,7 @@ export class Message {
   public content!: string;
   public guild!: Guild;
   public channel!: TextChannel;
-  public delete: (time: number) => Promise<NodeJS.Timeout> = (time = 0) =>
-  	this.guild.client.api.deleteMessage(this.id, this.channel.id, time);
+  public delete!: (time: number) => Promise<NodeJS.Timeout>
 
   constructor(public data: IMessage, private client: EvolveClient) {
   	this._handle();
@@ -31,9 +30,10 @@ export class Message {
   		for (const it of this.data.mentions) {
   			this.mentions.push(new User(it));
   		}
-  	this.client.api.getTextChannel(this.data.channel_id).then((o) => {
-  		this.channel = o;
-  	});
+  	(async() => {
+		  this.channel = await this.client.api.getTextChannel(this.data.channel_id);
+		  if(this.data.guild_id) this.guild = await this.client.api.getGuild(this.data.guild_id);
+	  })();
   	if (this.data.guild_id) this.client.api.getGuild(this.data.guild_id);
   	this.sentAt = this.data.sent_at;
   	this.id = this.data.id;
@@ -46,12 +46,6 @@ export class Message {
   	this.editedTimestamp = this.data.edited_timestamp;
   	this.attachments = this.data.attachments;
   	this.content = this.data.content;
-
-  	this.channel.send = async (
-  		content: string | MessageEmbed
-  	): Promise<Message> => {
-  		return this.channel.client.api.sendMessage(content, this.channel.id);
-  	};
 
   	this.delete = (time = 0) => {
   		return this.client.api.deleteMessage(this.id, this.channel.id, time);

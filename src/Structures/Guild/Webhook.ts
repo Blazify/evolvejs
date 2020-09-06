@@ -18,10 +18,10 @@ export class Webhook {
   private _handle() {
   	this.id = this.data.id;
   	this.type = this.data.type;
-  	this.client.api.getGuild(this.data.guild_id!).then((o) => (this.guild = o));
-  	this.client.api
-  		.getChannel(this.data.channel_id)
-  		.then((o) => (this.channel = o));
+  	(async() => {
+  		if(this.data.guild_id) this.guild = await this.client.api.getGuild(this.data.guild_id);
+  		this.channel = await this.client.api.getChannel(this.data.channel_id);
+  	});
   	this.user = new User(this.data.user!);
   	this.name = this.data.name!;
   	this.avatar = this.data.avatar!;

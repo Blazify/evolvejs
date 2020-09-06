@@ -1,5 +1,5 @@
 import ws from "ws";
-import { EvolveBuilder, EvolveClient, CONSTANTS } from "../..";
+import { EvolveBuilder, CONSTANTS } from "../..";
 import { Gateway } from "./Gateway";
 
 export class EvolveSocket extends ws {
@@ -7,7 +7,6 @@ export class EvolveSocket extends ws {
   public gateway: Gateway = new Gateway();
 
   constructor(
-    public client: EvolveClient,
     public builder: EvolveBuilder,
     public shard: number
   ) {
@@ -18,21 +17,21 @@ export class EvolveSocket extends ws {
   init(): void {
   	try {
   		this.on("error", (err) => {
-  			throw Error(err.toString());
+  			this.builder.client.logger.error(err.message);
   		});
 
   		this.on("close", (code, res) => {
-  			this.client.logger.error(`Code: ${code}, Response: ${res}`);
+  			this.builder.client.logger.error(`Code: ${code}, Response: ${res}`);
   		});
 
   		this.on("message", (data) => {
   			this.gateway.init(data, this, this.shard);
   		});
   		this.onclose = function (err) {
-  			this.client.logger.error(err.reason);
+  			this.builder.client.logger.error(err.reason);
   		};
   	} catch (e) {
-  		throw Error(e);
+  		this.builder.client.logger.error(e);
   	}
   }
 }

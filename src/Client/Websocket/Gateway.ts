@@ -31,28 +31,32 @@ export class Gateway extends EventEmitter {
   		if (op === OPCODE.Hello) {
   			// Command: Heartbeat
   			setInterval(() => {
-  				if (this.ws.seq) Heartbeat.d = this.ws.seq;
   				this.ws.send(JSON.stringify(Heartbeat));
   			}, d.heartbeat_interval);
 
   			this._spawn(shard);
-  		} else if (t) {
+		  } else if(op === OPCODE.Reconnect) {
+			  this.ws.builder.client.shardConnections.clear();
+			  this.ws.close();
+			  new EvolveSocket(this.ws.builder, shard);
+			  this._reconnect();
+		  } else if (t) {
   			try {
   				(async () => {
   					const { default: handler } = await import(`./Handlers/${t}`);
-  					new handler(this.ws.client, payload, shard);
+  					new handler(this.ws.builder.client, payload, shard);
   				})();
   			} catch (e) {
-  				throw Error(e);
+  				this.ws.builder.client.logger.error(e);
   			}
   		}
   	} catch (e) {
-  		throw Error(e);
+  		this.ws.builder.client.logger.error(e);
   	}
   }
 
   private _spawn(shard: number): void {
-  	Identify.d.token = this.ws.client.token;
+  	Identify.d.token = this.ws.builder.client.token;
   	Identify.d.activity = this.ws.builder.activity;
   	Identify.d.shard = [shard, this.ws.builder.shards];
   	Identify.d.intents = this.ws.builder.intents;
@@ -65,6 +69,18 @@ export class Gateway extends EventEmitter {
   private _debug(shard: number): boolean {
   	this.emit("shardSpawn", shard);
   	return true;
+  }
+
+  private _reconnect() {
+	  const payload: Payload = {
+		  op: OPCODE.Resume,
+		  d: {
+			  token: this.ws.builder.client.token,
+			  session_id: this.ws.builder.client.sessionID,
+			  seq: this.ws.seq
+		  }
+	  };
+	  this.ws.send(JSON.stringify(payload));
   }
 
   public sendVoiceStateUpdate(
@@ -85,8 +101,8 @@ export class Gateway extends EventEmitter {
 
   	this.ws.send(JSON.stringify(VoiceStateUpdate));
 
-  	this.ws.client.on(EVENTS.VOICE_STATE_UPDATE, (pk) => {
-  		if (pk.member.user.id !== this.ws.client.user.id) return;
+  	this.ws.builder.client.on(EVENTS.VOICE_STATE_UPDATE, (pk) => {
+  		if (pk.member.user.id !== this.ws.builder.client.user.id) return;
   		this.voiceStateUpdate = pk;
   		if (this.voiceStateUpdate && this.voiceServerUpdate && !this.voice) {
   			this.voice = new VoiceGateway(this);
@@ -98,7 +114,7 @@ export class Gateway extends EventEmitter {
   		}
   	});
 
-  	this.ws.client.on(EVENTS.VOICE_SERVER_UPDATE, (pk) => {
+  	this.ws.builder.client.on(EVENTS.VOICE_SERVER_UPDATE, (pk) => {
   		this.voiceServerUpdate = pk;
   		if (this.voiceStateUpdate && this.voiceServerUpdate && !this.voice) {
   			this.voice = new VoiceGateway(this);

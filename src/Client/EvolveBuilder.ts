@@ -17,6 +17,7 @@ export class EvolveBuilder {
   private promiseRejection = false;
   public activity: typeof Identify.d.activity;
   private secret!: string;
+  public client!: EvolveClient;
 
   public constructor(token?: string) {
   	if (token) {
@@ -145,7 +146,7 @@ export class EvolveBuilder {
    * @returns {EvolveClient} A Initialized EvolveClient Instance
    */
   public build(): EvolveClient {
-  	const builtClient: EvolveClient = new EvolveClient(this.token, {
+  	this.client = new EvolveClient(this.token, {
   		enableGuildCache: this.guildCache,
   		enableChannelCache: this.channelCache,
   		enableEmojiCache: this.emojiCache,
@@ -155,21 +156,21 @@ export class EvolveBuilder {
   	});
 
   	if (!this.token) {
-  		builtClient.logger.error(
+  		this.client.logger.error(
   			"EvolveBuilder#build Error.. -> No token Provided for EvolveClient to be initialized"
   		);
   	}
   	if (this.shards <= 0)
-  		builtClient.logger.error("Total shards must be more than 0!");
+  		this.client.logger.error("Total shards must be more than 0!");
 
   	if (!this.guildCache) {
-  		builtClient.logger.warn(
+  		this.client.logger.warn(
   			"The Guild Cache is disabled so the READY event guilds will be emmited again in GUILD_CREATE Event and to avoid this use the EvolveBuilder#enableGuildCache"
   		);
   	}
 
   	if (this.intents == 0) {
-  		builtClient.logger.warn(
+  		this.client.logger.warn(
   			"No Intents are given, you will not get any events except some..."
   		);
   	}
@@ -182,17 +183,18 @@ export class EvolveBuilder {
   	}
 
   	if (this.secret) {
-  		builtClient.secret = this.secret;
-  		builtClient.oauth2 = new Oauth2(builtClient);
+  		this.client.secret = this.secret;
+  		this.client.oauth2 = new Oauth2(this.client);
   	}
 
   	for (let i = 0; i < this.shards; i++) {
   		promisify(setTimeout)(5000 * i).then(() => {
-  			const socket = new EvolveSocket(builtClient, this, i);
-  			builtClient.shardConnections.set(i, socket);
+  			const socket = new EvolveSocket(this, i);
+  			this.client.shardConnections.set(i, socket);
   		});
   	}
-  	builtClient.secret = this.secret;
-  	return builtClient;
+  	this.client.secret = this.secret;
+  	return this.client;
   }
+
 }
