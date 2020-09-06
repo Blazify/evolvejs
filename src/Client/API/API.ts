@@ -191,11 +191,34 @@ export class API {
   	return fetched;
   }
 
+  public async listGuildEmojis(guildID: string) {
+	  const fetched = new Guild(
+		  await this.handler.fetch({
+			endpoint: `/guilds/${guildID}/emojis`,
+			method: "GET"
+		  }),
+		  this.client
+	  )
+	  return fetched
+  }
+
+  public async getGuildInvites(guildID: string) {
+	  const fetched = new Guild(
+		  await this.handler.fetch({
+			  endpoint: `/guilds/${guildID}/invites`,
+			  method: "GET"
+		  }),
+		  this.client
+	  )
+	  return fetched
+  }
+
   public async getChannelInvites(channelID: string): Promise<Array<Invite>> {
   	const fetched = await this.handler.fetch({
   		endpoint: `/channels/${channelID}/invites`,
   		method: "GET",
-  	});
+	  });
+	  	  
 
   	const inviteArray: Array<Invite> = [];
   	for (const f of fetched) {
