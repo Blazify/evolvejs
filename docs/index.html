@@ -1,0 +1,539 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>@evolvejs/evolvejs</title>
+	<meta name="description" content="Documentation for @evolvejs/evolvejs">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">@evolvejs/evolvejs</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1>@evolvejs/evolvejs</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<div align="center">
+					<br />
+					<p>
+						<img src="https://cdn.discordapp.com/attachments/712948948343455856/734829166821900438/EvolveJS.png" alt="EvolveJS Logo" />
+					</p>
+					<br />
+					<p>
+						<a href="https://discord.gg/9bnpjqY"><img src="https://discordapp.com/api/guilds/714874374070599720/widget.png?style=shield" alt="Discord" /></a>
+						<a href="https://twitter.com/ABlazify"><img src="https://img.shields.io/twitter/follow/ABlazify?label=Follow&style=social" alt="Twitter" /></a>
+						<a href="https://github.com/EvolveJS/EvolveJS/blob/master/LICENSE"><img src="https://img.shields.io/npm/l/@evolvejs/evolvejs" alt="License" /></a>
+						<a href="https://npmjs.com/package/@evolvejs/evolvejs"><img src="https://img.shields.io/npm/dt/@evolvejs/evolvejs" alt="Downloads" /></a>
+						<a href="https://david-dm.org/EvolveJS/EvolveJS"><img src="https://img.shields.io/david/EvolveJS/EvolveJS" alt="Dependencies" /></a>
+					</p>
+					<br />
+					<p>
+						<a href="https://nodei.co/npm/@evolvejs/evolvejs"><img src="https://nodei.co/npm/@evolvejs/evolvejs.png?downloads=true&stars=true" alt="Status Banner"></a>
+					</p>
+				</div>
+				<a href="#what-is-evolvejs" id="what-is-evolvejs" style="color: inherit; text-decoration: none;">
+					<h1>What is EvolveJS?</h1>
+				</a>
+				<p><strong>EvolveJS is a Discord Library in which bots can be made. We provide high control over the module so that the customizability can be the top of the level.
+				Have fun with the library and happy coding :)</strong></p>
+				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+					<h1>Installation</h1>
+				</a>
+				<p><strong>Using the Node Package Manager (NPM)</strong></p>
+				<pre><code class="language-shell">npm install @evolvejs/evolvejs</code></pre>
+				<a href="#important" id="important" style="color: inherit; text-decoration: none;">
+					<h1>Important</h1>
+				</a>
+				<p><strong>You need the following things before you can kick off with EvolveJS:</strong></p>
+				<ul>
+					<li><a href="https://www.nodejs.org"><strong>Node Installed</strong></a></li>
+				</ul>
+				<p><strong>Currently it isn&#39;t documented as it&#39;s alpha version, during proper release it will be documented</strong></p>
+				<a href="#documentation-and-support" id="documentation-and-support" style="color: inherit; text-decoration: none;">
+					<h1>Documentation and Support</h1>
+				</a>
+				<ul>
+					<li><strong>For any further query and support join us at <a href="https://discord.gg/9bnpjqY">EvolveJS</a> discord.</strong></li>
+				</ul>
+				<a href="#current-features" id="current-features" style="color: inherit; text-decoration: none;">
+					<h1>Current Features</h1>
+				</a>
+				<ul>
+					<li><strong>API Class, All Websocket Events, Sharding, API Ratelimiting, Collectors, Embeds, All Structures</strong></li>
+				</ul>
+				<a href="#upcoming-features" id="upcoming-features" style="color: inherit; text-decoration: none;">
+					<h1>Upcoming Features</h1>
+				</a>
+				<ul>
+					<li><strong>Voice Support, All API Endpoints and basically everything more advanced stuff</strong></li>
+				</ul>
+				<a href="#basic-startup-guide" id="basic-startup-guide" style="color: inherit; text-decoration: none;">
+					<h1>Basic Startup Guide</h1>
+				</a>
+				<p>**Example code for running the client</p>
+				<pre><code class="language-js"><span class="hljs-keyword">const</span> { EvolveBuilder, GatewayIntents, CacheOptions } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@evolvejs/evolvejs&quot;</span>)
+<span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> EvolveBuilder()
+                    .setToken(<span class="hljs-string">&quot;&quot;</span>)
+                    .setShards(<span class="hljs-number">2</span>)
+                    .enableIntents(GatewayIntent.GUILD)
+                    .enableCache(CacheOptions.GUILD)
+                    .build()
+
+client.on(<span class="hljs-string">&quot;clientReady&quot;</span>, <span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(client.user.username)
+})
+
+client.on(<span class="hljs-string">&quot;newMessage&quot;</span>, <span class="hljs-function">(<span class="hljs-params">msg</span>) =&gt;</span> {
+  <span class="hljs-keyword">if</span>(msg.content == <span class="hljs-string">&quot;ping&quot;</span>) {
+    message.channel.send(<span class="hljs-string">&quot;Pong&quot;</span>)
+  }
+})</code></pre>
+				<a href="#author" id="author" style="color: inherit; text-decoration: none;">
+					<h1>Author</h1>
+				</a>
+				<ul>
+					<li><strong>Echo-3-1 (GoD)</strong></li>
+					<li><strong>Links: <a href="https://github.com/Echo-3-1">GitHub</a></strong></li>
+					<li><a href="https://paypal.me/roahgaming"><strong>Donate The Development</strong></a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_api_restapi_.html">&quot;<wbr>Client/API/<wbr>RestAPI&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_api_restapihandler_.html">&quot;<wbr>Client/API/<wbr>RestAPIHandler&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_clientoptions_.html">&quot;<wbr>Client/<wbr>Client<wbr>Options&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_clientuser_.html">&quot;<wbr>Client/<wbr>Client<wbr>User&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_events_baseevent_.html">&quot;<wbr>Client/<wbr>Events/<wbr>Base<wbr>Event&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_events_channelevents_.html">&quot;<wbr>Client/<wbr>Events/<wbr>Channel<wbr>Events&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_events_guildbanevents_.html">&quot;<wbr>Client/<wbr>Events/<wbr>Guild<wbr>Ban<wbr>Events&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_events_guildemojievents_.html">&quot;<wbr>Client/<wbr>Events/<wbr>Guild<wbr>Emoji<wbr>Events&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_events_guildevents_.html">&quot;<wbr>Client/<wbr>Events/<wbr>Guild<wbr>Events&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_events_guildintegrationevents_.html">&quot;<wbr>Client/<wbr>Events/<wbr>Guild<wbr>Integration<wbr>Events&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_events_guildmemberevents_.html">&quot;<wbr>Client/<wbr>Events/<wbr>Guild<wbr>Member<wbr>Events&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_events_guildmemberschunkevents_.html">&quot;<wbr>Client/<wbr>Events/<wbr>Guild<wbr>Members<wbr>Chunk<wbr>Events&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_events_guildroleevents_.html">&quot;<wbr>Client/<wbr>Events/<wbr>Guild<wbr>Role<wbr>Events&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_events_messageevents_.html">&quot;<wbr>Client/<wbr>Events/<wbr>Message<wbr>Events&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_events_messagereactionevents_.html">&quot;<wbr>Client/<wbr>Events/<wbr>Message<wbr>Reaction<wbr>Events&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_evolvebuilder_.html">&quot;<wbr>Client/<wbr>Evolve<wbr>Builder&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_evolveclient_.html">&quot;<wbr>Client/<wbr>Evolve<wbr>Client&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_gateway_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Gateway&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_channel_create_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/CHANNEL_<wbr>CREATE&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_channel_delete_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/CHANNEL_<wbr>DELETE&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_channel_pins_update_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/CHANNEL_<wbr>PINS_<wbr>UPDATE&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_channel_update_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/CHANNEL_<wbr>UPDATE&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_guild_ban_add_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/GUILD_<wbr>BAN_<wbr>ADD&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_guild_ban_remove_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/GUILD_<wbr>BAN_<wbr>REMOVE&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_guild_create_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/GUILD_<wbr>CREATE&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_guild_delete_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/GUILD_<wbr>DELETE&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_guild_emojis_update_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/GUILD_<wbr>EMOJIS_<wbr>UPDATE&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_guild_integrations_update_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/GUILD_<wbr>INTEGRATIONS_<wbr>UPDATE&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_guild_members_chunk_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/GUILD_<wbr>MEMBERS_<wbr>CHUNK&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_guild_member_add_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/GUILD_<wbr>MEMBER_<wbr>ADD&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_guild_member_remove_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/GUILD_<wbr>MEMBER_<wbr>REMOVE&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_guild_member_update_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/GUILD_<wbr>MEMBER_<wbr>UPDATE&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_guild_role_create_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/GUILD_<wbr>ROLE_<wbr>CREATE&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_guild_role_delete_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/GUILD_<wbr>ROLE_<wbr>DELETE&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_guild_role_update_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/GUILD_<wbr>ROLE_<wbr>UPDATE&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_guild_update_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/GUILD_<wbr>UPDATE&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_invite_create_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/INVITE_<wbr>CREATE&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_invite_delete_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/INVITE_<wbr>DELETE&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_message_create_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/MESSAGE_<wbr>CREATE&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_message_delete_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/MESSAGE_<wbr>DELETE&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_message_delete_bulk_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/MESSAGE_<wbr>DELETE_<wbr>BULK&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_message_reaction_add_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/MESSAGE_<wbr>REACTION_<wbr>ADD&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_message_reaction_remove_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/MESSAGE_<wbr>REACTION_<wbr>REMOVE&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_message_reaction_remove_all_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/MESSAGE_<wbr>REACTION_<wbr>REMOVE_<wbr>ALL&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_message_reaction_remove_emoji_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/MESSAGE_<wbr>REACTION_<wbr>REMOVE_<wbr>EMOJI&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_message_update_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/MESSAGE_<wbr>UPDATE&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_presence_update_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/PRESENCE_<wbr>UPDATE&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_ready_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/READY&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_typing_start_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/TYPING_<wbr>START&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_user_update_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/USER_<wbr>UPDATE&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_voice_server_update_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/VOICE_<wbr>SERVER_<wbr>UPDATE&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_voice_state_update_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/VOICE_<wbr>STATE_<wbr>UPDATE&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_handlers_webhooks_update_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Handlers/WEBHOOKS_<wbr>UPDATE&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_voice_voicegateway_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Voice/<wbr>Voice<wbr>Gateway&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_client_websocket_websocket_.html">&quot;<wbr>Client/<wbr>Websocket/<wbr>Websocket&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_interfaces_activityoptions_.html">&quot;<wbr>Interfaces/<wbr>Activity<wbr>Options&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_interfaces_categorychanneloptions_.html">&quot;<wbr>Interfaces/<wbr>Category<wbr>Channel<wbr>Options&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_interfaces_dmchanneloptions_.html">&quot;<wbr>Interfaces/DMChannel<wbr>Options&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_interfaces_emojioptions_.html">&quot;<wbr>Interfaces/<wbr>Emoji<wbr>Options&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_interfaces_groupchanneloptions_.html">&quot;<wbr>Interfaces/<wbr>Group<wbr>Channel<wbr>Options&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_interfaces_guildmemberoptions_.html">&quot;<wbr>Interfaces/<wbr>Guild<wbr>Member<wbr>Options&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_interfaces_guildoptions_.html">&quot;<wbr>Interfaces/<wbr>Guild<wbr>Options&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_interfaces_interfaces_.html">&quot;<wbr>Interfaces/<wbr>Interfaces&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_interfaces_inviteoptions_.html">&quot;<wbr>Interfaces/<wbr>Invite<wbr>Options&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_interfaces_messageoptions_.html">&quot;<wbr>Interfaces/<wbr>Message<wbr>Options&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_interfaces_messagereactionoptions_.html">&quot;<wbr>Interfaces/<wbr>Message<wbr>Reaction<wbr>Options&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_interfaces_newschanneloptions_.html">&quot;<wbr>Interfaces/<wbr>News<wbr>Channel<wbr>Options&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_interfaces_overwriteoptions_.html">&quot;<wbr>Interfaces/<wbr>Overwrite<wbr>Options&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_interfaces_presenceupdateoptions_.html">&quot;<wbr>Interfaces/<wbr>Presence<wbr>Update<wbr>Options&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_interfaces_roleoptions_.html">&quot;<wbr>Interfaces/<wbr>Role<wbr>Options&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_interfaces_storechanneloptions_.html">&quot;<wbr>Interfaces/<wbr>Store<wbr>Channel<wbr>Options&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_interfaces_textchanneloptions_.html">&quot;<wbr>Interfaces/<wbr>Text<wbr>Channel<wbr>Options&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_interfaces_useroptions_.html">&quot;<wbr>Interfaces/<wbr>User<wbr>Options&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_interfaces_voicechanneloptions_.html">&quot;<wbr>Interfaces/<wbr>Voice<wbr>Channel<wbr>Options&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_interfaces_voiceregionoptions_.html">&quot;<wbr>Interfaces/<wbr>Voice<wbr>Region<wbr>Options&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_interfaces_voicestateoptions_.html">&quot;<wbr>Interfaces/<wbr>Voice<wbr>State<wbr>Options&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_interfaces_webhookoptions_.html">&quot;<wbr>Interfaces/<wbr>Webhook<wbr>Options&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_oauth2_oauth2_.html">&quot;<wbr>Oauth2/<wbr>Oauth2&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_structures_channel_categorychannel_.html">&quot;<wbr>Structures/<wbr>Channel/<wbr>Category<wbr>Channel&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_structures_channel_channel_.html">&quot;<wbr>Structures/<wbr>Channel/<wbr>Channel&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_structures_channel_dmchannel_.html">&quot;<wbr>Structures/<wbr>Channel/DMChannel&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_structures_channel_groupchannel_.html">&quot;<wbr>Structures/<wbr>Channel/<wbr>Group<wbr>Channel&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_structures_channel_newschannel_.html">&quot;<wbr>Structures/<wbr>Channel/<wbr>News<wbr>Channel&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_structures_channel_overwrite_.html">&quot;<wbr>Structures/<wbr>Channel/<wbr>Overwrite&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_structures_channel_storechannel_.html">&quot;<wbr>Structures/<wbr>Channel/<wbr>Store<wbr>Channel&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_structures_channel_textchannel_.html">&quot;<wbr>Structures/<wbr>Channel/<wbr>Text<wbr>Channel&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_structures_channel_voicechannel_.html">&quot;<wbr>Structures/<wbr>Channel/<wbr>Voice<wbr>Channel&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_structures_guild_emoji_.html">&quot;<wbr>Structures/<wbr>Guild/<wbr>Emoji&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_structures_guild_guild_.html">&quot;<wbr>Structures/<wbr>Guild/<wbr>Guild&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_structures_guild_guildmember_.html">&quot;<wbr>Structures/<wbr>Guild/<wbr>Guild<wbr>Member&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_structures_guild_invite_.html">&quot;<wbr>Structures/<wbr>Guild/<wbr>Invite&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_structures_guild_role_.html">&quot;<wbr>Structures/<wbr>Guild/<wbr>Role&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_structures_guild_voicestate_.html">&quot;<wbr>Structures/<wbr>Guild/<wbr>Voice<wbr>State&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_structures_guild_webhook_.html">&quot;<wbr>Structures/<wbr>Guild/<wbr>Webhook&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_structures_message_message_.html">&quot;<wbr>Structures/<wbr>Message/<wbr>Message&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_structures_message_messagereaction_.html">&quot;<wbr>Structures/<wbr>Message/<wbr>Message<wbr>Reaction&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_structures_miscs_clientstatus_.html">&quot;<wbr>Structures/<wbr>Miscs/<wbr>Client<wbr>Status&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_structures_structures_.html">&quot;<wbr>Structures/<wbr>Structures&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_structures_user_activity_.html">&quot;<wbr>Structures/<wbr>User/<wbr>Activity&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_structures_user_presenceupdate_.html">&quot;<wbr>Structures/<wbr>User/<wbr>Presence<wbr>Update&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_structures_user_user_.html">&quot;<wbr>Structures/<wbr>User/<wbr>User&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_utils_collectors_basecollector_.html">&quot;<wbr>Utils/<wbr>Collectors/<wbr>Base<wbr>Collector&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_utils_collectors_messagecollector_.html">&quot;<wbr>Utils/<wbr>Collectors/<wbr>Message<wbr>Collector&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_utils_collectors_messagereactioncollector_.html">&quot;<wbr>Utils/<wbr>Collectors/<wbr>Message<wbr>Reaction<wbr>Collector&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_utils_constants_.html">&quot;<wbr>Utils/<wbr>Constants&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_utils_embed_embedauthor_.html">&quot;<wbr>Utils/<wbr>Embed/<wbr>Embed<wbr>Author&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_utils_embed_embedbuilder_.html">&quot;<wbr>Utils/<wbr>Embed/<wbr>Embed<wbr>Builder&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_utils_embed_embedfield_.html">&quot;<wbr>Utils/<wbr>Embed/<wbr>Embed<wbr>Field&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_utils_embed_embedfooter_.html">&quot;<wbr>Utils/<wbr>Embed/<wbr>Embed<wbr>Footer&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_utils_embed_embedimage_.html">&quot;<wbr>Utils/<wbr>Embed/<wbr>Embed<wbr>Image&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_utils_embed_embedprovider_.html">&quot;<wbr>Utils/<wbr>Embed/<wbr>Embed<wbr>Provider&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_utils_embed_embedthumbnail_.html">&quot;<wbr>Utils/<wbr>Embed/<wbr>Embed<wbr>Thumbnail&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_utils_embed_embedvideo_.html">&quot;<wbr>Utils/<wbr>Embed/<wbr>Embed<wbr>Video&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_utils_embed_messageembed_.html">&quot;<wbr>Utils/<wbr>Embed/<wbr>Message<wbr>Embed&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_index_.html">&quot;index&quot;</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
