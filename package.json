@@ -1,6 +1,6 @@
 {
 	"name": "@evolvejs/evolvejs",
-	"version": "0.1.-alpha",
+	"version": "0.1.9-alpha",
 	"description": "An advanced discord API wrapper with TS and JS support",
 	"main": "dist/index.js",
 	"scripts": {
@@ -27,10 +27,8 @@
 	"homepage": "https://github.com/EvolveJS/EvolveJS#readme",
 	"dependencies": {
 		"@evolvejs/objex": "^1.0.0",
-		"chalk": "^4.1.0",
-		"moment": "^2.27.0",
 		"node-fetch": "^2.6.0",
-		"sign-logger": "^1.2.5",
+		"sign-logger": "^1.3.7",
 		"ws": "^7.3.1"
 	},
 	"devDependencies": {
