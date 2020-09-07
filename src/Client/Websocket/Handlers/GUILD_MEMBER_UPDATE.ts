@@ -14,7 +14,7 @@ export default class {
 		});
 
 		(async () => {
-			const o = await client.api.getGuild(guild_id);
+			const o = await client.rest.getGuild(guild_id);
 			client.emit(
 				EVENTS.GUILD_MEMBER_UPDATE,
 				new GuildMemberEvent(client, member, o, shard)

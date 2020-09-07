@@ -2,7 +2,7 @@ export * from "./Client/EvolveBuilder";
 export * from "./Client/EvolveClient";
 export * from "./Client/ClientOptions";
 export * from "./Client/ClientUser";
-export * from "./Client/API/API";
+export * from "./Client/API/RestAPI";
 export * from "./Client/API/RestAPIHandler";
 export * from "./Client/Websocket/Gateway";
 export * from "./Client/Websocket/Websocket";

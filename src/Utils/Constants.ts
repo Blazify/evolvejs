@@ -8,6 +8,13 @@ import {
 	IStoreChannel,
 	Payload,
 } from "..";
+import { TextChannel } from "../Structures/Channel/TextChannel";
+import { VoiceChannel } from "../Structures/Channel/VoiceChannel";
+import { DMChannel } from "../Structures/Channel/DMChannel";
+import { CategoryChannel } from "../Structures/Channel/CategoryChannel";
+import { GroupChannel } from "../Structures/Channel/GroupChannel";
+import { NewsChannel } from "../Structures/Channel/NewsChannel";
+import { StoreChannel } from "../Structures/Channel/StoreChannel";
 
 export enum CONSTANTS {
   Gateway = "wss://gateway.discord.gg/?v=6&encoding=json",
@@ -51,6 +58,25 @@ export type ChannelResolvable =
   | ICategoryChannel
   | INewsChannel
   | IStoreChannel;
+
+export type ChannelTypes =
+  | TextChannel
+  | VoiceChannel
+  | DMChannel
+  | CategoryChannel
+  | GroupChannel
+  | NewsChannel
+  | StoreChannel;
+
+export const ChannelResolver = [
+	TextChannel,
+	DMChannel,
+	VoiceChannel,
+	GroupChannel,
+	CategoryChannel,
+	NewsChannel,
+	StoreChannel,
+];
 
 export enum ActivityTypes {
   PLAYING = 0,

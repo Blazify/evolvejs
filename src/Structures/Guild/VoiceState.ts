@@ -28,11 +28,13 @@ export class VoiceState {
   }
 
   private _handle() {
-	  (async() => {
-		  if(this.data.guild_id) this.guild = await this.client.api.getGuild(this.data.guild_id);
-		  if(this.data.channel_id) this.channel = await this.client.api.getChannel(this.data.channel_id);
-		  this.user = await this.client.api.getUser(this.data.user_id);
-	  })();
+  	(async () => {
+  		if (this.data.guild_id)
+  			this.guild = await this.client.rest.getGuild(this.data.guild_id);
+  		if (this.data.channel_id)
+  			this.channel = await this.client.rest.getChannel(this.data.channel_id);
+  		this.user = await this.client.rest.getUser(this.data.user_id);
+  	})();
   	this.member = new GuildMember(this.data.member!);
   	this.sessionID = this.data.session_id;
   	this.deaf = this.data.deaf;

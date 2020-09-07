@@ -2,30 +2,24 @@
 
 import {
 	RestAPIHandler,
-	TextChannel,
-	DMChannel,
-	VoiceChannel,
-	GroupChannel,
-	CategoryChannel,
-	NewsChannel,
-	StoreChannel,
 	EvolveClient,
 	Guild,
-	Channel,
 	User,
 	GuildMember,
 	MessageEmbed,
 	Message,
-	CHANNELTYPES,
+	ChannelResolver,
 } from "../..";
 import { Invite } from "../../Structures/Guild/Invite";
+import { Emoji } from "../../Structures/Guild/Emoji";
+import { ChannelTypes } from "../../Utils/Constants";
 
 /**
- * API CLASS
+ * rest CLASS
  *
  * @param {client} - Your EvolveClient
  */
-export class API {
+export class rest {
   public client: EvolveClient;
   public handler: RestAPIHandler;
 
@@ -44,30 +38,16 @@ export class API {
   	);
   }
 
-  public async getGuildChannels(guildID: string): Promise<Channel[]> {
+  public async getGuildChannels(guildID: string): Promise<ChannelTypes[]> {
   	const channels = await this.handler.fetch({
   		endpoint: `guilds/${guildID}/channels`,
   		method: "GET",
   	});
 
-  	const channelArray = [];
+  	const channelArray: ChannelTypes[] = [];
 
   	for (const c of channels) {
-  		if (c.type === CHANNELTYPES.Category) {
-  			channelArray.push(new CategoryChannel(c, this.client));
-  		} else if (c.type === CHANNELTYPES.Direct) {
-  			channelArray.push(new DMChannel(c, this.client));
-  		} else if (c.type === CHANNELTYPES.Group) {
-  			channelArray.push(new GroupChannel(c, this.client));
-  		} else if (c.type === CHANNELTYPES.News) {
-  			channelArray.push(new NewsChannel(c, this.client));
-  		} else if (c.type === CHANNELTYPES.Store) {
-  			channelArray.push(new StoreChannel(c, this.client));
-  		} else if (c.type === CHANNELTYPES.Text) {
-  			channelArray.push(new TextChannel(c, this.client));
-  		} else if (c.type === CHANNELTYPES.Voice) {
-  			channelArray.push(new VoiceChannel(c, this.client));
-  		}
+  		channelArray.push(new ChannelResolver[c.type](c, this.client));
   	}
 
   	return channelArray;
@@ -155,70 +135,47 @@ export class API {
   	});
   }
 
-  public async getChannel(channelID: string): Promise<Channel> {
+  public async getChannel(channelID: string): Promise<ChannelTypes> {
   	const c = await this.handler.fetch({
   		endpoint: `/channels/${channelID}`,
   		method: "GET",
   	});
+  	const channel = new ChannelResolver[c.type](c, this.client);
 
-  	if (c.type === CHANNELTYPES.Category) {
-  		return new CategoryChannel(c, this.client);
-  	} else if (c.type === CHANNELTYPES.Direct) {
-  		return new DMChannel(c, this.client);
-  	} else if (c.type === CHANNELTYPES.Group) {
-  		return new GroupChannel(c, this.client);
-  	} else if (c.type === CHANNELTYPES.News) {
-  		return new NewsChannel(c, this.client);
-  	} else if (c.type === CHANNELTYPES.Store) {
-  		return new StoreChannel(c, this.client);
-  	} else if (c.type === CHANNELTYPES.Text) {
-  		return new TextChannel(c, this.client);
-  	} else if (c.type === CHANNELTYPES.Voice) {
-  		return new VoiceChannel(c, this.client);
+  	return channel;
+  }
+
+  public async listGuildEmojis(guildID: string): Promise<Emoji[]> {
+  	const fetched = await this.handler.fetch({
+  		endpoint: `/guilds/${guildID}/emojis`,
+  		method: "GET",
+  	});
+  	const emojiArray: Emoji[] = [];
+
+  	for (const emoji of fetched) {
+  		emojiArray.push(new Emoji(emoji));
+  	}
+  	return emojiArray;
+  }
+
+  public async getGuildInvites(guildID: string): Promise<Invite[]> {
+  	const fetched = await this.handler.fetch({
+  		endpoint: `/guilds/${guildID}/invites`,
+  		method: "GET",
+  	});
+  	const invite: Invite[] = [];
+  	for (const invite of fetched) {
+  		invite.push(new Invite(invite, this.client));
   	}
 
-  	return c;
-  }
-
-  public async getTextChannel(channel: string): Promise<TextChannel> {
-  	const fetched = new TextChannel(
-  		await this.handler.fetch({
-  			endpoint: `/channels/${channel}`,
-  			method: "GET",
-  		}),
-  		this.client
-  	);
-  	return fetched;
-  }
-
-  public async listGuildEmojis(guildID: string) {
-	  const fetched = new Guild(
-		  await this.handler.fetch({
-			endpoint: `/guilds/${guildID}/emojis`,
-			method: "GET"
-		  }),
-		  this.client
-	  )
-	  return fetched
-  }
-
-  public async getGuildInvites(guildID: string) {
-	  const fetched = new Guild(
-		  await this.handler.fetch({
-			  endpoint: `/guilds/${guildID}/invites`,
-			  method: "GET"
-		  }),
-		  this.client
-	  )
-	  return fetched
+  	return invite;
   }
 
   public async getChannelInvites(channelID: string): Promise<Array<Invite>> {
   	const fetched = await this.handler.fetch({
   		endpoint: `/channels/${channelID}/invites`,
   		method: "GET",
-	  });
-	  	  
+  	});
 
   	const inviteArray: Array<Invite> = [];
   	for (const f of fetched) {

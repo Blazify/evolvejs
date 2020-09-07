@@ -19,7 +19,7 @@ export class Message {
   public content!: string;
   public guild!: Guild;
   public channel!: TextChannel;
-  public delete!: (time: number) => Promise<NodeJS.Timeout>
+  public delete!: (time: number) => Promise<NodeJS.Timeout>;
 
   constructor(public data: IMessage, private client: EvolveClient) {
   	this._handle();
@@ -30,11 +30,13 @@ export class Message {
   		for (const it of this.data.mentions) {
   			this.mentions.push(new User(it));
   		}
-  	(async() => {
-		  this.channel = await this.client.api.getTextChannel(this.data.channel_id);
-		  if(this.data.guild_id) this.guild = await this.client.api.getGuild(this.data.guild_id);
-	  })();
-  	if (this.data.guild_id) this.client.api.getGuild(this.data.guild_id);
+  	(async () => {
+  		const channel = await this.client.rest.getChannel(this.data.channel_id);
+  		if (channel instanceof TextChannel) this.channel = channel;
+  		if (this.data.guild_id)
+  			this.guild = await this.client.rest.getGuild(this.data.guild_id);
+  	})();
+  	if (this.data.guild_id) this.client.rest.getGuild(this.data.guild_id);
   	this.sentAt = this.data.sent_at;
   	this.id = this.data.id;
   	this.pinned = this.data.pinned;
@@ -48,7 +50,7 @@ export class Message {
   	this.content = this.data.content;
 
   	this.delete = (time = 0) => {
-  		return this.client.api.deleteMessage(this.id, this.channel.id, time);
+  		return this.client.rest.deleteMessage(this.id, this.channel.id, time);
   	};
   	return this;
   }

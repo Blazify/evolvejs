@@ -11,11 +11,12 @@ import {
 	IGuild,
 } from "../..";
 import { Objex } from "@evolvejs/objex";
+import { ChannelTypes } from "../../Utils/Constants";
 
 export class Guild {
   public client: EvolveClient;
   public members: Objex<string, GuildMember> = new Objex();
-  public channels: Objex<string, Channel> = new Objex();
+  public channels: Objex<string, ChannelTypes> = new Objex();
   public roles: Objex<string, Role> = new Objex();
   public emojis: Objex<string | null, Emoji> = new Objex();
   public voiceStates: Objex<string, VoiceState> = new Objex();
@@ -74,12 +75,12 @@ export class Guild {
   	});
 
   	(async () => {
-  		const cArray = await this.client.api.getGuildChannels(this.data.id);
+  		const cArray = await this.client.rest.getGuildChannels(this.data.id);
   		for (const c of cArray) {
   			this.channels.set(c.id, c);
   		}
 
-  		const mArray = await this.client.api.getGuildMembers(this.data.id);
+  		const mArray = await this.client.rest.getGuildMembers(this.data.id);
   		for (const m of mArray) {
   			if (m.user) this.members.set(m.user.id, m);
   		}

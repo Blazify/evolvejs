@@ -11,8 +11,8 @@ export default class {
   	this.client = client;
   	this.payload = payload;
 
-	  (async () => await this.generate(payload))();
-	  this.client.sessionID = payload.d.session_id;
+  	(async () => await this.generate(payload))();
+  	this.client.sessionID = payload.d.session_id;
   	client.emit(EVENTS.READY, shard);
   }
 
@@ -31,7 +31,7 @@ export default class {
   	);
 
   	for (const g of guilds) {
-  		const fetched: Guild = await this.client.api.getGuild(g.id);
+  		const fetched: Guild = await this.client.rest.getGuild(g.id);
 
   		for (const [k, v] of fetched.members) {
   			if (this.client.options.enableUsersCache)

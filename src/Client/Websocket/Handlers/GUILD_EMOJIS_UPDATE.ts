@@ -7,7 +7,7 @@ export default class {
 		const { guild_id, emojis } = payload.d;
 
 		(async () => {
-			const guild = await client.api.getGuild(guild_id);
+			const guild = await client.rest.getGuild(guild_id);
 			const emojiObjex: Objex<string | null, Emoji> = new Objex();
 			for (const emoji of emojis) {
 				emojiObjex.set(emoji.id, new Emoji(emoji));

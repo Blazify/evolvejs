@@ -41,11 +41,9 @@ export class TextChannel extends Channel {
   	this.parent = this.data.parent_id
   		? (this.client.channels.get(this.data.parent_id) as CategoryChannel)
   		: undefined;
-	  this.lastPin = this.data.last_pin_timestamp;
-	  this.send = async (
-  		content: string | MessageEmbed
-  	): Promise<Message> => {
-  		return this.client.api.sendMessage(content, this.id);
+  	this.lastPin = this.data.last_pin_timestamp;
+  	this.send = async (content: string | MessageEmbed): Promise<Message> => {
+  		return this.client.rest.sendMessage(content, this.id);
   	};
   	return this;
   }

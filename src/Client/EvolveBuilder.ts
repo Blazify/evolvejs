@@ -196,5 +196,4 @@ export class EvolveBuilder {
   	this.client.secret = this.secret;
   	return this.client;
   }
-
 }

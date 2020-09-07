@@ -35,12 +35,12 @@ export class Gateway extends EventEmitter {
   			}, d.heartbeat_interval);
 
   			this._spawn(shard);
-		  } else if(op === OPCODE.Reconnect) {
-			  this.ws.builder.client.shardConnections.clear();
-			  this.ws.close();
-			  new EvolveSocket(this.ws.builder, shard);
-			  this._reconnect();
-		  } else if (t) {
+  		} else if (op === OPCODE.Reconnect) {
+  			this.ws.builder.client.shardConnections.clear();
+  			this.ws.close();
+  			new EvolveSocket(this.ws.builder, shard);
+  			this._reconnect();
+  		} else if (t) {
   			try {
   				(async () => {
   					const { default: handler } = await import(`./Handlers/${t}`);
@@ -72,15 +72,15 @@ export class Gateway extends EventEmitter {
   }
 
   private _reconnect() {
-	  const payload: Payload = {
-		  op: OPCODE.Resume,
-		  d: {
-			  token: this.ws.builder.client.token,
-			  session_id: this.ws.builder.client.sessionID,
-			  seq: this.ws.seq
-		  }
-	  };
-	  this.ws.send(JSON.stringify(payload));
+  	const payload: Payload = {
+  		op: OPCODE.Resume,
+  		d: {
+  			token: this.ws.builder.client.token,
+  			session_id: this.ws.builder.client.sessionID,
+  			seq: this.ws.seq,
+  		},
+  	};
+  	this.ws.send(JSON.stringify(payload));
   }
 
   public sendVoiceStateUpdate(

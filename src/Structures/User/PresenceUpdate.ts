@@ -31,9 +31,9 @@ export class PresenceUpdate {
   	);
   	if (this.data.game)
   		this.data.game.forEach((o) => (this.game = new Activity(o)));
-  	(async() => {
-		  this.guild = await this.client.api.getGuild(this.data.guild_id);
-	  })();
+  	(async () => {
+  		this.guild = await this.client.rest.getGuild(this.data.guild_id);
+  	})();
   	this.status = this.data.status;
   	this.activities = this.data.activities;
   	this.clientStatus = new ClientStatus(this.data.client_status);

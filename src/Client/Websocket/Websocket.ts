@@ -6,10 +6,7 @@ export class EvolveSocket extends ws {
   public seq?: number;
   public gateway: Gateway = new Gateway();
 
-  constructor(
-    public builder: EvolveBuilder,
-    public shard: number
-  ) {
+  constructor(public builder: EvolveBuilder, public shard: number) {
   	super(CONSTANTS.Gateway);
   	this.init();
   }
