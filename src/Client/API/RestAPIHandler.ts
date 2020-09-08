@@ -4,7 +4,7 @@ import { EvolveClient, IAPIParams, CONSTANTS } from "../..";
 export class RestAPIHandler {
 	constructor(public client: EvolveClient) { }
 
-	public async fetch(options: IAPIParams): Promise<void> {
+	public async fetch(options: IAPIParams): Promise<any> {
 		try {
 			if (options.method !== "POST") {
 				const fetched = await fetch(`${CONSTANTS.Api}/${options.endpoint}`, {
