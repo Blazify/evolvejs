@@ -1,6 +1,5 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import {
-	Channel,
 	Overwrite,
 	Guild,
 	CategoryChannel,
@@ -10,6 +9,7 @@ import {
 	Message,
 	MessageEmbed,
 } from "../..";
+import { Channel } from "./Channel";
 import { Objex } from "@evolvejs/objex";
 
 export class TextChannel extends Channel {
