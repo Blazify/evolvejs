@@ -19,7 +19,7 @@ import { ChannelTypes } from "../../Utils/Constants";
  *
  * @param {client} - Your EvolveClient
  */
-export class rest {
+export class RestAPI {
   public client: EvolveClient;
   public handler: RestAPIHandler;
 
@@ -145,7 +145,7 @@ export class rest {
   	return channel;
   }
 
-  public async listGuildEmojis(guildID: string): Promise<Emoji[]> {
+  public async getGuildEmojis(guildID: string): Promise<Emoji[]> {
   	const fetched = await this.handler.fetch({
   		endpoint: `/guilds/${guildID}/emojis`,
   		method: "GET",
@@ -162,7 +162,9 @@ export class rest {
   	const fetched = await this.handler.fetch({
   		endpoint: `/guilds/${guildID}/invites`,
   		method: "GET",
-  	});
+	  });
+	  
+	  
   	const invite: Invite[] = [];
   	for (const invite of fetched) {
   		invite.push(new Invite(invite, this.client));
