@@ -3,10 +3,9 @@ import { EvolveClient, IAPIParams, CONSTANTS } from "../..";
 import { promisify } from "util";
 
 export class RestAPIHandler {
-	constructor(public client: EvolveClient) {}
+	constructor(public client: EvolveClient) { }
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	public async fetch(options: IAPIParams): Promise<any> {
+	public async fetch(options: IAPIParams): Promise<unknown> {
 		try {
 			if (options.method !== "POST") {
 				const fetched = await fetch(`${CONSTANTS.Api}/${options.endpoint}`, {
