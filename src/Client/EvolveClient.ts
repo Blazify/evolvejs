@@ -6,7 +6,7 @@ import {
 	Message,
 	ClientUser,
 	ClientOptions,
-	rest,
+	RestAPI,
 } from "..";
 import { Logger } from "sign-logger";
 import { Objex } from "@evolvejs/objex";
@@ -26,7 +26,7 @@ export class EvolveClient extends EventEmitter {
   public roles: Objex<string, Role> = new Objex();
   public messages: Objex<string, Message> = new Objex();
   private _user!: ClientUser;
-  public rest: rest = new rest(this);
+  public rest: RestAPI = new RestAPI(this);
   public oauth2!: Oauth2;
   public secret!: string;
   public structures: Structures = new Structures(this);
