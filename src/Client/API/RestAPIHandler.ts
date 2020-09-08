@@ -5,7 +5,7 @@ import { promisify } from "util";
 export class RestAPIHandler {
 	constructor(public client: EvolveClient) { }
 
-	public async fetch(options: IAPIParams): Promise<unknown> {
+	public async fetch(options: IAPIParams): Promise<void> {
 		try {
 			if (options.method !== "POST") {
 				const fetched = await fetch(`${CONSTANTS.Api}/${options.endpoint}`, {
