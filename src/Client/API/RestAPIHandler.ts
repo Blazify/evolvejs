@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import fetch from "node-fetch";
 import { EvolveClient, IAPIParams, CONSTANTS } from "../..";
 import { promisify } from "util";
@@ -20,7 +21,7 @@ export class RestAPIHandler {
 					const json = await fetched.json();
 					this.client.logger.warn(`Rate Limited. Reason: ${json.body}, Global: ${json.global}`);
 					promisify(setTimeout)(json.retry_after).then(() => {
-						this.fetch(options);
+						return this.fetch(options);
 					});
 				}
 
@@ -39,7 +40,7 @@ export class RestAPIHandler {
 					const json = await fetched.json();
 					this.client.logger.warn(`Rate Limited. Reason: ${json.body}, Global: ${json.global}`);
 					promisify(setTimeout)(json.retry_after).then(() => {
-						this.fetch(options);
+						return this.fetch(options);
 					});
 				}
 				
