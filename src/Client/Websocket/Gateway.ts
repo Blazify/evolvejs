@@ -31,7 +31,7 @@ export class Gateway extends EventEmitter {
   		if (op === OPCODE.Hello) {
   			// Command: Heartbeat
   			setInterval(() => {
-  				this.ws.send(JSON.stringify(Heartbeat));
+  				this.ws.send(Heartbeat);
   			}, d.heartbeat_interval);
 
   			this._spawn(shard);
@@ -62,7 +62,7 @@ export class Gateway extends EventEmitter {
   	Identify.d.intents = this.ws.builder.intents;
 
   	if (this._debug(shard)) {
-  		this.ws.send(JSON.stringify(Identify));
+  		this.ws.send(Identify);
   	}
   }
 
@@ -80,7 +80,7 @@ export class Gateway extends EventEmitter {
   			seq: this.ws.seq,
   		},
   	};
-  	this.ws.send(JSON.stringify(payload));
+  	this.ws.send(payload);
   }
 
   public sendVoiceStateUpdate(
@@ -99,7 +99,7 @@ export class Gateway extends EventEmitter {
   		VoiceStateUpdate.d.self_mute = options.self_mute;
   	}
 
-  	this.ws.send(JSON.stringify(VoiceStateUpdate));
+  	this.ws.send(VoiceStateUpdate);
 
   	this.ws.builder.client.on(EVENTS.VOICE_STATE_UPDATE, (pk) => {
   		if (pk.member.user.id !== this.ws.builder.client.user.id) return;
