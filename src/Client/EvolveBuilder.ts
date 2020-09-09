@@ -1,3 +1,4 @@
+/* eslint-disable no-constant-condition */
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { EvolveClient, CacheOptions, GatewayIntents, Identify } from "..";
 import { EvolveSocket } from "./Websocket/Websocket";
@@ -17,6 +18,7 @@ export class EvolveBuilder {
   private promiseRejection = false;
   public activity: typeof Identify.d.activity;
   private secret!: string;
+  public encoding: "etf" | "json" = "json"
   public client!: EvolveClient;
 
   public constructor(token?: string) {
@@ -32,6 +34,16 @@ export class EvolveBuilder {
    */
   public setToken(token: string): EvolveBuilder {
   	this.token = token;
+  	return this;
+  }
+
+  /**
+   * 
+   * @param encoding 
+   */
+
+  public setEncoding(encoding: "json" | "etf"): EvolveBuilder {
+  	this.encoding = encoding;
   	return this;
   }
 
@@ -162,6 +174,9 @@ export class EvolveBuilder {
   	}
   	if (this.shards <= 0)
   		this.client.logger.error("Total shards must be more than 0!");
+      
+  	if(this.encoding !== "json" || "etf")
+  		this.client.logger.error("Unknown Encoding Type... Only JSON and etf is allowed");
 
   	if (!this.guildCache) {
   		this.client.logger.warn(
