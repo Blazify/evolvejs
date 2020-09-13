@@ -20,8 +20,7 @@ export class User {
   }
 
   private _handle() {
-    if(!this.data) return;
-
+  	if(!this.data) return;
   	if(this.data.id) this.id = this.data.id;
   	this.username = this.data.username;
   	this.discriminator = this.data.discriminator;

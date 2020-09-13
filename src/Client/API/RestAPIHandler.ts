@@ -4,7 +4,7 @@ import { EvolveClient, IAPIParams, CONSTANTS } from "../..";
 import { promisify } from "util";
 
 export class RestAPIHandler {
-	constructor(public client: EvolveClient) { }
+	constructor(public client: EvolveClient) {}
 
 	public async fetch(options: IAPIParams): Promise<any> {
 		try {

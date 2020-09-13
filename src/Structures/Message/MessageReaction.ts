@@ -23,7 +23,7 @@ export class MessageReaction {
   }
 
   private _handle() {
-       if(!this.data) return;
+  	if(!this.data) return;
   	this.message = new Message(this.data.message, this.client);
   	this.channel = new TextChannel(this.data.channel, this.client);
   	this.emoji = new Emoji(this.data.emoji);

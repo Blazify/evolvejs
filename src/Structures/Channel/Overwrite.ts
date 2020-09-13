@@ -11,7 +11,7 @@ export class Overwrite {
   }
 
   private _handle() {
-       if(!this.data) return;
+  	if(!this.data) return;
   	this.id = this.data.id;
   	this.type = this.data.type;
   	this.allow = this.data.allow;

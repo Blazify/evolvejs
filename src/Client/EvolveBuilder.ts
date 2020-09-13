@@ -8,14 +8,9 @@ import { promisify } from "util";
 export class EvolveBuilder {
   private token!: string;
   public shards = 1;
-  public intents = 0;
-  public dontChange = false;
-  public guildCache = true;
-  public channelCache = true;
-  public emojiCache = false;
-  public usersCache = false;
-  public messageCache = false;
-  public promiseRejection = false;
+  public intents!: number;
+  private cache: Set<CacheOptions> = new Set()
+  private promiseRejection = false;
   public activity: typeof Identify.d.activity;
   public secret!: string;
   public encoding: "etf" | "json" = "json"
@@ -25,6 +20,13 @@ export class EvolveBuilder {
   	if (token) {
   		this.token = token;
   	}
+    
+  	this.enableCache(CacheOptions.GUILD);
+  	this.enableIntents(
+  		GatewayIntents.GUILD + 
+      GatewayIntents.GUILD_MESSAGES + 
+      GatewayIntents.DIRECT_MESSAGES
+  	);
   }
 
   /**
@@ -75,16 +77,9 @@ export class EvolveBuilder {
    * @enables The Cache Options for the library
    * @returns The EvolveBuilder Client
    */
-  public enableCache(...cache: CacheOptions[]): EvolveBuilder {
-  	if (cache.includes(CacheOptions.GUILD)) this.guildCache = true;
-  	if (cache.includes(CacheOptions.USERS)) this.usersCache = true;
-  	if (cache.includes(CacheOptions.CHANNELS)) this.channelCache = true;
-  	if (cache.includes(CacheOptions.MESSAGES)) this.messageCache = true;
-  	if (cache.includes(CacheOptions.ALL)) {
-  		this.messageCache = true;
-  		this.channelCache = true;
-  		this.guildCache = true;
-  		this.usersCache = true;
+  public enableCache(...caches: CacheOptions[]): EvolveBuilder {
+  	for(const cache of caches) {
+  		this.cache.add(cache);
   	}
   	return this;
   }
@@ -95,16 +90,9 @@ export class EvolveBuilder {
    * @disables The Cache Options for the Library
    * @returns EvolveBuilder Class
    */
-  public disableCache(...cache: CacheOptions[]): EvolveBuilder {
-  	if (cache.includes(CacheOptions.GUILD)) this.guildCache = false;
-  	if (cache.includes(CacheOptions.USERS)) this.usersCache = false;
-  	if (cache.includes(CacheOptions.CHANNELS)) this.channelCache = false;
-  	if (cache.includes(CacheOptions.MESSAGES)) this.messageCache = false;
-  	if (cache.includes(CacheOptions.ALL)) {
-  		this.messageCache = false;
-  		this.channelCache = false;
-  		this.guildCache = false;
-  		this.usersCache = false;
+  public disableCache(...caches: CacheOptions[]): EvolveBuilder {
+  	for(const cache of caches) {
+  		this.cache.add(cache);
   	}
   	return this;
   }
@@ -133,7 +121,6 @@ export class EvolveBuilder {
   	for (const intent of intents) {
   		this.intents = this.intents - intent;
   	}
-  	this.dontChange = true;
   	return this;
   }
 
@@ -159,11 +146,11 @@ export class EvolveBuilder {
    */
   public build(): EvolveClient {
   	this.client = new EvolveClient(this.token, {
-  		enableGuildCache: this.guildCache,
-  		enableChannelCache: this.channelCache,
-  		enableEmojiCache: this.emojiCache,
-  		enableUsersCache: this.usersCache,
-  		enableMessageCache: this.messageCache,
+  		enableGuildCache: this.cache.has(CacheOptions.GUILD) ? false : this.cache.has(CacheOptions.ALL),
+  		enableChannelCache: this.cache.has(CacheOptions.CHANNELS) ? false : this.cache.has(CacheOptions.ALL),
+  		enableEmojiCache: this.cache.has(CacheOptions.EMOJI) ? false : this.cache.has(CacheOptions.ALL),
+  		enableUsersCache: this.cache.has(CacheOptions.USERS) ? false : this.cache.has(CacheOptions.ALL),
+  		enableMessageCache: this.cache.has(CacheOptions.MESSAGES) ? false : this.cache.has(CacheOptions.ALL),
   		capturePromiseRejection: this.promiseRejection,
   	});
 
@@ -174,27 +161,12 @@ export class EvolveBuilder {
   	}
   	if (this.shards <= 0)
   		this.client.logger.error("Total shards must be more than 0!");
-      
-  	if(this.encoding !== "json" || "etf")
-  		this.client.logger.error("Unknown Encoding Type... Only JSON and etf is allowed");
-
-  	if (!this.guildCache) {
-  		this.client.logger.warn(
-  			"The Guild Cache is disabled so the READY event guilds will be emmited again in GUILD_CREATE Event and to avoid this use the EvolveBuilder#enableGuildCache"
-  		);
-  	}
+    
 
   	if (this.intents == 0) {
   		this.client.logger.warn(
   			"No Intents are given, you will not get any events except some..."
   		);
-  	}
-
-  	if (this.intents == 0 && !this.dontChange) {
-  		this.intents =
-        GatewayIntents.GUILD +
-        GatewayIntents.GUILD_MESSAGES +
-        GatewayIntents.DIRECT_MESSAGES;
   	}
 
   	if (this.secret) {
@@ -208,6 +180,8 @@ export class EvolveBuilder {
   			this.client.shardConnections.set(i, socket);
   		});
   	}
+    
+
   	this.client.secret = this.secret;
   	return this.client;
   }

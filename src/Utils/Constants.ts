@@ -90,7 +90,8 @@ export enum CacheOptions {
   CHANNELS = 2,
   USERS = 3,
   MESSAGES = 4,
-  ALL = 5,
+  EMOJI = 5,
+  ALL = 6,
 }
 
 export enum EVENTS {
