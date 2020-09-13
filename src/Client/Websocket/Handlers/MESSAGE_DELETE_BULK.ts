@@ -1,6 +1,7 @@
 import { EvolveClient, EVENTS, Payload, Message } from "../../..";
 import { Objex } from "@evolvejs/objex";
 import { MessageEvents } from "../../Events/MessageEvents";
+import { TextChannel } from "../../../Structures/Channel/TextChannel";
 
 export default class {
 	constructor(client: EvolveClient, payload: Payload, shard: number) {
@@ -16,7 +17,7 @@ export default class {
 				client,
 				messageObjex,
 				client.guilds.get(guild_id),
-				client.channels.get(channel_id),
+				client.channels.get(channel_id) as TextChannel,
 				shard
 			)
 		);

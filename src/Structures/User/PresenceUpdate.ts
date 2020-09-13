@@ -31,9 +31,7 @@ export class PresenceUpdate {
   		this.roles.set(o, this.client.roles.get(o)!)
   	);
   	if (this.data.game)
-  		this.data.game.forEach((o) => {
-			  this.game = new Activity(o);
-		  });
+  		this.game = new Activity(this.data.game);
   	(async () => {
   		this.guild = await this.client.rest.getGuild(this.data.guild_id);
   	})();

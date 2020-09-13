@@ -5,7 +5,7 @@ import { IUser } from "./UserOptions";
 export interface IPresenceUpdate {
   user: IUser; // The user presence is being updated for
   roles: string[]; // Roles this user is in
-  game: IActivity[] | null; // The user's current activity
+  game: IActivity | null; // The user's current activity
   guild_id: string; // ID of the guild
   status: Visibility; // The visibility status
   activities: []; // User's current activities
