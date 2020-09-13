@@ -2,9 +2,9 @@
 name: Lint
 on:
     pull_request:
-        branches: [master]
+        branches: [development]
     push:
-        branches: [master]
+        branches: [development]
 jobs:
     Lint-Files:
         runs-on: ubuntu-latest

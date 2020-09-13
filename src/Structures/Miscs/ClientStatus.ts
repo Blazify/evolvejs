@@ -10,6 +10,7 @@ export class ClientStatus {
   }
 
   private _handle() {
+  	if(!this.data) return;
   	this.desktop = this.data.desktop;
   	this.mobile = this.data.mobile;
   	this.web = this.data.web;

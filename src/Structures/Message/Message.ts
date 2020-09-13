@@ -26,6 +26,7 @@ export class Message {
   }
 
   private _handle() {
+  	if(!this.data) return;
   	if (this.data.mentions)
   		for (const it of this.data.mentions) {
   			this.mentions.push(new User(it));

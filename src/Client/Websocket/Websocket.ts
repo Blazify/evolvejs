@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-import ws from "ws";
+import ws, { Data } from "ws";
 import { EvolveBuilder, CONSTANTS, Payload } from "../..";
 import { Gateway } from "./Gateway";
 
@@ -34,7 +34,7 @@ export class EvolveSocket extends ws {
   			this.builder.client.logger.error(`Code: ${code}, Response: ${res}`);
   		});
 
-  		this.on("message", (data) => {
+  		this.on("message", (data: Data) => {
   			this.gateway.init(data, this, this.shard);
   		});
   		this.onclose = function (err) {

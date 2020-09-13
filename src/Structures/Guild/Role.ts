@@ -15,6 +15,7 @@ export class Role {
   }
 
   private _handle() {
+  	if(!this.data) return;
   	this.id = this.data.id;
   	this.name = this.data.name;
   	this.color = this.data.color;

@@ -32,6 +32,7 @@ export class TextChannel extends Channel {
   }
 
   private _handle() {
+  	if(!this.data) return;
   	this.guild = this.client.guilds.get(this.data.guild_id);
   	this.position = this.data.position;
   	this.name = this.data.name;

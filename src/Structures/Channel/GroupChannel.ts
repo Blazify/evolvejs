@@ -18,6 +18,7 @@ export class GroupChannel extends Channel {
   }
 
   private _handle() {
+  	if(!this.data) return;
   	(async (data: IGroupChannel) => {
   		this.owner = await this.client.rest.getUser(data.owner_id);
   	})(this.data);
