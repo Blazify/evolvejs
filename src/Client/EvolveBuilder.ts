@@ -9,15 +9,15 @@ export class EvolveBuilder {
   private token!: string;
   public shards = 1;
   public intents = 0;
-  private dontChange = false;
-  private guildCache = true;
-  private channelCache = true;
-  private emojiCache = false;
-  private usersCache = false;
-  private messageCache = false;
-  private promiseRejection = false;
+  public dontChange = false;
+  public guildCache = true;
+  public channelCache = true;
+  public emojiCache = false;
+  public usersCache = false;
+  public messageCache = false;
+  public promiseRejection = false;
   public activity: typeof Identify.d.activity;
-  private secret!: string;
+  public secret!: string;
   public encoding: "etf" | "json" = "json"
   public client!: EvolveClient;
 

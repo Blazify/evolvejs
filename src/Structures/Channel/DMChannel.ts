@@ -14,6 +14,7 @@ export class DMChannel extends Channel {
   }
 
   private _handle() {
+       if(!this.data) return;
   	this.lastMessage = this.data.last_message_id || undefined;
   	this.lastPin = this.data.last_pin_timestamp;
 

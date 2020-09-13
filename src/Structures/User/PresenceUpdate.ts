@@ -25,6 +25,7 @@ export class PresenceUpdate {
   }
 
   private _handle() {
+       if(!this.data) return;
   	this.user = new User(this.data.user);
   	this.data.roles.forEach((o) =>
   		this.roles.set(o, this.client.roles.get(o)!)

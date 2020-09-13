@@ -23,6 +23,7 @@ export class Activity {
   }
 
   private _handle() {
+       if(!this.data) return;
   	this.name = this.data.name;
   	this.type = this.data.type;
   	this.createdAt = this.data.created_at;
