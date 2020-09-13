@@ -32,7 +32,7 @@ export class PresenceUpdate {
   	);
   	if (this.data.game)
   		this.data.game.forEach((o) => {
-			  this.game = new Activity(o)
+			  this.game = new Activity(o);
 		  });
   	(async () => {
   		this.guild = await this.client.rest.getGuild(this.data.guild_id);

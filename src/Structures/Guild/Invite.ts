@@ -16,11 +16,7 @@ export class Invite {
   }
 
   private _handle() {
-<<<<<<< HEAD
   	if(!this.data) return;
-=======
-       if(!this.data) return;
->>>>>>> b859af299254f7553c2530743ab846a13638de61
   	this.code = this.data.code;
   	this.guild = new Guild(this.data.guild!, this.client);
   	this.channel = new Channel(

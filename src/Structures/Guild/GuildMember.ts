@@ -16,11 +16,7 @@ export class GuildMember {
   }
 
   private _handle() {
-<<<<<<< HEAD
   	if(!this.data) return;
-=======
-       if(!this.data) return;
->>>>>>> b859af299254f7553c2530743ab846a13638de61
   	if (this.data.user) this.user = new User(this.data.user);
   	this.nick = this.data.nick;
   	this.roles = this.data.roles;

@@ -1,5 +1,6 @@
 import { EvolveClient } from "../Client/EvolveClient";
 import { TokenAccessOptions, CONSTANTS } from "..";
+import fetch from "node-fetch";
 
 export class Oauth2 {
 	constructor(public client: EvolveClient) {
