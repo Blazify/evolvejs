@@ -176,8 +176,7 @@ export class EvolveBuilder {
 
   	for (let i = 0; i < this.shards; i++) {
   		promisify(setTimeout)(5000 * i).then(() => {
-  			const socket = new EvolveSocket(this, i);
-  			this.client.shardConnections.set(i, socket);
+  			this.client.shardConnections.set(i, new EvolveSocket(this, i));
   		});
   	}
     

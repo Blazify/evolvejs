@@ -10,6 +10,6 @@ export class MessageReactionEvents extends BaseEvent {
 	) {
 		super(shard, client);
 
-		this.reaction = new (client.structures.get("MessageReaction"))(reaction.data, client)
+		this.reaction = new (client.structures.get("MessageReaction"))(reaction.data, client);
 	}
 }

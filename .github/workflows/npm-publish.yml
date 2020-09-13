@@ -15,6 +15,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: npm i
       - run: npm start
+      - run: npm run lint:fix
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}

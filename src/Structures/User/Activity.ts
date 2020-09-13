@@ -27,11 +27,11 @@ export class Activity {
   	this.name = this.data.name;
   	this.type = this.data.type;
   	this.createdAt = this.data.created_at;
-    this.url = this.data.url;
-    if(this.data.timestamps) {
+  	this.url = this.data.url;
+  	if(this.data.timestamps) {
   	if(this.data.timestamps.start) this.startTime = this.data.timestamps.start;
-    if(this.data.timestamps.end) this.endTime = this.data.timestamps.end;
-    }
+  		if(this.data.timestamps.end) this.endTime = this.data.timestamps.end;
+  	}
   	this.applicationID = this.data.application_id;
   	this.state = this.data.state;
   	this.details = this.data.details;

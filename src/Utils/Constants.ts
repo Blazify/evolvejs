@@ -50,14 +50,7 @@ export enum WEBHOOKTYPE {
 }
 
 export type Visibility = "idle" | "dnd" | "online" | "offline";
-export type ChannelResolvable =
-  | ITextChannel
-  | IDMChannel
-  | IVoiceChannel
-  | IGroupChannel
-  | ICategoryChannel
-  | INewsChannel
-  | IStoreChannel;
+export type ChannelResolvable = ITextChannel | IDMChannel | IVoiceChannel | IGroupChannel | ICategoryChannel | INewsChannel | IStoreChannel;
 
 export type ChannelTypes =
   | TextChannel

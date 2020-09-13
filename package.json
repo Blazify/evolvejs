@@ -1,13 +1,16 @@
 {
 	"name": "@evolvejs/evolvejs",
-	"version": "0.2.2-alpha",
+	"version": "0.2.3-alpha",
 	"description": "An advanced discord API wrapper with TS and JS support",
 	"main": "dist/index.js",
 	"scripts": {
 		"start": "tsc",
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
-        "docs": "npx typedoc --json ./docs.json"
+		"docs": "npx typedoc --json ./docs.json",
+		"development": "tsc --watch",
+		"development:test": "nodemon ./test.js",
+		"development:test:typescript": "nodemon --exec ts-node ./test.js"
 	},
 	"repository": {
 		"type": "git",
@@ -34,6 +37,7 @@
 		"sign-logger": "^1.4.3",
 		"ws": "^7.3.1"
 	},
+	"markdown": "github",
 	"devDependencies": {
 		"@types/node": "^14.0.23",
 		"@types/node-fetch": "^2.5.7",

@@ -13,6 +13,6 @@ export class GuildRoleEvents extends BaseEvent {
 		super(shard, client);
 
 		if(role) this.role = new (this.client.structures.get("Role"))(role.data);
-		this.guild = new (this.client.structures.get("Guild"))(guild.data, client)
+		this.guild = new (this.client.structures.get("Guild"))(guild.data, client);
 	}
 }

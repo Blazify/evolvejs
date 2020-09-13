@@ -15,9 +15,11 @@
   <p>
     <a href="https://nodei.co/npm/@evolvejs/evolvejs"><img src="https://nodei.co/npm/@evolvejs/evolvejs.png?downloads=true&stars=true" alt="Status Banner"></a>
   </p>
+
+  <iframe src="https://discordapp.com/widget?id=736450058664411166&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
 </div>
 
-<iframe src="https://discordapp.com/widget?id=736450058664411166&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+
 
 # What is EvolveJS?
 **EvolveJS is a Discord Library in which bots can be made. We provide high control over the module so that the customizability can be the top of the level.
@@ -40,6 +42,7 @@ npm install @evolvejs/evolvejs
 # Documentation and Support
 
 - **[Official Docs](https://evolvejs.github.io)**
+Note :- The Docs aren't completed
 - **For any further query and support join us at [EvolveJS](https://discord.gg/9bnpjqY) discord.**
 
 
@@ -57,12 +60,13 @@ const client = new EvolveBuilder()
                     .build()
 
 client.on("clientReady", () => {
-  console.log(client.user.username)
+  console.log(client.user.username) // logs the client's username when a shard is ready
 })
 
 client.on("newMessage", (event) => {
-  if(msg.content == "ping") {
-    event.channel.send("Pong")
+  if(event.message.content == "ping") { // checks if the message sent was "ping"
+    event.channel.send("Pong") // sends a message with content of "Pong"
+    console.log(event.shard) //logs the entire shard websocket in which the event was triggered
   }
 })
 ```

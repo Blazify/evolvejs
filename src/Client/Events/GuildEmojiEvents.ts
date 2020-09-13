@@ -13,11 +13,11 @@ export class GuildEmojiEvents extends BaseEvent {
 	) {
 		super(shard, client);
 
-		this.guild = new (this.client.structures.get("Guild"))(guild.data, client)
+		this.guild = new (this.client.structures.get("Guild"))(guild.data, client);
 		for(const [k, v] of emoji) {
 			this.emoji.delete(k);
 
-			this.emoji.set(k, new (this.client.structures.get("Emoji"))(v.data))
+			this.emoji.set(k, new (this.client.structures.get("Emoji"))(v.data));
 		}
 	}
 }

@@ -6,6 +6,6 @@ export class GuildIntegrationEvents extends BaseEvent {
 	constructor(client: EvolveClient, public guild: Guild, shard: number) {
 		super(shard, client);
 
-		this.guild = new (this.client.structures.get("Guild"))(guild.data, client)
+		this.guild = new (this.client.structures.get("Guild"))(guild.data, client);
 	}
 }

@@ -13,9 +13,10 @@ import {
 import { Invite } from "../../Structures/Guild/Invite";
 import { Emoji } from "../../Structures/Guild/Emoji";
 import { ChannelTypes } from "../../Utils/Constants";
+import { Channel } from "../../Structures/Channel/Channel";
 
 /**
- * rest CLASS
+ * RestAPI Class
  *
  * @param {client} - Your EvolveClient
  */
@@ -47,13 +48,13 @@ export class RestAPI {
   	const channelArray: ChannelTypes[] = [];
 
   	for (const c of channels) {
-  		channelArray.push(new ChannelResolver[c.type](c, this.client));
+  		channelArray.push(new Channel(c.id, c.type, this.client).resolve(c));
   	}
 
   	return channelArray;
   }
 
-  public async getAuditLogs(guildID: string): Promise<void> {
+  public async getAuditLogs(guildID: string): Promise<JSON> {
   	return await this.handler.fetch({
   		endpoint: `/guilds/${guildID}/audit-logs`,
   		method: "POST",
@@ -140,7 +141,7 @@ export class RestAPI {
   		endpoint: `/channels/${channelID}`,
   		method: "GET",
   	});
-  	const channel = new ChannelResolver[c.type](c, this.client);
+  	const channel = new Channel(c.id, c.type, this.client).resolve(c);
 
   	return channel;
   }

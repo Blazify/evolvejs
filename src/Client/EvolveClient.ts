@@ -25,7 +25,7 @@ export class EvolveClient extends EventEmitter {
   public emojis: Objex<string | null, Emoji> = new Objex();
   public roles: Objex<string, Role> = new Objex();
   public messages: Objex<string, Message> = new Objex();
-  private _user!: ClientUser;
+  public user!: ClientUser;
   public rest: RestAPI = new RestAPI(this);
   public oauth2!: Oauth2;
   public secret!: string;
@@ -39,13 +39,5 @@ export class EvolveClient extends EventEmitter {
   	this.token = token;
   	this.options = options;
   	if (!this.token) this.logger.error("No token provided");
-  }
-
-  public get user(): ClientUser {
-  	return this._user;
-  }
-
-  public set user(user: ClientUser) {
-  	this._user = user;
   }
 }

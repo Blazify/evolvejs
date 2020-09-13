@@ -47,13 +47,12 @@ export class Structures {
 		return this.structures[name];
 	}
 
-	public extend<K extends keyof Classes, 
-	T extends keyof Classes[K]>(name: K, extender: (structure: Classes[K]) => T): T {
+	public extend<K extends keyof Classes>(name: K, extender: (structure: Classes[K]) => Classes[K]): Classes[K] {
 		try {
 			const structure = this.get<K>(name);
 			const extended = extender(structure);
 
-			this.structures[name] = Object.getPrototypeOf(extended);
+			this.structures[name] = extended;
 			return extended;
 		} catch (e) {
 			throw this.client.logger.error(e);

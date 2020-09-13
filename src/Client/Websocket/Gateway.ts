@@ -37,10 +37,16 @@ export class Gateway extends EventEmitter {
   			this._spawn(shard);
   		} else if (op === OPCODE.Reconnect) {
   			this.ws.builder.client.shardConnections.clear();
-  			this.ws.close();
-  			new EvolveSocket(this.ws.builder, shard);
-  			this._reconnect();
+  			this.ws.builder.client.shardConnections.set(shard, new EvolveSocket(this.ws.builder, shard));
+			  this._reconnect();
+			  this.ws.close();
+
   		} else if (t) {
+			  this.ws.builder.client.emit("raw", ({
+				  t,
+				  payload,
+				  shard
+			  }));
   			try {
   				(async () => {
   					const { default: handler } = await import(`./Handlers/${t}`);
@@ -67,6 +73,7 @@ export class Gateway extends EventEmitter {
   }
 
   private _debug(shard: number): boolean {
+	  if(this.ws.builder.client.shardConnections.has(shard)) return false;
   	this.emit("shardSpawn", shard);
   	return true;
   }
