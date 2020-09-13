@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { EvolveClient } from "../Client/EvolveClient";
@@ -43,7 +42,7 @@ export class Structures {
 	public get<K extends keyof Classes>(name: K): Classes[K] {
 		if (!this.structures[name])
 			this.client.logger.error(
-				"Invalid Structure Name or no new Structure returned"
+				"Invalid Structure Name"
 			);
 		return this.structures[name];
 	}
@@ -60,6 +59,7 @@ export class Structures {
 			throw this.client.logger.error(e);
 		}
 	}
+
 }
 
 export interface Classes {

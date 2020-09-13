@@ -18,7 +18,11 @@ export class Emoji {
   }
 
   private _handle() {
+<<<<<<< HEAD
   	if(!this.data) return;
+=======
+       if(!this.data) return;
+>>>>>>> b859af299254f7553c2530743ab846a13638de61
   	this.id = this.data.id;
   	this.name = this.data.name;
   	if (this.data.roles)

@@ -12,7 +12,7 @@ export class EvolveBuilder {
   private cache: Set<CacheOptions> = new Set()
   private promiseRejection = false;
   public activity: typeof Identify.d.activity;
-  private secret!: string;
+  public secret!: string;
   public encoding: "etf" | "json" = "json"
   public client!: EvolveClient;
 

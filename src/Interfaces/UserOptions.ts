@@ -1,5 +1,5 @@
 export interface IUser {
-  id: string; // The user's id identify
+  id?: string; // The user's id identify
   username: string; // The user's username, not unique across the platform identify
   discriminator: string; // The user's 4-digit discord-tag identify
   avatar: string | null; // The user's avatar hash identify

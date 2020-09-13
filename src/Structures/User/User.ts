@@ -21,7 +21,7 @@ export class User {
 
   private _handle() {
   	if(!this.data) return;
-  	this.id = this.data.id;
+  	if(this.data.id) this.id = this.data.id;
   	this.username = this.data.username;
   	this.discriminator = this.data.discriminator;
   	this.avatar = this.data.avatar || undefined;
