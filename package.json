@@ -6,7 +6,8 @@
 	"scripts": {
 		"start": "tsc",
 		"lint": "eslint .",
-		"lint:fix": "eslint . --fix"
+		"lint:fix": "eslint . --fix",
+        "docs": "npx typedoc --json ./docs.json"
 	},
 	"repository": {
 		"type": "git",
@@ -30,7 +31,7 @@
 	"dependencies": {
 		"@evolvejs/objex": "^1.0.0",
 		"node-fetch": "^2.6.0",
-		"sign-logger": "^1.3.7",
+		"sign-logger": "^1.4.3",
 		"ws": "^7.3.1"
 	},
 	"devDependencies": {
@@ -39,7 +40,6 @@
 		"@types/ws": "^7.2.6",
 		"@typescript-eslint/eslint-plugin": "^3.10.1",
 		"@typescript-eslint/parser": "^3.10.1",
-
 		"erlpack": "^0.1.3",
 		"typedoc": "^0.19.1",
 		"eslint": "^7.7.0",

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { readdirSync } from "fs";
@@ -15,9 +14,9 @@ export class Structures {
 
 	private _load() {
 		readdirSync(__dirname)
-			.filter((file) => !file.endsWith(".d.ts") && !file.endsWith(".js"))
-			.forEach((dir) => {
-				const files = readdirSync(join(__dirname, dir)).filter((file) =>
+			.filter((file: string) => !file.endsWith(".d.ts") && !file.endsWith(".js"))
+			.forEach((dir: string) => {
+				const files = readdirSync(join(__dirname, dir)).filter((file: string) =>
 					file.endsWith(".js")
 				);
 				for (const file of files) {
@@ -30,17 +29,19 @@ export class Structures {
 			});
 	}
 
-	public get(name: string): any {
-		if (!this._structures.get(name))
+	public get<K>(name: string, type = "get"): K {
+		if (!this._structures.get(name) && type == "get")
 			this.client.logger.error(
-				"Invalid Structure Name or no new Structure returned"
+				"Invalid Structure Name"
 			);
+			else if(!this._structures.get(name) && type == "extend")
+			this.client.logger.error("No New Structure Returned")
 		return this._structures.get(name);
 	}
 
-	public extend(name: string, extender: Function): any {
+	public extend<K>(name: string, extender: Function): K {
 		try {
-			const structure = this.get(name);
+			const structure: K = this.get<K>(name);
 			const extended = extender(structure);
 
 			this._structures.delete(name);
@@ -48,6 +49,8 @@ export class Structures {
 			return extended;
 		} catch (e) {
 			this.client.logger.error(e);
+			return this.get<K>(name);
 		}
 	}
+
 }

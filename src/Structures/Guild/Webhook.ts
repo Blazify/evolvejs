@@ -16,6 +16,7 @@ export class Webhook {
   }
 
   private _handle() {
+       if(!this.data) return;
   	this.id = this.data.id;
   	this.type = this.data.type;
   	async () => {
