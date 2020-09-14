@@ -12,5 +12,13 @@ export class GuildMemberEvent extends BaseEvent {
     shard: number
 	) {
 		super(shard, client);
+
+		if (member instanceof GuildMember) {
+			this.member = new (this.client.structures.get("GuildMember"))(
+				member.data
+			);
+		} else if (member instanceof User) {
+			this.member = new (this.client.structures.get("User"))(member.data);
+		}
 	}
 }

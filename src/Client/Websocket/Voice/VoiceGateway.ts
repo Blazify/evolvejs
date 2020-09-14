@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Gateway } from "../Gateway";
-import { EventEmitter } from "events";
 import ws, { Data } from "ws";
-import { VoiceIdentify, Heartbeat } from "../../../Utils/Constants";
+import { VoiceIdentify, Heartbeat, EVENTS } from "../../../Utils/Constants";
 import { Payload } from "../../..";
+import { EventListener } from "../../../Utils/EventListener";
 
-export class VoiceGateway extends EventEmitter {
+export class VoiceGateway extends EventListener {
   public link!: string;
   public websocket!: ws;
   public seq!: number;
@@ -40,7 +40,7 @@ export class VoiceGateway extends EventEmitter {
   	const payload: Payload = JSON.parse(data.toString());
   	const { op, d } = payload;
   	if (op == 2) {
-  		this.emit("ready", payload);
+  		this.emit("ready" as EVENTS, payload);
   	} else if (op == 8) {
   		setInterval(() => {
   			Heartbeat.op = 3;

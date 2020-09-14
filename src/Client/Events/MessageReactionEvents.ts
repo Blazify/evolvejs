@@ -9,5 +9,10 @@ export class MessageReactionEvents extends BaseEvent {
     shard: number
 	) {
 		super(shard, client);
+
+		this.reaction = new (client.structures.get("MessageReaction"))(
+			reaction.data,
+			client
+		);
 	}
 }

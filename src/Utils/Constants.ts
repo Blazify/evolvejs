@@ -95,6 +95,8 @@ export enum CacheOptions {
 }
 
 export enum EVENTS {
+  RAW = "rawEvent",
+  PACKET_READY = "packetReady",
   HELLO = "hello", // Defines the heartbeat interval
   READY = "clientReady", // Contains the initial state information
   RESUMED = "resumed", // Response to the "Resume" payload sent
@@ -134,6 +136,8 @@ export enum EVENTS {
   VOICE_STATE_UPDATE = "voiceStateUpdate", // Someone joined, left, or moved a voice channel
   VOICE_SERVER_UPDATE = "voiceServerUpdate", // Guild's voice server was updated
   WEBHOOKS_UPDATE = "webhookUpdate", // Guild channel webhook was created, update, or deleted
+  SHARD_SPAWN = "shardSpawn",
+  SHARD_DESTROY = "shardDestroy",
 }
 
 export enum GatewayIntents {

@@ -11,5 +11,7 @@ export class GuildBanEvents extends BaseEvent {
     shard: number
 	) {
 		super(shard, client);
+		this.guild = new (this.client.structures.get("Guild"))(guild.data, client);
+		this.user = new (this.client.structures.get("User"))(user.data);
 	}
 }

@@ -23,13 +23,16 @@ export class Activity {
   }
 
   private _handle() {
-  	if(!this.data) return;
+  	if (!this.data) return;
   	this.name = this.data.name;
   	this.type = this.data.type;
   	this.createdAt = this.data.created_at;
   	this.url = this.data.url;
-  	this.startTime = this.data.timestamps!.start;
-  	this.endTime = this.data.timestamps!.end;
+  	if (this.data.timestamps) {
+  		if (this.data.timestamps.start)
+  			this.startTime = this.data.timestamps.start;
+  		if (this.data.timestamps.end) this.endTime = this.data.timestamps.end;
+  	}
   	this.applicationID = this.data.application_id;
   	this.state = this.data.state;
   	this.details = this.data.details;

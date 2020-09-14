@@ -15,9 +15,17 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "esModuleInterop": true,
+    "rootDirs": [
+      "./src/"
+    ]
   },
   "include": [
     "src"
   ],
-  "exclude": ["node_modules", "dist", "test.ts", "TestBot"]
+  "exclude": [
+    "node_modules", 
+    "dist",
+    "test.ts",
+    "TestBot"
+  ]
 }

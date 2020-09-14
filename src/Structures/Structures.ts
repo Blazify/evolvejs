@@ -19,64 +19,63 @@ import { PresenceUpdate } from "./User/PresenceUpdate";
 import { User } from "./User/User";
 
 export class Structures {
-	public structures: Classes = {
-		Emoji: require("./Guild/Emoji"),
-		DMChannel: require("./Channel/DMChannel"),
-		TextChannel: require("./Channel/TextChannel"),
-		VoiceChannel: require("./Channel/VoiceChannel"),
-		CategoryChannel: require("./Channel/CategoryChannel"),
-		NewsChannel: require("./Channel/NewsChannel"),
-		StoreChannel: require("./Channel/StoreChannel"),
-		GuildMember: require("./Guild/GuildMember"),
-		Guild: require("./Guild/Guild"),
-		Message: require("./Message/Message"),
-		MessageReaction: require("./Message/MessageReaction"),
-		Presence: require("./User/PresenceUpdate"),
-		ClientPresence: require("./Miscs/ClientStatus"),
-		VoiceState: require("./Guild/VoiceState"),
-		Role: require("./Guild/Role"),
-		User: require("./User/User"),
-	}
-	constructor(private client: EvolveClient) {}
+  public structures: Classes = {
+  	Emoji,
+  	DMChannel,
+  	TextChannel,
+  	VoiceChannel,
+  	CategoryChannel,
+  	NewsChannel,
+  	StoreChannel,
+  	GuildMember,
+  	Guild,
+  	Message,
+  	MessageReaction,
+  	PresenceUpdate,
+  	ClientStatus,
+  	VoiceState,
+  	Role,
+  	User,
+  };
+  constructor(private client: EvolveClient) {}
 
-	public get<K extends keyof Classes>(name: K): Classes[K] {
-		if (!this.structures[name])
-			this.client.logger.error(
-				"Invalid Structure Name"
-			);
-		return this.structures[name];
-	}
+  public get<K extends keyof Classes>(name: K): Classes[K] {
+  	if (!this.structures[name])
+  		this.client.logger.error("Invalid Structure Name");
+  	return this.structures[name];
+  }
 
-	public extend<K extends keyof Classes, 
-	T extends keyof Classes[K]>(name: K, extender: (structure: Classes[K]) => T): T {
-		try {
-			const structure = this.get<K>(name);
-			const extended = extender(structure);
+  public extend<K extends keyof Classes>(
+  	name: K,
+  	extender: (structure: Classes[K]) => Classes[K]
+  ): Classes[K] {
+  	try {
+  		const structure = this.get<K>(name);
+  		const extended = extender(structure);
 
-			this.structures[name] = Object.getPrototypeOf(extended);
-			return extended;
-		} catch (e) {
-			throw this.client.logger.error(e);
-		}
-	}
-
+  		this.structures[name] = extended;
+  		return extended;
+  	} catch (e) {
+  		throw this.client.logger.error(e);
+  	}
+  }
 }
 
 export interface Classes {
-	Emoji: typeof Emoji,
-	DMChannel: typeof DMChannel,
-	TextChannel: typeof TextChannel,
-	VoiceChannel: typeof VoiceChannel,
-	CategoryChannel: typeof CategoryChannel,
-	NewsChannel: typeof NewsChannel,
-	StoreChannel: typeof StoreChannel,
-	GuildMember: typeof GuildMember,
-	Guild: typeof Guild,
-	Message: typeof Message,
-	MessageReaction: typeof MessageReaction,
-	Presence: typeof PresenceUpdate,
-	ClientPresence: typeof ClientStatus,
-	VoiceState: typeof VoiceState,
-	Role: typeof Role,
-	User: typeof User,
+  Emoji: typeof Emoji;
+  DMChannel: typeof DMChannel;
+  TextChannel: typeof TextChannel;
+  VoiceChannel: typeof VoiceChannel;
+  CategoryChannel: typeof CategoryChannel;
+  NewsChannel: typeof NewsChannel;
+  StoreChannel: typeof StoreChannel;
+  GuildMember: typeof GuildMember;
+  Guild: typeof Guild;
+  Message: typeof Message;
+  MessageReaction: typeof MessageReaction;
+  PresenceUpdate: typeof PresenceUpdate;
+  ClientStatus: typeof ClientStatus;
+  VoiceState: typeof VoiceState;
+  Role: typeof Role;
+  User: typeof User;
 }

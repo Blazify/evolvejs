@@ -3,9 +3,11 @@
 import { EvolveClient, Message } from "../../";
 import { Objex } from "@evolvejs/objex";
 import { MessageReaction } from "../../Structures/Message/MessageReaction";
-import { EventEmitter } from "events";
+import { EventListener } from "../EventListener";
 
-export class BaseCollector extends EventEmitter {
+export class BaseCollector extends EventListener {
+  public listener!: (...args: any[]) => void;
+
   private _collected: Objex<string, Message | MessageReaction> = new Objex();
   constructor(public client: EvolveClient, public filter: Function) {
   	super();

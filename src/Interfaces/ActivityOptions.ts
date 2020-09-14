@@ -85,8 +85,8 @@ export interface IParty {
    */
   id?: string;
   /**
-  * The party's current and maximum size
-  */
+   * The party's current and maximum size
+   */
   size?: [number, number];
 }
 

@@ -1,13 +1,17 @@
 {
 	"name": "@evolvejs/evolvejs",
-	"version": "0.2.2-alpha",
+	"version": "0.2.3-alpha",
 	"description": "An advanced discord API wrapper with TS and JS support",
 	"main": "dist/index.js",
 	"scripts": {
 		"start": "tsc",
 		"lint": "eslint .",
-		"lint:fix": "eslint . --fix",
-        "docs": "npx typedoc --json ./docs.json"
+		"lint:fix": "eslint ./ --fix",
+		"prettier": "prettier ./ --write",
+		"docs": "npx typedoc --json ./docs.json",
+		"development": "tsc --watch",
+		"development:test": "nodemon ./test.js",
+		"development:test:typescript": "nodemon --exec ts-node ./test.js"
 	},
 	"repository": {
 		"type": "git",
@@ -24,23 +28,40 @@
 	],
 	"author": "evolvejs",
 	"license": "AGPL-3.0-or-later",
+	"maintainers": [
+		"Echo-3-1"
+	],
 	"bugs": {
 		"url": "https://github.com/EvolveJS/EvolveJS/issues"
 	},
 	"homepage": "https://github.com/EvolveJS/EvolveJS#readme",
+	"markdown": "github",
 	"dependencies": {
 		"@evolvejs/objex": "^1.0.0",
 		"node-fetch": "^2.6.0",
 		"sign-logger": "^1.4.3",
 		"ws": "^7.3.1"
 	},
+	"optionalDependencies": {
+		"erlpack": "0.1.3"
+	},
+	"exports": {
+		".": [
+			{
+				"require": "./dist/index.js",
+				"import": "./esm/discord.mjs"
+			},
+			"./dist/index.js"
+		],
+		"./esm": "./esm/index.mjs"
+	},
+	"readme": "./README.md",
 	"devDependencies": {
 		"@types/node": "^14.0.23",
 		"@types/node-fetch": "^2.5.7",
 		"@types/ws": "^7.2.6",
 		"@typescript-eslint/eslint-plugin": "^3.10.1",
 		"@typescript-eslint/parser": "^3.10.1",
-		"erlpack": "^0.1.3",
 		"typedoc": "^0.19.1",
 		"eslint": "^7.7.0",
 		"typescript": "^4.0.2"

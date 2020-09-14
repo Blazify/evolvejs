@@ -17,9 +17,11 @@ export class RestAPIHandler {
 					},
 				});
 
-				if(fetched.status === 429) {
+				if (fetched.status === 429) {
 					const json = await fetched.json();
-					this.client.logger.warn(`Rate Limited. Reason: ${json.body}, Global: ${json.global}`);
+					this.client.logger.warn(
+						`Rate Limited. Reason: ${json.body}, Global: ${json.global}\n Don't Worry, your request will be retried after ${json.retry_after}`
+					);
 					promisify(setTimeout)(json.retry_after).then(() => {
 						return this.fetch(options);
 					});
@@ -36,18 +38,20 @@ export class RestAPIHandler {
 					body: JSON.stringify(options.message),
 				});
 
-				if(fetched.status === 429) {
+				if (fetched.status === 429) {
 					const json = await fetched.json();
-					this.client.logger.warn(`Rate Limited. Reason: ${json.body}, Global: ${json.global}`);
+					this.client.logger.warn(
+						`Rate Limited. Reason: ${json.body}, Global: ${json.global}\n Don't Worry, your request will be retried after ${json.retry_after}`
+					);
 					promisify(setTimeout)(json.retry_after).then(() => {
 						return this.fetch(options);
 					});
 				}
-				
+
 				return fetched.json();
 			}
 		} catch (e) {
-			this.client.logger.error(e);
+			throw this.client.logger.error(e);
 		}
 	}
 }

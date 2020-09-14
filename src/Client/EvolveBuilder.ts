@@ -8,25 +8,27 @@ import { promisify } from "util";
 export class EvolveBuilder {
   private token!: string;
   public shards = 1;
-  public intents!: number;
-  private cache: Set<CacheOptions> = new Set()
+  public intents = 0;
+  private cache: Set<CacheOptions> = new Set();
   private promiseRejection = false;
   public activity: typeof Identify.d.activity;
   public secret!: string;
-  public encoding: "etf" | "json" = "json"
+  public encoding: "etf" | "json" = "json";
   public client!: EvolveClient;
 
-  public constructor(token?: string) {
+  public constructor(token?: string, useDefaultIntents = true) {
   	if (token) {
   		this.token = token;
   	}
     
+  	if(useDefaultIntents) {
   	this.enableCache(CacheOptions.GUILD);
   	this.enableIntents(
-  		GatewayIntents.GUILD + 
-      GatewayIntents.GUILD_MESSAGES + 
+  		GatewayIntents.GUILD +
+      GatewayIntents.GUILD_MESSAGES +
       GatewayIntents.DIRECT_MESSAGES
-  	);
+  		);
+  	}
   }
 
   /**
@@ -40,8 +42,8 @@ export class EvolveBuilder {
   }
 
   /**
-   * 
-   * @param encoding 
+   *
+   * @param encoding
    */
 
   public setEncoding(encoding: "json" | "etf"): EvolveBuilder {
@@ -78,7 +80,7 @@ export class EvolveBuilder {
    * @returns The EvolveBuilder Client
    */
   public enableCache(...caches: CacheOptions[]): EvolveBuilder {
-  	for(const cache of caches) {
+  	for (const cache of caches) {
   		this.cache.add(cache);
   	}
   	return this;
@@ -91,7 +93,7 @@ export class EvolveBuilder {
    * @returns EvolveBuilder Class
    */
   public disableCache(...caches: CacheOptions[]): EvolveBuilder {
-  	for(const cache of caches) {
+  	for (const cache of caches) {
   		this.cache.add(cache);
   	}
   	return this;
@@ -130,30 +132,28 @@ export class EvolveBuilder {
   }
 
   /**
-   *
-   * @param option
-   * @enables The capturePromiseRejection for the EventEmitter
-   * @returns EvolveBuilderClass
-   */
-  public capturePromiseRejection(option: boolean): EvolveBuilder {
-  	this.promiseRejection = option;
-  	return this;
-  }
-
-  /**
    * @param none
    * @returns {EvolveClient} A Initialized EvolveClient Instance
    */
   public build(): EvolveClient {
   	this.client = new EvolveClient(this.token, {
-  		enableGuildCache: this.cache.has(CacheOptions.GUILD) ? false : this.cache.has(CacheOptions.ALL),
-  		enableChannelCache: this.cache.has(CacheOptions.CHANNELS) ? false : this.cache.has(CacheOptions.ALL),
-  		enableEmojiCache: this.cache.has(CacheOptions.EMOJI) ? false : this.cache.has(CacheOptions.ALL),
-  		enableUsersCache: this.cache.has(CacheOptions.USERS) ? false : this.cache.has(CacheOptions.ALL),
-  		enableMessageCache: this.cache.has(CacheOptions.MESSAGES) ? false : this.cache.has(CacheOptions.ALL),
-  		capturePromiseRejection: this.promiseRejection,
+  		enableGuildCache: this.cache.has(CacheOptions.GUILD)
+  			? true
+  			: this.cache.has(CacheOptions.ALL),
+  		enableChannelCache: this.cache.has(CacheOptions.CHANNELS)
+  			? true
+  			: this.cache.has(CacheOptions.ALL),
+  		enableEmojiCache: this.cache.has(CacheOptions.EMOJI)
+  			? true
+  			: this.cache.has(CacheOptions.ALL),
+  		enableUsersCache: this.cache.has(CacheOptions.USERS)
+  			? true
+  			: this.cache.has(CacheOptions.ALL),
+  		enableMessageCache: this.cache.has(CacheOptions.MESSAGES)
+  			? true
+  			: this.cache.has(CacheOptions.ALL),
   	});
-
+  
   	if (!this.token) {
   		this.client.logger.error(
   			"EvolveBuilder#build Error.. -> No token Provided for EvolveClient to be initialized"
@@ -161,7 +161,6 @@ export class EvolveBuilder {
   	}
   	if (this.shards <= 0)
   		this.client.logger.error("Total shards must be more than 0!");
-    
 
   	if (this.intents == 0) {
   		this.client.logger.warn(
@@ -180,7 +179,6 @@ export class EvolveBuilder {
   			this.client.shardConnections.set(i, socket);
   		});
   	}
-    
 
   	this.client.secret = this.secret;
   	return this.client;

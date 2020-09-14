@@ -1,4 +1,5 @@
 import { EvolveClient, EVENTS, Payload } from "../../..";
+import { TextChannel } from "../../../Structures/Channel/TextChannel";
 import { MessageEvents } from "../../Events/MessageEvents";
 
 export default class {
@@ -6,7 +7,7 @@ export default class {
 		const { id, guild_id, channel_id } = payload.d;
 		const message = client.messages.get(id);
 		const guild = client.guilds.get(guild_id);
-		const channel = client.channels.get(channel_id);
+		const channel = client.channels.get(channel_id) as TextChannel;
 		client.emit(
 			EVENTS.MESSAGE_DELETE,
 			new MessageEvents(client, message, guild, channel, shard)

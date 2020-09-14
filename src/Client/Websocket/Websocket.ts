@@ -9,19 +9,27 @@ export class EvolveSocket extends ws {
 
   constructor(public builder: EvolveBuilder, public shard: number) {
   	super(CONSTANTS.Gateway + builder.encoding);
-  	this._init();
+	  this._init();
   }
 
   public send(data: Payload): void {
-	  let payload;
-	  if(this.builder.encoding == "json") {
-		  payload = JSON.stringify(data);
-	  } else if(this.builder.encoding == "etf") {
-		  const erlpack = require("erlpack");
-		  payload = erlpack.pack(data);
-	  }
-
-	  return super.send(payload);
+  	let payload;
+  	if (this.builder.encoding == "json") {
+  		payload = JSON.stringify(data);
+  	} else if (this.builder.encoding == "etf") {
+  		let erlpack;
+  		try {
+  			erlpack = require("erlpack");
+  		} catch (e) {
+  			throw this.builder.client.logger.error(e);
+  		}
+  		payload = erlpack.pack(data);
+  	} else {
+  		throw this.builder.client.logger.error(
+  			"Invalid Encoding Type. Only JSON or etf is accepted"
+  		);
+  	}
+  	return super.send(payload);
   }
 
   private _init(): void {
@@ -35,7 +43,7 @@ export class EvolveSocket extends ws {
   		});
 
   		this.on("message", (data: Data) => {
-  			this.gateway.init(data, this, this.shard);
+			  this.gateway.init(data, this);
   		});
   		this.onclose = function (err) {
   			this.builder.client.logger.error(err.reason);

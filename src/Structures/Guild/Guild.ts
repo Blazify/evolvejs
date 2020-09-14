@@ -66,7 +66,7 @@ export class Guild {
   }
 
   private _handle() {
-  	if(!this.data) return;
+  	if (!this.data) return;
   	this.data.emojis.forEach((o) => {
   		this.emojis.set(o.id, new Emoji(o));
   	});

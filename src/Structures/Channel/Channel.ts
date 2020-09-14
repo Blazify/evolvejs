@@ -1,4 +1,5 @@
 import { EvolveClient, CHANNELTYPES } from "../..";
+import { ChannelResolver, ChannelTypes } from "../../Utils/Constants";
 
 export class Channel {
   public client: EvolveClient;
@@ -9,5 +10,9 @@ export class Channel {
   	this.client = client;
   	this.id = id;
   	this.type = type;
+  }
+
+  public resolve(data: any): ChannelTypes {
+  	return new ChannelResolver[this.type](data, this.client);
   }
 }

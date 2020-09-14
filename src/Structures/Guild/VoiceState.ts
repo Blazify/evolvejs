@@ -28,7 +28,7 @@ export class VoiceState {
   }
 
   private _handle() {
-  	if(!this.data) return;
+  	if (!this.data) return;
   	(async () => {
   		if (this.data.guild_id)
   			this.guild = await this.client.rest.getGuild(this.data.guild_id);
