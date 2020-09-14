@@ -1,7 +1,7 @@
 import { User } from "../Structures/User/User";
 
 export class ClientUser extends User {
-  constructor(
+	constructor(
     public name: string,
     public discriminator: string,
     public verfied: boolean,
@@ -10,12 +10,12 @@ export class ClientUser extends User {
     public email: string,
     public bot: boolean,
     public avatar: string
-  ) {
-    super({
-      id,
-      avatar,
-      username: name,
-      discriminator,
-    });
-  }
+	) {
+		super({
+			id,
+			avatar,
+			username: name,
+			discriminator,
+		});
+	}
 }

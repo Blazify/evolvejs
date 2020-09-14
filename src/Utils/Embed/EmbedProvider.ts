@@ -11,19 +11,19 @@ export class EmbedProviderBuilder {
   private url!: string;
 
   public setName(name: string): EmbedProviderBuilder {
-    this.name = name;
-    return this;
+  	this.name = name;
+  	return this;
   }
 
   public setURL(url: URL): EmbedProviderBuilder {
-    this.url = url.toString();
-    return this;
+  	this.url = url.toString();
+  	return this;
   }
 
   public build(): IEmbedProvider {
-    return {
-      name: this.name,
-      url: this.url,
-    };
+  	return {
+  		name: this.name,
+  		url: this.url,
+  	};
   }
 }

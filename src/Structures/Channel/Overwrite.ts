@@ -7,16 +7,16 @@ export class Overwrite {
   public deny!: number;
 
   constructor(public data: IOverwrite) {
-    this._handle();
+  	this._handle();
   }
 
   private _handle() {
-    if (!this.data) return;
-    this.id = this.data.id;
-    this.type = this.data.type;
-    this.allow = this.data.allow;
-    this.deny = this.data.deny;
+  	if (!this.data) return;
+  	this.id = this.data.id;
+  	this.type = this.data.type;
+  	this.allow = this.data.allow;
+  	this.deny = this.data.deny;
 
-    return this;
+  	return this;
   }
 }

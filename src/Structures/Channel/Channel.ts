@@ -7,12 +7,12 @@ export class Channel {
   public type: CHANNELTYPES;
 
   constructor(id: string, type: CHANNELTYPES, client: EvolveClient) {
-    this.client = client;
-    this.id = id;
-    this.type = type;
+  	this.client = client;
+  	this.id = id;
+  	this.type = type;
   }
 
   public resolve(data: any): ChannelTypes {
-    return new ChannelResolver[this.type](data, this.client);
+  	return new ChannelResolver[this.type](data, this.client);
   }
 }

@@ -1,10 +1,10 @@
 import {
-  IGuild,
-  IGuildMember,
-  IUser,
-  ITextChannel,
-  IEmoji,
-  IMessage,
+	IGuild,
+	IGuildMember,
+	IUser,
+	ITextChannel,
+	IEmoji,
+	IMessage,
 } from "../";
 
 export interface IMessageReaction {

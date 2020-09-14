@@ -1,10 +1,10 @@
 import {
-  IEmbedFooter,
-  IEmbedImage,
-  IEmbedVideo,
-  IEmbedProvider,
-  IEmbedAuthor,
-  IEmbedField,
+	IEmbedFooter,
+	IEmbedImage,
+	IEmbedVideo,
+	IEmbedProvider,
+	IEmbedAuthor,
+	IEmbedField,
 } from "../..";
 
 export interface MessageEmbed {

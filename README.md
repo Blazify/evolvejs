@@ -37,7 +37,7 @@ npm install @evolvejs/evolvejs
 
 **You need the following things before you can kick off with EvolveJS:**
 
-- [**At Least Node 13 Installed**](https://www.nodejs.org)
+- [**Node Installed**](https://www.nodejs.org)
 
 # Documentation and Support
 

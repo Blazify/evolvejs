@@ -11,19 +11,19 @@ export class Role {
   public mentionable = false;
 
   constructor(public data: IRole) {
-    this._handle();
+  	this._handle();
   }
 
   private _handle() {
-    if (!this.data) return;
-    this.id = this.data.id;
-    this.name = this.data.name;
-    this.color = this.data.color;
-    this.hoist = this.data.hoist;
-    this.position = this.data.position;
-    this.permissions = this.data.permissions;
-    this.managed = this.data.managed;
-    this.mentionable = this.data.mentionable;
-    return this;
+  	if (!this.data) return;
+  	this.id = this.data.id;
+  	this.name = this.data.name;
+  	this.color = this.data.color;
+  	this.hoist = this.data.hoist;
+  	this.position = this.data.position;
+  	this.permissions = this.data.permissions;
+  	this.managed = this.data.managed;
+  	this.mentionable = this.data.mentionable;
+  	return this;
   }
 }
