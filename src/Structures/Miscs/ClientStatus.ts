@@ -6,14 +6,14 @@ export class ClientStatus {
   public mobile?: string;
   public web?: string;
   constructor(public data: IClientStatus) {
-  	this._handle();
+    this._handle();
   }
 
   private _handle() {
-  	if(!this.data) return;
-  	this.desktop = this.data.desktop;
-  	this.mobile = this.data.mobile;
-  	this.web = this.data.web;
-  	return this;
+    if (!this.data) return;
+    this.desktop = this.data.desktop;
+    this.mobile = this.data.mobile;
+    this.web = this.data.web;
+    return this;
   }
 }

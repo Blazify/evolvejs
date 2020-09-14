@@ -1,13 +1,14 @@
 import {
-	Guild,
-	User,
-	Emoji,
-	Role,
-	Message,
-	ClientUser,
-	ClientOptions,
-	RestAPI,
+  Guild,
+  User,
+  Emoji,
+  Role,
+  Message,
+  ClientUser,
+  ClientOptions,
+  RestAPI,
 } from "..";
+import { config } from "sign-logger/dist/config"
 import { Logger } from "sign-logger";
 import { Objex } from "@evolvejs/objex";
 import { Oauth2 } from "../Oauth2/Oauth2";
@@ -31,13 +32,45 @@ export class EvolveClient extends EventListener {
   public secret!: string;
   public structures: Structures = new Structures(this);
   public shardConnections: Objex<number, EvolveSocket> = new Objex();
-  public logger: Logger = new Logger();
+  public logger: Logger = new Logger({
+    dateFormat: "YY:MM:DD:MI:SS:MS",
+    colors: {
+        error: config.Red,
+        info: config.Blue,
+        success: config.Green,
+        debug: config.Magenta,
+        warn: config.Yellow
+    },
+    symbols : {
+        left: "<",
+        right: ">"
+    },
+    textColors: {
+        all: false,
+        error: config.Red,
+        info: config.Blue,
+        success: config.Green,
+        debug: config.Magenta,
+        warn: config.Yellow
+    }
+  });
   public sessionID = "";
 
   public constructor(token: string, options: ClientOptions) {
-  	super();
-  	this.token = token;
-  	this.options = options;
-  	if (!this.token) this.logger.error("No token provided");
+    super();
+    this.token = token;
+    this.options = options;
+    if (!this.token) this.logger.error("No token provided");
+  }
+
+  public shutdown(): void {
+    const initialLastShardConnection = this.shardConnections.lastKey(1);
+    for (const [k, v] of this.shardConnections) {
+      v.gateway.destroy();
+
+      if (k === initialLastShardConnection) {
+        process.exit();
+      }
+    }
   }
 }

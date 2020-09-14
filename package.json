@@ -6,7 +6,8 @@
 	"scripts": {
 		"start": "tsc",
 		"lint": "eslint .",
-		"lint:fix": "eslint . --fix",
+		"lint:fix": "eslint ./ --fix",
+		"prettier": "prettier ./ --write",
 		"docs": "npx typedoc --json ./docs.json",
 		"development": "tsc --watch",
 		"development:test": "nodemon ./test.js",

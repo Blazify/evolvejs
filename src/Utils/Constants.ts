@@ -1,12 +1,12 @@
 import {
-	ITextChannel,
-	IDMChannel,
-	IVoiceChannel,
-	IGroupChannel,
-	ICategoryChannel,
-	INewsChannel,
-	IStoreChannel,
-	Payload,
+  ITextChannel,
+  IDMChannel,
+  IVoiceChannel,
+  IGroupChannel,
+  ICategoryChannel,
+  INewsChannel,
+  IStoreChannel,
+  Payload,
 } from "..";
 import { TextChannel } from "../Structures/Channel/TextChannel";
 import { VoiceChannel } from "../Structures/Channel/VoiceChannel";
@@ -39,9 +39,9 @@ export enum ACTIVITY {
 }
 
 export const NITRO = {
-	0: "None",
-	1: "Nitro Classic",
-	2: "Nitro",
+  0: "None",
+  1: "Nitro Classic",
+  2: "Nitro",
 };
 
 export enum WEBHOOKTYPE {
@@ -50,7 +50,14 @@ export enum WEBHOOKTYPE {
 }
 
 export type Visibility = "idle" | "dnd" | "online" | "offline";
-export type ChannelResolvable = ITextChannel | IDMChannel | IVoiceChannel | IGroupChannel | ICategoryChannel | INewsChannel | IStoreChannel;
+export type ChannelResolvable =
+  | ITextChannel
+  | IDMChannel
+  | IVoiceChannel
+  | IGroupChannel
+  | ICategoryChannel
+  | INewsChannel
+  | IStoreChannel;
 
 export type ChannelTypes =
   | TextChannel
@@ -62,13 +69,13 @@ export type ChannelTypes =
   | StoreChannel;
 
 export const ChannelResolver = [
-	TextChannel,
-	DMChannel,
-	VoiceChannel,
-	GroupChannel,
-	CategoryChannel,
-	NewsChannel,
-	StoreChannel,
+  TextChannel,
+  DMChannel,
+  VoiceChannel,
+  GroupChannel,
+  CategoryChannel,
+  NewsChannel,
+  StoreChannel,
 ];
 
 export enum ActivityTypes {
@@ -177,51 +184,51 @@ export enum OPCODE {
 }
 
 export const Heartbeat: Payload = {
-	op: OPCODE.Heartbeat,
-	d: null,
+  op: OPCODE.Heartbeat,
+  d: null,
 };
 
 export const VoiceStateUpdate: Payload = {
-	op: OPCODE.Voice_State_Update,
-	d: {
-		guild_id: "",
-		channel_id: "",
-		self_mute: false,
-		self_deaf: false,
-	},
+  op: OPCODE.Voice_State_Update,
+  d: {
+    guild_id: "",
+    channel_id: "",
+    self_mute: false,
+    self_deaf: false,
+  },
 };
 
 export const VoiceIdentify: Payload = {
-	op: 0,
-	d: {
-		server_id: "",
-		user_id: "",
-		session_id: "",
-		token: "",
-	},
+  op: 0,
+  d: {
+    server_id: "",
+    user_id: "",
+    session_id: "",
+    token: "",
+  },
 };
 
 export const Identify: Payload = {
-	op: OPCODE.Identify,
-	d: {
-		token: "",
-		intents: 0,
-		shard: [0, 1],
-		properties: {
-			$os: process.platform,
-			$browser: "discord",
-			$device: "evolvejs",
-		},
-		presence: {
-			since: Date.now(),
-			game: {
-				name: "EvolveJS",
-				type: ActivityTypes.PLAYING,
-			},
-			status: "",
-			afk: false,
-		},
-	},
+  op: OPCODE.Identify,
+  d: {
+    token: "",
+    intents: 0,
+    shard: [0, 1],
+    properties: {
+      $os: process.platform,
+      $browser: "discord",
+      $device: "evolvejs",
+    },
+    presence: {
+      since: Date.now(),
+      game: {
+        name: "EvolveJS",
+        type: ActivityTypes.PLAYING,
+      },
+      status: "",
+      afk: false,
+    },
+  },
 };
 
 export interface TokenAccessOptions {

@@ -9,24 +9,24 @@ export class EvolveBuilder {
   private token!: string;
   public shards = 1;
   public intents!: number;
-  private cache: Set<CacheOptions> = new Set()
+  private cache: Set<CacheOptions> = new Set();
   private promiseRejection = false;
   public activity: typeof Identify.d.activity;
   public secret!: string;
-  public encoding: "etf" | "json" = "json"
+  public encoding: "etf" | "json" = "json";
   public client!: EvolveClient;
 
   public constructor(token?: string) {
-  	if (token) {
-  		this.token = token;
-  	}
-    
-  	this.enableCache(CacheOptions.GUILD);
-  	this.enableIntents(
-  		GatewayIntents.GUILD + 
-      GatewayIntents.GUILD_MESSAGES + 
-      GatewayIntents.DIRECT_MESSAGES
-  	);
+    if (token) {
+      this.token = token;
+    }
+
+    this.enableCache(CacheOptions.GUILD);
+    this.enableIntents(
+      GatewayIntents.GUILD +
+        GatewayIntents.GUILD_MESSAGES +
+        GatewayIntents.DIRECT_MESSAGES
+    );
   }
 
   /**
@@ -35,18 +35,18 @@ export class EvolveBuilder {
    * @returns The EvolveBuilder Class
    */
   public setToken(token: string): EvolveBuilder {
-  	this.token = token;
-  	return this;
+    this.token = token;
+    return this;
   }
 
   /**
-   * 
-   * @param encoding 
+   *
+   * @param encoding
    */
 
   public setEncoding(encoding: "json" | "etf"): EvolveBuilder {
-  	this.encoding = encoding;
-  	return this;
+    this.encoding = encoding;
+    return this;
   }
 
   /**
@@ -56,8 +56,8 @@ export class EvolveBuilder {
    * @returns The EvolveBuilder Class
    */
   public setShards(totalShards: number): EvolveBuilder {
-  	this.shards = totalShards;
-  	return this;
+    this.shards = totalShards;
+    return this;
   }
 
   /**
@@ -67,8 +67,8 @@ export class EvolveBuilder {
    * @returns The EvolveBuilder Class
    */
   public setActivity(activity: typeof Identify.d.activity): EvolveBuilder {
-  	this.activity = activity;
-  	return this;
+    this.activity = activity;
+    return this;
   }
 
   /**
@@ -78,10 +78,10 @@ export class EvolveBuilder {
    * @returns The EvolveBuilder Client
    */
   public enableCache(...caches: CacheOptions[]): EvolveBuilder {
-  	for(const cache of caches) {
-  		this.cache.add(cache);
-  	}
-  	return this;
+    for (const cache of caches) {
+      this.cache.add(cache);
+    }
+    return this;
   }
 
   /**
@@ -91,10 +91,10 @@ export class EvolveBuilder {
    * @returns EvolveBuilder Class
    */
   public disableCache(...caches: CacheOptions[]): EvolveBuilder {
-  	for(const cache of caches) {
-  		this.cache.add(cache);
-  	}
-  	return this;
+    for (const cache of caches) {
+      this.cache.add(cache);
+    }
+    return this;
   }
 
   /**
@@ -105,10 +105,10 @@ export class EvolveBuilder {
    * @warning No intents are applied at default so you wont receive any events except some exceptions
    */
   public enableIntents(...intents: GatewayIntents[]): EvolveBuilder {
-  	for (const intent of intents) {
-  		this.intents = this.intents + intent;
-  	}
-  	return this;
+    for (const intent of intents) {
+      this.intents = this.intents + intent;
+    }
+    return this;
   }
 
   /**
@@ -118,15 +118,15 @@ export class EvolveBuilder {
    * @returns EvolveBuilder Class
    */
   public disableIntents(...intents: GatewayIntents[]): EvolveBuilder {
-  	for (const intent of intents) {
-  		this.intents = this.intents - intent;
-  	}
-  	return this;
+    for (const intent of intents) {
+      this.intents = this.intents - intent;
+    }
+    return this;
   }
 
   public setSecret(clientSecret: string): EvolveBuilder {
-  	this.secret = clientSecret;
-  	return this;
+    this.secret = clientSecret;
+    return this;
   }
 
   /**
@@ -134,42 +134,50 @@ export class EvolveBuilder {
    * @returns {EvolveClient} A Initialized EvolveClient Instance
    */
   public build(): EvolveClient {
-  	this.client = new EvolveClient(this.token, {
-  		enableGuildCache: this.cache.has(CacheOptions.GUILD) ? false : this.cache.has(CacheOptions.ALL),
-  		enableChannelCache: this.cache.has(CacheOptions.CHANNELS) ? false : this.cache.has(CacheOptions.ALL),
-  		enableEmojiCache: this.cache.has(CacheOptions.EMOJI) ? false : this.cache.has(CacheOptions.ALL),
-  		enableUsersCache: this.cache.has(CacheOptions.USERS) ? false : this.cache.has(CacheOptions.ALL),
-  		enableMessageCache: this.cache.has(CacheOptions.MESSAGES) ? false : this.cache.has(CacheOptions.ALL),
-  	});
+    this.client = new EvolveClient(this.token, {
+      enableGuildCache: this.cache.has(CacheOptions.GUILD)
+        ? false
+        : this.cache.has(CacheOptions.ALL),
+      enableChannelCache: this.cache.has(CacheOptions.CHANNELS)
+        ? false
+        : this.cache.has(CacheOptions.ALL),
+      enableEmojiCache: this.cache.has(CacheOptions.EMOJI)
+        ? false
+        : this.cache.has(CacheOptions.ALL),
+      enableUsersCache: this.cache.has(CacheOptions.USERS)
+        ? false
+        : this.cache.has(CacheOptions.ALL),
+      enableMessageCache: this.cache.has(CacheOptions.MESSAGES)
+        ? false
+        : this.cache.has(CacheOptions.ALL),
+    });
 
-  	if (!this.token) {
-  		this.client.logger.error(
-  			"EvolveBuilder#build Error.. -> No token Provided for EvolveClient to be initialized"
-  		);
-  	}
-  	if (this.shards <= 0)
-  		this.client.logger.error("Total shards must be more than 0!");
-    
+    if (!this.token) {
+      this.client.logger.error(
+        "EvolveBuilder#build Error.. -> No token Provided for EvolveClient to be initialized"
+      );
+    }
+    if (this.shards <= 0)
+      this.client.logger.error("Total shards must be more than 0!");
 
-  	if (this.intents == 0) {
-  		this.client.logger.warn(
-  			"No Intents are given, you will not get any events except some..."
-  		);
-  	}
+    if (this.intents == 0) {
+      this.client.logger.warn(
+        "No Intents are given, you will not get any events except some..."
+      );
+    }
 
-  	if (this.secret) {
-  		this.client.secret = this.secret;
-  		this.client.oauth2 = new Oauth2(this.client);
-  	}
+    if (this.secret) {
+      this.client.secret = this.secret;
+      this.client.oauth2 = new Oauth2(this.client);
+    }
 
-  	for (let i = 0; i < this.shards; i++) {
-  		promisify(setTimeout)(5000 * i).then(() => {
-  			this.client.shardConnections.set(i, new EvolveSocket(this, i));
-  		});
-  	}
-    
+    for (let i = 0; i < this.shards; i++) {
+      promisify(setTimeout)(5000 * i).then(() => {
+        this.client.shardConnections.set(i, new EvolveSocket(this, i));
+      });
+    }
 
-  	this.client.secret = this.secret;
-  	return this.client;
+    this.client.secret = this.secret;
+    return this.client;
   }
 }

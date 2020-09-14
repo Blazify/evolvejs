@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
 import {
-	Guild,
-	Channel,
-	User,
-	GuildMember,
-	IVoiceState,
-	EvolveClient,
+  Guild,
+  Channel,
+  User,
+  GuildMember,
+  IVoiceState,
+  EvolveClient,
 } from "../..";
 
 export class VoiceState {
@@ -24,27 +24,27 @@ export class VoiceState {
   public supress!: boolean;
 
   constructor(public data: IVoiceState, private client: EvolveClient) {
-  	this._handle();
+    this._handle();
   }
 
   private _handle() {
-  	if(!this.data) return;
-  	(async () => {
-  		if (this.data.guild_id)
-  			this.guild = await this.client.rest.getGuild(this.data.guild_id);
-  		if (this.data.channel_id)
-  			this.channel = await this.client.rest.getChannel(this.data.channel_id);
-  		this.user = await this.client.rest.getUser(this.data.user_id);
-  	})();
-  	this.member = new GuildMember(this.data.member!);
-  	this.sessionID = this.data.session_id;
-  	this.deaf = this.data.deaf;
-  	this.mute = this.data.mute;
-  	this.selfDeaf = this.data.self_deaf;
-  	this.selfMute = this.data.self_mute;
-  	this.selfStream = this.data.self_stream!;
-  	this.selfVideo = this.data.self_video;
-  	this.supress = this.data.suppress;
-  	return this;
+    if (!this.data) return;
+    (async () => {
+      if (this.data.guild_id)
+        this.guild = await this.client.rest.getGuild(this.data.guild_id);
+      if (this.data.channel_id)
+        this.channel = await this.client.rest.getChannel(this.data.channel_id);
+      this.user = await this.client.rest.getUser(this.data.user_id);
+    })();
+    this.member = new GuildMember(this.data.member!);
+    this.sessionID = this.data.session_id;
+    this.deaf = this.data.deaf;
+    this.mute = this.data.mute;
+    this.selfDeaf = this.data.self_deaf;
+    this.selfMute = this.data.self_mute;
+    this.selfStream = this.data.self_stream!;
+    this.selfVideo = this.data.self_video;
+    this.supress = this.data.suppress;
+    return this;
   }
 }

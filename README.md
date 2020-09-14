@@ -37,14 +37,13 @@ npm install @evolvejs/evolvejs
 
 **You need the following things before you can kick off with EvolveJS:**
 
-- [**Node Installed**](https://www.nodejs.org)
+- [**At Least Node 13 Installed**](https://www.nodejs.org)
 
 # Documentation and Support
 
 - **[Official Docs](https://evolvejs.github.io)**
 Note :- The Docs aren't completed
 - **For any further query and support join us at [EvolveJS](https://discord.gg/9bnpjqY) discord.**
-
 
 # Basic Startup Guide
 
@@ -67,12 +66,28 @@ client.on("newMessage", (event) => {
   if(event.message.content == "ping") { // checks if the message sent was "ping"
     event.channel.send("Pong") // sends a message with content of "Pong"
     console.log(event.shard) //logs the entire shard websocket in which the event was triggered
-  }
-})
+  } else if(event.message.content == "shutdown") {
+    event.channel.send("Shutting Down");
+    client.shutdown();
+    for(const [k, v] of client.shardConnections) {
+      v.gateway.on("shardReady", (shard) => {
+        console.log(shard);
+        })
+        v.gateway.on("shardDestroy", (shard) => {
+          console.log(shard);
+          })
+        }
+      }
+  })
+
+
 ```
+# More Information
+- **If you want to use ETF for Payloads Sending, just use EvolveBuilder#setEncoding, make sure to install erlpack, as it's a dev dependency of the package**
+- **If you want to contribute, you can star the repo or make pull request, but the pull request should be on the development branch, id you are adding anything from [#4](https://github.com/EvolveJS/EvolveJS/issues/4), just comment saying *feature* has been implemented**
 
 # Author
 
 - **Echo-3-1 (GoD)**
 - **Links: [GitHub](https://github.com/Echo-3-1)**
-- [**Donate The Development**](https://paypal.me/roahgaming)
+- **[Donate The Development](https://paypal.me/roahgaming)**

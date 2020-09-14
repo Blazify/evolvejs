@@ -14,20 +14,20 @@ export class Emoji {
   public available?: boolean;
 
   constructor(public data: IEmoji) {
-  	this._handle();
+    this._handle();
   }
 
   private _handle() {
-  	if(!this.data) return;
-  	this.id = this.data.id;
-  	this.name = this.data.name;
-  	if (this.data.roles)
-  		this.data.roles.forEach((i) => this.roles.set(i.id, new Role(i)));
-  	this.user = new User(this.data.user);
-  	this.reqColons = this.data.require_colons;
-  	this.managed = this.data.managed;
-  	this.animated = this.data.animated;
-  	this.available = this.data.available;
-  	return this;
+    if (!this.data) return;
+    this.id = this.data.id;
+    this.name = this.data.name;
+    if (this.data.roles)
+      this.data.roles.forEach((i) => this.roles.set(i.id, new Role(i)));
+    this.user = new User(this.data.user);
+    this.reqColons = this.data.require_colons;
+    this.managed = this.data.managed;
+    this.animated = this.data.animated;
+    this.available = this.data.available;
+    return this;
   }
 }
