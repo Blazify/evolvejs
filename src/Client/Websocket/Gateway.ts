@@ -8,7 +8,6 @@ import { VoiceGateway } from "./Voice/VoiceGateway";
 import { EVENTS } from "../../Utils/Constants";
 import { VoiceState } from "../../Structures/Guild/VoiceState";
 import { EventListener } from "../../Utils/EventListener";
-import erlpack from "erlpack";
 
 export class Gateway extends EventListener {
   public data!: Data;
@@ -31,6 +30,7 @@ export class Gateway extends EventListener {
 	  } else {
 		  const packed: Buffer = Buffer.from(data.toString(), "binary")
 		  try {
+			  const erlpack = require("erlpack");
 			  payload = erlpack.unpack(packed)
 		  } catch(e) {
 			  throw this.ws.builder.client.logger.error(e);
