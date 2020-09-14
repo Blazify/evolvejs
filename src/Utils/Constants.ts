@@ -137,7 +137,7 @@ export enum EVENTS {
   VOICE_SERVER_UPDATE = "voiceServerUpdate", // Guild's voice server was updated
   WEBHOOKS_UPDATE = "webhookUpdate", // Guild channel webhook was created, update, or deleted
   SHARD_SPAWN = "shardSpawn",
-  SHARD_DESTROY = "shardDestroy"
+  SHARD_DESTROY = "shardDestroy",
 }
 
 export enum GatewayIntents {

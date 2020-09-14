@@ -82,12 +82,20 @@ client.on("newMessage", (event) => {
 
 
 ```
+
 # More Information
 - **If you want to use ETF for Payloads Sending, just use EvolveBuilder#setEncoding, make sure to install erlpack, as it's a dev dependency of the package**
 - **If you want to contribute, you can star the repo or make pull request, but the pull request should be on the development branch, id you are adding anything from [#4](https://github.com/EvolveJS/EvolveJS/issues/4), just comment saying *feature* has been implemented**
 
-# Author
+# Author(s)
 
-- **Echo-3-1 (GoD)**
+## **Echo-3-1** 
 - **Links: [GitHub](https://github.com/Echo-3-1)**
 - **[Donate The Development](https://paypal.me/roahgaming)**
+
+## Creeper
+- **Links: [Github](https://github.com/CreeperPlanet26)**
+
+# Contributor
+
+- **Put ya name here after contributing**
