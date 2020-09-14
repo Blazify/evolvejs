@@ -10,13 +10,13 @@ import {
 } from "..";
 import { Logger } from "sign-logger";
 import { Objex } from "@evolvejs/objex";
-import { EventEmitter } from "events";
 import { Oauth2 } from "../Oauth2/Oauth2";
 import { Structures } from "../Structures/Structures";
 import { EvolveSocket } from "./Websocket/Websocket";
 import { ChannelTypes } from "../Utils/Constants";
+import { EventListener } from "../Utils/EventListener";
 
-export class EvolveClient extends EventEmitter {
+export class EvolveClient extends EventListener {
   public token: string;
   public options: ClientOptions;
   public guilds: Objex<string, Guild> = new Objex();
@@ -35,7 +35,7 @@ export class EvolveClient extends EventEmitter {
   public sessionID = "";
 
   public constructor(token: string, options: ClientOptions) {
-  	super({ captureRejections: options.capturePromiseRejection });
+  	super();
   	this.token = token;
   	this.options = options;
   	if (!this.token) this.logger.error("No token provided");

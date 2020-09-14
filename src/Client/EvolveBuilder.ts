@@ -130,17 +130,6 @@ export class EvolveBuilder {
   }
 
   /**
-   *
-   * @param option
-   * @enables The capturePromiseRejection for the EventEmitter
-   * @returns EvolveBuilderClass
-   */
-  public capturePromiseRejection(option: boolean): EvolveBuilder {
-  	this.promiseRejection = option;
-  	return this;
-  }
-
-  /**
    * @param none
    * @returns {EvolveClient} A Initialized EvolveClient Instance
    */
@@ -151,7 +140,6 @@ export class EvolveBuilder {
   		enableEmojiCache: this.cache.has(CacheOptions.EMOJI) ? false : this.cache.has(CacheOptions.ALL),
   		enableUsersCache: this.cache.has(CacheOptions.USERS) ? false : this.cache.has(CacheOptions.ALL),
   		enableMessageCache: this.cache.has(CacheOptions.MESSAGES) ? false : this.cache.has(CacheOptions.ALL),
-  		capturePromiseRejection: this.promiseRejection,
   	});
 
   	if (!this.token) {

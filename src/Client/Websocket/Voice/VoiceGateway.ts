@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Gateway } from "../Gateway";
-import { EventEmitter } from "events";
 import ws, { Data } from "ws";
 import { VoiceIdentify, Heartbeat } from "../../../Utils/Constants";
 import { Payload } from "../../..";
+import { EventListener } from "../../../Utils/EventListener";
 
-export class VoiceGateway extends EventEmitter {
+export class VoiceGateway extends EventListener {
   public link!: string;
   public websocket!: ws;
   public seq!: number;

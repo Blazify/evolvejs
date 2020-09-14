@@ -4,12 +4,12 @@ import { EvolveSocket } from "./Websocket";
 import { OPCODE, Heartbeat, Identify, VoiceStateUpdate } from "../..";
 import { Payload } from "../../Interfaces/Interfaces";
 import { Data } from "ws";
-import { EventEmitter } from "events";
 import { VoiceGateway } from "./Voice/VoiceGateway";
 import { EVENTS } from "../../Utils/Constants";
 import { VoiceState } from "../../Structures/Guild/VoiceState";
+import { EventListener } from "../../Utils/EventListener";
 
-export class Gateway extends EventEmitter {
+export class Gateway extends EventListener {
   public data!: Data;
   public ws!: EvolveSocket;
   public launchedShards: Set<number> = new Set();

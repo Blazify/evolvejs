@@ -6,13 +6,13 @@ import { Message, MessageReaction } from "../..";
 export class MessageReactionCollector extends BaseCollector {
 	constructor(public message: Message, public filter: Function) {
 		super(message.channel.client, filter);
-		this.message.channel.client.on("reactionAdd", (msg: MessageReaction) => {
+		this.message.channel.client.on("reactionAdd", this.listener = (msg: MessageReaction) => {
 			filter(msg);
 		});
 	}
 
 	public end(): Objex<string, Message | MessageReaction> {
-		this.message.channel.client.off("reactionAdd", (msg) => this.handle(msg));
+		this.message.channel.client.off("reactionAdd", this.listener);
 		return this.collected;
 	}
 

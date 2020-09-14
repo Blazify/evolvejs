@@ -4,5 +4,4 @@ export interface ClientOptions {
   enableEmojiCache: boolean;
   enableUsersCache: boolean;
   enableMessageCache: boolean;
-  capturePromiseRejection: boolean;
 }
