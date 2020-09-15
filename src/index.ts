@@ -1,3 +1,55 @@
+/* eslint-disable no-prototype-builtins */
+import "reflect-metadata";
+export function Module(metadata: any): ClassDecorator {
+    const propsKeys = Object.keys(metadata);
+    // console.log("propKeys", propsKeys);
+
+    return (target: Function) => {
+        for (const property in metadata) {
+            if (metadata.hasOwnProperty(property)) {
+                Reflect.defineMetadata("f", (metadata as any)[property], target);
+            }
+        }
+    };
+}
+
+function test() {
+    return function (
+        target: Object,
+        propertyKey: string,
+        descriptor: PropertyDescriptor
+    ) {
+        const original = descriptor.value;
+        console.log(Reflect.getMetadata("f", target, propertyKey));
+
+        descriptor.value = function (...args: any[]) {
+            console.log(this);
+            const allow = true;
+
+            if (allow) {
+
+                const result = original.apply(this, args);
+                return result;
+            } else {
+                return null;
+            }
+        };
+
+        return descriptor;
+    };
+}
+@Module({
+    key: "value"
+})
+class f {
+    constructor() { console.log("test"); }
+    @test()
+    fo() {
+        console.log("called fo");
+    }
+
+}
+new f()
 export * from "./Client/EvolveBuilder";
 export * from "./Client/EvolveClient";
 export * from "./Client/ClientOptions";
