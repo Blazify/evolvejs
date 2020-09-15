@@ -12,6 +12,7 @@ export class Channel {
   	this.type = type;
   }
 
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public resolve(data: any): ChannelTypes {
   	return new ChannelResolver[this.type](data, this.client);
   }

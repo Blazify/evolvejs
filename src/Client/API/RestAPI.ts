@@ -106,7 +106,7 @@ export class RestAPI {
   			},
   		});
   	}
-  	return new Message(fetched, this.client);
+  	return Message.handle(fetched, this.client);
   }
 
   public async deleteMessage(

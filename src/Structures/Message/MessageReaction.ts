@@ -24,7 +24,9 @@ export class MessageReaction {
 
   private _handle() {
   	if (!this.data) return;
-  	this.message = new Message(this.data.message, this.client);
+  	Message.handle(this.data.message, this.client).then((o: Message) => {
+		  this.message = o;
+	  });
   	this.channel = new TextChannel(this.data.channel, this.client);
   	this.emoji = new Emoji(this.data.emoji);
   	this.user = new User(this.data.user);

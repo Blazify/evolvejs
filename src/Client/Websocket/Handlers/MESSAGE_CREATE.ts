@@ -4,7 +4,8 @@ import { MessageEvents } from "../../Events/MessageEvents";
 export default class {
 	constructor(client: EvolveClient, payload: Payload, shard: number) {
 		(async () => {
-			const message = new Message(payload.d, client);
+			const message = await Message.handle(payload.d, client);
+			console.log(message.guild);
 			if (client.options.enableMessageCache) {
 				client.messages.set(message.id, message);
 			}

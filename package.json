@@ -36,15 +36,6 @@
 	},
 	"homepage": "https://github.com/EvolveJS/EvolveJS#readme",
 	"markdown": "github",
-	"dependencies": {
-		"@evolvejs/objex": "^1.0.0",
-		"node-fetch": "^2.6.0",
-		"sign-logger": "^1.4.3",
-		"ws": "^7.3.1"
-	},
-	"optionalDependencies": {
-		"erlpack": "0.1.3"
-	},
 	"exports": {
 		".": [
 			{
@@ -56,6 +47,15 @@
 		"./esm": "./esm/index.mjs"
 	},
 	"readme": "./README.md",
+	"dependencies": {
+		"@evolvejs/objex": "^1.0.0",
+		"node-fetch": "^2.6.0",
+		"sign-logger": "^1.4.3",
+		"ws": "^7.3.1"
+	},
+	"optionalDependencies": {
+		"erlpack": "0.1.3"
+	},
 	"devDependencies": {
 		"@types/node": "^14.0.23",
 		"@types/node-fetch": "^2.5.7",

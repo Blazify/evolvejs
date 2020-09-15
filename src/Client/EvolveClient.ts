@@ -16,16 +16,22 @@ import { Structures } from "../Structures/Structures";
 import { EvolveSocket } from "./Websocket/Websocket";
 import { ChannelTypes } from "../Utils/Constants";
 import { EventListener } from "../Utils/EventListener";
+import { GuildsManager } from "./Managers/GuildsManager";
+import { ChannelsManager } from "./Managers/ChannelsManger";
+import { UsersManager } from "./Managers/UsersManager";
+import { RolesManager } from "./Managers/RolesManager";
+import { MessagesManager } from "./Managers/MessagesManager";
+import { EmojisManager } from "./Managers/EmojisManager";
 
 export class EvolveClient extends EventListener {
   public token: string;
   public options: ClientOptions;
-  public guilds: Objex<string, Guild> = new Objex();
-  public channels: Objex<string, ChannelTypes> = new Objex();
-  public users: Objex<string, User> = new Objex();
-  public emojis: Objex<string | null, Emoji> = new Objex();
-  public roles: Objex<string, Role> = new Objex();
-  public messages: Objex<string, Message> = new Objex();
+  public guilds: GuildsManager = new GuildsManager();
+  public channels: ChannelsManager = new ChannelsManager();
+  public users: UsersManager = new UsersManager();
+  public emojis: EmojisManager = new EmojisManager();
+  public roles: RolesManager = new RolesManager();
+  public messages: MessagesManager = new MessagesManager();
   public user!: ClientUser;
   public rest: RestAPI = new RestAPI(this);
   public oauth2!: Oauth2;
