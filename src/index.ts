@@ -1,35 +1,45 @@
-/* eslint-disable no-prototype-builtins */
+import { Objex } from "@evolvejs/objex";
 import "reflect-metadata";
 
 function Client(options?: { token: string }) {
-    return function <T extends { new(...args: any[]): {} }>(constructor: T) {
-        return class extends constructor {
+	return function <T extends { new(...args: any[]): {} }>(constructor: T) {
+		return class extends constructor {
             token = options?.token
-        }
-    }
+		};
+	};
 }
 
-function MessageEvent() {
-    return (target: any, propertyKey: string, propertyDescriptor: PropertyDescriptor) => {
-        console.log(target, propertyKey, propertyDescriptor);
-        console.log("target", target)
-    };
+setTimeout(() => {
+	MessageEvent(true);
+}, 5000);
+
+
+const listeners: Objex<string, any> = new Objex();
+function MessageEvent(emit?: boolean) {
+	if(emit) {
+		for(const [k, v] of listeners) {
+			v[k]("yo");
+		}
+	}
+	return (target: any, propertyKey: string, propertyDescriptor: PropertyDescriptor) => {
+		listeners.set(propertyKey, target);
+	};
 }
 
 
 @Client({
-    token: "safdsadsdff"
+	token: "safdsadsdff"
 })
 class client {
-    constructor() { console.log(this); }
+	constructor() { console.log(this); }
 
     @MessageEvent()
-    public messageEvent(): void {
-        console.log("messageEvent called");
-    }
+	public messageEvent(nani: MessageEvent): void {
+		console.log(nani);
+	}
 }
 
-console.log(new client())
+console.log(new client());
 export * from "./Client/EvolveBuilder";
 export * from "./Client/EvolveClient";
 export * from "./Client/ClientOptions";
