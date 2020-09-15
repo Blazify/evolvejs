@@ -1,3 +1,35 @@
+/* eslint-disable no-prototype-builtins */
+import "reflect-metadata";
+
+function Client(options?: { token: string }) {
+    return function <T extends { new(...args: any[]): {} }>(constructor: T) {
+        return class extends constructor {
+            token = options?.token
+        }
+    }
+}
+
+function MessageEvent() {
+    return (target: any, propertyKey: string, propertyDescriptor: PropertyDescriptor) => {
+        console.log(target, propertyKey, propertyDescriptor);
+        console.log("target", target)
+    };
+}
+
+
+@Client({
+    token: "safdsadsdff"
+})
+class client {
+    constructor() { console.log(this); }
+
+    @MessageEvent()
+    public messageEvent(): void {
+        console.log("messageEvent called");
+    }
+}
+
+console.log(new client())
 export * from "./Client/EvolveBuilder";
 export * from "./Client/EvolveClient";
 export * from "./Client/ClientOptions";
