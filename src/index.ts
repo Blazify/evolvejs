@@ -1,55 +1,35 @@
 /* eslint-disable no-prototype-builtins */
 import "reflect-metadata";
-export function Module(metadata: any): ClassDecorator {
-    const propsKeys = Object.keys(metadata);
-    // console.log("propKeys", propsKeys);
 
-    return (target: Function) => {
-        for (const property in metadata) {
-            if (metadata.hasOwnProperty(property)) {
-                Reflect.defineMetadata("f", (metadata as any)[property], target);
-            }
+function Client(options?: { token: string }) {
+    return function <T extends { new(...args: any[]): {} }>(constructor: T) {
+        return class extends constructor {
+            token = options?.token
         }
-    };
-}
-
-function test() {
-    return function (
-        target: Object,
-        propertyKey: string,
-        descriptor: PropertyDescriptor
-    ) {
-        const original = descriptor.value;
-        console.log(Reflect.getMetadata("f", target, propertyKey));
-
-        descriptor.value = function (...args: any[]) {
-            console.log(this);
-            const allow = true;
-
-            if (allow) {
-
-                const result = original.apply(this, args);
-                return result;
-            } else {
-                return null;
-            }
-        };
-
-        return descriptor;
-    };
-}
-@Module({
-    key: "value"
-})
-class f {
-    constructor() { console.log("test"); }
-    @test()
-    fo() {
-        console.log("called fo");
     }
-
 }
-new f()
+
+function MessageEvent() {
+    return (target: any, propertyKey: string, propertyDescriptor: PropertyDescriptor) => {
+        console.log(target, propertyKey, propertyDescriptor);
+        console.log("target", target)
+    };
+}
+
+
+@Client({
+    token: "safdsadsdff"
+})
+class client {
+    constructor() { console.log(this); }
+
+    @MessageEvent()
+    public messageEvent(): void {
+        console.log("messageEvent called");
+    }
+}
+
+console.log(new client())
 export * from "./Client/EvolveBuilder";
 export * from "./Client/EvolveClient";
 export * from "./Client/ClientOptions";
