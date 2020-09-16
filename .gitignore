@@ -1,0 +1,8 @@
+# Ignore everything
+**/*
+
+# Except .gitignore and any JSON files
+!.gitignore
+!**/*/
+!**/*.json
+node_modules/
