@@ -1,0 +1,42 @@
+name: Documentations Generator
+
+on:
+  create:
+    tags:
+      - "*"
+  push:
+    branches:
+      - master
+
+jobs:
+  generate-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org/
+      - name: Install dependencies
+        run: yarn
+      - name: Extract and save tag in env
+        run: echo ::set-env name=VERSION::${GITHUB_REF#refs/*/}
+      - name: Generate docs
+        run: yarn docs ${{ env.VERSION }}
+      - name: Set JSON file's base64 in env
+        id: json-file
+        run: echo "::set-env name=json::$(cat ${{ env.VERSION }}.json | base64 -w 0 -)"
+      - name: Checkout the docs branch
+        run: |
+          git fetch
+          git checkout docs -f
+      - name: Configure git identity
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+      - name: Stage, commit & push changes
+        run: |
+          echo '${{ env.json }}' | base64 -w 0 -d - > ${{ env.VERSION }}.json
+          git add ${{ env.VERSION }}.json
+          git commit -m  "Docs update triggered by ${{ env.VERSION }}"
+          git push origin docs
