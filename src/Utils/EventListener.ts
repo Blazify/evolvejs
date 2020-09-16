@@ -1,10 +1,10 @@
 import { Objex } from "@evolvejs/objex";
-import { Classes } from "../Structures/Structures";
 import { EVENTS } from "./Constants";
 
 export class EventListener {
   private _objListeners: Set<Object> = new Set();
-  private _funcListeners: Objex<(...args: any[]) => void, string> = new Objex();
+  private _funcListeners = new Objex<(...args: unknown[]) => void, string>();
+
 
   public addListener(o: Object): void {
   	this._objListeners.add(o);
@@ -32,10 +32,10 @@ export class EventListener {
   		for (const listener of this._objListeners) {
   			if(Object.keys(listener).includes(name)) {
   				const func = listener[name as unknown as keyof typeof listener];
-  				if(typeof func !== "function") {
-  					throw new TypeError(`${func} should be type of function`);
-  				} 
-				  func(args as unknown as keyof typeof listener);  
+  				 if(typeof func !== "function") {
+  				 	throw new TypeError(`${func} should be type of function`);
+  				 } 
+				  Object.call(listener, func)(...args);
   			}
   		}
   	}

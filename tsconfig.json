@@ -20,12 +20,10 @@
     ]
   },
   "include": [
-    "src"
+    "./src/",
   ],
   "exclude": [
     "node_modules", 
     "dist",
-    "test.ts",
-    "TestBot"
   ]
 }

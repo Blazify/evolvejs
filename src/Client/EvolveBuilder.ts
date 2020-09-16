@@ -4,6 +4,7 @@ import { EvolveClient, CacheOptions, GatewayIntents, Identify } from "..";
 import { EvolveSocket } from "./Websocket/Websocket";
 import { Oauth2 } from "../Oauth2/Oauth2";
 import { promisify } from "util";
+import { Structures } from "../Structures/Structures";
 
 export class EvolveBuilder {
   private token!: string;
@@ -15,6 +16,8 @@ export class EvolveBuilder {
   public secret!: string;
   public encoding: "etf" | "json" = "json";
   public client!: EvolveClient;
+  private structure!: Structures;
+  private typeOfclient!: typeof EvolveClient;
 
   public constructor(token?: string, useDefaultIntents = true) {
   	if (token) {
@@ -131,11 +134,22 @@ export class EvolveBuilder {
   	return this;
   }
 
+  public setStructureClass(structure: Structures): EvolveBuilder {
+  	this.structure = structure;
+  	return this;
+  }
+
+  public setClientClass(client: typeof EvolveClient): EvolveBuilder {
+  	this.typeOfclient = client;
+  	return this;
+  }
+
   /**
    * @param none
    * @returns {EvolveClient} A Initialized EvolveClient Instance
    */
   public build(): EvolveClient {
+  	if(!this.typeOfclient) {
   	this.client = new EvolveClient(this.token, {
   		enableGuildCache: this.cache.has(CacheOptions.GUILD)
   			? true
@@ -152,7 +166,28 @@ export class EvolveBuilder {
   		enableMessageCache: this.cache.has(CacheOptions.MESSAGES)
   			? true
   			: this.cache.has(CacheOptions.ALL),
-  	});
+  		});
+  	} else {
+  		this.client = new this.typeOfclient(
+  			this.token, {
+  				enableGuildCache: this.cache.has(CacheOptions.GUILD)
+  					? true
+  					: this.cache.has(CacheOptions.ALL),
+  				enableChannelCache: this.cache.has(CacheOptions.CHANNELS)
+  					? true
+  					: this.cache.has(CacheOptions.ALL),
+  				enableEmojiCache: this.cache.has(CacheOptions.EMOJI)
+  					? true
+  					: this.cache.has(CacheOptions.ALL),
+  				enableUsersCache: this.cache.has(CacheOptions.USERS)
+  					? true
+  					: this.cache.has(CacheOptions.ALL),
+  				enableMessageCache: this.cache.has(CacheOptions.MESSAGES)
+  					? true
+  					: this.cache.has(CacheOptions.ALL),
+  			}
+  		);
+  	}
   
   	if (!this.token) {
   		this.client.logger.error(
