@@ -8,7 +8,7 @@
 		"lint": "eslint .",
 		"lint:fix": "eslint ./ --fix",
 		"prettier": "prettier ./ --write",
-		"docs": "npx typedoc --json ./docs.json",
+		"docs": "node scripts/gendocs.js",
 		"development": "tsc --watch",
 		"development:test": "nodemon ./test.js",
 		"development:test:typescript": "nodemon --exec ts-node ./test.js",

@@ -10,4 +10,4 @@ node_modules
 .vscode
 package-lock.json
 docs.json
-eslintr.json
+eslintrc.json

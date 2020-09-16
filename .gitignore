@@ -4,6 +4,8 @@ test.ts
 tsconfig.tsbuildinfo
 
 package-lock.json
+yarn.lock
+docs.json
 dist/
 node_modules/
 
