@@ -1,4 +1,3 @@
-
 import { config } from "sign-logger/dist/config";
 import { Logger } from "sign-logger";
 import { Objex } from "@evolvejs/objex";

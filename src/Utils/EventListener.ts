@@ -15,6 +15,12 @@ export class EventListener {
   	this._objListeners.delete(o);
   }
 
+  public removeAllListeners(): void {
+	  this._funcListeners.clear();
+	  this._objListeners.clear();
+	  listeners.clear();
+  }
+
   public on(name: string, listener: (...args: any[]) => void): void {
   	this._funcListeners.set(listener, name);
   }
@@ -43,9 +49,13 @@ export class EventListener {
 	  
 	  if(listeners) {
 		  for(const [k, v] of listeners) {
-			  if(k === name) {
-				  const func = v[k as unknown as keyof typeof v];
+			  if(k[0] === name) {
+				  try {
+				  const func = v[k[1] as unknown as keyof typeof v];
 				  Object.call(v, func)(...args);
+				  } catch(e) {
+					  v.logger.error(e);
+				  }
 			  }
 		  }
 	  }

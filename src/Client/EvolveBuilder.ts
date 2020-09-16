@@ -13,7 +13,6 @@ export class EvolveBuilder {
   public shards = 1;
   public intents = 0;
   private cache: Set<CacheOptions> = new Set();
-  private promiseRejection = false;
   public activity: typeof Identify.d.activity;
   public secret!: string;
   public encoding: "etf" | "json" = "json";
@@ -208,7 +207,9 @@ export class EvolveBuilder {
   	if (this.secret) {
   		this.client.secret = this.secret;
   		this.client.oauth2 = new Oauth2(this.client);
-  	}
+	  }
+	  
+	  if(this.structure) this.client.structures = this.structure;
 
   	for (let i = 0; i < this.shards; i++) {
   		promisify(setTimeout)(5000 * i).then(() => {

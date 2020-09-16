@@ -33,5 +33,5 @@ if (project) {
 		}
 	);
 } else {
-	console.log("Project not found!");
+	throw new Error("Project not found!");
 }
