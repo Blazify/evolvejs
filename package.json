@@ -11,7 +11,8 @@
 		"docs": "npx typedoc --json ./docs.json",
 		"development": "tsc --watch",
 		"development:test": "nodemon ./test.js",
-		"development:test:typescript": "nodemon --exec ts-node ./test.js"
+		"development:test:typescript": "nodemon --exec ts-node ./test.js",
+		"compile:test": "tsc && node dist/index"
 	},
 	"repository": {
 		"type": "git",

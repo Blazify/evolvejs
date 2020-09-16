@@ -1,10 +1,9 @@
 import { Objex } from "@evolvejs/objex";
-import { Classes } from "../Structures/Structures";
 import { EVENTS } from "./Constants";
 
 export class EventListener {
   private _objListeners: Set<Object> = new Set();
-  private _funcListeners: Objex<(...args: any[]) => void, string> = new Objex();
+  private _funcListeners = new Objex<(...args: unknown[]) => void, string>();
 
 
   public addListener(o: Object): void {

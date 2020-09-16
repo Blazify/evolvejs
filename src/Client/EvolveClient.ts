@@ -1,9 +1,4 @@
 import {
-	Guild,
-	User,
-	Emoji,
-	Role,
-	Message,
 	ClientUser,
 	ClientOptions,
 	RestAPI,
@@ -14,7 +9,6 @@ import { Objex } from "@evolvejs/objex";
 import { Oauth2 } from "../Oauth2/Oauth2";
 import { Structures } from "../Structures/Structures";
 import { EvolveSocket } from "./Websocket/Websocket";
-import { ChannelTypes } from "../Utils/Constants";
 import { EventListener } from "../Utils/EventListener";
 import { GuildsManager } from "./Managers/GuildsManager";
 import { ChannelsManager } from "./Managers/ChannelsManger";

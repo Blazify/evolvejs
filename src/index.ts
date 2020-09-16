@@ -1,45 +1,3 @@
-import { Objex } from "@evolvejs/objex";
-import "reflect-metadata";
-
-function Client(options?: { token: string }) {
-	return function <T extends { new(...args: any[]): {} }>(constructor: T) {
-		return class extends constructor {
-            token = options?.token
-		};
-	};
-}
-
-setTimeout(() => {
-	MessageEvent(true);
-}, 5000);
-
-
-const listeners: Objex<string, any> = new Objex();
-function MessageEvent(emit?: boolean) {
-	if(emit) {
-		for(const [k, v] of listeners) {
-			v[k]("yo");
-		}
-	}
-	return (target: any, propertyKey: string, propertyDescriptor: PropertyDescriptor) => {
-		listeners.set(propertyKey, target);
-	};
-}
-
-
-@Client({
-	token: "safdsadsdff"
-})
-class client {
-	constructor() { console.log(this); }
-
-    @MessageEvent()
-	public messageEvent(nani: MessageEvent): void {
-		console.log(nani);
-	}
-}
-
-console.log(new client());
 export * from "./Client/EvolveBuilder";
 export * from "./Client/EvolveClient";
 export * from "./Client/ClientOptions";
@@ -59,6 +17,7 @@ export * from "./Client/Events/GuildMembersChunkEvents";
 export * from "./Client/Events/GuildRoleEvents";
 export * from "./Client/Events/MessageEvents";
 export * from "./Client/Events/MessageReactionEvents";
+export * from "./Decorators/Events";
 export * from "./Interfaces/ActivityOptions";
 export * from "./Interfaces/CategoryChannelOptions";
 export * from "./Interfaces/DMChannelOptions";
@@ -119,3 +78,4 @@ export * from "./Utils/Collectors/BaseCollector";
 export * from "./Utils/Collectors/MessageCollector";
 export * from "./Utils/Collectors/MessageReactionCollector";
 export * from "./Utils/Constants";
+export * from "./Utils/EventListener";
