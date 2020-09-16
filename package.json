@@ -1,25 +1,32 @@
 {
-	"name": "@evolvejs/objex",
-	"version": "1.0.0",
-	"typings": "./typings/index.d.ts",
-	"description": "Data handling module for EvolveJS",
-	"main": "dist/index.js",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/EvolveJS/Objex.git"
-	},
-	"keywords": [
-		"objex",
-		"map",
-		"data",
-		"storage",
-		"custom-map",
-		"evolve"
-	],
-	"author": "EvolveJS",
-	"license": "AGPL-3.0-or-later",
-	"bugs": {
-		"url": "https://github.com/EvolveJS/Objex/issues"
-	},
-	"homepage": "https://github.com/EvolveJS/Objex#readme"
+  "name": "@evolvejs/objex",
+  "version": "1.0.0",
+  "typings": "./typings/index.d.ts",
+  "description": "Data handling module for EvolveJS",
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EvolveJS/Objex.git"
+  },
+  "keywords": [
+    "objex",
+    "map",
+    "data",
+    "storage",
+    "custom-map",
+    "evolve"
+  ],
+  "author": "EvolveJS",
+  "license": "AGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/EvolveJS/Objex/issues"
+  },
+  "homepage": "https://github.com/EvolveJS/Objex#readme",
+  "devDependencies": {
+    "typedoc": "^0.19.1",
+    "typescript": "^4.0.2"
+  },
+  "scripts": {
+    "docs": "node scripts/gendocs.js"
+  }
 }
