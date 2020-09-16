@@ -1,10 +1,12 @@
 /* eslint-disable no-constant-condition */
 /* eslint-disable no-mixed-spaces-and-tabs */
-import { EvolveClient, CacheOptions, GatewayIntents, Identify } from "..";
+
 import { EvolveSocket } from "./Websocket/Websocket";
 import { Oauth2 } from "../Oauth2/Oauth2";
 import { promisify } from "util";
 import { Structures } from "../Structures/Structures";
+import { CacheOptions, GatewayIntents, Identify } from "../Utils/Constants";
+import { EvolveClient } from "./EvolveClient";
 
 export class EvolveBuilder {
   private token!: string;

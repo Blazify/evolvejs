@@ -1,4 +1,5 @@
 import { Objex } from "@evolvejs/objex";
+import { listeners } from "../Decorators/Events";
 import { EVENTS } from "./Constants";
 
 export class EventListener {
@@ -38,7 +39,16 @@ export class EventListener {
 				  Object.call(listener, func)(...args);
   			}
   		}
-  	}
+	  }
+	  
+	  if(listeners) {
+		  for(const [k, v] of listeners) {
+			  if(k === name) {
+				  const func = v[k as unknown as keyof typeof v];
+				  Object.call(v, func)(...args);
+			  }
+		  }
+	  }
 
   	if (this._funcListeners.size !== 0) {
   		for (const [key, value] of this._funcListeners) {

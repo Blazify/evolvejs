@@ -1,3 +1,22 @@
+import { EvolveBuilder } from "./Client/EvolveBuilder";
+import { EvolveClient } from "./Client/EvolveClient";
+import { Event } from "./Decorators/Events";
+import { CacheOptions, GatewayIntents } from "./Utils/Constants";
+
+class Client extends EvolveClient {
+    @Event()
+	public clientReady() {
+		console.log("o/");
+	}
+}
+
+new EvolveBuilder("", false)
+	.setToken("NzUwMDMyNTk2OTYzOTUwNjIy.X00oSg.5waC5MG05vJJM-SPUG7U5UM0y4g")
+	.setClientClass(Client)
+	.enableCache(CacheOptions.GUILD)
+	.enableIntents(GatewayIntents.GUILD)
+	.build();
+
 export * from "./Client/EvolveBuilder";
 export * from "./Client/EvolveClient";
 export * from "./Client/ClientOptions";

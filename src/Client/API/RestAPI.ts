@@ -1,19 +1,16 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 
-import {
-	RestAPIHandler,
-	EvolveClient,
-	Guild,
-	User,
-	GuildMember,
-	MessageEmbed,
-	Message,
-	ChannelResolver,
-} from "../..";
 import { Invite } from "../../Structures/Guild/Invite";
 import { Emoji } from "../../Structures/Guild/Emoji";
 import { ChannelTypes } from "../../Utils/Constants";
 import { Channel } from "../../Structures/Channel/Channel";
+import { RestAPIHandler } from "./RestAPIHandler";
+import { EvolveClient } from "../EvolveClient";
+import { Guild } from "../../Structures/Guild/Guild";
+import { User } from "../../Structures/User/User";
+import { GuildMember } from "../../Structures/Guild/GuildMember";
+import { MessageEmbed } from "../../Utils/Embed/MessageEmbed";
+import { Message } from "../../Structures/Message/Message";
 
 /**
  * RestAPI Class

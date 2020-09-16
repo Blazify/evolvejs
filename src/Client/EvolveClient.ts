@@ -1,8 +1,4 @@
-import {
-	ClientUser,
-	ClientOptions,
-	RestAPI,
-} from "..";
+
 import { config } from "sign-logger/dist/config";
 import { Logger } from "sign-logger";
 import { Objex } from "@evolvejs/objex";
@@ -16,6 +12,9 @@ import { UsersManager } from "./Managers/UsersManager";
 import { RolesManager } from "./Managers/RolesManager";
 import { MessagesManager } from "./Managers/MessagesManager";
 import { EmojisManager } from "./Managers/EmojisManager";
+import { ClientOptions } from "./ClientOptions";
+import { RestAPI } from "./API/RestAPI";
+import { ClientUser } from "./ClientUser";
 
 export class EvolveClient extends EventListener {
   public token: string;
