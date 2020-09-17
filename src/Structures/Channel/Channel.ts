@@ -1,5 +1,5 @@
-import { EvolveClient, CHANNELTYPES } from "../..";
-import { ChannelResolver, ChannelTypes } from "../../Utils/Constants";
+import { EvolveClient } from "../../Client/EvolveClient";
+import { CHANNELTYPES } from "../../Utils/Constants";
 
 export class Channel {
   public client: EvolveClient;
@@ -10,10 +10,5 @@ export class Channel {
   	this.client = client;
   	this.id = id;
   	this.type = type;
-  }
-
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  public resolve(data: any): ChannelTypes {
-  	return new ChannelResolver[this.type](data, this.client);
   }
 }

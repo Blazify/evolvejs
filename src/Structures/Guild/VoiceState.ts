@@ -2,12 +2,12 @@
 
 import {
 	Guild,
-	Channel,
 	User,
 	GuildMember,
 	IVoiceState,
 	EvolveClient,
 } from "../..";
+import { Channel } from "../Channel/Channel";
 
 export class VoiceState {
   public guild!: Guild;

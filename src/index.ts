@@ -1,6 +1,7 @@
 export * from "./Client/EvolveBuilder";
 export * from "./Client/EvolveClient";
 export * from "./Client/ClientOptions";
+export * from "./Decorators/Builder";
 export * from "./Client/ClientUser";
 export * from "./Client/API/RestAPI";
 export * from "./Client/API/RestAPIHandler";
