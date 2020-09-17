@@ -1,20 +1,24 @@
 /* eslint-disable no-constant-condition */
 /* eslint-disable no-mixed-spaces-and-tabs */
-import { EvolveClient, CacheOptions, GatewayIntents, Identify } from "..";
+
 import { EvolveSocket } from "./Websocket/Websocket";
 import { Oauth2 } from "../Oauth2/Oauth2";
 import { promisify } from "util";
+import { Structures } from "../Structures/Structures";
+import { CacheOptions, GatewayIntents, Identify } from "../Utils/Constants";
+import { EvolveClient } from "./EvolveClient";
 
 export class EvolveBuilder {
   private token!: string;
   public shards = 1;
   public intents = 0;
   private cache: Set<CacheOptions> = new Set();
-  private promiseRejection = false;
   public activity: typeof Identify.d.activity;
   public secret!: string;
   public encoding: "etf" | "json" = "json";
   public client!: EvolveClient;
+  private structure!: Structures;
+  private typeOfclient!: typeof EvolveClient;
 
   public constructor(token?: string, useDefaultIntents = true) {
   	if (token) {
@@ -24,9 +28,9 @@ export class EvolveBuilder {
   	if(useDefaultIntents) {
   	this.enableCache(CacheOptions.GUILD);
   	this.enableIntents(
-  		GatewayIntents.GUILD +
-      GatewayIntents.GUILD_MESSAGES +
-      GatewayIntents.DIRECT_MESSAGES
+		  GatewayIntents.GUILD +
+		  GatewayIntents.GUILD_MESSAGES +
+		  GatewayIntents.DIRECT_MESSAGES
   		);
   	}
   }
@@ -131,11 +135,22 @@ export class EvolveBuilder {
   	return this;
   }
 
+  public setStructureClass(structure: Structures): EvolveBuilder {
+  	this.structure = structure;
+  	return this;
+  }
+
+  public setClientClass(client: typeof EvolveClient): EvolveBuilder {
+  	this.typeOfclient = client;
+  	return this;
+  }
+
   /**
    * @param none
    * @returns {EvolveClient} A Initialized EvolveClient Instance
    */
   public build(): EvolveClient {
+  	if(!this.typeOfclient) {
   	this.client = new EvolveClient(this.token, {
   		enableGuildCache: this.cache.has(CacheOptions.GUILD)
   			? true
@@ -152,7 +167,28 @@ export class EvolveBuilder {
   		enableMessageCache: this.cache.has(CacheOptions.MESSAGES)
   			? true
   			: this.cache.has(CacheOptions.ALL),
-  	});
+  		});
+  	} else {
+  		this.client = new this.typeOfclient(
+  			this.token, {
+  				enableGuildCache: this.cache.has(CacheOptions.GUILD)
+  					? true
+  					: this.cache.has(CacheOptions.ALL),
+  				enableChannelCache: this.cache.has(CacheOptions.CHANNELS)
+  					? true
+  					: this.cache.has(CacheOptions.ALL),
+  				enableEmojiCache: this.cache.has(CacheOptions.EMOJI)
+  					? true
+  					: this.cache.has(CacheOptions.ALL),
+  				enableUsersCache: this.cache.has(CacheOptions.USERS)
+  					? true
+  					: this.cache.has(CacheOptions.ALL),
+  				enableMessageCache: this.cache.has(CacheOptions.MESSAGES)
+  					? true
+  					: this.cache.has(CacheOptions.ALL),
+  			}
+  		);
+  	}
   
   	if (!this.token) {
   		this.client.logger.error(
@@ -171,7 +207,9 @@ export class EvolveBuilder {
   	if (this.secret) {
   		this.client.secret = this.secret;
   		this.client.oauth2 = new Oauth2(this.client);
-  	}
+	  }
+	  
+	  if(this.structure) this.client.structures = this.structure;
 
   	for (let i = 0; i < this.shards; i++) {
   		promisify(setTimeout)(5000 * i).then(() => {

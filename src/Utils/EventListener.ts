@@ -1,10 +1,10 @@
 import { Objex } from "@evolvejs/objex";
-import { Classes } from "../Structures/Structures";
+import { listeners } from "../Decorators/Events";
 import { EVENTS } from "./Constants";
 
 export class EventListener {
   private _objListeners: Set<Object> = new Set();
-  private _funcListeners: Objex<(...args: any[]) => void, string> = new Objex();
+  private _funcListeners = new Objex<(...args: unknown[]) => void, string>();
 
 
   public addListener(o: Object): void {
@@ -13,6 +13,12 @@ export class EventListener {
 
   public removeListener(o: Object): void {
   	this._objListeners.delete(o);
+  }
+
+  public removeAllListeners(): void {
+	  this._funcListeners.clear();
+	  this._objListeners.clear();
+	  listeners.clear();
   }
 
   public on(name: string, listener: (...args: any[]) => void): void {
@@ -39,7 +45,20 @@ export class EventListener {
 				  Object.call(listener, func)(...args);
   			}
   		}
-  	}
+	  }
+	  
+	  if(listeners) {
+		  for(const [k, v] of listeners) {
+			  if(k[0] === name) {
+				  try {
+				  const func = v[k[1] as unknown as keyof typeof v];
+				  Object.call(v, func)(...args);
+				  } catch(e) {
+					  v.logger.error(e);
+				  }
+			  }
+		  }
+	  }
 
   	if (this._funcListeners.size !== 0) {
   		for (const [key, value] of this._funcListeners) {

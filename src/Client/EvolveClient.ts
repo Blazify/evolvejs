@@ -1,20 +1,9 @@
-import {
-	Guild,
-	User,
-	Emoji,
-	Role,
-	Message,
-	ClientUser,
-	ClientOptions,
-	RestAPI,
-} from "..";
 import { config } from "sign-logger/dist/config";
 import { Logger } from "sign-logger";
 import { Objex } from "@evolvejs/objex";
 import { Oauth2 } from "../Oauth2/Oauth2";
 import { Structures } from "../Structures/Structures";
 import { EvolveSocket } from "./Websocket/Websocket";
-import { ChannelTypes } from "../Utils/Constants";
 import { EventListener } from "../Utils/EventListener";
 import { GuildsManager } from "./Managers/GuildsManager";
 import { ChannelsManager } from "./Managers/ChannelsManger";
@@ -22,6 +11,9 @@ import { UsersManager } from "./Managers/UsersManager";
 import { RolesManager } from "./Managers/RolesManager";
 import { MessagesManager } from "./Managers/MessagesManager";
 import { EmojisManager } from "./Managers/EmojisManager";
+import { ClientOptions } from "./ClientOptions";
+import { RestAPI } from "./API/RestAPI";
+import { ClientUser } from "./ClientUser";
 
 export class EvolveClient extends EventListener {
   public token: string;
