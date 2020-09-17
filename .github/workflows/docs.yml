@@ -1,0 +1,35 @@
+name: Documentations Generator
+
+on:
+  create:
+    tags:
+      - "*"
+
+jobs:
+  generate-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org/
+      - name: Install dependencies
+        run: yarn
+      - name: Generate docs
+        run: yarn docs
+      - name: Checkout the docs branch
+        run: |
+          git fetch
+          git checkout docs
+      - name: Configure git identity
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+      - name: Extract and save tag in env
+        run: echo ::set-env name=TAG::${GITHUB_REF#refs/*/}
+      - name: Stage, commit & push changes
+        run: |
+          git add *.json
+          git commit -m  "Docs update triggered by ${{ env.TAG }}"
+          git push origin docs
