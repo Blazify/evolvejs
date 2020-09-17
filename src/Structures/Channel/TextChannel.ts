@@ -1,16 +1,13 @@
-/* eslint-disable no-mixed-spaces-and-tabs */
-import {
-	Overwrite,
-	Guild,
-	CategoryChannel,
-	ITextChannel,
-	EvolveClient,
-	CHANNELTYPES,
-	Message,
-	MessageEmbed,
-} from "../..";
 import { Channel } from "./Channel";
 import { Objex } from "@evolvejs/objex";
+import { Overwrite } from "./Overwrite";
+import { Guild } from "../Guild/Guild";
+import { CategoryChannel } from "./CategoryChannel";
+import { MessageEmbed } from "../../Utils/Embed/MessageEmbed";
+import { Message } from "../Message/Message";
+import { ITextChannel } from "../../Interfaces/TextChannelOptions";
+import { CHANNELTYPES } from "../../Utils/Constants";
+import { EvolveClient } from "../../Client/EvolveClient";
 
 export class TextChannel extends Channel {
   public overwrites: Objex<string, Overwrite> = new Objex();

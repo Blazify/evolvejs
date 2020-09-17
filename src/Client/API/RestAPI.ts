@@ -2,7 +2,7 @@
 
 import { Invite } from "../../Structures/Guild/Invite";
 import { Emoji } from "../../Structures/Guild/Emoji";
-import { ChannelTypes } from "../../Utils/Constants";
+import { ChannelResolver, ChannelTypes } from "../../Utils/Constants";
 import { Channel } from "../../Structures/Channel/Channel";
 import { RestAPIHandler } from "./RestAPIHandler";
 import { EvolveClient } from "../EvolveClient";
@@ -11,6 +11,7 @@ import { User } from "../../Structures/User/User";
 import { GuildMember } from "../../Structures/Guild/GuildMember";
 import { MessageEmbed } from "../../Utils/Embed/MessageEmbed";
 import { Message } from "../../Structures/Message/Message";
+import { TextChannel } from "../../Structures/Channel/TextChannel";
 
 /**
  * RestAPI Class
@@ -45,7 +46,9 @@ export class RestAPI {
   	const channelArray: ChannelTypes[] = [];
 
   	for (const c of channels) {
-  		channelArray.push(new Channel(c.id, c.type, this.client).resolve(c));
+		  if(ChannelResolver[c.type]) {
+		  channelArray.push(new (ChannelResolver[c.type])(c, this.client));
+		  }
   	}
 
   	return channelArray;
@@ -137,8 +140,10 @@ export class RestAPI {
   	const c = await this.handler.fetch({
   		endpoint: `/channels/${channelID}`,
   		method: "GET",
-  	});
-  	const channel = new Channel(c.id, c.type, this.client).resolve(c);
+	  });
+	  let channel: ChannelTypes = new TextChannel(c, this.client);
+	  if(ChannelResolver[c.type])
+	  channel = new (ChannelResolver[c.type])(c, this.client);
 
   	return channel;
   }

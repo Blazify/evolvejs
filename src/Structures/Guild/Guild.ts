@@ -3,7 +3,6 @@
 import {
 	EvolveClient,
 	GuildMember,
-	Channel,
 	Role,
 	Emoji,
 	VoiceState,
@@ -12,6 +11,7 @@ import {
 } from "../..";
 import { Objex } from "@evolvejs/objex";
 import { ChannelTypes } from "../../Utils/Constants";
+import { Channel } from "../Channel/Channel";
 
 export class Guild {
   public client: EvolveClient;

@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "esnext",
+    "target": "es6",
     "outDir": "./dist",
     "rootDir": "./src/",
-    "lib": ["es6", "ESNext", "DOM"],
+    "lib": ["es6", "ESNext"],
     "declaration": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,

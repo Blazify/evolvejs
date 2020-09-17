@@ -28,9 +28,9 @@ export class EvolveBuilder {
   	if(useDefaultIntents) {
   	this.enableCache(CacheOptions.GUILD);
   	this.enableIntents(
-  		GatewayIntents.GUILD +
-      GatewayIntents.GUILD_MESSAGES +
-      GatewayIntents.DIRECT_MESSAGES
+		  GatewayIntents.GUILD +
+		  GatewayIntents.GUILD_MESSAGES +
+		  GatewayIntents.DIRECT_MESSAGES
   		);
   	}
   }
