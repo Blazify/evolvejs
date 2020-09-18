@@ -191,15 +191,15 @@ export class EvolveBuilder {
   	}
   
   	if (!this.token) {
-  		this.client.logger.error(
+  		throw this.client.logger.error(
   			"EvolveBuilder#build Error.. -> No token Provided for EvolveClient to be initialized"
   		);
   	}
   	if (this.shards <= 0)
-  		this.client.logger.error("Total shards must be more than 0!");
+  		throw this.client.logger.error("Total shards must be more than 0!");
 
   	if (this.intents == 0) {
-  		this.client.logger.warn(
+  		throw this.client.logger.warn(
   			"No Intents are given, you will not get any events except some..."
   		);
   	}
