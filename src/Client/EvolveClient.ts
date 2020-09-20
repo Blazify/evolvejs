@@ -19,7 +19,7 @@ export class EvolveClient extends EventListener {
   public token: string;
   public options: ClientOptions;
   public guilds: GuildsManager = new GuildsManager();
-  public channels: ChannelsManager = new ChannelsManager();
+  public channels: ChannelsManager = new ChannelsManager(this);
   public users: UsersManager = new UsersManager();
   public emojis: EmojisManager = new EmojisManager();
   public roles: RolesManager = new RolesManager();

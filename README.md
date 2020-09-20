@@ -59,7 +59,20 @@ const client = new EvolveBuilder()
                     .build()
 
 client.on("clientReady", () => {
-  console.log(client.user.username) // logs the client's username when a shard is ready
+  console.log(client.user.username) // logs the client's username when all shard is ready
+
+  /*
+  Adds a listener to each of shards
+  */
+  	for(const [id, connection] of client.shardConnections) {
+		connection.gateway.on("shardSpawn", () => {
+			console.log(`Shard ${id} has been launched`);
+		});
+
+		connection.gateway.on("shardDestroy", () => {
+			console.log(`Shard ${id} has been destroyed`);
+		});
+	}
 })
 
 client.on("newMessage", (event) => {
@@ -67,17 +80,8 @@ client.on("newMessage", (event) => {
     event.channel.send("Pong") // sends a message with content of "Pong"
     console.log(event.shard) //logs the entire shard websocket in which the event was triggered
   } else if(event.message.content == "shutdown") {
-    event.channel.send("Shutting Down");
-    client.shutdown();
-    for(const [k, v] of client.shardConnections) {
-      v.gateway.on("shardReady", (shard) => {
-        console.log(shard);
-        })
-        v.gateway.on("shardDestroy", (shard) => {
-          console.log(shard);
-          })
-        }
-      }
+    event.channel.send("Shutting Down");// sends message saying client is shutting down
+    client.shutdown();//proper shard destryoing returns multiple shard destroy event if multiple shards
   })
 
 
