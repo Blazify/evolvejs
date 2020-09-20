@@ -19,6 +19,7 @@ client.on("clientReady", () => {
 
 client.on("newMessage", (event: MessageEvents) => {
 	if(!(event.message instanceof Message)) return;
+	if(!event.message.content.startsWith("!")) return;
 	const args: string[] = event.message.content.replace("!", "").split(" ");
 	if(args[0] === "test") {
 		event.message.channel.send(

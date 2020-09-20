@@ -29,13 +29,22 @@ export class RestAPIHandler {
 
 				return fetched.json();
 			} else {
+				let body;
+				if(options.postType == "Message") {
+					body = JSON.stringify(options.message);
+				} else if(options.postType == "Channel") {
+					body = JSON.stringify(options.channel);
+				}
+
+				if(!body) throw this.client.logger.error("No Post Type Given in POST fetching");
+
 				const fetched = await fetch(`${CONSTANTS.Api}/${options.endpoint}`, {
 					method: options.method,
 					headers: {
 						"Content-Type": "application/json",
 						Authorization: `Bot ${this.client.token}`,
 					},
-					body: JSON.stringify(options.message),
+					body: body,
 				});
 
 				if (fetched.status === 429) {

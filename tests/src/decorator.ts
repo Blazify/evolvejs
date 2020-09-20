@@ -22,6 +22,7 @@ export class Client extends EvolveClient {
     @Event("newMessage")
     public onMessage(event: MessageEvents): void {
     	if(!(event.message instanceof Message)) return;
+    	if(!event.message.content.startsWith("!")) return;
     	const args: string[] = event.message.content.replace("!", "").split(" ");
     	if(args[0] === "test") {
     		event.message.channel.send(

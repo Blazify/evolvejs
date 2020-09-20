@@ -12,11 +12,13 @@ import {
 import { Objex } from "@evolvejs/objex";
 import { ChannelTypes } from "../../Utils/Constants";
 import { Channel } from "../Channel/Channel";
+import { ChannelsManager } from "../../Client/Managers/ChannelsManger";
+import { clear } from "console";
 
 export class Guild {
   public client: EvolveClient;
   public members: Objex<string, GuildMember> = new Objex();
-  public channels: Objex<string, ChannelTypes> = new Objex();
+  public channels!: ChannelsManager;
   public roles: Objex<string, Role> = new Objex();
   public emojis: Objex<string | null, Emoji> = new Objex();
   public voiceStates: Objex<string, VoiceState> = new Objex();
@@ -61,7 +63,8 @@ export class Guild {
 
   constructor(public data: IGuild, client: EvolveClient) {
   	this.client = client;
-  	this.id = data.id;
+	  this.id = data.id;
+	  this.channels = new ChannelsManager(client, this);
   	this._handle();
   }
 
