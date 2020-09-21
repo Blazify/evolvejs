@@ -13,8 +13,8 @@ jobs:
         with:
           node-version: 14
       - run: npm i
-      - run: npm start
       - run: npm run lint:fix
+      - run: npm start
 
   publish-npm:
     needs: build
