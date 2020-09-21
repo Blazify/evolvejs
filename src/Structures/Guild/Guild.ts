@@ -107,7 +107,7 @@ export class Guild {
   	this.explicitContentFilter = this.data.explicit_content_filter;
   	this.mfaLevel = this.data.mfa_level;
   	this.applicationID = this.data.application_id || undefined;
-  	this.widgetEnabled = this.data.widget_enabled || false;
+  	this.widgetEnabled = this.data.widget_enabled ?? false;
   	this.widgetChannel = this.data.widget_channel_id
   		? this.client.channels.get(this.data.widget_channel_id)
   		: undefined;
@@ -118,17 +118,17 @@ export class Guild {
   	this.rulesChannel = this.data.rules_channel_id
   		? this.client.channels.get(this.data.rules_channel_id)
   		: undefined;
-  	this.joinedAt = this.data.joined_at || undefined;
-  	this.large = this.data.large || false;
-  	this.unavailable = this.data.unavailable || false;
+  	this.joinedAt = this.data.joined_at ?? undefined;
+  	this.large = this.data.large ?? false;
+  	this.unavailable = this.data.unavailable ?? false;
   	this.memberCount = this.members.size;
-  	this.maxPresences = this.data.max_presences || undefined;
+  	this.maxPresences = this.data.max_presences ?? undefined;
   	this.maxMembers = this.data.max_members;
-  	this.vanityCode = this.data.vanity_url_code || undefined;
-  	this.description = this.data.description || undefined;
-  	this.banner = this.data.banner || undefined;
+  	this.vanityCode = this.data.vanity_url_code ?? undefined;
+  	this.description = this.data.description ?? undefined;
+  	this.banner = this.data.banner ?? undefined;
   	this.premiumTier = this.data.premium_tier;
-  	this.premiumSubCount = this.data.premium_subscription_count || 0;
+  	this.premiumSubCount = this.data.premium_subscription_count ?? 0;
   	this.preferredLang = this.data.preferred_locale;
   	this.updatesChannel = this.data.public_updates_channel_id
   		? this.client.channels.get(this.data.public_updates_channel_id)

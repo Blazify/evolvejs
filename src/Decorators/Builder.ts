@@ -9,7 +9,7 @@ export function Builder(options: BuilderDecoratorOptions) {
 	return (target: typeof EvolveClient): void => {
 		const builder: EvolveBuilder = new EvolveBuilder(
 			options.token,
-			options.useDefaultSetting ? true : false
+			options.useDefaultSetting ?? false
 		);
 		builder.setClientClass(target);
 		if (options.intents) builder.enableIntents(...options.intents);

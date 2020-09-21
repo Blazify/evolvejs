@@ -1,5 +1,4 @@
 import { Objex } from "@evolvejs/objex";
-import "reflect-metadata";
 import { EvolveClient } from "../Client/EvolveClient";
 
 export const listeners = new Objex<Array<string>, EvolveClient>();
@@ -11,6 +10,6 @@ export function Event(eventName?: string) {
 		propertyDescriptor: PropertyDescriptor
 	): void => {
 		if (propertyDescriptor.writable)
-			listeners.set([eventName ? eventName : propertyKey, propertyKey], target);
+			listeners.set([eventName ?? propertyKey, propertyKey], target);
 	};
 }

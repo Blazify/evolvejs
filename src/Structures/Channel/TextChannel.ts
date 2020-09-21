@@ -33,7 +33,7 @@ export class TextChannel extends Channel {
   	this.guild = this.client.guilds.get(this.data.guild_id);
   	this.position = this.data.position;
   	this.name = this.data.name;
-  	this.topic = this.data.topic || undefined;
+  	this.topic = this.data.topic ?? "";
   	this.nsfw = this.data.nsfw;
   	this.rateLimit = this.data.rate_limit_per_user;
   	this.parent = this.data.parent_id
