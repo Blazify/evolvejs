@@ -38,11 +38,11 @@ export class EvolveClient extends EventListener {
   		info: config.Blue,
   		success: config.Green,
   		debug: config.Magenta,
-  		warn: config.Yellow
+  		warn: config.Yellow,
   	},
-  	symbols : {
+  	symbols: {
   		left: "<",
-  		right: ">"
+  		right: ">",
   	},
   	textColors: {
   		all: false,
@@ -50,8 +50,8 @@ export class EvolveClient extends EventListener {
   		info: config.Blue,
   		success: config.Green,
   		debug: config.Magenta,
-  		warn: config.Yellow
-  	}
+  		warn: config.Yellow,
+  	},
   });
   public sessionID = "";
 

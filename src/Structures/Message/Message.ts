@@ -21,15 +21,19 @@ export class Message {
   public channel!: TextChannel;
   public delete!: (time: number) => Promise<NodeJS.Timeout>;
 
-  constructor(public data: IMessage, private client: EvolveClient, channel: TextChannel, guild?: Guild) {
+  constructor(
+    public data: IMessage,
+    private client: EvolveClient,
+    channel: TextChannel,
+    guild?: Guild
+  ) {
   	if (!this.data) return;
   	if (this.data.mentions)
   		for (const it of this.data.mentions) {
   			this.mentions.push(new User(it));
   		}
   	this.channel = channel;
-  	if (guild)
-  		this.guild = guild;
+  	if (guild) this.guild = guild;
   	if (this.data.guild_id) this.client.rest.getGuild(this.data.guild_id);
   	this.sentAt = this.data.sent_at;
   	this.id = this.data.id;
@@ -42,7 +46,7 @@ export class Message {
   	this.editedTimestamp = this.data.edited_timestamp;
   	this.attachments = this.data.attachments;
   	this.content = this.data.content;
-	
+
   	this.delete = (time = 0) => {
   		return this.client.rest.deleteMessage(this.id, this.channel.id, time);
   	};
@@ -50,14 +54,15 @@ export class Message {
   }
 
   static async handle(data: IMessage, client: EvolveClient): Promise<Message> {
-	  let message: Message;
-		  let guild: Guild;
-		  const channel: TextChannel = await client.rest.getChannel(data.channel_id) as TextChannel;
-		  if(data.guild_id) {
-			  guild = await client.rest.getGuild(data.guild_id);
-			  message = new Message(data, client, channel, guild);
-		  } else message = new Message(data, client, channel);
-	  return message;
+  	let message: Message;
+  	let guild: Guild;
+  	const channel: TextChannel = (await client.rest.getChannel(
+  		data.channel_id
+  	)) as TextChannel;
+  	if (data.guild_id) {
+  		guild = await client.rest.getGuild(data.guild_id);
+  		message = new Message(data, client, channel, guild);
+  	} else message = new Message(data, client, channel);
+  	return message;
   }
-  	
 }

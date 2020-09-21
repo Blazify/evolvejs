@@ -63,8 +63,8 @@ export class Guild {
 
   constructor(public data: IGuild, client: EvolveClient) {
   	this.client = client;
-	  this.id = data.id;
-	  this.channels = new ChannelsManager(client, this);
+  	this.id = data.id;
+  	this.channels = new ChannelsManager(client, this);
   	this._handle();
   }
 

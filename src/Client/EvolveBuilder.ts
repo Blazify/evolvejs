@@ -25,13 +25,13 @@ export class EvolveBuilder {
   	if (token) {
   		this.token = token;
   	}
-    
-  	if(useDefaultIntents) {
-  	this.enableCache(CacheOptions.GUILD);
-  	this.enableIntents(
-		  GatewayIntents.GUILD +
-		  GatewayIntents.GUILD_MESSAGES +
-		  GatewayIntents.DIRECT_MESSAGES
+
+  	if (useDefaultIntents) {
+  		this.enableCache(CacheOptions.GUILD);
+  		this.enableIntents(
+  			GatewayIntents.GUILD +
+          GatewayIntents.GUILD_MESSAGES +
+          GatewayIntents.DIRECT_MESSAGES
   		);
   	}
   }
@@ -151,46 +151,44 @@ export class EvolveBuilder {
    * @returns {EvolveClient} A Initialized EvolveClient Instance
    */
   public build(): EvolveClient {
-  	if(!this.typeOfclient) {
-  	this.client = new EvolveClient(this.token, {
-  		enableGuildCache: this.cache.has(CacheOptions.GUILD)
-  			? true
-  			: this.cache.has(CacheOptions.ALL),
-  		enableChannelCache: this.cache.has(CacheOptions.CHANNELS)
-  			? true
-  			: this.cache.has(CacheOptions.ALL),
-  		enableEmojiCache: this.cache.has(CacheOptions.EMOJI)
-  			? true
-  			: this.cache.has(CacheOptions.ALL),
-  		enableUsersCache: this.cache.has(CacheOptions.USERS)
-  			? true
-  			: this.cache.has(CacheOptions.ALL),
-  		enableMessageCache: this.cache.has(CacheOptions.MESSAGES)
-  			? true
-  			: this.cache.has(CacheOptions.ALL),
+  	if (!this.typeOfclient) {
+  		this.client = new EvolveClient(this.token, {
+  			enableGuildCache: this.cache.has(CacheOptions.GUILD)
+  				? true
+  				: this.cache.has(CacheOptions.ALL),
+  			enableChannelCache: this.cache.has(CacheOptions.CHANNELS)
+  				? true
+  				: this.cache.has(CacheOptions.ALL),
+  			enableEmojiCache: this.cache.has(CacheOptions.EMOJI)
+  				? true
+  				: this.cache.has(CacheOptions.ALL),
+  			enableUsersCache: this.cache.has(CacheOptions.USERS)
+  				? true
+  				: this.cache.has(CacheOptions.ALL),
+  			enableMessageCache: this.cache.has(CacheOptions.MESSAGES)
+  				? true
+  				: this.cache.has(CacheOptions.ALL),
   		});
   	} else {
-  		this.client = new this.typeOfclient(
-  			this.token, {
-  				enableGuildCache: this.cache.has(CacheOptions.GUILD)
-  					? true
-  					: this.cache.has(CacheOptions.ALL),
-  				enableChannelCache: this.cache.has(CacheOptions.CHANNELS)
-  					? true
-  					: this.cache.has(CacheOptions.ALL),
-  				enableEmojiCache: this.cache.has(CacheOptions.EMOJI)
-  					? true
-  					: this.cache.has(CacheOptions.ALL),
-  				enableUsersCache: this.cache.has(CacheOptions.USERS)
-  					? true
-  					: this.cache.has(CacheOptions.ALL),
-  				enableMessageCache: this.cache.has(CacheOptions.MESSAGES)
-  					? true
-  					: this.cache.has(CacheOptions.ALL),
-  			}
-  		);
+  		this.client = new this.typeOfclient(this.token, {
+  			enableGuildCache: this.cache.has(CacheOptions.GUILD)
+  				? true
+  				: this.cache.has(CacheOptions.ALL),
+  			enableChannelCache: this.cache.has(CacheOptions.CHANNELS)
+  				? true
+  				: this.cache.has(CacheOptions.ALL),
+  			enableEmojiCache: this.cache.has(CacheOptions.EMOJI)
+  				? true
+  				: this.cache.has(CacheOptions.ALL),
+  			enableUsersCache: this.cache.has(CacheOptions.USERS)
+  				? true
+  				: this.cache.has(CacheOptions.ALL),
+  			enableMessageCache: this.cache.has(CacheOptions.MESSAGES)
+  				? true
+  				: this.cache.has(CacheOptions.ALL),
+  		});
   	}
-  
+
   	if (!this.token) {
   		throw this.client.logger.error(
   			"EvolveBuilder#build Error.. -> No token Provided for EvolveClient to be initialized"
@@ -208,13 +206,13 @@ export class EvolveBuilder {
   	if (this.secret) {
   		this.client.secret = this.secret;
   		this.client.oauth2 = new Oauth2(this.client);
-	  }
-	  
-	  if(this.structure) this.client.structures = this.structure;
+  	}
 
-	  const manager = new ShardManager(this);
-	  this.client.sharder = manager;
-	  manager.spawnAll();
+  	if (this.structure) this.client.structures = this.structure;
+
+  	const manager = new ShardManager(this);
+  	this.client.sharder = manager;
+  	manager.spawnAll();
 
   	this.client.secret = this.secret;
   	return this.client;

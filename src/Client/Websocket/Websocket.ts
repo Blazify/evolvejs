@@ -10,7 +10,7 @@ export class EvolveSocket extends ws {
 
   constructor(public manager: ShardManager, public shard: number) {
   	super(CONSTANTS.Gateway + manager.builder.encoding);
-	  this._init();
+  	this._init();
   }
 
   public send(data: Payload): void {
@@ -40,11 +40,13 @@ export class EvolveSocket extends ws {
   		});
 
   		this.on("close", (code, res) => {
-  			this.manager.builder.client.logger.error(`Code: ${code}, Response: ${res}`);
+  			this.manager.builder.client.logger.error(
+  				`Code: ${code}, Response: ${res}`
+  			);
   		});
 
   		this.on("message", (data: Data) => {
-			  this.gateway.init(data, this);
+  			this.gateway.init(data, this);
   		});
   	} catch (e) {
   		this.manager.builder.client.logger.error(e);

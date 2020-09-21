@@ -23,21 +23,21 @@ export class Gateway {
   	this.shard = this.ws.shard;
 
   	try {
-	  let payload: Payload;
-	  if(this.ws.manager.builder.encoding == "json") {
-		  payload = JSON.parse(data.toString());
-	  } else {
-		  const packed: Buffer = Buffer.from(data.toString(), "binary");
-		  try {
-			  const erlpack = require("erlpack");
-			  payload = erlpack.unpack(packed);
-		  } catch(e) {
-			  throw this.ws.manager.builder.client.logger.error(e);
-		  }
+  		let payload: Payload;
+  		if (this.ws.manager.builder.encoding == "json") {
+  			payload = JSON.parse(data.toString());
+  		} else {
+  			const packed: Buffer = Buffer.from(data.toString(), "binary");
+  			try {
+  				const erlpack = require("erlpack");
+  				payload = erlpack.unpack(packed);
+  			} catch (e) {
+  				throw this.ws.manager.builder.client.logger.error(e);
+  			}
   		}
   		const { op, t, d } = payload;
   		if (!d) return;
-      
+
   		if (op === OPCODE.Hello) {
   			// Command: Heartbeat
   			this._spawn(this.shard);
@@ -45,7 +45,6 @@ export class Gateway {
   			setInterval(() => {
   				this.ws.send(Heartbeat);
   			}, d.heartbeat_interval);
-
   		} else if (op === OPCODE.Reconnect) {
   			this.ws.manager.connections.clear();
   			this.ws.manager.connections.set(
@@ -79,7 +78,6 @@ export class Gateway {
   	Identify.d.activity = this.ws.manager.builder.activity;
   	Identify.d.shard = [shard, this.ws.manager.builder.shards];
   	Identify.d.intents = this.ws.manager.builder.intents;
-    
 
   	if (this._debug(shard)) {
   		this.ws.send(Identify);

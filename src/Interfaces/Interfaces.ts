@@ -7,9 +7,9 @@ import { MessageEmbed } from "../Utils/Embed/MessageEmbed";
 export interface IAPIParams {
   endpoint: string;
   method: "GET" | "POST" | "DELETE" | "PUT";
-  postType?: "Message" | "Channel"
+  postType?: "Message" | "Channel";
   message?: MessageOptions;
-  channel?: ChannelOptions
+  channel?: ChannelOptions;
 }
 
 export interface MessageOptions {
@@ -19,16 +19,16 @@ export interface MessageOptions {
 }
 
 export interface ChannelOptions {
-  name: string
-  type?: CHANNELTYPES
-  topic?: string
-  bitrate?: string
-  user_limit?: number
-  rate_limit_per_user?: number
-  position?: number
-  permission_overwrites?: Array<Overwrite>
-  parent_id?: string
-  nsfw?: boolean
+  name: string;
+  type?: CHANNELTYPES;
+  topic?: string;
+  bitrate?: string;
+  user_limit?: number;
+  rate_limit_per_user?: number;
+  position?: number;
+  permission_overwrites?: Array<Overwrite>;
+  parent_id?: string;
+  nsfw?: boolean;
 }
 
 export interface Payload {
