@@ -3,6 +3,8 @@ import { EvolveClient } from "../Client/EvolveClient";
 import { Structures } from "../Structures/Structures";
 import { CacheOptions, GatewayIntents } from "../Utils/Constants";
 
+let built = false;
+
 export function Builder(options: BuilderDecoratorOptions) {
 	return (target: typeof EvolveClient): void => {
 		const builder: EvolveBuilder = new EvolveBuilder(options.token, options.useDefaultSetting ? true : false);
@@ -15,7 +17,9 @@ export function Builder(options: BuilderDecoratorOptions) {
 		if(options.shards) builder.setShards(options.shards);
 		if(options.structure) builder.setStructureClass(options.structure);
 
+		if(built) throw new Error("Decorator Builder Error");
 		builder.build();
+		built = true;
 	};
 }
 

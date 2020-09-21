@@ -7,6 +7,7 @@ import { promisify } from "util";
 import { Structures } from "../Structures/Structures";
 import { CacheOptions, GatewayIntents, Identify } from "../Utils/Constants";
 import { EvolveClient } from "./EvolveClient";
+import { ShardManager } from "./Websocket/ShardManager";
 
 export class EvolveBuilder {
   private token!: string;
@@ -211,12 +212,9 @@ export class EvolveBuilder {
 	  
 	  if(this.structure) this.client.structures = this.structure;
 
-  	for (let i = 0; i < this.shards; i++) {
-  		promisify(setTimeout)(5000 * i).then(() => {
-  			const socket = new EvolveSocket(this, i);
-  			this.client.shardConnections.set(i, socket);
-  		});
-  	}
+	  const manager = new ShardManager(this);
+	  this.client.sharder = manager;
+	  manager.spawnAll();
 
   	this.client.secret = this.secret;
   	return this.client;

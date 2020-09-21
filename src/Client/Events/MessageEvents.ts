@@ -31,8 +31,10 @@ export class MessageEvents extends BaseEvent {
 				(this.client.structures.get("Message")).handle(
 					message.data,
 					client
-				).then((o: Message) => {
-					this.message = o;
+				).then((message: Message) => {
+					return message;
+				}).then((message: Message) => {
+					this.message = message;
 				});
 			} else if (message instanceof Objex) {
 				for (const [k, v] of message) {
