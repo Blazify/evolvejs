@@ -37,11 +37,11 @@ npm install @evolvejs/evolvejs
 
 **You need the following things before you can kick off with EvolveJS:**
 
-- [**Node Installed**](https://www.nodejs.org)
+- [**NodeJS v14 Installed**](https://www.nodejs.org)
 
 # Documentation and Support
 
-- **[Official Docs](https://evolvejs.github.io)**
+- **[Official Docs](https://evolvejs.js.org)**
 Note :- The Docs aren't completed
 - **For any further query and support join us at [EvolveJS](https://discord.gg/9bnpjqY) discord.**
 
@@ -60,20 +60,10 @@ const client = new EvolveBuilder()
 
 client.on("clientReady", () => {
   console.log(client.user.username) // logs the client's username when all shard is ready
-
-  /*
-  Adds a listener to each of shards
-  */
-  	for(const [id, connection] of client.shardConnections) {
-		connection.gateway.on("shardSpawn", () => {
-			console.log(`Shard ${id} has been launched`);
-		});
-
-		connection.gateway.on("shardDestroy", () => {
-			console.log(`Shard ${id} has been destroyed`);
-		});
-	}
 })
+
+client.sharder.on("shardSpawn", (id) => console.log(`${id} shard is now online`))
+client.sharder.on("shardDestroy", (id) => console.log(`${id} shard is destryed`))
 
 client.on("newMessage", (event) => {
   if(event.message.content == "ping") { // checks if the message sent was "ping"
@@ -81,7 +71,7 @@ client.on("newMessage", (event) => {
     console.log(event.shard) //logs the entire shard websocket in which the event was triggered
   } else if(event.message.content == "shutdown") {
     event.channel.send("Shutting Down");// sends message saying client is shutting down
-    client.shutdown();//proper shard destryoing returns multiple shard destroy event if multiple shards
+    client.sharder.shutdown();//proper shard destryoing returns multiple shard destroy event if multiple shards
   })
 
 
@@ -93,12 +83,11 @@ client.on("newMessage", (event) => {
 
 # Author(s)
 
-## **Echo-3-1** 
-- **Links: [GitHub](https://github.com/Echo-3-1)**
-- **[Donate The Development](https://paypal.me/roahgaming)**
+## **[Echo-3-1](https://github.com/Echo-3-1)** 
 
-## Creeper
-- **Links: [Github](https://github.com/CreeperPlanet26)**
+## [Creeper](https://github.com/CreeperPlanet26)
+
+## [Zihad](https://github.com/zihadmahiuddin)
 
 # Contributor
 

@@ -51,7 +51,6 @@
 	"dependencies": {
 		"@evolvejs/objex": "^1.0.0",
 		"node-fetch": "^2.6.0",
-		"reflect-metadata": "^0.1.13",
 		"sign-logger": "^1.4.3",
 		"ws": "^7.3.1"
 	},
