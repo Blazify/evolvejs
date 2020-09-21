@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable no-mixed-spaces-and-tabs */
 import { EvolveClient } from "../Client/EvolveClient";
 import { CategoryChannel } from "./Channel/CategoryChannel";
 import { DMChannel } from "./Channel/DMChannel";

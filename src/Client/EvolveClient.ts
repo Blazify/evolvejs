@@ -14,6 +14,7 @@ import { EmojisManager } from "./Managers/EmojisManager";
 import { ClientOptions } from "./ClientOptions";
 import { RestAPI } from "./API/RestAPI";
 import { ClientUser } from "./ClientUser";
+import { ShardManager } from "./Websocket/ShardManager";
 
 export class EvolveClient extends EventListener {
   public token: string;
@@ -26,10 +27,10 @@ export class EvolveClient extends EventListener {
   public messages: MessagesManager = new MessagesManager();
   public user!: ClientUser;
   public rest: RestAPI = new RestAPI(this);
+  public sharder!: ShardManager;
   public oauth2!: Oauth2;
   public secret!: string;
   public structures: Structures = new Structures(this);
-  public shardConnections: Objex<number, EvolveSocket> = new Objex();
   public logger: Logger = new Logger({
   	dateFormat: "YY:MM:DD:MI:SS:MS",
   	colors: {
@@ -37,11 +38,11 @@ export class EvolveClient extends EventListener {
   		info: config.Blue,
   		success: config.Green,
   		debug: config.Magenta,
-  		warn: config.Yellow
+  		warn: config.Yellow,
   	},
-  	symbols : {
+  	symbols: {
   		left: "<",
-  		right: ">"
+  		right: ">",
   	},
   	textColors: {
   		all: false,
@@ -49,8 +50,8 @@ export class EvolveClient extends EventListener {
   		info: config.Blue,
   		success: config.Green,
   		debug: config.Magenta,
-  		warn: config.Yellow
-  	}
+  		warn: config.Yellow,
+  	},
   });
   public sessionID = "";
 
@@ -58,17 +59,6 @@ export class EvolveClient extends EventListener {
   	super();
   	this.token = token;
   	this.options = options;
-  	if (!this.token) this.logger.error("No token provided");
-  }
-
-  public shutdown(): void {
-  	const initialLastShardConnection = this.shardConnections.lastKey(1);
-  	for (const [k, v] of this.shardConnections) {
-  		v.gateway.destroy();
-
-  		if (k === initialLastShardConnection) {
-  			process.exit();
-  		}
-  	}
+  	if (!this.token) throw this.logger.error("No token provided");
   }
 }
