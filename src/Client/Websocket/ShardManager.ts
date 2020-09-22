@@ -18,7 +18,7 @@ export class ShardManager extends EventListener {
   			const socket = new EvolveSocket(this, i);
   			this.connections.set(i, socket);
   		});
-  	}
+	  }
   }
 
   public shutdown(): void {
@@ -30,5 +30,25 @@ export class ShardManager extends EventListener {
   			process.exit();
   		}
   	}
+  }
+
+  get ping(): number {
+  	return this._reduceConnections((a, b) => a + b.shardPing, 0);
+  }
+
+  private _reduceConnections<T>(fn: (accumulator: T, value: EvolveSocket, key: number) => T, initialValue?: T): T {
+  	let accumulator!: T;
+
+  	let first = true;
+  	for (const [key, val] of this.connections) {
+  		if (first) {
+  			accumulator = val as unknown as T;
+  			first = false;
+  			continue;
+  		}
+  		accumulator = fn(accumulator, val, key);
+  	}
+
+  	return accumulator;
   }
 }

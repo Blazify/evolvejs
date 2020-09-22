@@ -16,6 +16,7 @@ export class Gateway {
   public voiceStateUpdate!: VoiceState;
   public voiceServerUpdate!: Payload;
   public shard!: number;
+  public lastPingTimeStamp!: number;
 
   public init(data: Data, ws: EvolveSocket): void {
   	this.data = data;
@@ -43,6 +44,7 @@ export class Gateway {
   			this._spawn(this.shard);
 
   			setInterval(() => {
+  				this.lastPingTimeStamp = Date.now();
   				this.ws.send(Heartbeat);
   			}, d.heartbeat_interval);
   		} else if (op === OPCODE.Reconnect) {

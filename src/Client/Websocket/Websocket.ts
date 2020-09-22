@@ -33,6 +33,10 @@ export class EvolveSocket extends ws {
   	return super.send(payload);
   }
 
+  get shardPing(): number {
+	  return Date.now() - this.gateway.lastPingTimeStamp;
+  }
+
   private _init(): void {
   	try {
   		this.on("error", (err) => {
