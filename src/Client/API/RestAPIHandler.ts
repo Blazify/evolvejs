@@ -58,6 +58,10 @@ export class RestAPIHandler {
   				this.client.logger.warn(
   					`Rate Limited. Reason: ${json.body}, Global: ${json.global}\n Don't Worry, your request will be retried after ${json.retry_after}`
   				);
+  				this.ratelimited += 1;
+  				if (this.ratelimited === 50) {
+  					this.client.sharder.shutdown();
+  				}
   				promisify(setTimeout)(json.retry_after).then(() => {
   					return this.fetch(options);
   				});

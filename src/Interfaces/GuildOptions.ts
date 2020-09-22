@@ -38,10 +38,10 @@ export interface IGuild {
   members?: IGuildMember[]; // Users in the guild
   channels?: ChannelResolvable[]; // Channels in the guild
   presences?: IPresenceUpdate[]; // Presences of the members in the guild
-  max_presences?: number ; // The maximum number of presences for the guild (25000 when null is returned)
+  max_presences?: number; // The maximum number of presences for the guild (25000 when null is returned)
   max_members?: number; // The maximum number of members for the guild
-  vanity_url_code: string ; // The vanity url code for the guild
-  description: string ; // The description for the guild, if the guild is discoverable
+  vanity_url_code: string; // The vanity url code for the guild
+  description: string; // The description for the guild, if the guild is discoverable
   banner: string; // Guild banner hash
   premium_tier: number; // Premium tier (Server Boost level)
   premium_subscription_count?: number; // The number of boosts this guild currently has

@@ -5,7 +5,6 @@ import {
 	Message,
 	EmbedBuilder,
 } from "@evolvejs/evolvejs";
-import { env } from "process";
 import { token } from "./config";
 
 const client: EvolveClient = new EvolveBuilder("", true)
