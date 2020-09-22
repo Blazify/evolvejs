@@ -1,21 +1,20 @@
-import { EvolveClient } from "../Client/EvolveClient";
-import { IGuild } from "../Interfaces/GuildOptions";
-import { CategoryChannel } from "./Channel/CategoryChannel";
-import { DMChannel } from "./Channel/DMChannel";
-import { NewsChannel } from "./Channel/NewsChannel";
-import { StoreChannel } from "./Channel/StoreChannel";
-import { TextChannel } from "./Channel/TextChannel";
-import { VoiceChannel } from "./Channel/VoiceChannel";
-import { Emoji } from "./Guild/Emoji";
-import { Guild } from "./Guild/Guild";
-import { GuildMember } from "./Guild/GuildMember";
-import { Role } from "./Guild/Role";
-import { VoiceState } from "./Guild/VoiceState";
-import { Message } from "./Message/Message";
-import { MessageReaction } from "./Message/MessageReaction";
-import { ClientStatus } from "./Miscs/ClientStatus";
-import { PresenceUpdate } from "./User/PresenceUpdate";
-import { User } from "./User/User";
+import { EvolveClient } from "../Client/EvolveClient.ts";
+import { CategoryChannel } from "./Channel/CategoryChannel.ts";
+import { DMChannel } from "./Channel/DMChannel.ts";
+import { NewsChannel } from "./Channel/NewsChannel.ts";
+import { StoreChannel } from "./Channel/StoreChannel.ts";
+import { TextChannel } from "./Channel/TextChannel.ts";
+import { VoiceChannel } from "./Channel/VoiceChannel.ts";
+import { Emoji } from "./Guild/Emoji.ts";
+import { Guild } from "./Guild/Guild.ts";
+import { GuildMember } from "./Guild/GuildMember.ts";
+import { Role } from "./Guild/Role.ts";
+import { VoiceState } from "./Guild/VoiceState.ts";
+import { Message } from "./Message/Message.ts";
+import { MessageReaction } from "./Message/MessageReaction.ts";
+import { ClientStatus } from "./Miscs/ClientStatus.ts";
+import { PresenceUpdate } from "./User/PresenceUpdate.ts";
+import { User } from "./User/User.ts";
 
 export class Structures {
   public structures: Classes = {
@@ -36,16 +35,7 @@ export class Structures {
   	Role,
   	User,
   };
-  constructor(private client: EvolveClient) {
-  	this.extend("Guild", (structure: typeof Guild) => {
-  		class newGuild extends structure {
-  			constructor() {
-  				super(arguments.callee(0), arguments.callee(1));
-  			}
-  		}
-  		return newGuild;
-  	});
-  }
+  constructor(private client: EvolveClient) {}
 
   public get<K extends keyof Classes>(name: K): Classes[K] {
   	if (!this.structures[name])
@@ -53,10 +43,10 @@ export class Structures {
   	return this.structures[name];
   }
 
-  public extend<K extends keyof Classes, T extends Classes[K]>(
+  public extend<K extends keyof Classes>(
   	name: K,
-  	extender: (structure: Classes[K]) => T
-  ): T {
+  	extender: (structure: Classes[K]) => Classes[K]
+  ): Classes[K] {
   	try {
   		const structure = this.get<K>(name);
   		const extended = extender(structure);

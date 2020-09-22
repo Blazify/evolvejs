@@ -8,21 +8,18 @@ import {
 	VoiceState,
 	PresenceUpdate,
 	IGuild,
-} from "../..";
-import { Objex } from "@evolvejs/objex";
-import { ChannelTypes } from "../../Utils/Constants";
-import { Channel } from "../Channel/Channel";
-import { ChannelsManager } from "../../Client/Managers/ChannelsManger";
-import { clear } from "console";
+} from "../../mod.ts";
+import { Channel } from "../Channel/Channel.ts";
+import { ChannelsManager } from "../../Client/Managers/ChannelsManger.ts";
 
 export class Guild {
   public client: EvolveClient;
-  public members: Objex<string, GuildMember> = new Objex();
+  public members: Map<string, GuildMember> = new Map();
   public channels!: ChannelsManager;
-  public roles: Objex<string, Role> = new Objex();
-  public emojis: Objex<string | null, Emoji> = new Objex();
-  public voiceStates: Objex<string, VoiceState> = new Objex();
-  public presences: Objex<string, PresenceUpdate> = new Objex();
+  public roles: Map<string, Role> = new Map();
+  public emojis: Map<string | null, Emoji> = new Map();
+  public voiceStates: Map<string, VoiceState> = new Map();
+  public presences: Map<string, PresenceUpdate> = new Map();
   public features: Array<string> = [];
 
   public id: string;

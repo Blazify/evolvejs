@@ -1,4 +1,4 @@
-import { IUser, NITRO } from "../..";
+import { IUser, NITRO } from "../../mod.ts";
 
 export class User {
   public id!: string;

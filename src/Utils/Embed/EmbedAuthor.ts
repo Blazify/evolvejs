@@ -1,6 +1,3 @@
-import { URL } from "url";
-
-/* eslint-disable no-mixed-spaces-and-tabs */
 export interface IEmbedAuthor {
   name: string;
   url: string;

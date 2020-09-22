@@ -1,6 +1,3 @@
-/* eslint-disable no-mixed-spaces-and-tabs */
-import { URL } from "url";
-
 export interface IEmbedThumbnail {
   url: string;
   proxy_url: string;

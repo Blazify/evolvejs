@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { BaseCollector } from "./BaseCollector";
-import { Objex } from "@evolvejs/objex";
-import { Message, MessageReaction } from "../..";
+import { BaseCollector } from "./BaseCollector.ts";
+import { Message, MessageReaction } from "../../mod.ts";
 
 export class MessageReactionCollector extends BaseCollector {
 	constructor(public message: Message, public filter: Function) {
@@ -14,7 +13,7 @@ export class MessageReactionCollector extends BaseCollector {
 		);
 	}
 
-	public end(): Objex<string, Message | MessageReaction> {
+	public end(): Map<string, Message | MessageReaction> {
 		this.message.channel.client.off("reactionAdd", this.listener);
 		return this.collected;
 	}

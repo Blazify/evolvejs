@@ -1,5 +1,5 @@
-import { EvolveClient } from "../../Client/EvolveClient";
-import { CHANNELTYPES } from "../../Utils/Constants";
+import { EvolveClient } from "../../Client/EvolveClient.ts";
+import { CHANNELTYPES } from "../../Utils/Constants.ts";
 
 export class Channel {
   public client: EvolveClient;

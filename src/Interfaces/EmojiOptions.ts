@@ -1,5 +1,5 @@
-import { IRole } from "./RoleOptions";
-import { IUser } from "./UserOptions";
+import { IRole } from "./RoleOptions.ts";
+import { IUser } from "./UserOptions.ts";
 
 export interface IEmoji {
   id: string | null; // ID of the emoji

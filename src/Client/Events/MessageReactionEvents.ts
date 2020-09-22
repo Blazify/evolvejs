@@ -1,6 +1,6 @@
-import { BaseEvent } from "./BaseEvent";
-import { EvolveClient } from "../EvolveClient";
-import { MessageReaction } from "../../Structures/Message/MessageReaction";
+import { BaseEvent } from "./BaseEvent.ts";
+import { EvolveClient } from "../EvolveClient.ts";
+import { MessageReaction } from "../../Structures/Message/MessageReaction.ts";
 
 export class MessageReactionEvents extends BaseEvent {
 	constructor(

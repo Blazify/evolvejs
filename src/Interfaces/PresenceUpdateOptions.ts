@@ -1,6 +1,6 @@
-import { Visibility } from "..";
-import { IActivity } from "./ActivityOptions";
-import { IUser } from "./UserOptions";
+import { Visibility } from "../mod.ts";
+import { IActivity } from "./ActivityOptions.ts";
+import { IUser } from "./UserOptions.ts";
 
 export interface IPresenceUpdate {
   user: IUser; // The user presence is being updated for

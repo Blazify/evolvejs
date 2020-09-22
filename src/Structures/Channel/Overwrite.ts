@@ -1,4 +1,4 @@
-import { IOverwrite } from "../../Interfaces/OverwriteOptions";
+import { IOverwrite } from "../../Interfaces/OverwriteOptions.ts";
 
 export class Overwrite {
   public id!: string;

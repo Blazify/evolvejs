@@ -1,16 +1,15 @@
-import { BaseEvent } from "./BaseEvent";
-import { EvolveClient } from "../EvolveClient";
-import { Message } from "../../Structures/Message/Message";
-import { Objex } from "@evolvejs/objex";
-import { Guild } from "../../Structures/Guild/Guild";
-import { Channel } from "../../Structures/Channel/Channel";
-import { ChannelTypes } from "../../Utils/Constants";
-import { TextChannel } from "../../Structures/Channel/TextChannel";
+import { BaseEvent } from "./BaseEvent.ts";
+import { EvolveClient } from "../EvolveClient.ts";
+import { Message } from "../../Structures/Message/Message.ts";
+import { Guild } from "../../Structures/Guild/Guild.ts";
+import { Channel } from "../../Structures/Channel/Channel.ts";
+import { ChannelTypes } from "../../Utils/Constants.ts";
+import { TextChannel } from "../../Structures/Channel/TextChannel.ts";
 
 export class MessageEvents extends BaseEvent {
 	constructor(
 		client: EvolveClient,
-    public message: Message | Objex<string, Message | undefined> | undefined,
+    public message: Message | Map<string, Message | undefined> | undefined,
     public guild: Guild | undefined,
     public channel: TextChannel | undefined,
     shard: number
@@ -37,7 +36,7 @@ export class MessageEvents extends BaseEvent {
 					.then((message: Message) => {
 						this.message = message;
 					});
-			} else if (message instanceof Objex) {
+			} else if (message instanceof Map) {
 				for (const [k, v] of message) {
 					if (!v) return;
 					message.delete(k);

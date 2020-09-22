@@ -1,4 +1,4 @@
-import { IUser } from "./UserOptions";
+import { IUser } from "./UserOptions.ts";
 
 export interface IGuildMember {
   user?: IUser; // The member's user object

@@ -1,9 +1,8 @@
-import { User, IGroupChannel, EvolveClient, CHANNELTYPES } from "../..";
-import { Objex } from "@evolvejs/objex";
-import { Channel } from "./Channel";
+import { User, IGroupChannel, EvolveClient, CHANNELTYPES } from "../../mod.ts";
+import { Channel } from "./Channel.ts";
 
 export class GroupChannel extends Channel {
-  public recipients: Objex<string, User> = new Objex();
+  public recipients: Map<string, User> = new Map();
 
   public name?: string;
   public lastMessage?: string;

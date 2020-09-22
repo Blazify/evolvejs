@@ -7,12 +7,11 @@ import {
 	ClientStatus,
 	IPresenceUpdate,
 	EvolveClient,
-} from "../..";
-import { Objex } from "@evolvejs/objex";
+} from "../../mod.ts";
 
 export class PresenceUpdate {
   public user!: User;
-  public roles: Objex<string, Role> = new Objex();
+  public roles: Map<string, Role> = new Map();
   public game!: Activity;
   public guild!: Guild;
   public status!: string;

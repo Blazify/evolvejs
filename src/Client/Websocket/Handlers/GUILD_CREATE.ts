@@ -1,5 +1,5 @@
-import { EvolveClient, EVENTS, Payload, Guild } from "../../..";
-import { GuildEvents } from "../../Events/GuildEvents";
+import { EvolveClient, EVENTS, Payload, Guild } from "../../mod.ts";
+import { GuildEvents } from "../../Events/GuildEvents.ts";
 
 export default class {
 	constructor(client: EvolveClient, payload: Payload, shard: number) {

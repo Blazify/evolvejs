@@ -6,12 +6,11 @@ import {
 	EvolveClient,
 	CHANNELTYPES,
 	ICategoryChannel,
-} from "../..";
-import { Objex } from "@evolvejs/objex";
-import { Channel } from "./Channel";
+} from "../../mod.ts";
+import { Channel } from "./Channel.ts";
 
 export class CategoryChannel extends Channel {
-  public overwrites: Objex<string, Overwrite> = new Objex();
+  public overwrites: Map<string, Overwrite> = new Map();
 
   public guild?: Guild;
   public position!: number;

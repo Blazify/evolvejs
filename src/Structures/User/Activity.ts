@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { IActivityEmoji, IParty, IAssets, ISecrets, IActivity } from "../..";
+import { IActivityEmoji, IParty, IAssets, ISecrets, IActivity } from "../../mod.ts";
 
 export class Activity {
   public name!: string;

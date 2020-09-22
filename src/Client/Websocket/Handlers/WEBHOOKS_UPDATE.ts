@@ -1,5 +1,5 @@
-import { EvolveClient, EVENTS, Payload } from "../../..";
-import { Webhook } from "../../../Structures/Guild/Webhook";
+import { EvolveClient, EVENTS, Payload } from "../../mod.ts";
+import { Webhook } from "../../../Structures/Guild/Webhook.ts";
 
 export default class {
 	constructor(client: EvolveClient, payload: Payload, shard: number) {

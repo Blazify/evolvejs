@@ -1,6 +1,5 @@
-import { EvolveClient, EVENTS, Payload, Emoji } from "../../..";
-import { Objex } from "@evolvejs/objex";
-import { GuildEmojiEvents } from "../../Events/GuildEmojiEvents";
+import { EvolveClient, EVENTS, Payload, Emoji } from "../../../mod.ts";
+import { GuildEmojiEvents } from "../../Events/GuildEmojiEvents.ts";
 
 export default class {
 	constructor(client: EvolveClient, payload: Payload, shard: number) {
@@ -8,7 +7,7 @@ export default class {
 
 		(async () => {
 			const guild = await client.rest.getGuild(guild_id);
-			const emojiObjex: Objex<string | null, Emoji> = new Objex();
+			const emojiObjex: Map<string | null, Emoji> = new Map();
 			for (const emoji of emojis) {
 				emojiObjex.set(emoji.id, new Emoji(emoji));
 			}

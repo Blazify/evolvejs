@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
-import { Guild, User, IWebhook, EvolveClient } from "../..";
-import { Channel } from "../Channel/Channel";
+import { Guild, User, IWebhook, EvolveClient } from "../../mod.ts";
+import { Channel } from "../Channel/Channel.ts";
 
 export class Webhook {
   public id!: string;

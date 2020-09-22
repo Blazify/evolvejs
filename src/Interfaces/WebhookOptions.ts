@@ -1,5 +1,5 @@
-import { WEBHOOKTYPE } from "..";
-import { IUser } from "./UserOptions";
+import { WEBHOOKTYPE } from "../mod.ts";
+import { IUser } from "./UserOptions.ts";
 
 export interface IWebhook {
   id: string; // The ID of the webhook

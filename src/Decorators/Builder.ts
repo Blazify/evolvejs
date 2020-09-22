@@ -1,7 +1,7 @@
-import { EvolveBuilder } from "../Client/EvolveBuilder";
-import { EvolveClient } from "../Client/EvolveClient";
-import { Structures } from "../Structures/Structures";
-import { CacheOptions, GatewayIntents } from "../Utils/Constants";
+import { EvolveBuilder } from "../Client/EvolveBuilder.ts";
+import { EvolveClient } from "../Client/EvolveClient.ts";
+import { Structures } from "../Structures/Structures.ts";
+import { CacheOptions, GatewayIntents } from "../Utils/Constants.ts";
 
 let built = false;
 

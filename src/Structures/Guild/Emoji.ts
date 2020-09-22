@@ -1,12 +1,11 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 
-import { Objex } from "@evolvejs/objex";
-import { Role, User, IEmoji } from "../..";
+import { Role, User, IEmoji } from "../../mod.ts";
 
 export class Emoji {
   public id!: string | null;
   public name!: string | null;
-  public roles: Objex<string, Role> = new Objex();
+  public roles: Map<string, Role> = new Map();
   public user!: User;
   public reqColons?: boolean;
   public managed?: boolean;

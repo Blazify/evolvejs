@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { Gateway } from "../Gateway";
-import ws, { Data } from "ws";
-import { VoiceIdentify, Heartbeat, EVENTS } from "../../../Utils/Constants";
-import { Payload } from "../../..";
-import { EventListener } from "../../../Utils/EventListener";
+import { Gateway } from "../Gateway.ts";
+import { WebSocket as ws, WebSocketError } from "https://deno.land/x/websocket@v0.0.5/mod.ts";
+import { VoiceIdentify, Heartbeat, EVENTS } from "../../../Utils/Constants.ts";
+import { Payload } from "../../../mod.ts";
+import { EventListener } from "../../../Utils/EventListener.ts";
 
 export class VoiceGateway extends EventListener {
   public link!: string;
@@ -27,16 +27,16 @@ export class VoiceGateway extends EventListener {
   		this.websocket.send(JSON.stringify(VoiceIdentify));
   	});
 
-  	this.websocket.on("error", (e) =>
+  	this.websocket.on("error", (e: WebSocketError) =>
   		this.gateway.ws.manager.builder.client.logger.error(e.message)
   	);
 
-  	this.websocket.on("message", (data: Data) => {
+  	this.websocket.on("message", (data: string) => {
   		this.handle(data);
   	});
   }
 
-  public handle(data: Data): void {
+  public handle(data: string): void {
   	const payload: Payload = JSON.parse(data.toString());
   	const { op, d } = payload;
   	if (op == 2) {

@@ -1,5 +1,5 @@
-import { EvolveClient, EVENTS, Payload } from "../../..";
-import { VoiceState } from "../../../Structures/Guild/VoiceState";
+import { EvolveClient, EVENTS, Payload } from "../../mod.ts";
+import { VoiceState } from "../../../Structures/Guild/VoiceState.ts";
 
 export default class {
 	constructor(client: EvolveClient, payload: Payload, shard: number) {

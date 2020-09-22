@@ -1,20 +1,17 @@
-import { config } from "sign-logger/dist/config";
-import { Logger } from "sign-logger";
-import { Objex } from "@evolvejs/objex";
-import { Oauth2 } from "../Oauth2/Oauth2";
-import { Structures } from "../Structures/Structures";
-import { EvolveSocket } from "./Websocket/Websocket";
-import { EventListener } from "../Utils/EventListener";
-import { GuildsManager } from "./Managers/GuildsManager";
-import { ChannelsManager } from "./Managers/ChannelsManger";
-import { UsersManager } from "./Managers/UsersManager";
-import { RolesManager } from "./Managers/RolesManager";
-import { MessagesManager } from "./Managers/MessagesManager";
-import { EmojisManager } from "./Managers/EmojisManager";
-import { ClientOptions } from "./ClientOptions";
-import { RestAPI } from "./API/RestAPI";
-import { ClientUser } from "./ClientUser";
-import { ShardManager } from "./Websocket/ShardManager";
+import Logger from "https://deno.land/x/logger/logger.ts";
+import { Oauth2 } from "../Oauth2/Oauth2.ts";
+import { Structures } from "../Structures/Structures.ts";
+import { EventListener } from "../Utils/EventListener.ts";
+import { GuildsManager } from "./Managers/GuildsManager.ts";
+import { ChannelsManager } from "./Managers/ChannelsManger.ts";
+import { UsersManager } from "./Managers/UsersManager.ts";
+import { RolesManager } from "./Managers/RolesManager.ts";
+import { MessagesManager } from "./Managers/MessagesManager.ts";
+import { EmojisManager } from "./Managers/EmojisManager.ts";
+import { ClientOptions } from "./ClientOptions.ts";
+import { RestAPI } from "./API/RestAPI.ts";
+import { ClientUser } from "./ClientUser.ts";
+import { ShardManager } from "./Websocket/ShardManager.ts";
 
 export class EvolveClient extends EventListener {
   public token: string;
@@ -31,40 +28,13 @@ export class EvolveClient extends EventListener {
   public oauth2!: Oauth2;
   public secret!: string;
   public structures: Structures = new Structures(this);
-  public logger: Logger = new Logger({
-  	dateFormat: "YY:MM:DD:MI:SS:MS",
-  	colors: {
-  		error: config.Red,
-  		info: config.Blue,
-  		success: config.Green,
-  		debug: config.Magenta,
-  		warn: config.Yellow,
-  	},
-  	symbols: {
-  		left: "<",
-  		right: ">",
-  	},
-  	textColors: {
-  		all: false,
-  		error: config.Red,
-  		info: config.Blue,
-  		success: config.Green,
-  		debug: config.Magenta,
-  		warn: config.Yellow,
-  	},
-  });
+  public logger: Logger = new Logger();
   public sessionID = "";
-  public readyAt!: number;
 
   public constructor(token: string, options: ClientOptions) {
   	super();
   	this.token = token;
   	this.options = options;
-  	this.readyAt = Date.now();
   	if (!this.token) throw this.logger.error("No token provided");
-  }
-
-  get uptime(): number {
-  	return Date.now() - this.readyAt;
   }
 }

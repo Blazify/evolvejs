@@ -1,24 +1,22 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable no-mixed-spaces-and-tabs */
-import { EvolveSocket } from "./Websocket";
-import { OPCODE, Heartbeat, Identify, VoiceStateUpdate } from "../..";
-import { Payload } from "../../Interfaces/Interfaces";
-import { Data } from "ws";
-import { VoiceGateway } from "./Voice/VoiceGateway";
-import { EVENTS } from "../../Utils/Constants";
-import { VoiceState } from "../../Structures/Guild/VoiceState";
+import { EvolveSocket } from "./Websocket.ts";
+import { OPCODE, Heartbeat, Identify, VoiceStateUpdate } from "../../mod.ts";
+import { Payload } from "../../Interfaces/Interfaces.ts";
+import { VoiceGateway } from "./Voice/VoiceGateway.ts";
+import { EVENTS } from "../../Utils/Constants.ts";
+import { VoiceState } from "../../Structures/Guild/VoiceState.ts";
 
 export class Gateway {
-  public data!: Data;
+  public data!: string;
   public ws!: EvolveSocket;
   public launchedShards: Set<number> = new Set();
   public voice!: VoiceGateway;
   public voiceStateUpdate!: VoiceState;
   public voiceServerUpdate!: Payload;
   public shard!: number;
-  public lastPingTimeStamp!: number;
 
-  public init(data: Data, ws: EvolveSocket): void {
+  public async init(data: string, ws: EvolveSocket): Promise<void> {
   	this.data = data;
   	this.ws = ws;
   	this.shard = this.ws.shard;
@@ -28,13 +26,7 @@ export class Gateway {
   		if (this.ws.manager.builder.encoding == "json") {
   			payload = JSON.parse(data.toString());
   		} else {
-  			const packed: Buffer = Buffer.from(data.toString(), "binary");
-  			try {
-  				const erlpack = require("erlpack");
-  				payload = erlpack.unpack(packed);
-  			} catch (e) {
-  				throw this.ws.manager.builder.client.logger.error(e);
-  			}
+  			payload = JSON.parse(new TextDecoder().decode(data as unknown as ArrayBuffer));
   		}
   		const { op, t, d } = payload;
   		if (!d) return;
@@ -44,8 +36,7 @@ export class Gateway {
   			this._spawn(this.shard);
 
   			setInterval(() => {
-  				this.lastPingTimeStamp = Date.now();
-  				this.ws.send(Heartbeat);
+  			this.ws.send(Heartbeat);
   			}, d.heartbeat_interval);
   		} else if (op === OPCODE.Reconnect) {
   			this.ws.manager.connections.clear();

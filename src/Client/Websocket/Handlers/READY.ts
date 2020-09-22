@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
-import { EvolveClient, Payload, EVENTS, ClientUser } from "../../..";
-import { Guild } from "../../../Structures/Guild/Guild";
+import { EvolveClient, Payload, EVENTS, ClientUser } from "../../mod.ts";
+import { Guild } from "../../../Structures/Guild/Guild.ts";
 
 export default class {
   public client: EvolveClient;
@@ -12,7 +12,6 @@ export default class {
   	this.payload = payload;
 
   	(async () => await this.generate(payload))();
-  	this.client.readyAt = Date.now();
   	this.client.sessionID = payload.d.session_id;
   	client.emit(EVENTS.READY, shard);
   }

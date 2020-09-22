@@ -1,9 +1,8 @@
-import { User, IDMChannel, EvolveClient, CHANNELTYPES } from "../..";
-import { Objex } from "@evolvejs/objex";
-import { Channel } from "./Channel";
+import { User, IDMChannel, EvolveClient, CHANNELTYPES } from "../../mod.ts";
+import { Channel } from "./Channel.ts";
 
 export class DMChannel extends Channel {
-  public recipients: Objex<string, User> = new Objex();
+  public recipients: Map<string, User> = new Map();
 
   public lastMessage?: string;
   public lastPin?: number;

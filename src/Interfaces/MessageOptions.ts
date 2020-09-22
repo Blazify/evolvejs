@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { IUser } from "./UserOptions";
-import { IGuildMember } from "./GuildMemberOptions";
+import { IUser } from "./UserOptions.ts";
+import { IGuildMember } from "./GuildMemberOptions.ts";
 
 export interface IMessage {
   id: string; // ID of the message

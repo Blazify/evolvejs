@@ -1,7 +1,7 @@
-import { BaseEvent } from "./BaseEvent";
-import { User } from "../../Structures/User/User";
-import { Guild } from "../../Structures/Guild/Guild";
-import { EvolveClient } from "../EvolveClient";
+import { BaseEvent } from "./BaseEvent.ts";
+import { User } from "../../Structures/User/User.ts";
+import { Guild } from "../../Structures/Guild/Guild.ts";
+import { EvolveClient } from "../EvolveClient.ts";
 
 export class GuildBanEvents extends BaseEvent {
 	constructor(

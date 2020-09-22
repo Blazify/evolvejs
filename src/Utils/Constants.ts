@@ -7,14 +7,14 @@ import {
 	INewsChannel,
 	IStoreChannel,
 	Payload,
-} from "..";
-import { TextChannel } from "../Structures/Channel/TextChannel";
-import { VoiceChannel } from "../Structures/Channel/VoiceChannel";
-import { DMChannel } from "../Structures/Channel/DMChannel";
-import { CategoryChannel } from "../Structures/Channel/CategoryChannel";
-import { GroupChannel } from "../Structures/Channel/GroupChannel";
-import { NewsChannel } from "../Structures/Channel/NewsChannel";
-import { StoreChannel } from "../Structures/Channel/StoreChannel";
+} from "../mod.ts";
+import { TextChannel } from "../Structures/Channel/TextChannel.ts";
+import { VoiceChannel } from "../Structures/Channel/VoiceChannel.ts";
+import { DMChannel } from "../Structures/Channel/DMChannel.ts";
+import { CategoryChannel } from "../Structures/Channel/CategoryChannel.ts";
+import { GroupChannel } from "../Structures/Channel/GroupChannel.ts";
+import { NewsChannel } from "../Structures/Channel/NewsChannel.ts";
+import { StoreChannel } from "../Structures/Channel/StoreChannel.ts";
 
 export enum CONSTANTS {
   Gateway = "wss://gateway.discord.gg/?v=6&encoding=",
@@ -156,21 +156,21 @@ export enum GatewayIntents {
   DIRECT_MESSAGES = 1 << 12,
   DIRECT_MESSAGES_REACTIONS = 1 << 13,
   DIRECT_MESSAGES_TYPING = 1 << 14,
-  ALL = GUILD +
-    GUILD_MEMBERS +
-    GUILD_BANS +
-    GUILD_EMOJIS +
-    GUILD_INTEGRATIONS +
-    GUILD_WEBHOOKS +
-    GUILD_INVITES +
-    GUILD_VOICE_STATES +
-    GUILD_PRESENCES +
-    GUILD_MESSAGES +
-    GUILD_MESSAGES_REACTIONS +
-    GUILD_MESSAGE_TYPING +
-    DIRECT_MESSAGES +
-    DIRECT_MESSAGES_REACTIONS +
-    DIRECT_MESSAGES_TYPING,
+  ALL = (1 << 0) +
+    (1 << 1) +
+    (1 << 2) +
+    (1 << 3) +
+    (1 << 4) +
+    (1 << 5) +
+    (1 << 6) +
+    (1 << 7) +
+    (1 << 8) +
+    (1 << 9) +
+    (1 << 10) +
+    (1 << 11) +
+    (1 << 12) +
+    (1 << 13) +
+    (1 << 14),
 }
 
 export enum OPCODE {
@@ -219,7 +219,7 @@ export const Identify: Payload = {
 		intents: 0,
 		shard: [0, 1],
 		properties: {
-			$os: process.platform,
+			$os: Deno.Process,
 			$browser: "discord",
 			$device: "evolvejs",
 		},

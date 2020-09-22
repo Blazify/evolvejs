@@ -1,13 +1,12 @@
-import { BaseEvent } from "./BaseEvent";
-import { EvolveClient } from "../EvolveClient";
-import { Emoji } from "../../Structures/Guild/Emoji";
-import { Guild } from "../../Structures/Guild/Guild";
-import { Objex } from "@evolvejs/objex";
+import { BaseEvent } from "./BaseEvent.ts";
+import { EvolveClient } from "../EvolveClient.ts";
+import { Emoji } from "../../Structures/Guild/Emoji.ts";
+import { Guild } from "../../Structures/Guild/Guild.ts";
 
 export class GuildEmojiEvents extends BaseEvent {
 	constructor(
 		client: EvolveClient,
-    public emoji: Objex<string | null, Emoji>,
+    public emoji: Map<string | null, Emoji>,
     public guild: Guild,
     shard: number
 	) {

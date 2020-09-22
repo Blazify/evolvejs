@@ -1,4 +1,3 @@
-import { Objex } from "@evolvejs/objex";
-import { Guild } from "../../Structures/Guild/Guild";
+import { Guild } from "../../Structures/Guild/Guild.ts";
 
-export class GuildsManager extends Objex<string, Guild> {}
+export class GuildsManager extends Map<string, Guild> {}

@@ -1,5 +1,5 @@
-import { EvolveClient } from "../EvolveClient";
-import { EvolveSocket } from "../Websocket/Websocket";
+import { EvolveClient } from "../EvolveClient.ts";
+import { EvolveSocket } from "../Websocket/Websocket.ts";
 
 export class BaseEvent {
 	constructor(private _shard: number, private _client: EvolveClient) {}

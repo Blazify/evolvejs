@@ -8,7 +8,7 @@ import {
 	Emoji,
 	IMessageReaction,
 	EvolveClient,
-} from "../../";
+} from "../../mod.ts";
 
 export class MessageReaction {
   public user?: User;

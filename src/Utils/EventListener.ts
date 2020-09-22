@@ -1,10 +1,9 @@
-import { Objex } from "@evolvejs/objex";
-import { listeners } from "../Decorators/Events";
-import { EVENTS } from "./Constants";
+import { listeners } from "../Decorators/Events.ts";
+import { EVENTS } from "./Constants.ts";
 
 export class EventListener {
   private _objListeners: Set<Object> = new Set();
-  private _funcListeners = new Objex<(...args: unknown[]) => void, string>();
+  private _funcListeners = new Map<(...args: unknown[]) => void, string>();
 
   public addListener(o: Object): void {
   	this._objListeners.add(o);

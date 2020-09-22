@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import fetch from "node-fetch";
-import { EvolveClient, IAPIParams, CONSTANTS } from "../..";
-import { promisify } from "util";
+import { EvolveClient, IAPIParams, CONSTANTS } from "../../mod.ts";
+import { sleep } from "https://deno.land/x/sleep/mod.ts";
 
 export class RestAPIHandler {
   private ratelimited = 0;
@@ -27,7 +26,7 @@ export class RestAPIHandler {
   				if (this.ratelimited === 50) {
   					this.client.sharder.shutdown();
   				}
-  				promisify(setTimeout)(json.retry_after).then(() => {
+  				sleep(json.retry_after).then(() => {
   					return this.fetch(options);
   				});
   			}
@@ -58,11 +57,7 @@ export class RestAPIHandler {
   				this.client.logger.warn(
   					`Rate Limited. Reason: ${json.body}, Global: ${json.global}\n Don't Worry, your request will be retried after ${json.retry_after}`
   				);
-  				this.ratelimited += 1;
-  				if (this.ratelimited === 50) {
-  					this.client.sharder.shutdown();
-  				}
-  				promisify(setTimeout)(json.retry_after).then(() => {
+  				sleep(json.retry_after).then(() => {
   					return this.fetch(options);
   				});
   			}

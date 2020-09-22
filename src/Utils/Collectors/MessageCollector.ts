@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { BaseCollector } from "./BaseCollector";
-import { TextChannel } from "../../Structures/Channel/TextChannel";
-import { Message } from "../../Structures/Message/Message";
-import { Objex } from "@evolvejs/objex";
-import { MessageReaction } from "../../Structures/Message/MessageReaction";
+import { BaseCollector } from "./BaseCollector.ts";
+import { TextChannel } from "../../Structures/Channel/TextChannel.ts";
+import { Message } from "../../Structures/Message/Message.ts";
+import { MessageReaction } from "../../Structures/Message/MessageReaction.ts";
 
 export class MessageCollector extends BaseCollector {
 	constructor(public channel: TextChannel, public filter: Function) {
@@ -16,7 +15,7 @@ export class MessageCollector extends BaseCollector {
 		);
 	}
 
-	public end(): Objex<string, Message | MessageReaction> {
+	public end(): Map<string, Message | MessageReaction> {
 		this.channel.client.off("newMessage", this.listener);
 		return this.collected;
 	}

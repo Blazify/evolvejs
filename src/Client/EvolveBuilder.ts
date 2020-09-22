@@ -1,13 +1,11 @@
 /* eslint-disable no-constant-condition */
 /* eslint-disable no-mixed-spaces-and-tabs */
 
-import { EvolveSocket } from "./Websocket/Websocket";
-import { Oauth2 } from "../Oauth2/Oauth2";
-import { promisify } from "util";
-import { Structures } from "../Structures/Structures";
-import { CacheOptions, GatewayIntents, Identify } from "../Utils/Constants";
-import { EvolveClient } from "./EvolveClient";
-import { ShardManager } from "./Websocket/ShardManager";
+import { Oauth2 } from "../Oauth2/Oauth2.ts";
+import { Structures } from "../Structures/Structures.ts";
+import { CacheOptions, GatewayIntents, Identify } from "../Utils/Constants.ts";
+import { EvolveClient } from "./EvolveClient.ts";
+import { ShardManager } from "./Websocket/ShardManager.ts";
 
 export class EvolveBuilder {
   private token!: string;

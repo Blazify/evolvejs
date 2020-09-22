@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
-import { Guild, User, GuildMember, IVoiceState, EvolveClient } from "../..";
-import { Channel } from "../Channel/Channel";
+import { Guild, User, GuildMember, IVoiceState, EvolveClient } from "../../mod.ts";
+import { Channel } from "../Channel/Channel.ts";
 
 export class VoiceState {
   public guild!: Guild;

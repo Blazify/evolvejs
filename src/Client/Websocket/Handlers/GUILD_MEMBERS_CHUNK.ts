@@ -4,9 +4,8 @@ import {
 	Payload,
 	GuildMember,
 	PresenceUpdate,
-} from "../../..";
-import { Objex } from "@evolvejs/objex";
-import { GuildMembersChunkUpdate } from "../../Events/GuildMembersChunkEvents";
+} from "../../../mod.ts";
+import { GuildMembersChunkUpdate } from "../../Events/GuildMembersChunkEvents.ts";
 
 export default class {
 	constructor(client: EvolveClient, payload: Payload, shard: number) {
@@ -19,12 +18,12 @@ export default class {
 				presences,
 				nonce,
 			} = payload.d;
-			const memberObjex: Objex<string, GuildMember> = new Objex();
+			const memberObjex: Map<string, GuildMember> = new Map();
 			for (const member of members) {
 				memberObjex.set(member.user.id, new GuildMember(member));
 			}
 
-			const presenceObjex: Objex<string, PresenceUpdate> = new Objex();
+			const presenceObjex: Map<string, PresenceUpdate> = new Map();
 			for (const presence of presences) {
 				presenceObjex.set(
 					presence.user.id,

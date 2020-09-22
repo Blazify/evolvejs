@@ -1,4 +1,4 @@
-import { User } from "../Structures/User/User";
+import { User } from "../Structures/User/User.ts";
 
 export class ClientUser extends User {
 	constructor(

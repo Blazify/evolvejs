@@ -1,7 +1,6 @@
-import { Objex } from "@evolvejs/objex";
-import { EvolveClient } from "../Client/EvolveClient";
+import { EvolveClient } from "../Client/EvolveClient.ts";
 
-export const listeners = new Objex<Array<string>, EvolveClient>();
+export const listeners = new Map<Array<string>, EvolveClient>();
 
 export function Event(eventName?: string) {
 	return (

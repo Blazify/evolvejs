@@ -1,16 +1,15 @@
-import { Channel } from "./Channel";
-import { Objex } from "@evolvejs/objex";
-import { Overwrite } from "./Overwrite";
-import { Guild } from "../Guild/Guild";
-import { CategoryChannel } from "./CategoryChannel";
-import { MessageEmbed } from "../../Utils/Embed/MessageEmbed";
-import { Message } from "../Message/Message";
-import { ITextChannel } from "../../Interfaces/TextChannelOptions";
-import { CHANNELTYPES } from "../../Utils/Constants";
-import { EvolveClient } from "../../Client/EvolveClient";
+import { Channel } from "./Channel.ts";
+import { Overwrite } from "./Overwrite.ts";
+import { Guild } from "../Guild/Guild.ts";
+import { CategoryChannel } from "./CategoryChannel.ts";
+import { MessageEmbed } from "../../Utils/Embed/MessageEmbed.ts";
+import { Message } from "../Message/Message.ts";
+import { ITextChannel } from "../../Interfaces/TextChannelOptions.ts";
+import { CHANNELTYPES } from "../../Utils/Constants.ts";
+import { EvolveClient } from "../../Client/EvolveClient.ts";
 
 export class TextChannel extends Channel {
-  public overwrites: Objex<string, Overwrite> = new Objex();
+  public overwrites: Map<string, Overwrite> = new Map();
 
   public guild?: Guild;
   public position!: number;

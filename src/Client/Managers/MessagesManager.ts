@@ -1,4 +1,3 @@
-import { Objex } from "@evolvejs/objex";
-import { Message } from "../../Structures/Message/Message";
+import { Message } from "../../Structures/Message/Message.ts";
 
-export class MessagesManager extends Objex<string, Message> {}
+export class MessagesManager extends Map<string, Message> {}

@@ -1,5 +1,5 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-import { IClientStatus } from "../../";
+import { IClientStatus } from "../../mod.ts";
 
 export class ClientStatus {
   public desktop?: string;

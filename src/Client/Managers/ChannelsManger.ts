@@ -1,10 +1,9 @@
-import { Objex } from "@evolvejs/objex";
-import { ChannelOptions } from "../../Interfaces/Interfaces";
-import { Guild } from "../../Structures/Guild/Guild";
-import { ChannelTypes } from "../../Utils/Constants";
-import { EvolveClient } from "../EvolveClient";
+import { ChannelOptions } from "../../Interfaces/Interfaces.ts";
+import { Guild } from "../../Structures/Guild/Guild.ts";
+import { ChannelTypes } from "../../Utils/Constants.ts";
+import { EvolveClient } from "../EvolveClient.ts";
 
-export class ChannelsManager extends Objex<string, ChannelTypes> {
+export class ChannelsManager extends Map<string, ChannelTypes> {
   private client: EvolveClient;
   private guild!: Guild;
   constructor(client: EvolveClient, guild?: Guild) {

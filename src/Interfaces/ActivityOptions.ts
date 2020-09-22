@@ -1,4 +1,4 @@
-import { ACTIVITY } from "..";
+import { ACTIVITY } from "../mod.ts";
 
 export interface IActivity {
   /**

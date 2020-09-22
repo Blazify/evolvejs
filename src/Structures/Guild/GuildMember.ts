@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable no-mixed-spaces-and-tabs */
 
-import { User, Role, IGuildMember } from "../..";
+import { User, Role, IGuildMember } from "../../mod.ts";
 
 export class GuildMember {
   public user!: User | undefined;

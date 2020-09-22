@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { OPCODE } from "..";
-import { Overwrite } from "../Structures/Channel/Overwrite";
-import { CHANNELTYPES } from "../Utils/Constants";
-import { MessageEmbed } from "../Utils/Embed/MessageEmbed";
+import { OPCODE } from "../mod.ts";
+import { Overwrite } from "../Structures/Channel/Overwrite.ts";
+import { CHANNELTYPES } from "../Utils/Constants.ts";
+import { MessageEmbed } from "../Utils/Embed/MessageEmbed.ts";
 
 export interface IAPIParams {
   endpoint: string;

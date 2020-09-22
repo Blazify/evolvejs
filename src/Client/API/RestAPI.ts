@@ -1,18 +1,17 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 
-import { Invite } from "../../Structures/Guild/Invite";
-import { Emoji } from "../../Structures/Guild/Emoji";
-import { ChannelResolver, ChannelTypes } from "../../Utils/Constants";
-import { Channel } from "../../Structures/Channel/Channel";
-import { RestAPIHandler } from "./RestAPIHandler";
-import { EvolveClient } from "../EvolveClient";
-import { Guild } from "../../Structures/Guild/Guild";
-import { User } from "../../Structures/User/User";
-import { GuildMember } from "../../Structures/Guild/GuildMember";
-import { MessageEmbed } from "../../Utils/Embed/MessageEmbed";
-import { Message } from "../../Structures/Message/Message";
-import { TextChannel } from "../../Structures/Channel/TextChannel";
-import { ChannelOptions } from "../../Interfaces/Interfaces";
+import { Invite } from "../../Structures/Guild/Invite.ts";
+import { Emoji } from "../../Structures/Guild/Emoji.ts";
+import { ChannelResolver, ChannelTypes } from "../../Utils/Constants.ts";
+import { RestAPIHandler } from "./RestAPIHandler.ts";
+import { EvolveClient } from "../EvolveClient.ts";
+import { Guild } from "../../Structures/Guild/Guild.ts";
+import { User } from "../../Structures/User/User.ts";
+import { GuildMember } from "../../Structures/Guild/GuildMember.ts";
+import { MessageEmbed } from "../../Utils/Embed/MessageEmbed.ts";
+import { Message } from "../../Structures/Message/Message.ts";
+import { TextChannel } from "../../Structures/Channel/TextChannel.ts";
+import { ChannelOptions } from "../../Interfaces/Interfaces.ts";
 
 /**
  * RestAPI Class
@@ -116,7 +115,7 @@ export class RestAPI {
   	messageID: string,
   	channelID: string,
   	time: number
-  ): Promise<NodeJS.Timeout> {
+  ): Promise<number> {
   	return setTimeout(async () => {
   		return await this.handler.fetch({
   			endpoint: `/channels/${channelID}/messages/${messageID}`,

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable no-mixed-spaces-and-tabs */
 
-import { User, GuildMember, Guild, IMessage } from "../..";
-import { TextChannel } from "../Channel/TextChannel";
-import { EvolveClient } from "../../Client/EvolveClient";
+import { User, GuildMember, Guild, IMessage } from "../../mod.ts";
+import { TextChannel } from "../Channel/TextChannel.ts";
+import { EvolveClient } from "../../Client/EvolveClient.ts";
 
 export class Message {
   public sentAt!: string;
@@ -19,7 +19,7 @@ export class Message {
   public content!: string;
   public guild!: Guild;
   public channel!: TextChannel;
-  public delete!: (time: number) => Promise<NodeJS.Timeout>;
+  public delete!: (time: number) => Promise<number>;
 
   constructor(
     public data: IMessage,

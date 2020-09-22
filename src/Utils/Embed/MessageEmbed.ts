@@ -5,7 +5,7 @@ import {
 	IEmbedProvider,
 	IEmbedAuthor,
 	IEmbedField,
-} from "../..";
+} from "../../mod.ts";
 
 export interface MessageEmbed {
   title: string;

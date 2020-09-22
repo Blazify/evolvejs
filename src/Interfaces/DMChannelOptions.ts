@@ -1,5 +1,5 @@
-import { CHANNELTYPES } from "..";
-import { IUser } from "./UserOptions";
+import { CHANNELTYPES } from "../mod.ts";
+import { IUser } from "./UserOptions.ts";
 
 export interface IDMChannel {
   id: string; // The ID of this channel

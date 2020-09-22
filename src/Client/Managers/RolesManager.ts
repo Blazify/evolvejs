@@ -1,4 +1,3 @@
-import { Objex } from "@evolvejs/objex";
-import { Role } from "../../Structures/Guild/Role";
+import { Role } from "../../Structures/Guild/Role.ts";
 
-export class RolesManager extends Objex<string, Role> {}
+export class RolesManager extends Map<string, Role> {}

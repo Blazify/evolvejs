@@ -1,5 +1,5 @@
-import { EvolveClient, EVENTS, Payload, MessageReaction } from "../../..";
-import { MessageReactionEvents } from "../../Events/MessageReactionEvents";
+import { EvolveClient, EVENTS, Payload, MessageReaction } from "../../mod.ts";
+import { MessageReactionEvents } from "../../Events/MessageReactionEvents.ts";
 
 export default class {
 	constructor(client: EvolveClient, payload: Payload, shard: number) {

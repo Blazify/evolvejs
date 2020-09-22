@@ -1,5 +1,5 @@
-import { CHANNELTYPES } from "..";
-import { IOverwrite } from "./OverwriteOptions";
+import { CHANNELTYPES } from "../mod.ts";
+import { IOverwrite } from "./OverwriteOptions.ts";
 
 export interface INewsChannel {
   id: string; // The ID of this channel

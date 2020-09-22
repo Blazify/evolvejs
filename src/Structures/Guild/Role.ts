@@ -1,4 +1,4 @@
-import { IRole } from "../..";
+import { IRole } from "../../mod.ts";
 
 export class Role {
   public id!: string;

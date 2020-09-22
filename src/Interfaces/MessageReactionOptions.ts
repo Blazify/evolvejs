@@ -5,7 +5,7 @@ import {
 	ITextChannel,
 	IEmoji,
 	IMessage,
-} from "../";
+} from "../mod.ts";
 
 export interface IMessageReaction {
   guild: IGuild;

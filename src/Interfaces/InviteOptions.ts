@@ -1,6 +1,6 @@
-import { ChannelResolvable } from "..";
-import { IGuild } from "./GuildOptions";
-import { IUser } from "./UserOptions";
+import { ChannelResolvable } from "../mod.ts";
+import { IGuild } from "./GuildOptions.ts";
+import { IUser } from "./UserOptions.ts";
 
 export interface IInvite {
   code: string; // The invite code (unique ID)

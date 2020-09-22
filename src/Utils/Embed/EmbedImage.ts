@@ -1,5 +1,5 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-import { URL } from "url";
+import { Url as URL } from "https://cdn.skypack.dev/url?dts";
 
 export interface IEmbedImage {
   url: string;

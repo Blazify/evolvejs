@@ -1,6 +1,5 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 
-import { URL } from "url";
 import {
 	IEmbedThumbnail,
 	IEmbedVideo,
@@ -17,7 +16,7 @@ import {
 	EmbedProviderBuilder,
 	EmbedFieldBuilder,
 	MessageEmbed,
-} from "../..";
+} from "../../mod.ts";
 
 export class EmbedBuilder {
   private title!: string;
