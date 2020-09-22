@@ -156,21 +156,21 @@ export enum GatewayIntents {
   DIRECT_MESSAGES = 1 << 12,
   DIRECT_MESSAGES_REACTIONS = 1 << 13,
   DIRECT_MESSAGES_TYPING = 1 << 14,
-  ALL = (1 << 0) +
-    (1 << 1) +
-    (1 << 2) +
-    (1 << 3) +
-    (1 << 4) +
-    (1 << 5) +
-    (1 << 6) +
-    (1 << 7) +
-    (1 << 8) +
-    (1 << 9) +
-    (1 << 10) +
-    (1 << 11) +
-    (1 << 12) +
-    (1 << 13) +
-    (1 << 14),
+  ALL = GUILD +
+    GUILD_MEMBERS +
+    GUILD_BANS +
+    GUILD_EMOJIS +
+    GUILD_INTEGRATIONS +
+    GUILD_WEBHOOKS +
+    GUILD_INVITES +
+    GUILD_VOICE_STATES +
+    GUILD_PRESENCES +
+    GUILD_MESSAGES +
+    GUILD_MESSAGES_REACTIONS +
+    GUILD_MESSAGE_TYPING +
+    DIRECT_MESSAGES +
+    DIRECT_MESSAGES_REACTIONS +
+    DIRECT_MESSAGES_TYPING,
 }
 
 export enum OPCODE {

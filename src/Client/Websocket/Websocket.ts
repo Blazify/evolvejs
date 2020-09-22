@@ -34,7 +34,7 @@ export class EvolveSocket extends ws {
   }
 
   get shardPing(): number {
-	  return Date.now() - this.gateway.lastPingTimeStamp;
+  	return Date.now() - this.gateway.lastPingTimeStamp;
   }
 
   private _init(): void {

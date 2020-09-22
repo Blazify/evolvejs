@@ -37,14 +37,14 @@ export class Structures {
   	User,
   };
   constructor(private client: EvolveClient) {
-	  this.extend("Guild", (structure: typeof Guild) => {
-		  class newGuild extends structure {
-			  constructor() {
-				  super(arguments.callee(0), arguments.callee(1));
-			  }
-		  }
-		  return newGuild;
-	  });
+  	this.extend("Guild", (structure: typeof Guild) => {
+  		class newGuild extends structure {
+  			constructor() {
+  				super(arguments.callee(0), arguments.callee(1));
+  			}
+  		}
+  		return newGuild;
+  	});
   }
 
   public get<K extends keyof Classes>(name: K): Classes[K] {
