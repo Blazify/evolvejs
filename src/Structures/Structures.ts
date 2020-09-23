@@ -1,4 +1,5 @@
 import { EvolveClient } from "../Client/EvolveClient";
+import { IGuild } from "../Interfaces/GuildOptions";
 import { CategoryChannel } from "./Channel/CategoryChannel";
 import { DMChannel } from "./Channel/DMChannel";
 import { NewsChannel } from "./Channel/NewsChannel";
@@ -35,7 +36,16 @@ export class Structures {
   	Role,
   	User,
   };
-  constructor(private client: EvolveClient) {}
+  constructor(private client: EvolveClient) {
+  	this.extend("Guild", (structure: typeof Guild) => {
+  		class newGuild extends structure {
+  			constructor() {
+  				super(arguments.callee(0), arguments.callee(1));
+  			}
+  		}
+  		return newGuild;
+  	});
+  }
 
   public get<K extends keyof Classes>(name: K): Classes[K] {
   	if (!this.structures[name])
@@ -43,10 +53,10 @@ export class Structures {
   	return this.structures[name];
   }
 
-  public extend<K extends keyof Classes>(
+  public extend<K extends keyof Classes, T extends Classes[K]>(
   	name: K,
-  	extender: (structure: Classes[K]) => Classes[K]
-  ): Classes[K] {
+  	extender: (structure: Classes[K]) => T
+  ): T {
   	try {
   		const structure = this.get<K>(name);
   		const extended = extender(structure);
