@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable no-mixed-spaces-and-tabs */
+import { parse } from "https://deno.land/std/encoding/toml.ts";
 import { EvolveSocket } from "./Websocket.ts";
 import { OPCODE, Heartbeat, Identify, VoiceStateUpdate } from "../../mod.ts";
 import { Payload } from "../../Interfaces/Interfaces.ts";
@@ -26,15 +25,15 @@ export class Gateway {
   		if (this.ws.manager.builder.encoding == "json") {
   			payload = JSON.parse(data.toString());
   		} else {
-  			payload = JSON.parse(new TextDecoder().decode(data as unknown as ArrayBuffer));
-  		}
+			  payload = (await parse(new TextDecoder().decode(data as unknown as ArrayBuffer)))[0] as Payload;
+		  }
   		const { op, t, d } = payload;
   		if (!d) return;
 
   		if (op === OPCODE.Hello) {
   			// Command: Heartbeat
-  			this._spawn(this.shard);
-
+			  this._spawn(this.shard);
+			  this.ws.pingTimestamp = Date.now()
   			setInterval(() => {
   			this.ws.send(Heartbeat);
   			}, d.heartbeat_interval);
@@ -54,7 +53,7 @@ export class Gateway {
   			});
   			try {
   				(async () => {
-  					const { default: handler } = await import(`./Handlers/${t}`);
+  					const { default: handler } = await import(`./Handlers/${t}.ts`);
   					new handler(this.ws.manager.builder.client, payload, this.shard);
   				})();
   			} catch (e) {

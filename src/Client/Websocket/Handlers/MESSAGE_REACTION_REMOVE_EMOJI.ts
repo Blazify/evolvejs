@@ -1,4 +1,4 @@
-import { EvolveClient, EVENTS, Payload, MessageReaction } from "../../mod.ts";
+import { EvolveClient, EVENTS, Payload, MessageReaction } from "../../../mod.ts";
 import { MessageReactionEvents } from "../../Events/MessageReactionEvents.ts";
 
 export default class {

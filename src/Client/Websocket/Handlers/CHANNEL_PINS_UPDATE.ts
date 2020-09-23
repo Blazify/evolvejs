@@ -1,4 +1,4 @@
-import { EvolveClient, EVENTS, Payload } from "../../mod.ts";
+import { EvolveClient, EVENTS, Payload } from "../../../mod.ts";
 import { ChannelEvents } from "../../Events/ChannelEvents.ts";
 
 export default class {

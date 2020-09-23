@@ -7,10 +7,15 @@ import { ShardManager } from "./ShardManager.ts";
 export class EvolveSocket extends WebSocket {
   public seq?: number;
   public gateway: Gateway = new Gateway();
+  public pingTimestamp!: number;
 
   constructor(public manager: ShardManager, public shard: number) {
   	super(CONSTANTS.Gateway + manager.builder.encoding);
   	this._init();
+  }
+
+  get shardPing(): number {
+	  return Date.now() - this.pingTimestamp;
   }
 
   public async send(data: any): Promise<void> {

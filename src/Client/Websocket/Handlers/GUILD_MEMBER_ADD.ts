@@ -1,4 +1,4 @@
-import { EvolveClient, EVENTS, Payload, GuildMember } from "../../mod.ts";
+import { EvolveClient, EVENTS, Payload, GuildMember } from "../../../mod.ts";
 import { GuildMemberEvent } from "../../Events/GuildMemberEvents.ts";
 
 export default class {

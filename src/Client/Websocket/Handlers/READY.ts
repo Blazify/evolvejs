@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
-import { EvolveClient, Payload, EVENTS, ClientUser } from "../../mod.ts";
+import { EvolveClient, Payload, EVENTS, ClientUser } from "../../../mod.ts";
 import { Guild } from "../../../Structures/Guild/Guild.ts";
 
 export default class {
