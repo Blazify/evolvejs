@@ -1,8 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { OPCODE } from "..";
+import { ChannelsManager } from "../Client/Managers/ChannelsManger";
+import { EmojisManager } from "../Client/Managers/EmojisManager";
+import { GuildsManager } from "../Client/Managers/GuildsManager";
+import { MessagesManager } from "../Client/Managers/MessagesManager";
+import { RolesManager } from "../Client/Managers/RolesManager";
+import { UsersManager } from "../Client/Managers/UsersManager";
 import { Overwrite } from "../Structures/Channel/Overwrite";
 import { CHANNELTYPES } from "../Utils/Constants";
 import { MessageEmbed } from "../Utils/Embed/MessageEmbed";
+
+
+export interface CacheProviders {
+  guilds?: GuildsManager
+  channels?: ChannelsManager
+  users?: UsersManager
+  messages?: MessagesManager
+  roles?: RolesManager
+  emojis: EmojisManager
+}
 
 export interface IAPIParams {
   endpoint: string;

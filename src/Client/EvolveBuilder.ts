@@ -1,13 +1,12 @@
 /* eslint-disable no-constant-condition */
 /* eslint-disable no-mixed-spaces-and-tabs */
 
-import { EvolveSocket } from "./Websocket/Websocket";
 import { Oauth2 } from "../Oauth2/Oauth2";
-import { promisify } from "util";
 import { Structures } from "../Structures/Structures";
 import { CacheOptions, GatewayIntents, Identify } from "../Utils/Constants";
 import { EvolveClient } from "./EvolveClient";
 import { ShardManager } from "./Websocket/ShardManager";
+import { CacheProviders } from "../Interfaces/Interfaces";
 
 export class EvolveBuilder {
   private token!: string;
@@ -20,6 +19,7 @@ export class EvolveBuilder {
   public client!: EvolveClient;
   private structure!: Structures;
   private typeOfclient!: typeof EvolveClient;
+  private _providers!: CacheProviders;
 
   public constructor(token?: string, useDefaultIntents = true) {
   	if (token) {
@@ -146,6 +146,11 @@ export class EvolveBuilder {
   	return this;
   }
 
+  public setCacheProviders(providers: CacheProviders): EvolveBuilder {
+	  this._providers = providers;
+	  return this;
+  }
+
   /**
    * @param none
    * @returns {EvolveClient} A Initialized EvolveClient Instance
@@ -187,7 +192,28 @@ export class EvolveBuilder {
   				? true
   				: this.cache.has(CacheOptions.ALL),
   		});
-  	}
+	  }
+	  
+	  if(this._providers) {
+  		if(this._providers.guilds) {
+  			this.client.guilds = this._providers.guilds;
+  		}
+  		if(this._providers.channels) {
+  			this.client.channels = this._providers.channels;
+  		}
+		 if(this._providers.emojis) {
+  			this.client.emojis = this._providers.emojis;
+  		} 
+  		if(this._providers.users) {
+  			this.client.users = this._providers.users;
+  		} 
+  		if(this._providers.messages) {
+  			this.client.messages = this._providers.messages;
+  		} 
+  		if(this._providers.roles) {
+  			this.client.roles = this._providers.roles;
+  		}
+	  }
 
   	if (!this.token) {
   		throw this.client.logger.error(
