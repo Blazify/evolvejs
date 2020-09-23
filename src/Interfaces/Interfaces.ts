@@ -1,8 +1,24 @@
+import { ChannelsManager } from "../Client/Managers/ChannelsManger.ts";
+import { EmojisManager } from "../Client/Managers/EmojisManager.ts";
+import { GuildsManager } from "../Client/Managers/GuildsManager.ts";
+import { MessagesManager } from "../Client/Managers/MessagesManager.ts";
+import { RolesManager } from "../Client/Managers/RolesManager.ts";
+import { UsersManager } from "../Client/Managers/UsersManager.ts";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { OPCODE } from "../mod.ts";
 import { Overwrite } from "../Structures/Channel/Overwrite.ts";
 import { CHANNELTYPES } from "../Utils/Constants.ts";
 import { MessageEmbed } from "../Utils/Embed/MessageEmbed.ts";
+
+
+export interface CacheProviders {
+  guilds?: GuildsManager
+  channels?: ChannelsManager
+  users?: UsersManager
+  messages?: MessagesManager
+  roles?: RolesManager
+  emojis: EmojisManager
+}
 
 export interface IAPIParams {
   endpoint: string;
