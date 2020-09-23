@@ -1,6 +1,6 @@
 {
 	"name": "@evolvejs/evolvejs",
-	"version": "0.2.9-alpha",
+	"version": "0.3.0-alpha",
 	"description": "An advanced discord API wrapper with TS and JS support",
 	"main": "dist/index.js",
 	"scripts": {
