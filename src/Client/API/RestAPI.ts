@@ -1,18 +1,22 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 
-import { Invite } from "../../Structures/Guild/Invite";
-import { Emoji } from "../../Structures/Guild/Emoji";
-import { ChannelResolver, ChannelTypes } from "../../Utils/Constants";
-import { Channel } from "../../Structures/Channel/Channel";
-import { RestAPIHandler } from "./RestAPIHandler";
-import { EvolveClient } from "../EvolveClient";
-import { Guild } from "../../Structures/Guild/Guild";
-import { User } from "../../Structures/User/User";
-import { GuildMember } from "../../Structures/Guild/GuildMember";
-import { MessageEmbed } from "../../Utils/Embed/MessageEmbed";
-import { Message } from "../../Structures/Message/Message";
-import { TextChannel } from "../../Structures/Channel/TextChannel";
-import { ChannelOptions } from "../../Interfaces/Interfaces";
+import {
+	Channel,
+	ChannelOptions,
+	ChannelResolver,
+	ChannelTypes,
+	Emoji,
+	Guild,
+	GuildMember,
+	Invite,
+	Message,
+	MessageEmbed,
+	TextChannel,
+	User,
+	IRole
+} from "../..";
+import {RestAPIHandler} from "./RestAPIHandler";
+import {EvolveClient} from "../EvolveClient";
 
 /**
  * RestAPI Class
@@ -37,7 +41,23 @@ export class RestAPI {
   		this.client
   	);
   }
-
+  public async getGuildPrieview(guildID: string): Promise<any> {
+  	return await this.handler.fetch({
+  		endpoint: `guilds/${guildID}/preview`,
+  		method: "GET"
+  	});
+  }
+  public async getGuildRoles(guildID: string): Promise<IRole[]> {
+  	const result = await this.handler.fetch({
+  		endpoint: `guilds/${guildID}/roles`,
+  		method: "GET"
+  	});
+  	const roles = new Array<IRole>();
+  	for(const role of result) {
+  		roles.push(role);
+  	}
+  	return roles;
+  }
   public async getGuildChannels(guildID: string): Promise<ChannelTypes[]> {
   	const channels = await this.handler.fetch({
   		endpoint: `guilds/${guildID}/channels`,
@@ -145,8 +165,7 @@ export class RestAPI {
   		method: "GET",
 	  });
 	  let channel: ChannelTypes = new TextChannel(c, this.client);
-	  if(ChannelResolver[c.type])
-	  channel = new (ChannelResolver[c.type])(c, this.client);
+	  if(ChannelResolver[c.type]) channel = new (ChannelResolver[c.type])(c, this.client);
 
   	return channel;
   }
