@@ -33,7 +33,7 @@ export class ShardManager extends EventListener {
   }
 
   get ping(): number {
-  	return this._reduceConnections<number>((a, b) => a + b.shardPing);
+  	return this._reduceConnections<number>((a, b) => a + b.shardPing) / this.connections.size;
   }
 
   private _reduceConnections<T>(
