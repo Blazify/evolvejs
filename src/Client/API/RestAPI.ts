@@ -67,9 +67,9 @@ export class RestAPI {
   	const channelArray: ChannelTypes[] = [];
 
   	for (const c of channels) {
-		  if(ChannelResolver[c.type]) {
-		  channelArray.push(new (ChannelResolver[c.type])(c, this.client));
-		  }
+  		if (ChannelResolver[c.type]) {
+  			channelArray.push(new ChannelResolver[c.type](c, this.client));
+  		}
   	}
 
   	return channelArray;
@@ -113,18 +113,18 @@ export class RestAPI {
   	if (typeof content == "string") {
   		fetched = await this.handler.fetch({
   			endpoint: `channels/${channelID}/messages`,
-			  method: "POST",
-			  postType: "Message",
-  			  message: {
+  			method: "POST",
+  			postType: "Message",
+  			message: {
   				content: content,
-			  }
+  			},
   		});
   	} else {
   		fetched = await this.handler.fetch({
   			endpoint: `channels/${channelID}/messages`,
-			  method: "POST",
-			  postType: "Message",
-  			  message: {
+  			method: "POST",
+  			postType: "Message",
+  			message: {
   				embed: content,
   			},
   		});
@@ -163,6 +163,7 @@ export class RestAPI {
   	const c = await this.handler.fetch({
   		endpoint: `/channels/${channelID}`,
   		method: "GET",
+
 	  });
 	  let channel: ChannelTypes = new TextChannel(c, this.client);
 	  if(ChannelResolver[c.type]) channel = new (ChannelResolver[c.type])(c, this.client);
@@ -210,24 +211,27 @@ export class RestAPI {
   	return inviteArray;
   }
 
-  public async createChannel(guildID: string, options: ChannelOptions): Promise<ChannelTypes> {
+  public async createChannel(
+  	guildID: string,
+  	options: ChannelOptions
+  ): Promise<ChannelTypes> {
   	const c = await this.handler.fetch({
   		endpoint: `/guilds/${guildID}/channels`,
-		  method: "POST",
-		  postType: "Channel",
-		  channel: options
+  		method: "POST",
+  		postType: "Channel",
+  		channel: options,
   	});
   	let channel: ChannelTypes = new TextChannel(c, this.client);
-  	if(ChannelResolver[c.type])
-  		channel = new (ChannelResolver[c.type])(c, this.client);
+  	if (ChannelResolver[c.type])
+  		channel = new ChannelResolver[c.type](c, this.client);
 
   	return channel;
   }
 
   public async deleteChannel(channelID: string): Promise<void> {
-	  return await this.handler.fetch({
-		  endpoint: `/channels/${channelID}`,
-		  method: "DELETE"
-	  });
+  	return await this.handler.fetch({
+  		endpoint: `/channels/${channelID}`,
+  		method: "DELETE",
+  	});
   }
 }

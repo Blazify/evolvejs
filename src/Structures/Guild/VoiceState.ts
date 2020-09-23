@@ -1,12 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
-import {
-	Guild,
-	User,
-	GuildMember,
-	IVoiceState,
-	EvolveClient,
-} from "../..";
+import { Guild, User, GuildMember, IVoiceState, EvolveClient } from "../..";
 import { Channel } from "../Channel/Channel";
 
 export class VoiceState {

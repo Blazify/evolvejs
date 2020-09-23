@@ -29,12 +29,11 @@ function getSignature(signature) {
 
 	if (signature.comment && typeof signature.comment !== "string") {
 		signature.comment = Object.fromEntries(
-			Object.entries(signature.comment).filter(([k, v]) => typeof v == "string").map(([k, v]) => [
-				k,
-				v.replace(/(\r\n|\n|\r)/gm, ""),
-			])
+			Object.entries(signature.comment)
+				.filter(([k, v]) => typeof v == "string")
+				.map(([k, v]) => [k, v.replace(/(\r\n|\n|\r)/gm, "")])
 		);
-	} else if(signature.comment && typeof signature.comment == "string") {
+	} else if (signature.comment && typeof signature.comment == "string") {
 		signature.comment.replace(/(\r\n|n\n|\r)/gm, "");
 	}
 
@@ -116,16 +115,15 @@ function getChildren(object) {
 			continue;
 		}
 
-		if(child.sources) child.source = child.sources[0];
+		if (child.sources) child.source = child.sources[0];
 
-		 if (child.comment && typeof child.comment !== "string") {
+		if (child.comment && typeof child.comment !== "string") {
 			child.comment = Object.fromEntries(
-				Object.entries(child.comment).filter(([k, v]) => typeof v == "string").map(([k, v]) => [
-					k,
-					v.replace(/(\r\n|\n|\r)/gm, ""),
-				])
+				Object.entries(child.comment)
+					.filter(([k, v]) => typeof v == "string")
+					.map(([k, v]) => [k, v.replace(/(\r\n|\n|\r)/gm, "")])
 			);
-		} else if(child.comment && typeof child.comment == "string") {
+		} else if (child.comment && typeof child.comment == "string") {
 			child.comment.replace(/(\r\n|\n|\r)/gm, "");
 		}
 
@@ -141,7 +139,7 @@ function getChildren(object) {
 		delete child.kindString;
 		delete child.flags;
 		delete child.sources;
-		if(child.source) delete child.source.character;
+		if (child.source) delete child.source.character;
 		if (child.getSignature) {
 			delete child.getSignature;
 		}
@@ -155,14 +153,13 @@ function getChildren(object) {
 function cleanNames(json) {
 	const newJson = [];
 
-	for(let i = 0; i < json.length; i ++) {
+	for (let i = 0; i < json.length; i++) {
 		json[i].name = json[i].name.split("/").pop();
-		if(json[i].name.endsWith("ts"))
+		if (json[i].name.endsWith("ts"))
 			json[i].name = json[i].name.split(".").pop();
 
-		if(json[i].name.includes("\"")) 
+		if (json[i].name.includes("\""))
 			json[i].name = json[i].name.replace("\"", "");
-    
 
 		newJson.push(json[i]);
 	}

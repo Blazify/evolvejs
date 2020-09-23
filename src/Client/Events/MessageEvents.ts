@@ -28,22 +28,25 @@ export class MessageEvents extends BaseEvent {
 			);
 		if (message) {
 			if (message instanceof Message) {
-				(this.client.structures.get("Message")).handle(
-					message.data,
-					client
-				).then((o: Message) => {
-					this.message = o;
-				});
+				this.client.structures
+					.get("Message")
+					.handle(message.data, client)
+					.then((message: Message) => {
+						return message;
+					})
+					.then((message: Message) => {
+						this.message = message;
+					});
 			} else if (message instanceof Objex) {
 				for (const [k, v] of message) {
 					if (!v) return;
 					message.delete(k);
-					(async() => {
+					async () => {
 						message.set(
 							k,
-							await (this.client.structures.get("Message")).handle(v.data, client)
+							await this.client.structures.get("Message").handle(v.data, client)
 						);
-					});
+					};
 				}
 			}
 		}

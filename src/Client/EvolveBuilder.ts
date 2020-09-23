@@ -1,12 +1,12 @@
 /* eslint-disable no-constant-condition */
 /* eslint-disable no-mixed-spaces-and-tabs */
 
-import { EvolveSocket } from "./Websocket/Websocket";
 import { Oauth2 } from "../Oauth2/Oauth2";
-import { promisify } from "util";
 import { Structures } from "../Structures/Structures";
 import { CacheOptions, GatewayIntents, Identify } from "../Utils/Constants";
 import { EvolveClient } from "./EvolveClient";
+import { ShardManager } from "./Websocket/ShardManager";
+import { CacheProviders } from "../Interfaces/Interfaces";
 
 export class EvolveBuilder {
   private token!: string;
@@ -19,18 +19,19 @@ export class EvolveBuilder {
   public client!: EvolveClient;
   private structure!: Structures;
   private typeOfclient!: typeof EvolveClient;
+  private _providers!: CacheProviders;
 
   public constructor(token?: string, useDefaultIntents = true) {
   	if (token) {
   		this.token = token;
   	}
-    
-  	if(useDefaultIntents) {
-  	this.enableCache(CacheOptions.GUILD);
-  	this.enableIntents(
-		  GatewayIntents.GUILD +
-		  GatewayIntents.GUILD_MESSAGES +
-		  GatewayIntents.DIRECT_MESSAGES
+
+  	if (useDefaultIntents) {
+  		this.enableCache(CacheOptions.GUILD);
+  		this.enableIntents(
+  			GatewayIntents.GUILD +
+          GatewayIntents.GUILD_MESSAGES +
+          GatewayIntents.DIRECT_MESSAGES
   		);
   	}
   }
@@ -145,51 +146,75 @@ export class EvolveBuilder {
   	return this;
   }
 
+  public setCacheProviders(providers: CacheProviders): EvolveBuilder {
+	  this._providers = providers;
+	  return this;
+  }
+
   /**
    * @param none
    * @returns {EvolveClient} A Initialized EvolveClient Instance
    */
   public build(): EvolveClient {
-  	if(!this.typeOfclient) {
-  	this.client = new EvolveClient(this.token, {
-  		enableGuildCache: this.cache.has(CacheOptions.GUILD)
-  			? true
-  			: this.cache.has(CacheOptions.ALL),
-  		enableChannelCache: this.cache.has(CacheOptions.CHANNELS)
-  			? true
-  			: this.cache.has(CacheOptions.ALL),
-  		enableEmojiCache: this.cache.has(CacheOptions.EMOJI)
-  			? true
-  			: this.cache.has(CacheOptions.ALL),
-  		enableUsersCache: this.cache.has(CacheOptions.USERS)
-  			? true
-  			: this.cache.has(CacheOptions.ALL),
-  		enableMessageCache: this.cache.has(CacheOptions.MESSAGES)
-  			? true
-  			: this.cache.has(CacheOptions.ALL),
+  	if (!this.typeOfclient) {
+  		this.client = new EvolveClient(this.token, {
+  			enableGuildCache: this.cache.has(CacheOptions.GUILD)
+  				? true
+  				: this.cache.has(CacheOptions.ALL),
+  			enableChannelCache: this.cache.has(CacheOptions.CHANNELS)
+  				? true
+  				: this.cache.has(CacheOptions.ALL),
+  			enableEmojiCache: this.cache.has(CacheOptions.EMOJI)
+  				? true
+  				: this.cache.has(CacheOptions.ALL),
+  			enableUsersCache: this.cache.has(CacheOptions.USERS)
+  				? true
+  				: this.cache.has(CacheOptions.ALL),
+  			enableMessageCache: this.cache.has(CacheOptions.MESSAGES)
+  				? true
+  				: this.cache.has(CacheOptions.ALL),
   		});
   	} else {
-  		this.client = new this.typeOfclient(
-  			this.token, {
-  				enableGuildCache: this.cache.has(CacheOptions.GUILD)
-  					? true
-  					: this.cache.has(CacheOptions.ALL),
-  				enableChannelCache: this.cache.has(CacheOptions.CHANNELS)
-  					? true
-  					: this.cache.has(CacheOptions.ALL),
-  				enableEmojiCache: this.cache.has(CacheOptions.EMOJI)
-  					? true
-  					: this.cache.has(CacheOptions.ALL),
-  				enableUsersCache: this.cache.has(CacheOptions.USERS)
-  					? true
-  					: this.cache.has(CacheOptions.ALL),
-  				enableMessageCache: this.cache.has(CacheOptions.MESSAGES)
-  					? true
-  					: this.cache.has(CacheOptions.ALL),
-  			}
-  		);
-  	}
-  
+  		this.client = new this.typeOfclient(this.token, {
+  			enableGuildCache: this.cache.has(CacheOptions.GUILD)
+  				? true
+  				: this.cache.has(CacheOptions.ALL),
+  			enableChannelCache: this.cache.has(CacheOptions.CHANNELS)
+  				? true
+  				: this.cache.has(CacheOptions.ALL),
+  			enableEmojiCache: this.cache.has(CacheOptions.EMOJI)
+  				? true
+  				: this.cache.has(CacheOptions.ALL),
+  			enableUsersCache: this.cache.has(CacheOptions.USERS)
+  				? true
+  				: this.cache.has(CacheOptions.ALL),
+  			enableMessageCache: this.cache.has(CacheOptions.MESSAGES)
+  				? true
+  				: this.cache.has(CacheOptions.ALL),
+  		});
+	  }
+	  
+	  if(this._providers) {
+  		if(this._providers.guilds) {
+  			this.client.guilds = this._providers.guilds;
+  		}
+  		if(this._providers.channels) {
+  			this.client.channels = this._providers.channels;
+  		}
+		 if(this._providers.emojis) {
+  			this.client.emojis = this._providers.emojis;
+  		} 
+  		if(this._providers.users) {
+  			this.client.users = this._providers.users;
+  		} 
+  		if(this._providers.messages) {
+  			this.client.messages = this._providers.messages;
+  		} 
+  		if(this._providers.roles) {
+  			this.client.roles = this._providers.roles;
+  		}
+	  }
+
   	if (!this.token) {
   		throw this.client.logger.error(
   			"EvolveBuilder#build Error.. -> No token Provided for EvolveClient to be initialized"
@@ -207,16 +232,13 @@ export class EvolveBuilder {
   	if (this.secret) {
   		this.client.secret = this.secret;
   		this.client.oauth2 = new Oauth2(this.client);
-	  }
-	  
-	  if(this.structure) this.client.structures = this.structure;
-
-  	for (let i = 0; i < this.shards; i++) {
-  		promisify(setTimeout)(5000 * i).then(() => {
-  			const socket = new EvolveSocket(this, i);
-  			this.client.shardConnections.set(i, socket);
-  		});
   	}
+
+  	if (this.structure) this.client.structures = this.structure;
+
+  	const manager = new ShardManager(this);
+  	this.client.sharder = manager;
+  	manager.spawnAll();
 
   	this.client.secret = this.secret;
   	return this.client;

@@ -24,13 +24,13 @@ export class User {
   	if (this.data.id) this.id = this.data.id;
   	this.username = this.data.username;
   	this.discriminator = this.data.discriminator;
-  	this.avatar = this.data.avatar || undefined;
-  	this.bot = this.data.bot || false;
-  	this.system = this.data.system || false;
-  	this.twoFactor = this.data.mfa_enabled || false;
+  	this.avatar = this.data.avatar ?? undefined;
+  	this.bot = this.data.bot ?? false;
+  	this.system = this.data.system ?? false;
+  	this.twoFactor = this.data.mfa_enabled ?? false;
   	this.lang = this.data.locale;
-  	this.verified = this.data.verified || false;
-  	this.email = this.data.email || undefined;
+  	this.verified = this.data.verified ?? false;
+  	this.email = this.data.email ?? undefined;
   	this.flags = this.data.flags;
   	this.premiumType = this.data.premium_type
   		? NITRO[this.data.premium_type]
