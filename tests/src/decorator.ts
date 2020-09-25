@@ -9,7 +9,7 @@ import {
 import { argv } from "process";
 
 @Builder({
-	token: argv[2] ?? require("./config").token ?? process.env.DISCORD_TOKEN,
+	token: argv[2] ?? process.env.DISCORD_TOKEN,
 	useDefaultSetting: true,
 })
 class Client extends EvolveClient {

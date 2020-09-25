@@ -8,7 +8,7 @@ import {
 import { argv } from "process";
 
 const client: EvolveClient = new EvolveBuilder("", true)
-	.setToken(argv[2] ?? require("./config").token ?? process.env.DISCORD_TOKEN)
+	.setToken(argv[2] ?? process.env.DISCORD_TOKEN)
 	.build();
 
 client.sharder.on("shardSpawn", (id: number) => {
