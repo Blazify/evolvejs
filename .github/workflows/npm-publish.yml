@@ -28,7 +28,9 @@ jobs:
       - run: npm i
       - run: npm start
       - run: npm publish
+      - run: node scripts/onPublish.js
         env:
+          DISCORD_TOKEN: ${{secrets.BOT_TOKEN}}
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
 
   publish-gpr:

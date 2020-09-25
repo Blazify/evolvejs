@@ -1,9 +1,6 @@
 import {
 	EvolveBuilder,
-	EvolveClient,
-	MessageEvents,
-	Message,
-	EmbedBuilder,
+	EvolveClient
 } from "../../";
 import { argv } from "process";
 
@@ -22,4 +19,5 @@ client.sharder.on("shardDestroy", (id: number) => {
 client.on("clientReady", () => {
 	console.log("[Client: EvolveClient] => Ready");
 	client.sharder.destroyAll(0);
+	process.exit(0); // due to idiot github, that they always respawn, you dont need to do this
 });
