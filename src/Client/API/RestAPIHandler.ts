@@ -11,15 +11,19 @@ export class RestAPIHandler {
   public async fetch(options: IAPIParams): Promise<any> {
   	try {
   		if (options.method !== "POST") {
-  			if(this._lastFetchReturnHeader) {
-  				const remaining = this._lastFetchReturnHeader.get("X-RateLimit-Remaining");
-  				const resetAfter = this._lastFetchReturnHeader.get("X-RateLimit-Reset");
-  				if(Number(remaining) == 0) {
-  					await promisify(setTimeout)(Number(resetAfter));
-  					return this.fetch(options);
+  			if (this._lastFetchReturnHeader) {
+  				const remaining = this._lastFetchReturnHeader.get(
+  					"X-RateLimit-Remaining"
+  				);
+  				let resetAfter: unknown = this._lastFetchReturnHeader.get(
+  					"X-RateLimit-Reset-After"
+  				);
+  				if (resetAfter) resetAfter = Number(resetAfter) * 1000;
+  				if (remaining == "0") {
+  					await promisify(setTimeout)((resetAfter as unknown) as number);
   				}
   			}
-			
+
   			const fetched = await fetch(`${CONSTANTS.Api}/${options.endpoint}`, {
   				method: options.method,
   				headers: {
@@ -35,24 +39,26 @@ export class RestAPIHandler {
   				);
   				this._ratelimited += 1;
   				if (this._ratelimited === 50) {
-  					this.client.sharder.shutdown();
+  					this.client.sharder.destroyAll();
   				}
-  				promisify(setTimeout)(json.retry_after).then(() => {
-  					return this.fetch(options);
-  				});
-			  }
-			  
-			  this._lastFetchReturnHeader =  fetched.headers;
+  				await promisify(setTimeout)(json.retry_after);
+  				return this.fetch(options);
+  			}
+  			this._lastFetchReturnHeader = fetched.headers;
 
   			return fetched.json();
   		} else {
-			  if(this._lastFetchReturnHeader) {
-				  const remaining = this._lastFetchReturnHeader.get("X-RateLimit-Remaining");
-				  const resetAfter = this._lastFetchReturnHeader.get("X-RateLimit-Reset");
-  				if(Number(remaining) == 0) {
-					  await promisify(setTimeout)(Number(resetAfter));
-					  return this.fetch(options);
-				  }
+  			if (this._lastFetchReturnHeader) {
+  				const remaining = this._lastFetchReturnHeader.get(
+  					"X-RateLimit-Remaining"
+  				);
+  				const resetAfter = this._lastFetchReturnHeader.get(
+  					"X-RateLimit-Reset"
+  				);
+  				if (Number(remaining) == 0) {
+  					await promisify(setTimeout)(Number(resetAfter));
+  					return this.fetch(options);
+  				}
   			}
 
   			let body;
@@ -81,13 +87,12 @@ export class RestAPIHandler {
   				);
   				this._ratelimited += 1;
   				if (this._ratelimited === 50) {
-  					this.client.sharder.shutdown();
+  					this.client.sharder.destroyAll();
   				}
-  				promisify(setTimeout)(json.retry_after).then(() => {
-  					return this.fetch(options);
-  				});
-			  }
-			  
+  				await promisify(setTimeout)(json.retry_after);
+  				return this.fetch(options);
+  			}
+
   			this._lastFetchReturnHeader = fetched.headers;
 
   			return fetched.json();

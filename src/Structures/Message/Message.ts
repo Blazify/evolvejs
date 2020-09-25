@@ -20,13 +20,25 @@ export class Message {
   public guild!: Guild;
   public channel!: TextChannel;
   public delete!: (time: number) => Promise<NodeJS.Timeout>;
+  public data!: IMessage;
+  private client!: EvolveClient;
 
   constructor(
-    public data: IMessage,
-    private client: EvolveClient,
-    channel: TextChannel,
-    guild?: Guild
+  	data: IMessage,
+  	client: EvolveClient,
+  	channel: TextChannel,
+  	guild?: Guild
   ) {
+  	Object.defineProperty(this, "client", {
+  		value: client,
+  		writable: false,
+  		enumerable: false,
+  	});
+  	Object.defineProperty(this, "data", {
+  		value: data,
+  		enumerable: false,
+  		writable: false,
+  	});
   	if (!this.data) return;
   	if (this.data.mentions)
   		for (const it of this.data.mentions) {
@@ -56,11 +68,13 @@ export class Message {
   static async handle(data: IMessage, client: EvolveClient): Promise<Message> {
   	let message: Message;
   	let guild: Guild;
-  	const channel: TextChannel = (await client.rest.getChannel(
+  	const channel: TextChannel = client.channels.get(
   		data.channel_id
-  	)) as TextChannel;
+  	) as TextChannel;
   	if (data.guild_id) {
-  		guild = await client.rest.getGuild(data.guild_id);
+  		guild =
+        client.guilds.get(data.guild_id) ??
+        (await client.rest.getGuild(data.guild_id));
   		message = new Message(data, client, channel, guild);
   	} else message = new Message(data, client, channel);
   	return message;

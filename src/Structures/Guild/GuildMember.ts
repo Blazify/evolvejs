@@ -11,7 +11,13 @@ export class GuildMember {
   public premiumFrom!: number | undefined | null;
   public deaf!: boolean;
   public mute!: boolean;
-  constructor(public data: IGuildMember) {
+  public data!: IGuildMember;
+  constructor(data: IGuildMember) {
+  	Object.defineProperty(this, "data", {
+  		value: data,
+  		enumerable: false,
+  		writable: false,
+  	});
   	this._handle();
   }
 

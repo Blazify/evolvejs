@@ -10,14 +10,13 @@ import { Overwrite } from "../Structures/Channel/Overwrite";
 import { CHANNELTYPES } from "../Utils/Constants";
 import { MessageEmbed } from "../Utils/Embed/MessageEmbed";
 
-
 export interface CacheProviders {
-  guilds?: GuildsManager
-  channels?: ChannelsManager
-  users?: UsersManager
-  messages?: MessagesManager
-  roles?: RolesManager
-  emojis: EmojisManager
+  guilds?: GuildsManager;
+  channels?: ChannelsManager;
+  users?: UsersManager;
+  messages?: MessagesManager;
+  roles?: RolesManager;
+  emojis: EmojisManager;
 }
 
 export interface IAPIParams {

@@ -21,13 +21,17 @@ export class EvolveBuilder {
   private typeOfclient!: typeof EvolveClient;
   private _providers!: CacheProviders;
 
-  public constructor(token?: string, useDefaultIntents = true) {
+  public constructor(token?: string, useDefaultSettings = true) {
   	if (token) {
   		this.token = token;
   	}
 
-  	if (useDefaultIntents) {
-  		this.enableCache(CacheOptions.GUILD);
+  	if (useDefaultSettings) {
+  		this.enableCache(
+  			CacheOptions.GUILD,
+  			CacheOptions.CHANNELS,
+  			CacheOptions.USERS
+  		);
   		this.enableIntents(
   			GatewayIntents.GUILD +
           GatewayIntents.GUILD_MESSAGES +
@@ -147,8 +151,8 @@ export class EvolveBuilder {
   }
 
   public setCacheProviders(providers: CacheProviders): EvolveBuilder {
-	  this._providers = providers;
-	  return this;
+  	this._providers = providers;
+  	return this;
   }
 
   /**
@@ -192,28 +196,28 @@ export class EvolveBuilder {
   				? true
   				: this.cache.has(CacheOptions.ALL),
   		});
-	  }
-	  
-	  if(this._providers) {
-  		if(this._providers.guilds) {
+  	}
+
+  	if (this._providers) {
+  		if (this._providers.guilds) {
   			this.client.guilds = this._providers.guilds;
   		}
-  		if(this._providers.channels) {
+  		if (this._providers.channels) {
   			this.client.channels = this._providers.channels;
   		}
-		 if(this._providers.emojis) {
+  		if (this._providers.emojis) {
   			this.client.emojis = this._providers.emojis;
-  		} 
-  		if(this._providers.users) {
+  		}
+  		if (this._providers.users) {
   			this.client.users = this._providers.users;
-  		} 
-  		if(this._providers.messages) {
+  		}
+  		if (this._providers.messages) {
   			this.client.messages = this._providers.messages;
-  		} 
-  		if(this._providers.roles) {
+  		}
+  		if (this._providers.roles) {
   			this.client.roles = this._providers.roles;
   		}
-	  }
+  	}
 
   	if (!this.token) {
   		throw this.client.logger.error(

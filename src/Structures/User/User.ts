@@ -14,8 +14,14 @@ export class User {
   public flags?: number;
   public premiumType!: string;
   public publicFlags?: number;
+  public data!: IUser;
 
-  constructor(public data: IUser) {
+  constructor(data: IUser) {
+  	Object.defineProperty(this, "data", {
+  		value: data,
+  		enumerable: false,
+  		writable: false,
+  	});
   	this._handle();
   }
 

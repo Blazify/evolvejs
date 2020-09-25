@@ -10,13 +10,11 @@ import {
 	IGuild,
 } from "../..";
 import { Objex } from "@evolvejs/objex";
-import { ChannelTypes } from "../../Utils/Constants";
 import { Channel } from "../Channel/Channel";
 import { ChannelsManager } from "../../Client/Managers/ChannelsManger";
-import { clear } from "console";
 
 export class Guild {
-  public client: EvolveClient;
+  public client!: EvolveClient;
   public members: Objex<string, GuildMember> = new Objex();
   public channels!: ChannelsManager;
   public roles: Objex<string, Role> = new Objex();
@@ -60,9 +58,19 @@ export class Guild {
   public preferredLang!: string;
   public updatesChannel?: Channel;
   public maxChannelUsers?: number;
+  public data!: IGuild;
 
-  constructor(public data: IGuild, client: EvolveClient) {
-  	this.client = client;
+  constructor(data: IGuild, client: EvolveClient) {
+  	Object.defineProperty(this, "client", {
+  		value: client,
+  		enumerable: false,
+  		writable: false,
+  	});
+  	Object.defineProperty(this, "data", {
+  		value: data,
+  		enumerable: false,
+  		writable: false,
+  	});
   	this.id = data.id;
   	this.channels = new ChannelsManager(client, this);
   	this._handle();

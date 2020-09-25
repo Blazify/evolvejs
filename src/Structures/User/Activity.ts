@@ -17,8 +17,14 @@ export class Activity {
   public secrets?: ISecrets;
   public instance?: boolean;
   public flags?: number;
+  public data!: IActivity;
 
-  constructor(public data: IActivity) {
+  constructor(data: IActivity) {
+  	Object.defineProperty(this, "data", {
+  		value: data,
+  		enumerable: false,
+  		writable: false,
+  	});
   	this._handle();
   }
 

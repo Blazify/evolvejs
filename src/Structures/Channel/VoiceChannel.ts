@@ -18,9 +18,15 @@ export class VoiceChannel extends Channel {
   public bitrate!: number;
   public userLimit!: number;
   public parent?: CategoryChannel;
+  public data!: IVoiceChannel;
 
-  constructor(public data: IVoiceChannel, client: EvolveClient) {
+  constructor(data: IVoiceChannel, client: EvolveClient) {
   	super(data.id, CHANNELTYPES.Voice, client);
+  	Object.defineProperty(this, "data", {
+  		value: data,
+  		enumerable: false,
+  		writable: false,
+  	});
   	this._handle();
   }
 

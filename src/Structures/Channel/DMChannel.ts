@@ -7,9 +7,16 @@ export class DMChannel extends Channel {
 
   public lastMessage?: string;
   public lastPin?: number;
+  public data!: IDMChannel;
 
-  constructor(public data: IDMChannel, client: EvolveClient) {
+  constructor(data: IDMChannel, client: EvolveClient) {
   	super(data.id, CHANNELTYPES.Direct, client);
+  	Object.defineProperty(this, "data", {
+  		value: data,
+  		enumerable: false,
+  		writable: false,
+  	});
+
   	this._handle();
   }
 

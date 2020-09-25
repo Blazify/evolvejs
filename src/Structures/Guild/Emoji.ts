@@ -12,8 +12,14 @@ export class Emoji {
   public managed?: boolean;
   public animated?: boolean;
   public available?: boolean;
+  public data!: IEmoji;
 
-  constructor(public data: IEmoji) {
+  constructor(data: IEmoji) {
+  	Object.defineProperty(this, "data", {
+  		value: data,
+  		enumerable: false,
+  		writable: false,
+  	});
   	this._handle();
   }
 

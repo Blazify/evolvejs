@@ -1,5 +1,6 @@
 import { EvolveBuilder } from "../Client/EvolveBuilder";
 import { EvolveClient } from "../Client/EvolveClient";
+import { CacheProviders } from "../Interfaces/Interfaces";
 import { Structures } from "../Structures/Structures";
 import { CacheOptions, GatewayIntents } from "../Utils/Constants";
 
@@ -9,9 +10,9 @@ export function Builder(options: BuilderDecoratorOptions) {
 	return (target: typeof EvolveClient): void => {
 		const builder: EvolveBuilder = new EvolveBuilder(
 			options.token,
-			options.useDefaultSetting ?? false
-		);
-		builder.setClientClass(target);
+			options.useDefaultSetting ?? true
+		).setClientClass(target);
+
 		if (options.intents) builder.enableIntents(...options.intents);
 		if (options.cache) builder.enableCache(...options.cache);
 		if (options.secret) builder.setSecret(options.secret);
@@ -19,6 +20,7 @@ export function Builder(options: BuilderDecoratorOptions) {
 		if (options.encoding) builder.setEncoding(options.encoding);
 		if (options.shards) builder.setShards(options.shards);
 		if (options.structure) builder.setStructureClass(options.structure);
+		if (options.cacheProvider) builder.setCacheProviders(options.cacheProvider);
 
 		if (built) throw new Error("Decorator Builder Error");
 		builder.build();
@@ -36,4 +38,5 @@ interface BuilderDecoratorOptions {
   encoding?: "json" | "etf";
   shards?: number;
   structure?: Structures;
+  cacheProvider?: CacheProviders;
 }

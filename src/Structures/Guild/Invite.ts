@@ -12,7 +12,19 @@ export class Invite {
   public targetUserType?: number;
   public approxPresenceCount?: number;
   public approxMemberCount?: number;
-  constructor(public data: IInvite, private client: EvolveClient) {
+  private client!: EvolveClient;
+  public data!: IInvite;
+  constructor(data: IInvite, client: EvolveClient) {
+  	Object.defineProperty(this, "data", {
+  		value: data,
+  		enumerable: false,
+  		writable: false,
+  	});
+  	Object.defineProperty(this, "client", {
+  		value: client,
+  		enumerable: false,
+  		writable: false,
+  	});
   	this._handle();
   }
 

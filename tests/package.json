@@ -2,13 +2,10 @@
   "name": "tests",
   "version": "1.0.0",
   "description": "tests of evolvejs",
-  "main": "dist/index.js",
+  "main": "dist/builder.js",
   "scripts": {
     "test": "node ."
   },
   "author": "echo-3-1",
-  "license": "AGPL-3.0-or-later",
-  "dependencies": {
-    "@evolvejs/evolvejs": "^0.2.5-alpha"
-  }
+  "license": "AGPL-3.0-or-later"
 }

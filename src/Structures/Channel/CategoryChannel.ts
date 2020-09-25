@@ -16,9 +16,15 @@ export class CategoryChannel extends Channel {
   public guild?: Guild;
   public position!: number;
   public name!: string;
+  public data!: ICategoryChannel;
 
-  constructor(public data: ICategoryChannel, client: EvolveClient) {
+  constructor(data: ICategoryChannel, client: EvolveClient) {
   	super(data.id, CHANNELTYPES.Category, client);
+  	Object.defineProperty(this, "data", {
+  		value: data,
+  		enumerable: false,
+  		writable: false,
+  	});
   	this._handle();
   }
 

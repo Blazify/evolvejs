@@ -4,47 +4,38 @@ import {
 	MessageEvents,
 	Message,
 	EmbedBuilder,
-} from "@evolvejs/evolvejs";
-import { token } from "./config";
+} from "../../";
+import { argv } from "process";
 
 const client: EvolveClient = new EvolveBuilder("", true)
-	.setToken(token)
-	.setShards(2)
+	.setToken(argv[2] ?? require("./config").token ?? process.env.DISCORD_TOKEN)
 	.build();
 
-client.structures.extend("Message", (Message) => {
-	class newMessage extends Message {
-		get args() {
-			return this.content.replace("!", "").split(" ");
-		}
-	}
-	return newMessage;
+client.sharder.on("shardSpawn", (id: number) => {
+	console.log(`[Shard: ${id}] => Spawned`);
+});
+
+client.sharder.on("shardDestroy", (id: number) => {
+	console.log(`[Shard: ${id}] => Destroyed`);
 });
 
 client.on("clientReady", () => {
-	for (const [id, connection] of client.shardConnections) {
-		connection.gateway.on("shardSpawn", () => {
-			console.log(`Shard ${id} has been launched`);
-		});
-
-		connection.gateway.on("shardDestroy", () => {
-			console.log(`Shard ${id} has been destroyed`);
-		});
-	}
+	console.log("[Client: EvolveClient] => Ready");
+	client.sharder.destroyAll(0);
 });
 
-client.on("newMessage", (event: MessageEvents) => {
+client.on("newMessage", async (event: MessageEvents) => {
 	if (!(event.message instanceof Message)) return;
 	if (!event.message.content.startsWith("!")) return;
-	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-	//@ts-ignore
-	if (event.message.args[0] === "test") {
-		event.message.channel.send(
+	if (event.message.content === "test") {
+		await event.message.channel.send(
 			new EmbedBuilder()
 				.setAuthor("Test")
 				.setColor(0xff0000)
 				.setDescription("This is a Test")
 				.build()
 		);
+
+		client.sharder.destroyAll();
 	}
 });

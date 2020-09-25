@@ -17,8 +17,20 @@ export class MessageReaction {
   public member?: GuildMember;
   public guild!: Guild;
   public emoji?: Emoji;
+  private client!: EvolveClient;
+  public data!: IMessageReaction;
 
-  constructor(public data: IMessageReaction, private client: EvolveClient) {
+  constructor(data: IMessageReaction, client: EvolveClient) {
+  	Object.defineProperty(this, "data", {
+  		value: data,
+  		enumerable: false,
+  		writable: false,
+  	});
+  	Object.defineProperty(this, "client", {
+  		value: client,
+  		enumerable: false,
+  		writable: false,
+  	});
   	this._handle();
   }
 

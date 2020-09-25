@@ -3,14 +3,14 @@ import { EvolveClient } from "../EvolveClient";
 import { Message } from "../../Structures/Message/Message";
 import { Objex } from "@evolvejs/objex";
 import { Guild } from "../../Structures/Guild/Guild";
-import { Channel } from "../../Structures/Channel/Channel";
-import { ChannelTypes } from "../../Utils/Constants";
 import { TextChannel } from "../../Structures/Channel/TextChannel";
 
-export class MessageEvents extends BaseEvent {
+export class MessageEvents<
+  K = Message | Objex<string, Message>
+> extends BaseEvent {
 	constructor(
 		client: EvolveClient,
-    public message: Message | Objex<string, Message | undefined> | undefined,
+    public message: K,
     public guild: Guild | undefined,
     public channel: TextChannel | undefined,
     shard: number
@@ -35,7 +35,7 @@ export class MessageEvents extends BaseEvent {
 						return message;
 					})
 					.then((message: Message) => {
-						this.message = message;
+						this.message = (message as unknown) as K;
 					});
 			} else if (message instanceof Objex) {
 				for (const [k, v] of message) {
