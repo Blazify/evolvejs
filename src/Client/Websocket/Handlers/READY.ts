@@ -31,12 +31,12 @@ export default class {
   		user.avatar
   	);
 
-  	for (const g of guilds) {
-  		const fetched: Guild = await this.client.rest.getGuild(g.id);
+  	for (const guild of guilds) {
+  		const fetched: Guild = await this.client.rest.getGuild(guild.id);
 
   		for (const [k, v] of fetched.members) {
   			if (this.client.options.enableUsersCache)
-  				this.client.users.set(k, v.user!);
+  				if (v.user) this.client.users.set(k, v.user);
   		}
 
   		for (const [k, v] of fetched.channels) {

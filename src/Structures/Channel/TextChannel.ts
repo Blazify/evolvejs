@@ -22,9 +22,15 @@ export class TextChannel extends Channel {
   public parent?: CategoryChannel;
   public lastPin?: number;
   public send!: (content: string | MessageEmbed) => Promise<Message>;
+  public data!: ITextChannel;
 
-  constructor(public data: ITextChannel, client: EvolveClient) {
+  constructor(data: ITextChannel, client: EvolveClient) {
   	super(data.id, CHANNELTYPES.Text, client);
+  	Object.defineProperty(this, "data", {
+  		value: data,
+  		enumerable: false,
+  		writable: false,
+  	});
   	this._handle();
   }
 

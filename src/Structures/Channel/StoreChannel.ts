@@ -18,9 +18,15 @@ export class StoreChannel extends Channel {
   public nsfw!: boolean;
   public rateLimit!: number;
   public parent?: CategoryChannel;
+  public data!: IStoreChannel;
 
-  constructor(public data: IStoreChannel, client: EvolveClient) {
+  constructor(data: IStoreChannel, client: EvolveClient) {
   	super(data.id, CHANNELTYPES.Store, client);
+  	Object.defineProperty(this, "data", {
+  		value: data,
+  		enumerable: false,
+  		writable: false,
+  	});
   	this._handle();
   }
 

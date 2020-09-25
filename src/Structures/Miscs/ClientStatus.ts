@@ -5,7 +5,13 @@ export class ClientStatus {
   public desktop?: string;
   public mobile?: string;
   public web?: string;
-  constructor(public data: IClientStatus) {
+  public data!: IClientStatus;
+  constructor(data: IClientStatus) {
+  	Object.defineProperty(this, "data", {
+  		value: data,
+  		enumerable: false,
+  		writable: false,
+  	});
   	this._handle();
   }
 

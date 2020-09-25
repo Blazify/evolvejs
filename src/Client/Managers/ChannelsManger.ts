@@ -5,25 +5,24 @@ import { ChannelTypes } from "../../Utils/Constants";
 import { EvolveClient } from "../EvolveClient";
 
 export class ChannelsManager extends Objex<string, ChannelTypes> {
-  private client: EvolveClient;
+  private client!: EvolveClient;
   private guild!: Guild;
   constructor(client: EvolveClient, guild?: Guild) {
   	super();
-  	this.client = client;
+  	Object.defineProperty(this, "client", {
+  		value: client,
+  		enumerable: false,
+  		writable: false,
+  	});
   	if (guild) this.guild = guild;
   }
 
   public get(id: string): ChannelTypes | undefined {
   	let channel = super.get(id);
-  	if (!channel)
-  		this.client.rest
-  			.getChannel(id)
-  			.then((newChannel: ChannelTypes) => {
-  				channel = newChannel;
-  			})
-  			.catch((error: Error) => {
-  				throw this.client.logger.error(error.message);
-  			});
+  	(async () => {
+  		channel = channel ?? (await this.client.rest.getChannel(id));
+  		return channel;
+  	})();
   	return channel;
   }
 

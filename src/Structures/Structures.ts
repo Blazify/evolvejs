@@ -36,14 +36,12 @@ export class Structures {
   	Role,
   	User,
   };
-  constructor(private client: EvolveClient) {
-  	this.extend("Guild", (structure: typeof Guild) => {
-  		class newGuild extends structure {
-  			constructor() {
-  				super(arguments.callee(0), arguments.callee(1));
-  			}
-  		}
-  		return newGuild;
+  private client!: EvolveClient;
+  constructor(client: EvolveClient) {
+  	Object.defineProperty(this, "client", {
+  		value: client,
+  		enumerable: false,
+  		writable: false,
   	});
   }
 

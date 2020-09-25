@@ -20,7 +20,19 @@ export class PresenceUpdate {
   public clientStatus!: ClientStatus;
   public premiumFrom?: number | null;
   public nick?: string | null;
-  constructor(public data: IPresenceUpdate, private client: EvolveClient) {
+  private client!: EvolveClient;
+  public data!: IPresenceUpdate;
+  constructor(data: IPresenceUpdate, client: EvolveClient) {
+  	Object.defineProperty(this, "data", {
+  		value: data,
+  		enumerable: false,
+  		writable: false,
+  	});
+  	Object.defineProperty(this, "client", {
+  		value: client,
+  		enumerable: false,
+  		writable: false,
+  	});
   	this._handle();
   }
 

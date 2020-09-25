@@ -53,7 +53,7 @@ export class Gateway {
   				this.shard,
   				new EvolveSocket(this.ws.manager, this.shard)
   			);
-  			this._reconnect();
+  			this.reconnect();
   			this.ws.close();
   		} else if (t) {
   			this.ws.manager.builder.client.emit(EVENTS.RAW, {
@@ -64,6 +64,13 @@ export class Gateway {
   			try {
   				(async () => {
   					const { default: handler } = await import(`./Handlers/${t}`);
+  					if (t == "MESSAGE_CREATE") {
+  						new handler(
+  							this.ws.manager.builder.client,
+  							payload,
+  							this.shard
+  						)._init();
+  					}
   					new handler(this.ws.manager.builder.client, payload, this.shard);
   				})();
   			} catch (e) {
@@ -97,7 +104,7 @@ export class Gateway {
   	return true;
   }
 
-  private _reconnect() {
+  public reconnect(): void {
   	const payload: Payload = {
   		op: OPCODE.Resume,
   		d: {

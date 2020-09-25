@@ -9,8 +9,14 @@ export class Role {
   public permissions!: number;
   public managed = false;
   public mentionable = false;
+  public data!: IRole;
 
-  constructor(public data: IRole) {
+  constructor(data: IRole) {
+  	Object.defineProperty(this, "data", {
+  		value: data,
+  		enumerable: false,
+  		writable: false,
+  	});
   	this._handle();
   }
 

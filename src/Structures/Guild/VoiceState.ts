@@ -16,8 +16,20 @@ export class VoiceState {
   public selfStream!: boolean;
   public selfVideo!: boolean;
   public supress!: boolean;
+  private client!: EvolveClient;
+  public data!: IVoiceState;
 
-  constructor(public data: IVoiceState, private client: EvolveClient) {
+  constructor(data: IVoiceState, client: EvolveClient) {
+  	Object.defineProperty(this, "data", {
+  		value: data,
+  		enumerable: false,
+  		writable: false,
+  	});
+  	Object.defineProperty(this, "client", {
+  		value: client,
+  		enumerable: false,
+  		writable: false,
+  	});
   	this._handle();
   }
 

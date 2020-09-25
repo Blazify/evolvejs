@@ -1,9 +1,6 @@
-import { config } from "sign-logger/dist/config";
-import { Logger } from "sign-logger";
-import { Objex } from "@evolvejs/objex";
+import { Logger, Colors } from "sign-logger";
 import { Oauth2 } from "../Oauth2/Oauth2";
 import { Structures } from "../Structures/Structures";
-import { EvolveSocket } from "./Websocket/Websocket";
 import { EventListener } from "../Utils/EventListener";
 import { GuildsManager } from "./Managers/GuildsManager";
 import { ChannelsManager } from "./Managers/ChannelsManger";
@@ -34,11 +31,11 @@ export class EvolveClient extends EventListener {
   public logger: Logger = new Logger({
   	dateFormat: "YY:MM:DD:MI:SS:MS",
   	colors: {
-  		error: config.Red,
-  		info: config.Blue,
-  		success: config.Green,
-  		debug: config.Magenta,
-  		warn: config.Yellow,
+  		error: Colors.Red,
+  		info: Colors.Blue,
+  		success: Colors.Green,
+  		debug: Colors.Magenta,
+  		warn: Colors.Yellow,
   	},
   	symbols: {
   		left: "<",
@@ -46,11 +43,11 @@ export class EvolveClient extends EventListener {
   	},
   	textColors: {
   		all: false,
-  		error: config.Red,
-  		info: config.Blue,
-  		success: config.Green,
-  		debug: config.Magenta,
-  		warn: config.Yellow,
+  		error: Colors.Red,
+  		info: Colors.Blue,
+  		success: Colors.Green,
+  		debug: Colors.Magenta,
+  		warn: Colors.Yellow,
   	},
   });
   public sessionID = "";

@@ -11,7 +11,7 @@
 		"docs": "node scripts/gendocs.js",
 		"development": "tsc --watch",
 		"development:test": "nodemon ./test.js",
-		"development:test:typescript": "nodemon --exec ts-node ./test.js",
+		"development:test:typescript": "nodemon --exec ts-node ./src/index.ts",
 		"compile:test": "tsc && node dist/index"
 	},
 	"repository": {

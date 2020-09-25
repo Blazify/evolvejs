@@ -12,7 +12,19 @@ export class Webhook {
   public name!: string;
   public avatar!: string;
   public token!: string;
-  constructor(public data: IWebhook, private client: EvolveClient) {
+  private client!: EvolveClient;
+  public data!: IWebhook;
+  constructor(data: IWebhook, client: EvolveClient) {
+  	Object.defineProperty(this, "data", {
+  		value: data,
+  		enumerable: false,
+  		writable: false,
+  	});
+  	Object.defineProperty(this, "client", {
+  		value: client,
+  		enumerable: false,
+  		writable: false,
+  	});
   	this._handle();
   }
 

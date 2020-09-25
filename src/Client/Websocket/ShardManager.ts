@@ -21,19 +21,34 @@ export class ShardManager extends EventListener {
   	}
   }
 
-  public shutdown(): void {
-  	const initialLastShardConnection = this.connections.lastKey(1);
+  public destroy(id: number): void {
+    this.connections.get(id)?.gateway.destroy();
+  }
+
+  public respawn(id: number): void {
+    this.connections.get(id)?.gateway.reconnect();
+  }
+
+  public destroyAll(code = 1): void {
+  	const initialLastShardConnection = this.connections.size - 1;
   	for (const [k, v] of this.connections) {
   		v.gateway.destroy();
 
   		if (k === initialLastShardConnection) {
-  			process.exit();
+  			process.exit(code);
   		}
   	}
   }
 
   get ping(): number {
-  	return this._reduceConnections<number>((a, b) => a + b.shardPing) / this.connections.size;
+  	return (
+  		this._reduceConnections<number>((a, b) => a + b.shardPing) /
+      this.connections.size
+  	);
+  }
+
+  public getguildShardId(guildID: string): number {
+  	return (Number(guildID) >> 22) % this.connections.size;
   }
 
   private _reduceConnections<T>(

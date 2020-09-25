@@ -11,9 +11,15 @@ export class GroupChannel extends Channel {
   public owner?: User;
   public applicationID?: string;
   public lastPin?: number;
+  public data!: IGroupChannel;
 
-  constructor(public data: IGroupChannel, client: EvolveClient) {
+  constructor(data: IGroupChannel, client: EvolveClient) {
   	super(data.id, CHANNELTYPES.Group, client);
+  	Object.defineProperty(this, "data", {
+  		value: data,
+  		enumerable: false,
+  		writable: false,
+  	});
   	this._handle();
   }
 

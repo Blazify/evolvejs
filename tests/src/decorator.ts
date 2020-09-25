@@ -5,40 +5,44 @@ import {
 	MessageEvents,
 	Message,
 	EmbedBuilder,
-} from "@evolvejs/evolvejs";
+} from "../../dist";
+import { argv } from "process";
 
 @Builder({
-	token: "",
-	shards: 2,
+	token: argv[2] ?? require("./config").token ?? process.env.DISCORD_TOKEN,
 	useDefaultSetting: true,
 })
-export class Client extends EvolveClient {
-  @Event("clientReady")
-	public onReady(): void {
-		for (const [id, connection] of this.shardConnections) {
-			connection.gateway.on("shardSpawn", () => {
-				console.log(`Shard ${id} has been launched`);
-			});
-
-			connection.gateway.on("shardDestroy", () => {
-				console.log(`Shard ${id} has been destroyed`);
-			});
-		}
+class Client extends EvolveClient {
+  @Event()
+	public clientReady() {
+		console.log("[Client: EvolveClient] => Ready");
+		this.sharder.destroyAll(0);
 	}
 
-  @Event("newMessage")
-  public onMessage(event: MessageEvents): void {
+  @Event()
+  public async newMessage(event: MessageEvents) {
   	if (!(event.message instanceof Message)) return;
   	if (!event.message.content.startsWith("!")) return;
-  	const args: string[] = event.message.content.replace("!", "").split(" ");
-  	if (args[0] === "test") {
-  		event.message.channel.send(
+  	if (event.message.content === "test") {
+  		await event.message.channel.send(
   			new EmbedBuilder()
   				.setAuthor("Test")
   				.setColor(0xff0000)
   				.setDescription("This is a Test")
   				.build()
   		);
+
+  		this.sharder.destroyAll();
   	}
+  }
+
+  @Event()
+  public shardSpawn(id: string) {
+  	console.log(`[Shard: ${id}] => Spawned`);
+  }
+
+  @Event()
+  public shardDestroy(id: string) {
+  	console.log(`[Shard: ${id}] => Destroyed`);
   }
 }

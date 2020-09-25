@@ -5,8 +5,14 @@ export class Overwrite {
   public type!: IOverwrite["type"];
   public allow!: number;
   public deny!: number;
+  public data!: IOverwrite;
 
-  constructor(public data: IOverwrite) {
+  constructor(data: IOverwrite) {
+  	Object.defineProperty(this, "data", {
+  		value: data,
+  		enumerable: false,
+  		writable: false,
+  	});
   	this._handle();
   }
 

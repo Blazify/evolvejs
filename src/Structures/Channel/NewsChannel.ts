@@ -21,9 +21,15 @@ export class NewsChannel extends Channel {
   public rateLimit!: number;
   public parentID?: CategoryChannel;
   public lastPin?: string;
+  public data!: INewsChannel;
 
-  constructor(public data: INewsChannel, client: EvolveClient) {
+  constructor(data: INewsChannel, client: EvolveClient) {
   	super(data.id, CHANNELTYPES.News, client);
+  	Object.defineProperty(this, "data", {
+  		value: data,
+  		enumerable: false,
+  		writable: false,
+  	});
   	this._handle();
   }
 
