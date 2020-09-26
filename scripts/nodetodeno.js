@@ -53,14 +53,13 @@ function editFile(filename) {
 		if(filename.includes("index.ts")) {
 			filename = filename.replace("index.ts", "mod.ts");
 		}
-		filename = filename.replace("src", "deno");
+		filename = filename.replace("src", "deno/src");
 		console.log(`Wrote Data to ${filename}`);
 		writeFile(filename, stringedData, (err) => {
 			if (err) throw err;
 		});
-		if(filename == "deno/mod.ts") {
+		if(filename == "deno/src/mod.ts") {
 			console.log("Deno Conversion Completed! Module Ready for Release!");
-			process.exit(0);
 		}
 	});
 }
@@ -68,10 +67,10 @@ function readDir(dirName) {
 	try {
 		readdirSync(dirName, { withFileTypes: true }).forEach(file => {
 			if (file.isDirectory()) {
-				exec(`mkdir ${dirName.replace("src", "deno")}`);
+				exec(`mkdir ${dirName.replace("src", "deno/src")}`);
 				readDir(`${dirName}/${file.name}`);
 			} else {
-				exec(`mkdir ${dirName.replace("src", "deno")} && cd ${dirName.replace("src", "deno")}/ && touch ${file.name}`);
+				exec(`mkdir ${dirName.replace("src", "deno/src")} && cd ${dirName.replace("src", "deno/src")}/ && touch ${file.name}`);
 				editFile(`${dirName}/${file.name}`);
 			}
 		});
@@ -80,7 +79,7 @@ function readDir(dirName) {
 	}
 }
 
-exec("mkdir deno");
+exec("mkdir deno && mkdir deno/src");
 exec("mkdir deno/.vscode");
 writeFile("deno/.vscode/settings.json", JSON.stringify({
 	"deno.enable": true
@@ -94,5 +93,11 @@ readFile("README.md", (err, data) => {
 		if(err) console.error(err);
 	});
 });
+readFile("LICENSE", (err, data) => {
+	if(err) console.error(err);
+
+	writeFile("LICENSE", data, err => {
+		if(err) console.error(err);
+	});
+});
 readDir("src");
-exec("rm -r deno/index.ts");
