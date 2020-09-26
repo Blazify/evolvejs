@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with: 
+          ref: docs
       - uses: actions/setup-node@v1
         with:
           node-version: 12
@@ -26,10 +28,6 @@ jobs:
       - name: Set JSON file's base64 in env
         id: json-file
         run: echo "::set-env name=json::$(cat ${{ env.VERSION }}.json | base64 -w 0 -)"
-      - name: Checkout the docs branch
-        run: |
-          git fetch
-          git checkout docs -f
       - name: Configure git identity
         run: |
           git config user.name github-actions

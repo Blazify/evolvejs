@@ -11,13 +11,12 @@ export default class {
   	this.client = client;
   	this.payload = payload;
 
-  	(async () => await this.generate(payload))();
+  	(async () => await this.generate(payload, shard))();
   	this.client.readyAt = Date.now();
   	this.client.sessionID = payload.d.session_id;
-  	client.emit(EVENTS.READY, shard);
   }
 
-  private async generate(payload: Payload) {
+  private async generate(payload: Payload, shard: number) {
   	const { user, guilds } = payload.d;
 
   	this.client.user = new ClientUser(
@@ -54,6 +53,8 @@ export default class {
 
   		if (this.client.options.enableGuildCache)
   			this.client.guilds.set(fetched.id, fetched);
-  	}
+	  }
+	  
+	  this.client.emit(EVENTS.READY, shard);
   }
 }

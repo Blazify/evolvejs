@@ -28,10 +28,8 @@ export class Gateway {
   		if (this.ws.manager.builder.encoding == "json") {
   			payload = JSON.parse(data.toString());
   		} else {
-  			const packed: Buffer = Buffer.from(data.toString(), "binary");
   			try {
-  				const erlpack = require("erlpack");
-  				payload = erlpack.unpack(packed);
+  				payload = require("erlpack").unpack(Buffer.from(data.toString(), "binary"));
   			} catch (e) {
   				throw this.ws.manager.builder.client.logger.error(e);
   			}

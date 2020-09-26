@@ -1,6 +1,6 @@
 {
 	"name": "@evolvejs/evolvejs",
-	"version": "0.3.0-alpha",
+	"version": "0.3.1-alpha",
 	"description": "An advanced discord API wrapper with TS and JS support",
 	"main": "dist/index.js",
 	"scripts": {
@@ -35,7 +35,7 @@
 	"bugs": {
 		"url": "https://github.com/EvolveJS/EvolveJS/issues"
 	},
-	"homepage": "https://github.com/EvolveJS/EvolveJS#readme",
+	"homepage": "https://evolve.js.org",
 	"markdown": "github",
 	"exports": {
 		".": [
