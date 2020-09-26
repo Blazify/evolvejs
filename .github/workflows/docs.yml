@@ -12,9 +12,6 @@ jobs:
   generate-docs:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with: 
-          ref: docs
       - uses: actions/setup-node@v1
         with:
           node-version: 12
@@ -32,6 +29,9 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
+      - uses: actions/checkout@v2
+        with: 
+          ref: docs
       - name: Stage, commit & push changes
         run: |
           echo '${{ env.json }}' | base64 -w 0 -d - > ${{ env.VERSION }}.json
