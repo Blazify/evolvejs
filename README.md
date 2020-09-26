@@ -91,4 +91,4 @@ client.on("newMessage", (event) => {
 
 # Contributor
 
-- **Put ya name here after contributing**
+- **[Olyno](https://github.com/Olyno)**
