@@ -18,13 +18,11 @@ export class EvolveSocket extends ws {
   	if (this.manager.builder.encoding == "json") {
   		payload = JSON.stringify(data);
   	} else if (this.manager.builder.encoding == "etf") {
-  		let erlpack;
   		try {
-  			erlpack = require("erlpack");
+  			payload = require("erlpack").pack(data);
   		} catch (e) {
   			throw this.manager.builder.client.logger.error(e);
   		}
-  		payload = erlpack.pack(data);
   	} else {
   		throw this.manager.builder.client.logger.error(
   			"Invalid Encoding Type. Only JSON or etf is accepted"
@@ -39,11 +37,11 @@ export class EvolveSocket extends ws {
 
   private _init(): void {
   	try {
-  		this.on("error", (err) => {
+  		this.on("error", (err: Error) => {
   			this.manager.builder.client.logger.error(err.message);
   		});
 
-  		this.on("close", (code, res) => {
+  		this.on("close", (code: number, res: string) => {
   			this.manager.builder.client.logger.error(
   				`Code: ${code}, Response: ${res}`
   			);

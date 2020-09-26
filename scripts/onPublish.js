@@ -18,20 +18,21 @@ client.on("clientReady", async () => {
 	console.log("[Client: EvolveClient] => Ready");
 	const embed = new EmbedBuilder()
 		.setTitle(`EvolveJS | ${version} Release`)
-		.setDescription("Breaking Changes!\n")
+		.setDescription("New Version of EvolveJS has been Released!\n\n Breaking Changes!\n")
 		.setImage(new URL("https://cdn.discordapp.com/attachments/712948948343455856/734829166821900438/EvolveJS.png"))
 		.setFooter(`EvolveJS | ${Date.now()}`);
 	if(breaking_changes) {
-		for(const change in breaking_changes) {
-			embed.appendDescription(`${change}. ${breaking_changes[change]}`);
+		for(let change = 1; change < breaking_changes.length; change++) {
+			embed.appendDescription(`${change + 1}. ${breaking_changes[change]}`);
 		}
 	}
 	embed.appendDescription("Changes!\n");
 	if(changes) {
-		for(const change in changes) {
+		for(let change = 1; change <= changes.length; change++) {
 			embed.appendDescription(`${change}. ${changes[change]}`);
 		}
 	}
-	await client.channels.get("748181874769395712").send(embed.build());
+	await client.rest.getChannel("748181874769395712").send(embed.build());
 	client.sharder.destroyAll(0);
+	process.exit(0);
 });

@@ -1,4 +1,11 @@
 {
-    "breaking_changes": [],
-    "changes": []
+    "breaking_changes": [
+        "`- <ShardManager>.shutdown()`\n `+ <ShardManager>.destroyAll(code)",
+        "`+ <ShardManager>.reconnect(shardId)`\n `+ <ShardManager>.destroy(shardId)`"
+    ],
+    "changes": [
+        "Fixed API RateLimiting",
+        "Fixed newMessage not being emitted",
+        "Fixed Decorator Errors"
+    ]
 }
