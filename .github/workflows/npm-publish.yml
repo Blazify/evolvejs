@@ -48,7 +48,7 @@ jobs:
       - uses: actions/checkout@v2
         with: 
           ref: deno-master
-        run: |
+      - run: |
           cd deno/
           git add .
           git commit -m "Deno Release"
