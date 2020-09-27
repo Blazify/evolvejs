@@ -14,7 +14,8 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "esModuleInterop": true,
-    "watch": true
+    "watch": true,
+    "declaration": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]

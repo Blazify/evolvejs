@@ -3,6 +3,7 @@ export class Objex<K, V>  extends Map<K, V> {
 	private valueArray: V[] | null = [];
 	private keyArray: K[] | null = [];
 	public ['constructor']: typeof Objex;
+	private _funcListeners: Map<((...args: any[]) => void), "set" | "delete" | "clear"> = new Map();
 
 	/**
 	 * Creates a new Objex collection
@@ -10,6 +11,44 @@ export class Objex<K, V>  extends Map<K, V> {
 	 */
 	public constructor(entries?: [K, V][]) {
 		super(entries!);
+	}
+	
+	/**
+	 * Adds a new Event Listener
+	 * @param {"set" | "delete" | "clear"} name
+	 * @param {(...args: any[] => void)} listener
+	 */
+	public on(name: "set" | "delete" | "clear", listener: (...args: any[]) => void): void {
+			this._funcListeners.set(listener, name);
+	}
+	
+	/**
+	 * Removes a old Event Listener
+	 * @param {"set" | "delete" | "clear"} name
+	 * @param {(...args: any[] => void)} listener
+	 */
+	public off(name: "set" | "delete" | "clear", listener: (...args: any[]) => void): void {
+		const value = this._funcListeners.get(listener);
+		if (value) {
+			if (value === name) {
+				this._funcListeners.delete(listener);
+			}
+		}
+	}
+	
+	/**
+	 * Emits a new event
+	 * @param {"set" | "delete" | "clear"} name
+	 * @param {(...args: any[] => void)} listener
+	 */
+	public emit(name: "set" | "delete" | "clear",...args: any[]): void {	  
+		if (this._funcListeners.size !== 0) {
+			for (const [key, value] of this._funcListeners) {
+				if (value == name) {
+					key(...args);
+				}
+			}
+		}
 	}
 
 	/**
