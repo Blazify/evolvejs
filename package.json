@@ -1,6 +1,6 @@
 {
   "name": "@evolvejs/objex",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "typings": "./dist/index.d.ts",
   "description": "Data handling module for EvolveJS",
   "main": "dist/index.js",

@@ -67,6 +67,7 @@ export class Objex<K, V>  extends Map<K, V> {
 	 */
 	public set(key: K, value: V): this {
 		this.keyArray = this.valueArray = this.array = null;
+		this.emit("set", key, value)
 		return super.set(key, value);
 	}
 
@@ -92,6 +93,7 @@ export class Objex<K, V>  extends Map<K, V> {
 	 */
 	public delete(key: K): boolean {
 		this.keyArray = this.valueArray = this.array = null;
+		this.emit("delete", key, this.get(key))
 		return super.delete(key);
 	}
 
@@ -100,6 +102,7 @@ export class Objex<K, V>  extends Map<K, V> {
 	 */
 	public clear(): void {
 		this.keyArray = this.valueArray = this.array = null;
+		this.emit("clear");
 		return super.clear();
 	}
 
