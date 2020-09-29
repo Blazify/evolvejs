@@ -10,20 +10,19 @@ export class RestAPIHandler {
 
   public async fetch(options: IAPIParams): Promise<any> {
   	try {
-  		if (options.method !== "POST") {
-  			if (this._lastFetchReturnHeader) {
-  				const remaining = this._lastFetchReturnHeader.get(
-  					"X-RateLimit-Remaining"
-  				);
-  				let resetAfter: unknown = this._lastFetchReturnHeader.get(
-  					"X-RateLimit-Reset-After"
-  				);
-  				if (resetAfter) resetAfter = Number(resetAfter) * 1000;
-  				if (remaining == "0") {
-  					await promisify(setTimeout)((resetAfter as unknown) as number);
-  				}
+  		if (this._lastFetchReturnHeader) {
+  			const remaining = this._lastFetchReturnHeader.get(
+  				"X-RateLimit-Remaining"
+  			);
+  			let resetAfter: unknown = this._lastFetchReturnHeader.get(
+  				"X-RateLimit-Reset-After"
+  			);
+  			if (resetAfter) resetAfter = Number(resetAfter) * 1000;
+  			if (remaining == "0") {
+  				await promisify(setTimeout)((resetAfter as unknown) as number);
   			}
-
+  		}
+  		if (options.method !== "POST") {
   			const fetched = await fetch(`${CONSTANTS.Api}/${options.endpoint}`, {
   				method: options.method,
   				headers: {
@@ -48,19 +47,6 @@ export class RestAPIHandler {
 
   			return fetched.json();
   		} else {
-  			if (this._lastFetchReturnHeader) {
-  				const remaining = this._lastFetchReturnHeader.get(
-  					"X-RateLimit-Remaining"
-  				);
-  				const resetAfter = this._lastFetchReturnHeader.get(
-  					"X-RateLimit-Reset"
-  				);
-  				if (Number(remaining) == 0) {
-  					await promisify(setTimeout)(Number(resetAfter));
-  					return this.fetch(options);
-  				}
-  			}
-
   			let body;
   			if (options.postType == "Message") {
   				body = JSON.stringify(options.message);
