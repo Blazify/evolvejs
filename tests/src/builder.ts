@@ -18,6 +18,9 @@ client.sharder.on("shardDestroy", (id: number) => {
 
 client.on("clientReady", () => {
 	console.log("[Client: EvolveClient] => Ready");
+	for(const [k, _] of client.guilds) {
+		client.logger.debug(client.sharder.getguildShardId(k).toString());
+	}
 	client.sharder.destroyAll(0);
 	process.exit(0); // due to idiot github, that they always respawn, you dont need to do this
 });

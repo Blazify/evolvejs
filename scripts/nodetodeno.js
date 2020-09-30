@@ -29,7 +29,7 @@ function editFile(filename) {
 		if(stringedData.includes("public init(data: string, ws: EvolveSocket): void {")) {
 			stringedData = stringedData.replace("public init(data: string, ws: EvolveSocket): void {","public async init(data: string, ws: EvolveSocket): Promise<void> {");
 		}
-		if(stringedData.includes("impory { Objex } from \"@evolvejs/objex\"")) {
+		if(stringedData.includes("import { Objex } from \"@evolvejs/objex\"")) {
 			stringedData = stringedData.replace("import { Objex } from \"https://deno.land/x/objex/mod\"");
 		}
 		if(stringedData.includes("require(\"erlpack\").unpack(Buffer.from(data.toString(), \"binary\"))")) {

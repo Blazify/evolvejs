@@ -34,21 +34,21 @@ jobs:
           DISCORD_TOKEN: ${{secrets.BOT_TOKEN}}
 
   deno-release:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-node@v1
         with:
           node-version: 14
       - run: node scripts/nodetodeno
-      - name: Configure git identity
-        run: |
+      - run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
       - name: Stage, commit & push changes
       - uses: actions/checkout@v2
         with: 
           ref: deno-master
-        run: |
+      - run: |
           cd deno/
           git add .
           git commit -m "Deno Release"

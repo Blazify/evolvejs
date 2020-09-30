@@ -29,7 +29,7 @@ export class ShardManager extends EventListener {
     this.connections.get(id)?.gateway.reconnect();
   }
 
-  public destroyAll(code = 1): void {
+  public destroyAll(code = 0): void {
   	const initialLastShardConnection = this.connections.size - 1;
   	for (const [k, v] of this.connections) {
   		v.gateway.destroy();
@@ -37,7 +37,7 @@ export class ShardManager extends EventListener {
   		if (k === initialLastShardConnection) {
   			process.exit(code);
   		}
-  	}
+	  }
   }
 
   get ping(): number {

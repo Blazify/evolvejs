@@ -19,7 +19,6 @@ export class Message {
   public content!: string;
   public guild!: Guild;
   public channel!: TextChannel;
-  public delete!: (time: number) => Promise<NodeJS.Timeout>;
   public data!: IMessage;
   private client!: EvolveClient;
 
@@ -58,11 +57,11 @@ export class Message {
   	this.editedTimestamp = this.data.edited_timestamp;
   	this.attachments = this.data.attachments;
   	this.content = this.data.content;
-
-  	this.delete = (time = 0) => {
-  		return this.client.rest.deleteMessage(this.id, this.channel.id, time);
-  	};
   	return this;
+  }
+
+  public delete(time = 0): Promise<NodeJS.Timeout> {
+	  return this.client.rest.deleteMessage(this.id, this.channel.id, time);
   }
 
   static async handle(data: IMessage, client: EvolveClient): Promise<Message> {

@@ -15,14 +15,14 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: 12
+          node-version: 14
           registry-url: https://registry.npmjs.org/
       - name: Install dependencies
-        run: yarn
+        run: npm i
       - name: Extract and save tag in env
         run: echo ::set-env name=VERSION::${GITHUB_REF#refs/*/}
       - name: Generate docs
-        run: yarn docs ${{ env.VERSION }}
+        run: npm run docs ${{ env.VERSION }}
       - name: Set JSON file's base64 in env
         id: json-file
         run: echo "::set-env name=json::$(cat ${{ env.VERSION }}.json | base64 -w 0 -)"
