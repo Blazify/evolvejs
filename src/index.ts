@@ -1,9 +1,12 @@
-export class Objex<K, V>  extends Map<K, V> {
+export class Objex<K, V> extends Map<K, V> {
 	private array: [K, V][] | null = [];
 	private valueArray: V[] | null = [];
 	private keyArray: K[] | null = [];
-	public ['constructor']: typeof Objex;
-	private _funcListeners: Map<((...args: any[]) => void), "set" | "delete" | "clear"> = new Map();
+	public ["constructor"]: typeof Objex;
+	private _funcListeners: Map<
+		(...args: any[]) => void,
+		"set" | "delete" | "clear"
+	> = new Map();
 
 	/**
 	 * Creates a new Objex collection
@@ -12,22 +15,28 @@ export class Objex<K, V>  extends Map<K, V> {
 	public constructor(entries?: [K, V][]) {
 		super(entries!);
 	}
-	
+
 	/**
 	 * Adds a new Event Listener
 	 * @param {"set" | "delete" | "clear"} name
 	 * @param {(...args: any[] => void)} listener
 	 */
-	public on(name: "set" | "delete" | "clear", listener: (...args: any[]) => void): void {
-			this._funcListeners.set(listener, name);
+	public on(
+		name: "set" | "delete" | "clear",
+		listener: (...args: any[]) => void
+	): void {
+		this._funcListeners.set(listener, name);
 	}
-	
+
 	/**
 	 * Removes a old Event Listener
 	 * @param {"set" | "delete" | "clear"} name
 	 * @param {(...args: any[] => void)} listener
 	 */
-	public off(name: "set" | "delete" | "clear", listener: (...args: any[]) => void): void {
+	public off(
+		name: "set" | "delete" | "clear",
+		listener: (...args: any[]) => void
+	): void {
 		const value = this._funcListeners.get(listener);
 		if (value) {
 			if (value === name) {
@@ -35,13 +44,13 @@ export class Objex<K, V>  extends Map<K, V> {
 			}
 		}
 	}
-	
+
 	/**
 	 * Emits a new event
 	 * @param {"set" | "delete" | "clear"} name
 	 * @param {(...args: any[] => void)} listener
 	 */
-	public emit(name: "set" | "delete" | "clear",...args: any[]): void {	  
+	public emit(name: "set" | "delete" | "clear", ...args: any[]): void {
 		if (this._funcListeners.size !== 0) {
 			for (const [key, value] of this._funcListeners) {
 				if (value == name) {
@@ -61,13 +70,13 @@ export class Objex<K, V>  extends Map<K, V> {
 
 	/**
 	 * Set a new entry in the Objex collection
-	 * @param {K} key - The key of the entry 
+	 * @param {K} key - The key of the entry
 	 * @param value - The value of the entry
 	 * @returns {Objex} The Objex class instance
 	 */
 	public set(key: K, value: V): this {
 		this.keyArray = this.valueArray = this.array = null;
-		this.emit("set", key, value)
+		this.emit("set", key, value);
 		return super.set(key, value);
 	}
 
@@ -93,7 +102,7 @@ export class Objex<K, V>  extends Map<K, V> {
 	 */
 	public delete(key: K): boolean {
 		this.keyArray = this.valueArray = this.array = null;
-		this.emit("delete", key, this.get(key))
+		this.emit("delete", key, this.get(key));
 		return super.delete(key);
 	}
 
@@ -107,7 +116,23 @@ export class Objex<K, V>  extends Map<K, V> {
 	}
 
 	/**
-	 * Fetch the first value(s) from the Objex 
+	 * Shuffle the whole Objex
+	 * @returns {Objex} The shuffled collection
+	 */
+	public shuffle(): this {
+		const arr = this.toArray();
+		for (let i = arr.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[arr[i], arr[j]] = [arr[j], arr[i]];
+		}
+
+		this.clear();
+		for (const [k, v] of arr) this.set(k, v);
+		return this;
+	}
+
+	/**
+	 * Fetch the first value(s) from the Objex
 	 * @param {number} [amount=0] - The number of values from the beginning
 	 * @returns {V | V[] | undefined} A single value or an array of values if a number was provided
 	 */
@@ -120,7 +145,7 @@ export class Objex<K, V>  extends Map<K, V> {
 	}
 
 	/**
-	 * Fetch the last value(s) from the Objex 
+	 * Fetch the last value(s) from the Objex
 	 * @param {number} [amount=0] - The number of values from the end
 	 * @returns {V | V[] | undefined} A single value or an array of values if a number was provided
 	 */
@@ -134,7 +159,7 @@ export class Objex<K, V>  extends Map<K, V> {
 	}
 
 	/**
-	 * Fetch the first key(s) from the Objex 
+	 * Fetch the first key(s) from the Objex
 	 * @param {number} [amount=0] - The number of keys from the beginning
 	 * @returns {K | K[] | undefined} A single key or an array of keys if a number was provided
 	 */
@@ -147,7 +172,7 @@ export class Objex<K, V>  extends Map<K, V> {
 	}
 
 	/**
-	 * Fetch the last key(s) from the Objex 
+	 * Fetch the last key(s) from the Objex
 	 * @param {number} [amount=0] - The number of keys from the end
 	 * @returns {K | K[] | undefined} A single key or an array of keys if a number was provided
 	 */
@@ -165,7 +190,7 @@ export class Objex<K, V>  extends Map<K, V> {
 	 * @returns {[K, V][]} The array of all the entries
 	 */
 	public toArray(): [K, V][] {
-		if (this.array!.length !== this.size) this.array = [ ...this.entries() ];
+		if (this.array!.length !== this.size) this.array = [...this.entries()];
 		return this.array!;
 	}
 
@@ -175,7 +200,7 @@ export class Objex<K, V>  extends Map<K, V> {
 	 */
 	public vArray(): V[] {
 		if (this.valueArray!.length !== this.size)
-			this.valueArray = [ ...this.values() ];
+			this.valueArray = [...this.values()];
 		return this.valueArray!;
 	}
 
@@ -184,7 +209,7 @@ export class Objex<K, V>  extends Map<K, V> {
 	 * @returns {K[]} The array of all the keys
 	 */
 	public kArray(): K[] {
-		if (this.keyArray!.length !== this.size) this.keyArray = [ ...this.keys() ];
+		if (this.keyArray!.length !== this.size) this.keyArray = [...this.keys()];
 		return this.keyArray!;
 	}
 
@@ -195,20 +220,23 @@ export class Objex<K, V>  extends Map<K, V> {
 	 */
 	public map<T>(func: (val: V, key: K, objex: this) => T): T[] {
 		const raw = this.entries();
-		return Array.from({ length: this.size }, (): T => {
-			const [ key, value ] = raw.next().value;
-			return func(value, key, this);
-		});
+		return Array.from(
+			{ length: this.size },
+			(): T => {
+				const [key, value] = raw.next().value;
+				return func(value, key, this);
+			}
+		);
 	}
 
 	/**
 	 * Filters the elements that passes a test
-	 * @param {Function} func - The function that needs to be satisfied 
+	 * @param {Function} func - The function that needs to be satisfied
 	 * @returns {Objex} The filtered Objex collection
 	 */
 	public filter<T>(func: (val: V, key: K, objex: this) => boolean): this {
 		const filtered = new this.constructor[Symbol.species]<K, V>() as this;
-		for (let [ key, value ] of this) {
+		for (let [key, value] of this) {
 			if (func(value, key, this)) filtered.set(key, value);
 		}
 		return filtered;
@@ -216,17 +244,59 @@ export class Objex<K, V>  extends Map<K, V> {
 
 	/**
 	 * Find an element value that passes a test
-	 * @param {Function} func - The function that needs to be satisfied 
+	 * @param {Function} func - The function that needs to be satisfied
 	 * @returns {V | undefined} The value or `undefined` if none found
 	 */
 	public find<T>(
 		func: (val: V, key: K, objex: this) => boolean
 	): V | undefined {
-		for (let [ key, value ] of this) {
+		for (let [key, value] of this) {
 			if (func(value, key, this)) return value;
 		}
 		return undefined;
 	}
 
-	//public some<T>(func: ())
+	/**
+	 * Check if atlesst one element passes a test
+	 * @param {Function} func - The function that needs to be satisfied
+	 * @returns {boolean} If any element was found
+	 */
+	public some<T>(func: (val: V, key: K, objex: this) => boolean): boolean {
+		for (let [key, value] of this) {
+			if (func(value, key, this)) return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Reduce the Objex to a single value by applying a function
+	 * @param {Function} func - The function that needs to be applied
+	 * @param {T} initialVal - Starting value for the accumulator
+	 * @returns {T}
+	 */
+	public reduce<T>(
+		func: (acc: T, val: V, key: K, objex: this) => T,
+		initialVal?: T
+	): T {
+		let acc!: T;
+
+		if (initialVal !== undefined) {
+			acc = initialVal;
+			for (const [k, v] of this) acc = func(acc, v, k, this);
+			return acc;
+		}
+
+		let isFirst = true;
+		for (let [k, v] of this) {
+			if (isFirst) {
+				acc = (v as unknown) as T;
+				isFirst = false;
+			}
+			acc = func(acc, v, k, this);
+		}
+
+		if (isFirst)
+			throw new TypeError("[Objex Error] Cannot reduce empty Objex.");
+		return acc;
+	}
 }
