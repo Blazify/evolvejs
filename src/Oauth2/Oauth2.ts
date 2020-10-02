@@ -1,6 +1,7 @@
 import { EvolveClient } from "../Client/EvolveClient.ts";
 import { TokenAccessOptions, CONSTANTS } from "../mod.ts";
 
+
 export class Oauth2 {
 	constructor(public client: EvolveClient) {
 		if (!this.client.secret)

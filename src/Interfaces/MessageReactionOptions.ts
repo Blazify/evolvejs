@@ -5,13 +5,13 @@ import {
 	ITextChannel,
 	IEmoji,
 	IMessage,
-} from "../mod.ts";
+} from "../.ts";
 
 export interface IMessageReaction {
-  guild: IGuild;
-  member: IGuildMember;
-  user: IUser;
-  channel: ITextChannel;
-  emoji: IEmoji;
-  message: IMessage;
+ guild: IGuild;
+ member: IGuildMember;
+ user: IUser;
+ channel: ITextChannel;
+ emoji: IEmoji;
+ message: IMessage;
 }

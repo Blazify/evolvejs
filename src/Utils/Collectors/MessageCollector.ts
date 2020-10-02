@@ -2,6 +2,7 @@
 import { BaseCollector } from "./BaseCollector.ts";
 import { TextChannel } from "../../Structures/Channel/TextChannel.ts";
 import { Message } from "../../Structures/Message/Message.ts";
+import { Objex } from "@evolvejs/objex.ts";
 import { MessageReaction } from "../../Structures/Message/MessageReaction.ts";
 
 export class MessageCollector extends BaseCollector {
@@ -15,7 +16,7 @@ export class MessageCollector extends BaseCollector {
 		);
 	}
 
-	public end(): Map<string, Message | MessageReaction> {
+	public end(): Objex<string, Message | MessageReaction> {
 		this.channel.client.off("newMessage", this.listener);
 		return this.collected;
 	}

@@ -1,145 +1,160 @@
-import { parse } from "https://deno.land/std/encoding/toml.ts";
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable no-mixed-spaces-and-tabs */
 import { EvolveSocket } from "./Websocket.ts";
 import { OPCODE, Heartbeat, Identify, VoiceStateUpdate } from "../../mod.ts";
 import { Payload } from "../../Interfaces/Interfaces.ts";
+import { parse } from "https://deno.land/std/encoding/toml.ts";
 import { VoiceGateway } from "./Voice/VoiceGateway.ts";
 import { EVENTS } from "../../Utils/Constants.ts";
 import { VoiceState } from "../../Structures/Guild/VoiceState.ts";
 
 export class Gateway {
-  public data!: string;
-  public ws!: EvolveSocket;
-  public launchedShards: Set<number> = new Set();
-  public voice!: VoiceGateway;
-  public voiceStateUpdate!: VoiceState;
-  public voiceServerUpdate!: Payload;
-  public shard!: number;
+ public data!: Data;
+ public ws!: EvolveSocket;
+ public launchedShards: Set<number> = new Set();
+ public voice!: VoiceGateway;
+ public voiceStateUpdate!: VoiceState;
+ public voiceServerUpdate!: Payload;
+ public shard!: number;
+ public lastPingTimeStamp!: number;
 
-  public async init(data: string, ws: EvolveSocket): Promise<void> {
-  	this.data = data;
-  	this.ws = ws;
-  	this.shard = this.ws.shard;
+ public async init(data: string, ws: EvolveSocket): Promise<void> {
+ 	this.data = data;
+ 	this.ws = ws;
+ 	this.shard = this.ws.shard;
 
-  	try {
-  		let payload: Payload;
-  		if (this.ws.manager.builder.encoding == "json") {
-  			payload = JSON.parse(data.toString());
-  		} else {
-			  payload = (await parse(new TextDecoder().decode(data as unknown as ArrayBuffer)))[0] as Payload;
-		  }
-  		const { op, t, d } = payload;
-  		if (!d) return;
+ 	try {
+ 		let payload: Payload;
+ 		if (this.ws.manager.builder.encoding == "json") {
+ 			payload = JSON.parse(data.toString());
+ 		} else {
+ 			try {
+ 				payload = (await parse(new TextDecoder().decode(data as unknown as ArrayBuffer)))[0] as Payload;
+ 			} catch (e) {
+ 				throw this.ws.manager.builder.client.logger.error(e);
+ 			}
+ 		}
+ 		const { op, t, d } = payload;
+ 		if (!d) return;
 
-  		if (op === OPCODE.Hello) {
-  			// Command: Heartbeat
-			  this._spawn(this.shard);
-			  this.ws.pingTimestamp = Date.now()
-  			setInterval(() => {
-  			this.ws.send(Heartbeat);
-  			}, d.heartbeat_interval);
-  		} else if (op === OPCODE.Reconnect) {
-  			this.ws.manager.connections.clear();
-  			this.ws.manager.connections.set(
-  				this.shard,
-  				new EvolveSocket(this.ws.manager, this.shard)
-  			);
-  			this._reconnect();
-  			this.ws.close();
-  		} else if (t) {
-  			this.ws.manager.builder.client.emit(EVENTS.RAW, {
-  				name: t,
-  				payload,
-  				shard: this.shard,
-  			});
-  			try {
-  				(async () => {
-  					const { default: handler } = await import(`./Handlers/${t}.ts`);
-  					new handler(this.ws.manager.builder.client, payload, this.shard);
-  				})();
-  			} catch (e) {
-  				this.ws.manager.builder.client.logger.error(e);
-  			}
-  		}
-  	} catch (e) {
-  		this.ws.manager.builder.client.logger.error(e);
-  	}
-  }
+ 		if (op === OPCODE.Hello) {
+ 			// Command: Heartbeat
+ 			this._spawn(this.shard);
 
-  private _spawn(shard: number): void {
-  	Identify.d.token = this.ws.manager.builder.client.token;
-  	Identify.d.activity = this.ws.manager.builder.activity;
-  	Identify.d.shard = [shard, this.ws.manager.builder.shards];
-  	Identify.d.intents = this.ws.manager.builder.intents;
+ 			setInterval(() => {
+ 				this.lastPingTimeStamp = Date.now();
+ 				this.ws.send(Heartbeat);
+ 			}, d.heartbeat_interval);
+ 		} else if (op === OPCODE.Reconnect) {
+ 			this.ws.manager.connections.clear();
+ 			this.ws.manager.connections.set(
+ 				this.shard,
+ 				new EvolveSocket(this.ws.manager, this.shard)
+ 			);
+ 			this.reconnect();
+ 			this.ws.close();
+ 		} else if (t) {
+ 			this.ws.manager.builder.client.emit(EVENTS.RAW, {
+ 				name: t,
+ 				payload,
+ 				shard: this.shard,
+ 			});
+ 			try {
+ 				(async () => {
+ 					const { default: handler } = await import(`./Handlers/${t}`);
+ 					if (t == "MESSAGE_CREATE") {
+ 						new handler(
+ 							this.ws.manager.builder.client,
+ 							payload,
+ 							this.shard
+ 						)._init();
+ 					}
+ 					new handler(this.ws.manager.builder.client, payload, this.shard);
+ 				})();
+ 			} catch (e) {
+ 				this.ws.manager.builder.client.logger.error(e);
+ 			}
+ 		}
+ 	} catch (e) {
+ 		this.ws.manager.builder.client.logger.error(e);
+ 	}
+ }
 
-  	if (this._debug(shard)) {
-  		this.ws.send(Identify);
-  	}
-  }
+ private _spawn(shard: number): void {
+ 	Identify.d.token = this.ws.manager.builder.client.token;
+ 	Identify.d.activity = this.ws.manager.builder.activity;
+ 	Identify.d.shard = [shard, this.ws.manager.builder.shards];
+ 	Identify.d.intents = this.ws.manager.builder.intents;
 
-  public destroy(): void {
-  	this.ws.manager.connections.delete(this.shard);
-  	this.ws.manager.emit(EVENTS.SHARD_DESTROY, this.shard);
-  	this.ws.close();
-  }
+ 	if (this._debug(shard)) {
+ 		this.ws.send(Identify);
+ 	}
+ }
 
-  private _debug(shard: number): boolean {
-  	this.ws.manager.emit(EVENTS.SHARD_SPAWN, shard);
-  	return true;
-  }
+ public destroy(): void {
+ 	this.ws.manager.connections.delete(this.shard);
+ 	this.ws.manager.emit(EVENTS.SHARD_DESTROY, this.shard);
+ 	this.ws.close();
+ }
 
-  private _reconnect() {
-  	const payload: Payload = {
-  		op: OPCODE.Resume,
-  		d: {
-  			token: this.ws.manager.builder.client.token,
-  			session_id: this.ws.manager.builder.client.sessionID,
-  			seq: this.ws.seq,
-  		},
-  	};
-  	this.ws.send(payload);
-  }
+ private _debug(shard: number): boolean {
+ 	this.ws.manager.emit(EVENTS.SHARD_SPAWN, shard);
+ 	return true;
+ }
 
-  public sendVoiceStateUpdate(
-  	guildID: string,
-  	channelID: string,
-  	options?: {
-      self_deaf: boolean;
-      self_mute: boolean;
-    },
-  	initialize = false
-  ): void {
-  	VoiceStateUpdate.d.guild_id = guildID;
-  	VoiceStateUpdate.d.channel_id = channelID;
-  	if (options) {
-  		VoiceStateUpdate.d.self_deaf = options.self_deaf;
-  		VoiceStateUpdate.d.self_mute = options.self_mute;
-  	}
+ public reconnect(): void {
+ 	const payload: Payload = {
+ 		op: OPCODE.Resume,
+ 		d: {
+ 			token: this.ws.manager.builder.client.token,
+ 			session_id: this.ws.manager.builder.client.sessionID,
+ 			seq: this.ws.seq,
+ 		},
+ 	};
+ 	this.ws.send(payload);
+ }
 
-  	this.ws.send(VoiceStateUpdate);
+ public sendVoiceStateUpdate(
+ 	guildID: string,
+ 	channelID: string,
+ 	options?: {
+ self_deaf: boolean;
+ self_mute: boolean;
+ },
+ 	initialize = false
+ ): void {
+ 	VoiceStateUpdate.d.guild_id = guildID;
+ 	VoiceStateUpdate.d.channel_id = channelID;
+ 	if (options) {
+ 		VoiceStateUpdate.d.self_deaf = options.self_deaf;
+ 		VoiceStateUpdate.d.self_mute = options.self_mute;
+ 	}
 
-  	this.ws.manager.builder.client.on(EVENTS.VOICE_STATE_UPDATE, (pk) => {
-  		if (pk.member.user.id !== this.ws.manager.builder.client.user.id) return;
-  		this.voiceStateUpdate = pk;
-  		if (this.voiceStateUpdate && this.voiceServerUpdate && !this.voice) {
-  			this.voice = new VoiceGateway(this);
-  			this.voice.emit(
-  				EVENTS.PACKET_READY,
-  				(this.voiceStateUpdate, this.voiceServerUpdate)
-  			);
-  			if (initialize) this.voice.init();
-  		}
-  	});
+ 	this.ws.send(VoiceStateUpdate);
 
-  	this.ws.manager.builder.client.on(EVENTS.VOICE_SERVER_UPDATE, (pk) => {
-  		this.voiceServerUpdate = pk;
-  		if (this.voiceStateUpdate && this.voiceServerUpdate && !this.voice) {
-  			this.voice = new VoiceGateway(this);
-  			this.voice.emit(
-  				EVENTS.PACKET_READY,
-  				(this.voiceStateUpdate, this.voiceServerUpdate, this.shard)
-  			);
-  			if (initialize) this.voice.init();
-  		}
-  	});
-  }
+ 	this.ws.manager.builder.client.on(EVENTS.VOICE_STATE_UPDATE, (pk) => {
+ 		if (pk.member.user.id !== this.ws.manager.builder.client.user.id) return;
+ 		this.voiceStateUpdate = pk;
+ 		if (this.voiceStateUpdate && this.voiceServerUpdate && !this.voice) {
+ 			this.voice = new VoiceGateway(this);
+ 			this.voice.emit(
+ 				EVENTS.PACKET_READY,
+ 				(this.voiceStateUpdate, this.voiceServerUpdate)
+ 			);
+ 			if (initialize) this.voice.init();
+ 		}
+ 	});
+
+ 	this.ws.manager.builder.client.on(EVENTS.VOICE_SERVER_UPDATE, (pk) => {
+ 		this.voiceServerUpdate = pk;
+ 		if (this.voiceStateUpdate && this.voiceServerUpdate && !this.voice) {
+ 			this.voice = new VoiceGateway(this);
+ 			this.voice.emit(
+ 				EVENTS.PACKET_READY,
+ 				(this.voiceStateUpdate, this.voiceServerUpdate, this.shard)
+ 			);
+ 			if (initialize) this.voice.init();
+ 		}
+ 	});
+ }
 }

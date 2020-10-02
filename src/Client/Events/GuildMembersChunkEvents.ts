@@ -1,17 +1,18 @@
 import { BaseEvent } from "./BaseEvent.ts";
 import { EvolveClient } from "../EvolveClient.ts";
+import { Objex } from "@evolvejs/objex.ts";
 import { GuildMember } from "../../Structures/Guild/GuildMember.ts";
 import { PresenceUpdate } from "../../Structures/User/PresenceUpdate.ts";
 
 export class GuildMembersChunkUpdate extends BaseEvent {
 	constructor(
 		client: EvolveClient,
-    public members: Map<string, GuildMember>,
-    public presence: Map<string, PresenceUpdate>,
-    public chunk: Array<number>,
-    public notFound: boolean,
-    public nonce: string,
-    shard: number
+ public members: Objex<string, GuildMember>,
+ public presence: Objex<string, PresenceUpdate>,
+ public chunk: Array<number>,
+ public notFound: boolean,
+ public nonce: string,
+ shard: number
 	) {
 		super(shard, client);
 

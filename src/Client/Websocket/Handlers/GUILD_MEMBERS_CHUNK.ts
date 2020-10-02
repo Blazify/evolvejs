@@ -5,6 +5,7 @@ import {
 	GuildMember,
 	PresenceUpdate,
 } from "../../../mod.ts";
+import { Objex } from "@evolvejs/objex.ts";
 import { GuildMembersChunkUpdate } from "../../Events/GuildMembersChunkEvents.ts";
 
 export default class {
@@ -18,12 +19,12 @@ export default class {
 				presences,
 				nonce,
 			} = payload.d;
-			const memberObjex: Map<string, GuildMember> = new Map();
+			const memberObjex: Objex<string, GuildMember> = new Objex();
 			for (const member of members) {
 				memberObjex.set(member.user.id, new GuildMember(member));
 			}
 
-			const presenceObjex: Map<string, PresenceUpdate> = new Map();
+			const presenceObjex: Objex<string, PresenceUpdate> = new Objex();
 			for (const presence of presences) {
 				presenceObjex.set(
 					presence.user.id,

@@ -1,18 +1,19 @@
 import { BaseEvent } from "./BaseEvent.ts";
 import { EvolveClient } from "../EvolveClient.ts";
 import { Message } from "../../Structures/Message/Message.ts";
+import { Objex } from "@evolvejs/objex.ts";
 import { Guild } from "../../Structures/Guild/Guild.ts";
-import { Channel } from "../../Structures/Channel/Channel.ts";
-import { ChannelTypes } from "../../Utils/Constants.ts";
 import { TextChannel } from "../../Structures/Channel/TextChannel.ts";
 
-export class MessageEvents extends BaseEvent {
+export class MessageEvents<
+ K = Message | Objex<string, Message>
+> extends BaseEvent {
 	constructor(
 		client: EvolveClient,
-    public message: Message | Map<string, Message | undefined> | undefined,
-    public guild: Guild | undefined,
-    public channel: TextChannel | undefined,
-    shard: number
+ public message: K,
+ public guild: Guild | undefined,
+ public channel: TextChannel | undefined,
+ shard: number
 	) {
 		super(shard, client);
 		if (guild)
@@ -34,9 +35,9 @@ export class MessageEvents extends BaseEvent {
 						return message;
 					})
 					.then((message: Message) => {
-						this.message = message;
+						this.message = (message as unknown) as K;
 					});
-			} else if (message instanceof Map) {
+			} else if (message instanceof Objex) {
 				for (const [k, v] of message) {
 					if (!v) return;
 					message.delete(k);

@@ -1,3 +1,4 @@
+import { Objex } from "@evolvejs/objex.ts";
 import { Emoji } from "../../Structures/Guild/Emoji.ts";
 
-export class EmojisManager extends Map<string | null, Emoji> {}
+export class EmojisManager extends Objex<string | null, Emoji> {}

@@ -1,55 +1,71 @@
-import { sleep } from "https://deno.land/x/sleep/mod.ts";
+import { Objex } from "@evolvejs/objex.ts";
+import { promisify } from "util.ts";
 import { EventListener } from "../../Utils/EventListener.ts";
 import { EvolveBuilder } from "../EvolveBuilder.ts";
 import { EvolveSocket } from "./Websocket.ts";
 
 export class ShardManager extends EventListener {
-  public builder: EvolveBuilder;
-  public connections: Map<number, EvolveSocket> = new Map();
-  constructor(builder: EvolveBuilder) {
-  	super();
-  	this.builder = builder;
-  }
+ public builder: EvolveBuilder;
+ public connections: Objex<number, EvolveSocket> = new Objex();
+ constructor(builder: EvolveBuilder) {
+ 	super();
+ 	this.builder = builder;
+ }
 
-  public spawnAll(): void {
-  	for (let i = 0; i < this.builder.shards; i++) {
-  		sleep(5000 * i).then(() => {
-  			const socket = new EvolveSocket(this, i);
-  			this.connections.set(i, socket);
-  		});
-  	}
-  }
+ public spawnAll(): void {
+ 	for (let i = 0; i < this.builder.shards; i++) {
+ 		promisify(setTimeout)(5000 * i).then(() => {
+ 			const socket = new EvolveSocket(this, i);
+ 			this.connections.set(i, socket);
+ 		});
+ 	}
+ }
 
-  public shutdown(): void {
-  	const initialLastShardConnection = this.connections.size - 1;
-  	for (const [k, v] of this.connections) {
-  		v.gateway.destroy();
+ public destroy(id: number): void {
+ this.connections.get(id)?.gateway.destroy();
+ }
 
-  		if (k === initialLastShardConnection) {
-  			Deno.exit();
-  		}
-  	}
-  }
+ public respawn(id: number): void {
+ this.connections.get(id)?.gateway.reconnect();
+ }
 
-  get ping(): number {
-	return this._reduceConnections<number>((a, b) => a + b.shardPing) / this.connections.size;
-}
+ public destroyAll(code = 0): void {
+ 	const initialLastShardConnection = this.connections.size - 1;
+ 	for (const [k, v] of this.connections) {
+ 		v.gateway.destroy();
 
-private _reduceConnections<T>(
-	fn: (accumulator: T, value: EvolveSocket, key: number) => T
-): T {
-	let accumulator!: T;
+ 		if (k === initialLastShardConnection) {
+ 			process.exit(code);
+ 		}
+	 }
+ }
 
-	let first = true;
-	for (const [key, val] of this.connections) {
-		if (first) {
-			accumulator = (val as unknown) as T;
-			first = false;
-			continue;
-		}
-		accumulator = fn(accumulator, val, key);
-	}
+ get ping(): number {
+ 	return (
+ 		this._reduceConnections<number>((a, b) => a + b.shardPing) /
+ this.connections.size
+ 	);
+ }
 
-	return accumulator;
-}
+ public getguildShardId(guildID: string): number {
+ 	return (Number(guildID) >> 22) % this.connections.size;
+ }
+
+ private _reduceConnections<T>(
+ 	fn: (accumulator: T, value: EvolveSocket, key: number) => T
+ ): T {
+ 	let accumulator!: T;
+
+ 	let first = true;
+ 	for (const [key, val] of this.connections) {
+ 		if (first) {
+ 			accumulator = (val as unknown) as T;
+ 			first = false;
+ 			continue;
+ 		}
+ 		accumulator = fn(accumulator, val, key);
+ 	}
+
+ 	return accumulator;
+ }
 }

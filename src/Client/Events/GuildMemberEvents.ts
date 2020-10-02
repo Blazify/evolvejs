@@ -7,9 +7,9 @@ import { User } from "../../Structures/User/User.ts";
 export class GuildMemberEvent extends BaseEvent {
 	constructor(
 		client: EvolveClient,
-    public member: GuildMember | User,
-    public guild: Guild,
-    shard: number
+ public member: GuildMember | User,
+ public guild: Guild,
+ shard: number
 	) {
 		super(shard, client);
 

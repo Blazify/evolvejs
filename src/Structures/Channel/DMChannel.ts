@@ -1,22 +1,30 @@
 import { User, IDMChannel, EvolveClient, CHANNELTYPES } from "../../mod.ts";
+import { Objex } from "@evolvejs/objex.ts";
 import { Channel } from "./Channel.ts";
 
 export class DMChannel extends Channel {
-  public recipients: Map<string, User> = new Map();
+ public recipients: Objex<string, User> = new Objex();
 
-  public lastMessage?: string;
-  public lastPin?: number;
+ public lastMessage?: string;
+ public lastPin?: number;
+ public data!: IDMChannel;
 
-  constructor(public data: IDMChannel, client: EvolveClient) {
-  	super(data.id, CHANNELTYPES.Direct, client);
-  	this._handle();
-  }
+ constructor(data: IDMChannel, client: EvolveClient) {
+ 	super(data.id, CHANNELTYPES.Direct, client);
+ 	Object.defineProperty(this, "data", {
+ 		value: data,
+ 		enumerable: false,
+ 		writable: false,
+ 	});
 
-  private _handle() {
-  	if (!this.data) return;
-  	this.lastMessage = this.data.last_message_id || undefined;
-  	this.lastPin = this.data.last_pin_timestamp;
+ 	this._handle();
+ }
 
-  	return this;
-  }
+ private _handle() {
+ 	if (!this.data) return;
+ 	this.lastMessage = this.data.last_message_id || undefined;
+ 	this.lastPin = this.data.last_pin_timestamp;
+
+ 	return this;
+ }
 }

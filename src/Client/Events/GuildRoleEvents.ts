@@ -6,9 +6,9 @@ import { Guild } from "../../Structures/Guild/Guild.ts";
 export class GuildRoleEvents extends BaseEvent {
 	constructor(
 		client: EvolveClient,
-    public role: Role | undefined,
-    public guild: Guild,
-    shard: number
+ public role: Role | undefined,
+ public guild: Guild,
+ shard: number
 	) {
 		super(shard, client);
 

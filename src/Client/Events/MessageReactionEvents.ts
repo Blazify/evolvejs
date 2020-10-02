@@ -5,8 +5,8 @@ import { MessageReaction } from "../../Structures/Message/MessageReaction.ts";
 export class MessageReactionEvents extends BaseEvent {
 	constructor(
 		client: EvolveClient,
-    public reaction: MessageReaction,
-    shard: number
+ public reaction: MessageReaction,
+ shard: number
 	) {
 		super(shard, client);
 
