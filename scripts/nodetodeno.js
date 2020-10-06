@@ -67,7 +67,7 @@ function readDir(dirName) {
 	try {
 		readdirSync(dirName, { withFileTypes: true }).forEach(file => {
 			if (file.isDirectory()) {
-				exec(`mkdir ${dirName.replace("src", "deno/src")}`);
+				exec(`mkdir ${dirName.replace("src", "deno/src")} && mkdir ${dirName.replace("src", "deno/src")}/${file.name}`);
 				readDir(`${dirName}/${file.name}`);
 			} else {
 				exec(`mkdir ${dirName.replace("src", "deno/src")} && cd ${dirName.replace("src", "deno/src")}/ && touch ${file.name}`);

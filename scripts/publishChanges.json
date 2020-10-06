@@ -1,7 +1,8 @@
 {
     "breaking_changes": [
-        "`- <ShardManager>.shutdown()`\n `+ <ShardManager>.destroyAll(code)",
-        "`+ <ShardManager>.reconnect(shardId)`\n `+ <ShardManager>.destroy(shardId)`"
+        "Replaced `<ShardManager>.shutdown()` with `<ShardManager>.destroyAll(code)`",
+        "`<ShardManager>.reconnect(shardId)`",
+        "`<ShardManager>.destroy(shardId)`"
     ],
     "changes": [
         "Fixed API RateLimiting",

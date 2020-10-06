@@ -3,7 +3,7 @@ const { breaking_changes, changes } = require("./publishChanges.json");
 const { EmbedBuilder, EvolveBuilder } = require("../dist");
 
 const client = new EvolveBuilder()
-	.setToken(process.env.DISCORD_TOKEN)
+	.setToken("NzUwMDMyNTk2OTYzOTUwNjIy.X00oSg.ryrUyVn99jTEGHcQUotwIM7QHs4")
 	.build();
 
 client.sharder.on("shardSpawn", (id) => {
@@ -19,20 +19,23 @@ client.on("clientReady", async () => {
 	const embed = new EmbedBuilder()
 		.setTitle(`EvolveJS | ${version} Release`)
 		.setDescription("New Version of EvolveJS has been Released!\n\n Breaking Changes!\n")
-		.setImage(new URL("https://cdn.discordapp.com/attachments/712948948343455856/734829166821900438/EvolveJS.png"))
+		.setThumbnail(new URL("https://cdn.discordapp.com/attachments/712948948343455856/734829166821900438/EvolveJS.png"))
 		.setFooter(`EvolveJS | ${Date.now()}`);
 	if(breaking_changes) {
-		for(let change = 1; change < breaking_changes.length; change++) {
-			embed.appendDescription(`${change + 1}. ${breaking_changes[change]}`);
+		for(let change = 0; change < breaking_changes.length; change++) {
+			embed.appendDescription(`${change + 1}. ${breaking_changes[change]}\n`);
 		}
 	}
-	embed.appendDescription("Changes!\n");
+	embed.appendDescription("\nChanges!\n");
 	if(changes) {
-		for(let change = 1; change <= changes.length; change++) {
-			embed.appendDescription(`${change}. ${changes[change]}`);
+		for(let change = 0; change < changes.length; change++) {
+			embed.appendDescription(`${change+1}. ${changes[change]}\n`);
 		}
 	}
-	await client.rest.getChannel("748181874769395712").send(embed.build());
-	client.sharder.destroyAll(0);
-	process.exit(0);
+	client.rest.sendMessage(embed.build(), "748181874769395712").then(async () => {
+		await client.rest.sendMessage("@everyone", "748181874769395712");
+		client.sharder.destroyAll(0);
+	    process.exit(0);
+	});
+	
 });
