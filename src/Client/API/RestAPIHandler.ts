@@ -52,6 +52,8 @@ export class RestAPIHandler {
   				body = JSON.stringify(options.message);
   			} else if (options.postType == "Channel") {
   				body = JSON.stringify(options.channel);
+  			} else if (options.postType == "Integration") {
+  				body = JSON.stringify(options.integration);
   			}
 
   			if (!body)

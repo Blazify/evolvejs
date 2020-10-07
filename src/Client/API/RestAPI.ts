@@ -17,6 +17,7 @@ import {
 } from "../..";
 import { RestAPIHandler } from "./RestAPIHandler";
 import { EvolveClient } from "../EvolveClient";
+import {IGuildIntegration} from "../../Interfaces/Integration";
 
 /**
  * RestAPI Class
@@ -94,7 +95,28 @@ export class RestAPI {
   		})
   	);
   }
-
+  public async getGuildIntegrations(guildID: string): Promise<IGuildIntegration[]> {
+  	const guildIntegrationArray = new Array<IGuildIntegration>();
+  	const list = await this.handler.fetch({
+  		endpoint: `guilds/${guildID}/integrations`,
+  		method: "GET",
+  	});
+  	for(const e of list) {
+  		guildIntegrationArray.push(e);
+  	}
+  	return guildIntegrationArray;
+  }
+  public async createGuildIntegration(guildID: string, type: string, id: any): Promise<any> {
+	  return await this.handler.fetch({
+		  endpoint: `guilds/${guildID}/channels`,
+		  method: "POST",
+		  postType: "Channel",
+		  integration: {
+		  	type: type,
+			  id: id
+		  }
+	  });
+  }
   public async getGuildMembers(guildID: string): Promise<GuildMember[]> {
   	const memberArray = new Array<GuildMember>();
   	const member = await this.handler.fetch({
