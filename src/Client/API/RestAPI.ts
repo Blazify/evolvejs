@@ -238,11 +238,19 @@ export class RestAPI {
   		method: "DELETE",
   	});
   }
-  public async getGuildWebhooks(guildID: string): Promise<void> {
-	  return await this.handler.fetch({
+  public async getGuildWebhooks(guildID: string) {
+	  const fetched = await this.handler.fetch({
 		  endpoint: `/guilds/${guildID}/webhooks`,
 		  method: "GET"
 	  });
+
+	  const guildWebhooksArray = [];
+
+	  for (const f of fetched) {
+		  guildWebhooksArray.push(f, this.client)
+	  }
+
+	  return guildWebhooksArray;
   }
 
   public async getWebhook(webhookID: string): Promise<void> {
