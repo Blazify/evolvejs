@@ -14,6 +14,7 @@ import {
 	TextChannel,
 	User,
 	IRole,
+	Webhook
 } from "../..";
 import { RestAPIHandler } from "./RestAPIHandler";
 import { EvolveClient } from "../EvolveClient";
@@ -247,7 +248,7 @@ export class RestAPI {
 	  const guildWebhooksArray = [];
 
 	  for (const f of fetched) {
-		  guildWebhooksArray.push(f, this.client)
+		  guildWebhooksArray.push(new Webhook(f, this.client));
 	  }
 
 	  return guildWebhooksArray;
@@ -261,10 +262,16 @@ export class RestAPI {
   }
 
   public async getChannelWebhooks(channelID: string): Promise<void> {
-	  return await this.handler.fetch({
+	  const fetched = await this.handler.fetch({
 		  endpoint: `/channels/${channelID}/webhooks`,
 		  method: "GET"
 	  });
+	  
+	  const channelWebhooksArray = [];
+
+	  for (const f of fetched) {
+		  channelWebhooksArray.push(new Webhook(f, this.client));
+	  }
   }
   
   public async deleteWebhook(webhookID: string): Promise<void> {
