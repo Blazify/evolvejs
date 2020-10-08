@@ -32,16 +32,22 @@ Have fun with the library and happy coding :)**
 ```shell script
 npm install @evolvejs/evolvejs
 ```
+**Deno Usage**
+- **Import from `https://deno.land/x/evolvejs`**
 
 # Important
 
 **You need the following things before you can kick off with EvolveJS:**
 
+**Node:**
 - [**NodeJS v14 Installed**](https://www.nodejs.org)
+
+**Deno**
+-[**Deno Installed**](https://deno.land)
 
 # Documentation and Support
 
-- **[Official Docs](https://evolvejs.js.org)**
+- **[Official Docs](https://evolve.js.org)**
 Note :- The Docs aren't completed
 - **For any further query and support join us at [EvolveJS](https://discord.gg/9bnpjqY) discord.**
 
@@ -76,6 +82,7 @@ client.on("newMessage", (event) => {
 
 
 ```
+**Incase of Deno use https://deno.land/x/evolvejs instead of @evolvejs/evolvejs**
 
 # More Information
 - **If you want to use ETF for Payloads Sending, just use EvolveBuilder#setEncoding, make sure to install erlpack, as it's a dev dependency of the package**
@@ -87,8 +94,13 @@ client.on("newMessage", (event) => {
 
 ## [Creeper](https://github.com/CreeperPlanet26)
 
+## [Collbrothers](https://github.com/Collbrothers)
+
 ## [Zihad](https://github.com/zihadmahiuddin)
+
+## [Mercury](https://github.com/Mercurydev986)
 
 # Contributor
 
 - **[Olyno](https://github.com/Olyno)**
+- **[nerdthatnoonelikes](https://github.com/nerdthatnoonelikes)**
