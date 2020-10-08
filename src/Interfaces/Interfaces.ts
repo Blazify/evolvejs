@@ -9,7 +9,7 @@ import { UsersManager } from "../Client/Managers/UsersManager";
 import { Overwrite } from "../Structures/Channel/Overwrite";
 import { CHANNELTYPES } from "../Utils/Constants";
 import { MessageEmbed } from "../Utils/Embed/MessageEmbed";
-import {ICreateGuildIntegration, IGuildIntegration} from "./Integration";
+import { ICreateGuildIntegration, IGuildIntegration } from "./Integration";
 
 export interface CacheProviders {
   guilds?: GuildsManager;
@@ -48,9 +48,9 @@ export interface ChannelOptions {
   nsfw?: boolean;
 }
 
-export interface Payload {
+export interface Payload<D = any> {
   op: OPCODE;
   t?: string;
   s?: number;
-  d?: any;
+  d?: D;
 }

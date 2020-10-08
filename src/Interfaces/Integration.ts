@@ -1,4 +1,4 @@
-import {IUser} from "./UserOptions";
+import { IUser } from "./UserOptions";
 
 enum expire_behavior {
     Remove_role,
@@ -9,7 +9,7 @@ interface IGuildIntegrationAccount {
     name: string;
 }
 export interface ICreateGuildIntegration {
-    id: any;
+    id: string;
     type: string;
 }
 export interface IGuildIntegration {
@@ -24,5 +24,5 @@ export interface IGuildIntegration {
     expire_grace_period: number;
     user: IUser;
     account: IGuildIntegrationAccount;
-    synced_at: any;
+    synced_at: string;
 }
