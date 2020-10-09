@@ -22,7 +22,7 @@ export interface CacheProviders {
 
 export interface IAPIParams {
   endpoint: string;
-  method: "GET" | "POST" | "DELETE" | "PUT";
+  method: "GET" | "POST" | "DELETE" | "PUT" | "PATCH";
   postType?: "Message" | "Channel" | "Integration";
   message?: MessageOptions;
   channel?: ChannelOptions;

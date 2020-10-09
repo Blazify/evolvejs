@@ -53,8 +53,8 @@ export default class {
 
   		if (this.client.options.enableGuildCache)
   			this.client.guilds.set(fetched.id, fetched);
-	  }
-	  
-	  this.client.emit(EVENTS.READY, shard);
+  	}
+
+  	this.client.emit(EVENTS.READY, shard);
   }
 }

@@ -37,7 +37,7 @@ export class ShardManager extends EventListener {
   		if (k === initialLastShardConnection) {
   			process.exit(code);
   		}
-	  }
+  	}
   }
 
   get ping(): number {

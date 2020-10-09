@@ -92,15 +92,17 @@ client.on("newMessage", (event) => {
 
 ## **[Echo-3-1](https://github.com/Echo-3-1)** 
 
-## [Creeper](https://github.com/CreeperPlanet26)
+### [Creeper](https://github.com/CreeperPlanet26)
 
-## [Collbrothers](https://github.com/Collbrothers)
+### [Collbrothers](https://github.com/Collbrothers)
 
-## [Zihad](https://github.com/zihadmahiuddin)
+### [Zihad](https://github.com/zihadmahiuddin)
 
-## [Mercury](https://github.com/Mercurydev986)
+### [Mercury](https://github.com/Mercurydev986)
 
-# Contributor
+### [saberscientist](https://github.com/saberscientist)
+
+## Contributor
 
 - **[Olyno](https://github.com/Olyno)**
 - **[nerdthatnoonelikes](https://github.com/nerdthatnoonelikes)**

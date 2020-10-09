@@ -14,7 +14,7 @@ import {
 	TextChannel,
 	User,
 	IRole,
-	Webhook
+	Webhook,
 } from "../..";
 import { RestAPIHandler } from "./RestAPIHandler";
 import { EvolveClient } from "../EvolveClient";
@@ -96,7 +96,9 @@ export class RestAPI {
 			})
 		);
 	}
-	public async getGuildIntegrations(guildID: string): Promise<IGuildIntegration[]> {
+	public async getGuildIntegrations(
+		guildID: string
+	): Promise<IGuildIntegration[]> {
 		const guildIntegrationArray = new Array<IGuildIntegration>();
 		const list = await this.handler.fetch({
 			endpoint: `guilds/${guildID}/integrations`,
@@ -107,15 +109,19 @@ export class RestAPI {
 		}
 		return guildIntegrationArray;
 	}
-	public async createGuildIntegration(guildID: string, type: string, id: string): Promise<any> {
+	public async createGuildIntegration(
+		guildID: string,
+		type: string,
+		id: string
+	): Promise<any> {
 		return await this.handler.fetch({
 			endpoint: `guilds/${guildID}/channels`,
 			method: "POST",
 			postType: "Channel",
 			integration: {
 				type: type,
-				id: id
-			}
+				id: id,
+			},
 		});
 	}
 	public async getGuildMembers(guildID: string): Promise<GuildMember[]> {
@@ -264,7 +270,7 @@ export class RestAPI {
 	public async getGuildWebhooks(guildID: string): Promise<Webhook[]> {
 		const fetched = await this.handler.fetch({
 			endpoint: `/guilds/${guildID}/webhooks`,
-			method: "GET"
+			method: "GET",
 		});
 
 		const guildWebhooksArray = [];
@@ -277,16 +283,19 @@ export class RestAPI {
 	}
 
 	public async getWebhook(webhookID: string): Promise<Webhook> {
-		return new Webhook(await this.handler.fetch({
-			endpoint: `/webhooks/${webhookID}`,
-			method: "GET"
-		}), this.client);
+		return new Webhook(
+			await this.handler.fetch({
+				endpoint: `/webhooks/${webhookID}`,
+				method: "GET",
+			}),
+			this.client
+		);
 	}
 
 	public async getChannelWebhooks(channelID: string): Promise<Webhook[]> {
 		const fetched = await this.handler.fetch({
 			endpoint: `/channels/${channelID}/webhooks`,
-			method: "GET"
+			method: "GET",
 		});
 
 		const channelWebhooksArray = [];
@@ -301,7 +310,46 @@ export class RestAPI {
 	public async deleteWebhook(webhookID: string): Promise<void> {
 		return await this.handler.fetch({
 			endpoint: `/webhooks/${webhookID}`,
-			method: "DELETE"
+			method: "DELETE",
 		});
+	}
+
+	public async modifyChannel(channelID: string, channel: ChannelOptions): Promise<ChannelTypes> {
+		const fetched = await this.handler.fetch({
+			endpoint: `/channels/${channelID}`,
+			method: "PATCH",
+			postType: "Channel",
+			channel
+		});
+
+		const newChannel = new ChannelResolver[fetched.type](fetched, this.client);
+
+		return newChannel;
+	}
+
+	public async getChannelMessages(channelID: string): Promise<Message[]> {
+		const mArray: Message[] = [];
+		const fetched = await this.handler.fetch({
+			endpoint: `/channels/${channelID}/messages`,
+			method: "GET"
+		});
+		for (const f of fetched) {
+			mArray.push(await Message.handle(f, this.client));
+		}
+		return mArray;
+	}
+
+	public async getChannelMessage(channelID: string, messageID: string): Promise<Message> {
+		return await Message.handle(await this.handler.fetch({
+			endpoint: `/channels/${channelID}/messages/${messageID}`,
+			method: "GET"
+		}), this.client);
+	}
+
+	public async crosspostMessage(channelID: string, messageID: string): Promise<Message> {
+		return await Message.handle(await this.handler.fetch({
+			endpoint: `/channels/{channelID}/messages/${messageID}/crosspost`,
+			method: "POST"
+		}), this.client);
 	}
 }
