@@ -258,7 +258,7 @@ export class Objex<K, V> extends Map<K, V> {
 	}
 
 	/**
-	 * Check if atlesst one element passes a test
+	 * Check if at least one element passes a test
 	 * @param {Function} func - The function that needs to be satisfied
 	 * @returns {boolean} If any element was found
 	 */
@@ -300,6 +300,11 @@ export class Objex<K, V> extends Map<K, V> {
 			throw new TypeError("[Objex Error] Cannot reduce empty Objex.");
 		return acc;
 	}
+	/**
+	 * Merge Objexes into the given objex - existing keys will NOT be overwritten
+	 * @param {...Objex} - The Objexes to be merged
+	 * @returns {Objex} - The merged Objex
+	 */
 
 	public merge<T>(...obj: any[]) {
 		for (const objex of obj) {
