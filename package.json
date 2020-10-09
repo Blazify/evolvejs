@@ -1,71 +1,70 @@
 {
-	"name": "@evolvejs/evolvejs",
-	"version": "0.3.1-alpha",
-	"description": "An advanced discord API wrapper with TS and JS support",
-	"main": "dist/index.js",
-	"scripts": {
-		"start": "tsc",
-		"lint": "eslint .",
-		"lint:fix": "eslint ./ --fix",
-		"prettier": "prettier ./ --write",
-		"docs": "node scripts/gendocs.js",
-		"development": "tsc --watch",
-		"development:test": "nodemon ./test.js",
-		"development:test:typescript": "nodemon --exec ts-node ./src/index.ts",
-		"compile:test": "tsc && node dist/index"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/EvolveJS/EvolveJS.git"
-	},
-	"keywords": [
-		"evolvejs",
-		"evjs",
-		"discord",
-		"library",
-		"typescript",
-		"javascript",
-		"discord-library"
-	],
-	"author": "evolvejs",
-	"license": "AGPL-3.0-or-later",
-	"maintainers": [
-		"Echo-3-1"
-	],
-	"bugs": {
-		"url": "https://github.com/EvolveJS/EvolveJS/issues"
-	},
-	"homepage": "https://evolve.js.org",
-	"markdown": "github",
-	"exports": {
-		".": [
-			{
-				"require": "./dist/index.js",
-				"import": "./esm/discord.mjs"
-			},
-			"./dist/index.js"
-		],
-		"./esm": "./esm/index.mjs"
-	},
-	"readme": "./README.md",
-	"dependencies": {
-		"@evolvejs/objex": "^1.0.0",
-		"node-fetch": "^2.6.0",
-		"sign-logger": "^1.4.3",
-		"ws": "^7.3.1"
-	},
-	"optionalDependencies": {
-		"erlpack": "0.1.3"
-	},
-	"devDependencies": {
-		"@types/node": "^14.0.23",
-		"@types/node-fetch": "^2.5.7",
-		"@types/ws": "^7.2.6",
-		"@typescript-eslint/eslint-plugin": "^3.10.1",
-		"@typescript-eslint/parser": "^3.10.1",
-		"eslint": "^7.7.0",
-		"typedoc": "^0.19.2",
-		"typedoc-plugin-markdown": "^3.0.4",
-		"typescript": "^4.0.2"
-	}
+  "name": "@evolvejs/evolvejs",
+  "version": "0.3.1-alpha",
+  "description": "An advanced discord API wrapper with TS and JS support",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "tsc",
+    "lint": "eslint .",
+    "prettier": "prettier ./ --write",
+    "docs": "node scripts/gendocs.js",
+    "development": "tsc --watch",
+    "development:test": "nodemon ./test.js",
+    "development:test:typescript": "nodemon --exec ts-node ./src/index.ts",
+    "compile:test": "tsc && node dist/index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EvolveJS/EvolveJS.git"
+  },
+  "keywords": [
+    "evolvejs",
+    "evjs",
+    "discord",
+    "library",
+    "typescript",
+    "javascript",
+    "discord-library"
+  ],
+  "author": "evolvejs",
+  "license": "AGPL-3.0-or-later",
+  "maintainers": [
+    "Echo-3-1"
+  ],
+  "bugs": {
+    "url": "https://github.com/EvolveJS/EvolveJS/issues"
+  },
+  "homepage": "https://evolve.js.org",
+  "markdown": "github",
+  "exports": {
+    ".": [
+      {
+        "require": "./dist/index.js",
+        "import": "./esm/discord.mjs"
+      },
+      "./dist/index.js"
+    ],
+    "./esm": "./esm/index.mjs"
+  },
+  "readme": "./README.md",
+  "dependencies": {
+    "@evolvejs/objex": "^1.0.0",
+    "node-fetch": "^2.6.0",
+    "sign-logger": "^1.4.3",
+    "ws": "^7.3.1"
+  },
+  "optionalDependencies": {
+    "erlpack": "0.1.3"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.23",
+    "@types/node-fetch": "^2.5.7",
+    "@types/ws": "^7.2.6",
+    "@typescript-eslint/eslint-plugin": "^3.10.1",
+    "@typescript-eslint/parser": "^3.10.1",
+    "eslint": "^7.7.0",
+    "typedoc": "^0.19.2",
+    "typedoc-plugin-markdown": "^3.0.4",
+    "typescript": "^4.0.2"
+  }
 }

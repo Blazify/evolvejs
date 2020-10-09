@@ -46,7 +46,7 @@ jobs:
           git config user.email github-actions@github.com
       - name: Stage, commit & push changes
       - uses: actions/checkout@v2
-        with: 
+        with:
           ref: deno-master
       - run: |
           cd deno/
