@@ -235,6 +235,7 @@ export class Objex<K, V> extends Map<K, V> {
 	 * @returns {Objex} The filtered Objex collection
 	 */
 	public filter<T>(func: (val: V, key: K, objex: this) => boolean): this {
+		if (!func) return this;
 		const filtered = new this.constructor[Symbol.species]<K, V>() as this;
 		for (let [key, value] of this) {
 			if (func(value, key, this)) filtered.set(key, value);
@@ -299,4 +300,17 @@ export class Objex<K, V> extends Map<K, V> {
 			throw new TypeError("[Objex Error] Cannot reduce empty Objex.");
 		return acc;
 	}
+
+	public merge<T>(...obj: any[]) {
+		for (const objex of obj) {
+			if (objex instanceof Map) {
+				for (const [key, val] of objex) {
+					if (this.has(key)) return;
+					this.set(key, val)
+				}
+			}
+		}
+		return this;
+	}
+
 }
