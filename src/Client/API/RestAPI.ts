@@ -19,6 +19,8 @@ import {
 import { RestAPIHandler } from "./RestAPIHandler";
 import { EvolveClient } from "../EvolveClient";
 import { IGuildIntegration } from "../../Interfaces/Integration";
+import { Overwrite } from "../../Structures/Channel/Overwrite";
+import { NewsChannel } from "../../Structures/Channel/NewsChannel";
 
 /**
  * RestAPI Class
@@ -84,7 +86,7 @@ export class RestAPI {
   public async getAuditLogs(guildID: string): Promise<JSON> {
     return await this.handler.fetch({
       endpoint: `guilds/${guildID}/audit-logs`,
-      method: "POST",
+      method: "GET",
     });
   }
 
@@ -470,12 +472,117 @@ export class RestAPI {
     amount: number,
     messages?: string[]
   ): Promise<void> {
-    if (!messages) messages = this.client.messages.lastKey(amount) as string[];
-    return this.handler.fetch({
+    if (!messages) {
+      const lastKeys = this.client.messages.lastKey(amount);
+      if (!lastKeys) return;
+      messages = typeof lastKeys === "string" ? [lastKeys] : lastKeys;
+    }
+    return await this.handler.fetch({
       endpoint: `/channels/${channelID}/messages/bulk-delete`,
       method: "POST",
       postType: "[Message]",
       messages,
+    });
+  }
+
+  public async editChannelPermissions(
+    channelID: string,
+    overwrite: Overwrite
+  ): Promise<void> {
+    return await this.handler.fetch({
+      endpoint: `/channels/${channelID}/permissions/${overwrite.id}`,
+      method: "PUT",
+      postType: "JSON",
+      json_params: {
+        allow: overwrite.allow,
+        deny: overwrite.deny,
+        type: overwrite.type,
+      },
+    });
+  }
+
+  public async createChannelInvite(
+    channelID: string,
+    options: {
+      max_age?: number;
+      max_uses?: number;
+      temporary?: boolean;
+      unique?: boolean;
+      target_user?: string;
+      target_user_type?: number;
+    } = {}
+  ): Promise<Invite> {
+    return new Invite(
+      await this.handler.fetch({
+        endpoint: `/channels/${channelID}/invites`,
+        method: "POST",
+        postType: "JSON",
+        json_params: options,
+      }),
+      this.client
+    );
+  }
+
+  public async deleteChannelPermission(
+    channelID: string,
+    overwriteID: string
+  ): Promise<void> {
+    return await this.handler.fetch({
+      endpoint: `/channels/${channelID}/permissions/${overwriteID}`,
+      method: "DELETE",
+    });
+  }
+
+  public async followNewChannel(
+    channelID: string,
+    webhookChannelID: string
+  ): Promise<NewsChannel> {
+    return new NewsChannel(
+      await this.handler.fetch({
+        endpoint: `/channels/${channelID}/followers`,
+        method: "POST",
+        postType: "JSON",
+        json_params: {
+          webhook_channel_id: webhookChannelID,
+        },
+      }),
+      this.client
+    );
+  }
+
+  public async triggerTyping(channelID: string): Promise<void> {
+    return await this.handler.fetch({
+      endpoint: `/channels/${channelID}/typing`,
+      method: "POST",
+    });
+  }
+
+  public async getPinnedMessages(channelID: string): Promise<Message[]> {
+    const mArray: Message[] = [];
+    const fetched = await this.handler.fetch({
+      endpoint: `/channels/${channelID}/pins`,
+      method: "GET",
+    });
+    for (const f of fetched) {
+      mArray.push(await Message.handle(f, this.client));
+    }
+    return mArray;
+  }
+
+  public async pinMessage(channelID: string, messageID: string): Promise<void> {
+    return await this.handler.fetch({
+      endpoint: `/channels/${channelID}/pins/${messageID}`,
+      method: "PUT",
+    });
+  }
+
+  public async deletePinnedMessage(
+    channelID: string,
+    messageID: string
+  ): Promise<void> {
+    return await this.handler.fetch({
+      endpoint: `/channels/${channelID}/pins/${messageID}`,
+      method: "DELETE",
     });
   }
 }

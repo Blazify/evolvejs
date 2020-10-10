@@ -23,11 +23,12 @@ export interface CacheProviders {
 export interface IAPIParams {
   endpoint: string;
   method: "GET" | "POST" | "DELETE" | "PUT" | "PATCH";
-  postType?: "Message" | "Channel" | "Integration" | "[Message]";
+  postType?: "Message" | "Channel" | "Integration" | "[Message]" | "JSON";
   message?: MessageOptions;
   channel?: ChannelOptions;
   integration?: ICreateGuildIntegration;
   messages?: string[];
+  json_params?: Object;
 }
 
 export interface MessageOptions {
