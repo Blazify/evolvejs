@@ -36,21 +36,21 @@ export class EvolveSocket extends ws {
   }
 
   private _init(): void {
-  		this.on("error", (err: Error) => {
-  			this.manager.builder.client.logger.error(err.message);
-  		});
+  	this.on("error", (err: Error) => {
+  		this.manager.builder.client.logger.error(err.message);
+  	});
 
-  		this.on("close", (code: number, res: string) => {
-  			this.manager.builder.client.logger.error(
-  				`Code: ${code}, Response: ${res}\n Destroying Shards and Exitting Process...`
-			  );
-			  if(code == 4004) {
-  				this.manager.destroyAll();
-			  }
-  		});
+  	this.on("close", (code: number, res: string) => {
+  		this.manager.builder.client.logger.error(
+  			`Code: ${code}, Response: ${res}\n Destroying Shards and Exitting Process...`
+  		);
+  		if (code == 4004) {
+  			this.manager.destroyAll();
+  		}
+  	});
 
-  		this.on("message", (data: Data) => {
-  			this.gateway.init(data, this);
-  		});
+  	this.on("message", (data: Data) => {
+  		this.gateway.init(data, this);
+  	});
   }
 }

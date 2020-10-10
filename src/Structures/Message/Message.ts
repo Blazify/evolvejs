@@ -61,7 +61,7 @@ export class Message {
   }
 
   public delete(time = 0): Promise<NodeJS.Timeout> {
-	  return this.client.rest.deleteMessage(this.id, this.channel.id, time);
+  	return this.client.rest.deleteMessage(this.id, this.channel.id, time);
   }
 
   static async handle(data: IMessage, client: EvolveClient): Promise<Message> {

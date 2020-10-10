@@ -29,7 +29,9 @@ export class Gateway {
   			payload = JSON.parse(data.toString());
   		} else {
   			try {
-  				payload = require("erlpack").unpack(Buffer.from(data.toString(), "binary"));
+  				payload = require("erlpack").unpack(
+  					Buffer.from(data.toString(), "binary")
+  				);
   			} catch (e) {
   				throw this.ws.manager.builder.client.logger.error(e);
   			}
