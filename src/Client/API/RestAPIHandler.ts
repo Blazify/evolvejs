@@ -49,7 +49,7 @@ export class RestAPIHandler {
 				}
 				this._lastFetchReturnHeader = fetched.headers;
 
-				if (fetched.status !== 200) {
+				if (fetched.status.toString().startsWith("20")) {
 					const err = await fetched.json()
 					const rejection = new DiscordRejection({
 						code: err.code,
@@ -95,7 +95,7 @@ export class RestAPIHandler {
 				}
 
 				this._lastFetchReturnHeader = fetched.headers;
-				if (fetched.status !== 200) {
+				if (fetched.status.toString().startsWith("20")) {
 					const err = await fetched.json()
 					const rejection = new DiscordRejection({
 						code: err.code,
