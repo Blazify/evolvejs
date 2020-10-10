@@ -95,8 +95,18 @@ export class RestAPIHandler {
 				}
 
 				this._lastFetchReturnHeader = fetched.headers;
+				if (fetched.status !== 200) {
+					const err = await fetched.json()
+					const rejection = new DiscordRejection({
+						code: err.code,
+						msg: err.msg,
+						http: fetched.status,
+						path: options.endpoint
+					})
 
-				return fetched.json();
+					this.client.emit(EVENTS.API_ERROR, rejection)
+					if (this.client.listenerCount(EVENTS.API_ERROR) < 1) throw rejection;
+				} else return fetched.json();
 			}
 		} catch (e) {
 			throw this.client.logger.error(e);
