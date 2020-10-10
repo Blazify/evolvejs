@@ -1,12 +1,12 @@
 import {
-	ITextChannel,
-	IDMChannel,
-	IVoiceChannel,
-	IGroupChannel,
-	ICategoryChannel,
-	INewsChannel,
-	IStoreChannel,
-	Payload,
+  ITextChannel,
+  IDMChannel,
+  IVoiceChannel,
+  IGroupChannel,
+  ICategoryChannel,
+  INewsChannel,
+  IStoreChannel,
+  Payload,
 } from "..";
 import { TextChannel } from "../Structures/Channel/TextChannel";
 import { VoiceChannel } from "../Structures/Channel/VoiceChannel";
@@ -39,9 +39,9 @@ export enum ACTIVITY {
 }
 
 export const NITRO = {
-	0: "None",
-	1: "Nitro Classic",
-	2: "Nitro",
+  0: "None",
+  1: "Nitro Classic",
+  2: "Nitro",
 };
 
 export enum WEBHOOKTYPE {
@@ -69,13 +69,13 @@ export type ChannelTypes =
   | StoreChannel;
 
 export const ChannelResolver = [
-	TextChannel,
-	DMChannel,
-	VoiceChannel,
-	GroupChannel,
-	CategoryChannel,
-	NewsChannel,
-	StoreChannel,
+  TextChannel,
+  DMChannel,
+  VoiceChannel,
+  GroupChannel,
+  CategoryChannel,
+  NewsChannel,
+  StoreChannel,
 ];
 
 export enum ActivityTypes {
@@ -97,45 +97,45 @@ export enum CacheOptions {
 export enum EVENTS {
   RAW = "rawEvent",
   PACKET_READY = "packetReady",
-  HELLO = "hello", // Defines the heartbeat interval
-  READY = "clientReady", // Contains the initial state information
-  RESUMED = "resumed", // Response to the "Resume" payload sent
-  RECONNECT = "reconnect", // Server is going away, client should reconnect to gateway and resume
-  INVALID_SESSION = "invalidSession", // Failure response to Identify or Resume or invalid active session
-  CHANNEL_CREATE = "newChannel", // New channel created
-  CHANNEL_UPDATE = "channelUpdate", // Channel was updated
-  CHANNEL_DELETE = "removeChannel", // Channel was deleted
-  CHANNEL_PINS_UPDATE = "channelPinsUpdate", // Message was pinned or unpinned
-  GUILD_CREATE = "addedGuild", // Lazy-load for unavailable guild, guild became available, or user joined a new guild
-  GUILD_UPDATE = "guildUpdate", // Guild was updated
-  GUILD_DELETE = "removeGuild", // Guild became unavailable, or user left/was removed from a guild
-  GUILD_BAN_ADD = "userBanned", // User was banned from a guild
-  GUILD_BAN_REMOVE = "userUnbanned", // User was unbanned from a guild
-  GUILD_EMOJIS_UPDATE = "guildEmojisUpdate", // Guild emojis were updated
-  GUILD_INTEGRATIONS_UPDATE = "guildIntegrationsUpdate", // Guild integration was updated
-  GUILD_MEMBER_ADD = "memberJoined", // New user joined a guild
-  GUILD_MEMBER_REMOVE = "memberLeft", // User was removed from a guild
-  GUILD_MEMBER_UPDATE = "memberUpdate", // Guild member was updated
-  GUILD_MEMBERS_CHUNK = "memberChunk", // Response to Request Guild Members
-  GUILD_ROLE_CREATE = "newRole", // Guild role was created
-  GUILD_ROLE_UPDATE = "roleUpdated", // Guild role was updated
-  GUILD_ROLE_DELETE = "removeRole", // Guild role was deleted
-  INVITE_CREATE = "addInvite", // Invite to a channel was created
-  INVITE_DELETE = "removeInvite", // Invite to a channel was deleted
-  MESSAGE_CREATE = "newMessage", // Message was created
-  MESSAGE_UPDATE = "updateMessage", // Message was edited
-  MESSAGE_DELETE = "removeMessage", // Message was deleted
-  MESSAGE_DELETE_BULK = "bulkMessageRemove", // Multiple messages were deleted at once
-  MESSAGE_REACTION_ADD = "reactionAdd", // User reacted to a message
-  MESSAGE_REACTION_REMOVE = "reactionRemove", // User removed a reaction from a message
-  MESSAGE_REACTION_REMOVE_All = "reactionRemoveAll", // All reactions were explicitly removed from a message
-  MESSAGE_REACTION_REMOVE_EMOJI = "removeReactionEmoji", // All reactions for a given emoji were removed from a message
-  PRESENCE_UPDATE = "userPresenceUpdate", // User was updated
-  TYPING_START = "typing", // User started typing in a channel
-  USER_UPDATE = "userUpdate", // Properties about the user changed
-  VOICE_STATE_UPDATE = "voiceStateUpdate", // Someone joined, left, or moved a voice channel
-  VOICE_SERVER_UPDATE = "voiceServerUpdate", // Guild's voice server was updated
-  WEBHOOKS_UPDATE = "webhookUpdate", // Guild channel webhook was created, update, or deleted
+  HELLO = "hello",
+  READY = "clientReady",
+  RESUMED = "resumed",
+  RECONNECT = "reconnect",
+  INVALID_SESSION = "invalidSession",
+  CHANNEL_CREATE = "newChannel",
+  CHANNEL_UPDATE = "channelUpdate",
+  CHANNEL_DELETE = "removeChannel",
+  CHANNEL_PINS_UPDATE = "channelPinsUpdate",
+  GUILD_CREATE = "addedGuild",
+  GUILD_UPDATE = "guildUpdate",
+  GUILD_DELETE = "removeGuild",
+  GUILD_BAN_ADD = "userBanned",
+  GUILD_BAN_REMOVE = "userUnbanned",
+  GUILD_EMOJIS_UPDATE = "guildEmojisUpdate",
+  GUILD_INTEGRATIONS_UPDATE = "guildIntegrationsUpdate",
+  GUILD_MEMBER_ADD = "memberJoined",
+  GUILD_MEMBER_REMOVE = "memberLeft",
+  GUILD_MEMBER_UPDATE = "memberUpdate",
+  GUILD_MEMBERS_CHUNK = "memberChunk",
+  GUILD_ROLE_CREATE = "newRole",
+  GUILD_ROLE_UPDATE = "roleUpdated",
+  GUILD_ROLE_DELETE = "removeRole",
+  INVITE_CREATE = "addInvite",
+  INVITE_DELETE = "removeInvite",
+  MESSAGE_CREATE = "newMessage",
+  MESSAGE_UPDATE = "updateMessage",
+  MESSAGE_DELETE = "removeMessage",
+  MESSAGE_DELETE_BULK = "bulkMessageRemove",
+  MESSAGE_REACTION_ADD = "reactionAdd",
+  MESSAGE_REACTION_REMOVE = "reactionRemove",
+  MESSAGE_REACTION_REMOVE_All = "reactionRemoveAll",
+  MESSAGE_REACTION_REMOVE_EMOJI = "removeReactionEmoji",
+  PRESENCE_UPDATE = "userPresenceUpdate",
+  TYPING_START = "typing",
+  USER_UPDATE = "userUpdate",
+  VOICE_STATE_UPDATE = "voiceStateUpdate",
+  VOICE_SERVER_UPDATE = "voiceServerUpdate",
+  WEBHOOKS_UPDATE = "webhookUpdate",
   SHARD_SPAWN = "shardSpawn",
   SHARD_DESTROY = "shardDestroy",
 }
@@ -188,51 +188,51 @@ export enum OPCODE {
 }
 
 export const Heartbeat: Payload = {
-	op: OPCODE.Heartbeat,
-	d: null,
+  op: OPCODE.Heartbeat,
+  d: null,
 };
 
 export const VoiceStateUpdate: Payload = {
-	op: OPCODE.Voice_State_Update,
-	d: {
-		guild_id: "",
-		channel_id: "",
-		self_mute: false,
-		self_deaf: false,
-	},
+  op: OPCODE.Voice_State_Update,
+  d: {
+    guild_id: "",
+    channel_id: "",
+    self_mute: false,
+    self_deaf: false,
+  },
 };
 
 export const VoiceIdentify: Payload = {
-	op: 0,
-	d: {
-		server_id: "",
-		user_id: "",
-		session_id: "",
-		token: "",
-	},
+  op: 0,
+  d: {
+    server_id: "",
+    user_id: "",
+    session_id: "",
+    token: "",
+  },
 };
 
 export const Identify: Payload = {
-	op: OPCODE.Identify,
-	d: {
-		token: "",
-		intents: 0,
-		shard: [0, 1],
-		properties: {
-			$os: process.platform,
-			$browser: "discord",
-			$device: "evolvejs",
-		},
-		presence: {
-			since: Date.now(),
-			game: {
-				name: "EvolveJS",
-				type: ActivityTypes.PLAYING,
-			},
-			status: "",
-			afk: false,
-		},
-	},
+  op: OPCODE.Identify,
+  d: {
+    token: "",
+    intents: 0,
+    shard: [0, 1],
+    properties: {
+      $os: process.platform,
+      $browser: "discord",
+      $device: "evolvejs",
+    },
+    presence: {
+      since: Date.now(),
+      game: {
+        name: "EvolveJS",
+        type: ActivityTypes.PLAYING,
+      },
+      status: "",
+      afk: false,
+    },
+  },
 };
 
 export interface TokenAccessOptions {
