@@ -16,9 +16,14 @@ import { GroupChannel } from "../Structures/Channel/GroupChannel";
 import { NewsChannel } from "../Structures/Channel/NewsChannel";
 import { StoreChannel } from "../Structures/Channel/StoreChannel";
 
+
+
+
 export enum CONSTANTS {
-  Gateway = "wss://gateway.discord.gg/?v=6&encoding=",
-  Api = "https://discord.com/api/v6",
+	Gateway = "wss://gateway.discord.gg/?v=6&encoding=",
+	Api = "https://discord.com/api/v6",
+	API_ERROR = "API_ERROR",
+	EVENTS = "EVENTS"
 }
 
 export enum CHANNELTYPES {
@@ -138,6 +143,7 @@ export enum EVENTS {
   WEBHOOKS_UPDATE = "webhookUpdate", // Guild channel webhook was created, update, or deleted
   SHARD_SPAWN = "shardSpawn",
   SHARD_DESTROY = "shardDestroy",
+  API_ERROR = "error" //api call was rejected
 }
 
 export enum GatewayIntents {
