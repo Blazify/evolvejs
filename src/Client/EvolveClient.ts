@@ -9,7 +9,7 @@ import { RolesManager } from "./Managers/RolesManager";
 import { MessagesManager } from "./Managers/MessagesManager";
 import { EmojisManager } from "./Managers/EmojisManager";
 import { ClientOptions } from "./ClientOptions";
-import { RestAPI } from "./API/RestAPI";
+import { RestAPI } from "./RestAPI/RestAPI";
 import { ClientUser } from "./ClientUser";
 import { ShardManager } from "./Websocket/ShardManager";
 
@@ -29,39 +29,39 @@ export class EvolveClient extends EventListener {
   public secret!: string;
   public structures: Structures = new Structures(this);
   public logger: Logger = new Logger({
-  	dateFormat: "YY:MM:DD:MI:SS:MS",
-  	colors: {
-  		error: Colors.Red,
-  		info: Colors.Blue,
-  		success: Colors.Green,
-  		debug: Colors.Magenta,
-  		warn: Colors.Yellow,
-  	},
-  	symbols: {
-  		left: "<",
-  		right: ">",
-  	},
-  	textColors: {
-  		all: false,
-  		error: Colors.Red,
-  		info: Colors.Blue,
-  		success: Colors.Green,
-  		debug: Colors.Magenta,
-  		warn: Colors.Yellow,
-  	},
+    dateFormat: "YY:MM:DD:MI:SS:MS",
+    colors: {
+      error: Colors.Red,
+      info: Colors.Blue,
+      success: Colors.Green,
+      debug: Colors.Magenta,
+      warn: Colors.Yellow,
+    },
+    symbols: {
+      left: "<",
+      right: ">",
+    },
+    textColors: {
+      all: false,
+      error: Colors.Red,
+      info: Colors.Blue,
+      success: Colors.Green,
+      debug: Colors.Magenta,
+      warn: Colors.Yellow,
+    },
   });
   public sessionID = "";
   public readyAt!: number;
 
   public constructor(token: string, options: ClientOptions) {
-  	super();
-  	this.token = token;
-  	this.options = options;
-  	this.readyAt = Date.now();
-  	if (!this.token) throw this.logger.error("No token provided");
+    super();
+    this.token = token;
+    this.options = options;
+    this.readyAt = Date.now();
+    if (!this.token) throw this.logger.error("No token provided");
   }
 
   get uptime(): number {
-  	return Date.now() - this.readyAt;
+    return Date.now() - this.readyAt;
   }
 }

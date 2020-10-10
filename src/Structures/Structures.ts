@@ -19,51 +19,51 @@ import { User } from "./User/User";
 
 export class Structures {
   public structures: Classes = {
-  	Emoji,
-  	DMChannel,
-  	TextChannel,
-  	VoiceChannel,
-  	CategoryChannel,
-  	NewsChannel,
-  	StoreChannel,
-  	GuildMember,
-  	Guild,
-  	Message,
-  	MessageReaction,
-  	PresenceUpdate,
-  	ClientStatus,
-  	VoiceState,
-  	Role,
-  	User,
+    Emoji,
+    DMChannel,
+    TextChannel,
+    VoiceChannel,
+    CategoryChannel,
+    NewsChannel,
+    StoreChannel,
+    GuildMember,
+    Guild,
+    Message,
+    MessageReaction,
+    PresenceUpdate,
+    ClientStatus,
+    VoiceState,
+    Role,
+    User,
   };
   private client!: EvolveClient;
   constructor(client: EvolveClient) {
-  	Object.defineProperty(this, "client", {
-  		value: client,
-  		enumerable: false,
-  		writable: false,
-  	});
+    Object.defineProperty(this, "client", {
+      value: client,
+      enumerable: false,
+      writable: false,
+    });
   }
 
   public get<K extends keyof Classes>(name: K): Classes[K] {
-  	if (!this.structures[name])
-  		this.client.logger.error("Invalid Structure Name");
-  	return this.structures[name];
+    if (!this.structures[name])
+      this.client.logger.error("Invalid Structure Name");
+    return this.structures[name];
   }
 
   public extend<K extends keyof Classes, T extends Classes[K]>(
-  	name: K,
-  	extender: (structure: Classes[K]) => T
+    name: K,
+    extender: (structure: Classes[K]) => T
   ): T {
-  	try {
-  		const structure = this.get<K>(name);
-  		const extended = extender(structure);
+    try {
+      const structure = this.get<K>(name);
+      const extended = extender(structure);
 
-  		this.structures[name] = extended;
-  		return extended;
-  	} catch (e) {
-  		throw this.client.logger.error(e);
-  	}
+      this.structures[name] = extended;
+      return extended;
+    } catch (e) {
+      throw this.client.logger.error(e);
+    }
   }
 }
 

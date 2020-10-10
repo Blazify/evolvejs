@@ -62,7 +62,7 @@ function editFile(filename) {
     ) {
       stringedData.replace(
         'import { Logger, Colors } from "sign-logger";',
-        'import { Logger, Colors } from "https://deno.land/x/sign-logger/mod";'
+        'import { Logger, Colors } from "https://deno.land/x/sign_logger/mod";'
       );
     }
     if (
