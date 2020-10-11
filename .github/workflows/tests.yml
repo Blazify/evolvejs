@@ -13,6 +13,6 @@ jobs:
         with:
           node-version: 14
       - name: Tests
-        run: npm i && tsc && cd tests && tsc && node dist/builder
+        run: yarn && tsc && cd tests && tsc && node dist/builder
         env:
           DISCORD_TOKEN: ${{secrets.BOT_TOKEN}}

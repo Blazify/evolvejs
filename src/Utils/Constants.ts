@@ -16,14 +16,11 @@ import { GroupChannel } from "../Structures/Channel/GroupChannel";
 import { NewsChannel } from "../Structures/Channel/NewsChannel";
 import { StoreChannel } from "../Structures/Channel/StoreChannel";
 
-
-
-
 export enum CONSTANTS {
-	Gateway = "wss://gateway.discord.gg/?v=6&encoding=",
-	Api = "https://discord.com/api/v6",
-	API_ERROR = "API_ERROR",
-	EVENTS = "EVENTS"
+  Gateway = "wss://gateway.discord.gg/?v=6&encoding=",
+  Api = "https://discord.com/api/v6",
+  API_ERROR = "API_ERROR",
+  EVENTS = "EVENTS",
 }
 
 export enum CHANNELTYPES {
@@ -91,12 +88,12 @@ export enum ActivityTypes {
 }
 
 export enum CacheOptions {
-  GUILD = 1,
-  CHANNELS = 2,
-  USERS = 3,
-  MESSAGES = 4,
-  EMOJI = 5,
-  ALL = 6,
+  GUILD,
+  CHANNELS,
+  USERS,
+  MESSAGES,
+  EMOJI,
+  ALL,
 }
 
 export enum EVENTS {
@@ -143,7 +140,7 @@ export enum EVENTS {
   WEBHOOKS_UPDATE = "webhookUpdate",
   SHARD_SPAWN = "shardSpawn",
   SHARD_DESTROY = "shardDestroy",
-  API_ERROR = "error" //api call was rejected
+  API_ERROR = "restError",
 }
 
 export enum GatewayIntents {

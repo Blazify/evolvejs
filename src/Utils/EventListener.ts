@@ -6,9 +6,13 @@ export class EventListener {
   private _objListeners: Set<Object> = new Set();
   private _funcListeners = new Objex<(...args: unknown[]) => void, string>();
 
-  public listenerCount(eventName: string) {
-    return this._funcListeners.filter((name: string) => name === eventName)
+  public listenerCount(eventName: string): number {
+    let size = this._funcListeners.filter((name: string) => name === eventName)
       .size;
+    for (const listner of this._objListeners) {
+      if (Object.getOwnPropertyNames(listeners).includes(eventName)) size += 1;
+    }
+    return size;
   }
 
   public addListener(o: Object): void {
