@@ -15,12 +15,23 @@ import {
   User,
   IRole,
   Webhook,
+  IGuild,
+  Role,
+  ChannelResolvable,
+  IUser,
+  IGuildMember,
+  IMessage,
+  IEmoji,
+  IInvite,
+  IWebhook,
+  MessageReaction, IMessageReaction, INewsChannel,
 } from "../..";
 import { RestAPIHandler } from "./RestAPIHandler";
 import { EvolveClient } from "../EvolveClient";
 import { IGuildIntegration } from "../../Interfaces/Integration";
-import { Overwrite } from "../../Structures/Channel/Overwrite";
-import { NewsChannel } from "../../Structures/Channel/NewsChannel";
+import { Overwrite } from "../..";
+import { NewsChannel } from "../..";
+import {promisify} from "util";
 
 /**
  * RestAPI Class
@@ -42,32 +53,32 @@ export class RestAPI {
 
   public async getGuild(guildID: string): Promise<Guild> {
     return new Guild(
-      await this.handler.fetch({
+      await this.handler.fetch<IGuild>({
         endpoint: `guilds/${guildID}`,
         method: "GET",
       }),
       this.client
     );
   }
-  public async getGuildPrieview(guildID: string): Promise<any> {
-    return await this.handler.fetch({
+  public async getGuildPreview(guildID: string): Promise<unknown> {
+    return await this.handler.fetch<unknown>({
       endpoint: `guilds/${guildID}/preview`,
       method: "GET",
     });
   }
-  public async getGuildRoles(guildID: string): Promise<IRole[]> {
-    const result = await this.handler.fetch({
+  public async getGuildRoles(guildID: string): Promise<Role[]> {
+    const result = await this.handler.fetch<IRole[]>({
       endpoint: `guilds/${guildID}/roles`,
       method: "GET",
     });
-    const roles = new Array<IRole>();
+    const roles = new Array<Role>();
     for (const role of result) {
-      roles.push(role);
+      roles.push(new Role(role));
     }
     return roles;
   }
   public async getGuildChannels(guildID: string): Promise<ChannelTypes[]> {
-    const channels = await this.handler.fetch({
+    const channels = await this.handler.fetch<any[]>({
       endpoint: `guilds/${guildID}/channels`,
       method: "GET",
     });
@@ -83,8 +94,8 @@ export class RestAPI {
     return channelArray;
   }
 
-  public async getAuditLogs(guildID: string): Promise<JSON> {
-    return await this.handler.fetch({
+  public async getAuditLogs(guildID: string): Promise<unknown> {
+    return await this.handler.fetch<unknown>({
       endpoint: `guilds/${guildID}/audit-logs`,
       method: "GET",
     });
@@ -92,7 +103,7 @@ export class RestAPI {
 
   public async getUser(userID: string): Promise<User> {
     return new User(
-      await this.handler.fetch({
+      await this.handler.fetch<IUser>({
         endpoint: `users/${userID}`,
         method: "GET",
       })
@@ -102,7 +113,7 @@ export class RestAPI {
     guildID: string
   ): Promise<IGuildIntegration[]> {
     const guildIntegrationArray = new Array<IGuildIntegration>();
-    const list = await this.handler.fetch({
+    const list = await this.handler.fetch<IGuildIntegration[]>({
       endpoint: `guilds/${guildID}/integrations`,
       method: "GET",
     });
@@ -115,26 +126,26 @@ export class RestAPI {
     guildID: string,
     type: string,
     id: string
-  ): Promise<any> {
-    return await this.handler.fetch({
+  ): Promise<unknown> {
+    return await this.handler.fetch<unknown>({
       endpoint: `guilds/${guildID}/channels`,
       method: "POST",
-      postType: "Channel",
+      postType: "Integration",
       integration: {
-        type: type,
-        id: id,
+        type,
+        id,
       },
     });
   }
   public async getGuildMembers(guildID: string): Promise<GuildMember[]> {
     const memberArray = new Array<GuildMember>();
-    const member = await this.handler.fetch({
+    const member = await this.handler.fetch<IGuildMember[]>({
       endpoint: `guilds/${guildID}/members`,
       method: "GET",
     });
 
     for (const m of member) {
-      memberArray.push(m);
+      memberArray.push(new GuildMember(m));
     }
 
     return memberArray;
@@ -144,26 +155,12 @@ export class RestAPI {
     content: string | MessageEmbed,
     channelID: string
   ): Promise<Message> {
-    let fetched;
-    if (typeof content == "string") {
-      fetched = await this.handler.fetch({
-        endpoint: `channels/${channelID}/messages`,
-        method: "POST",
-        postType: "Message",
-        message: {
-          content: content,
-        },
-      });
-    } else {
-      fetched = await this.handler.fetch({
-        endpoint: `channels/${channelID}/messages`,
-        method: "POST",
-        postType: "Message",
-        message: {
-          embed: content,
-        },
-      });
-    }
+    const fetched = await this.handler.fetch<IMessage>({
+      endpoint: `/channels/${channelID}/messages`,
+      method: "POST",
+      postType: "Message",
+      message: typeof content === "string" ? { content } : { embed: content }
+    })
     return Message.handle(fetched, this.client);
   }
 
@@ -171,31 +168,30 @@ export class RestAPI {
     messageID: string,
     channelID: string,
     time: number
-  ): Promise<NodeJS.Timeout> {
-    return setTimeout(async () => {
-      return await this.handler.fetch({
-        endpoint: `channels/${channelID}/messages/${messageID}`,
-        method: "DELETE",
-      });
-    }, time);
+  ): Promise<void> {
+    await promisify(setTimeout)(time);
+    return await this.handler.fetch<void>({
+      endpoint: `channels/${channelID}/messages/${messageID}`,
+      method: "DELETE",
+    });
   }
 
   public async banAdd(guildID: string, userID: string): Promise<void> {
-    return await this.handler.fetch({
+    return await this.handler.fetch<void>({
       endpoint: `guilds/${guildID}/bans/${userID}`,
       method: "PUT",
     });
   }
 
   public async banRemove(userID: string, guildID: string): Promise<void> {
-    return await this.handler.fetch({
+    return await this.handler.fetch<void>({
       endpoint: `guilds/${guildID}/bans/${userID}`,
       method: "DELETE",
     });
   }
 
   public async getChannel(channelID: string): Promise<ChannelTypes> {
-    const c = await this.handler.fetch({
+    const c = await this.handler.fetch<any>({
       endpoint: `channels/${channelID}`,
       method: "GET",
     });
@@ -207,7 +203,7 @@ export class RestAPI {
   }
 
   public async getGuildEmojis(guildID: string): Promise<Emoji[]> {
-    const fetched = await this.handler.fetch({
+    const fetched = await this.handler.fetch<IEmoji[]>({
       endpoint: `guilds/${guildID}/emojis`,
       method: "GET",
     });
@@ -220,21 +216,21 @@ export class RestAPI {
   }
 
   public async getGuildInvites(guildID: string): Promise<Invite[]> {
-    const fetched = await this.handler.fetch({
+    const fetched = await this.handler.fetch<IInvite[]>({
       endpoint: `guilds/${guildID}/invites`,
       method: "GET",
     });
 
-    const invite: Invite[] = [];
+    const invites: Invite[] = [];
     for (const invite of fetched) {
-      invite.push(new Invite(invite, this.client));
+      invites.push(new Invite(invite, this.client));
     }
 
-    return invite;
+    return invites;
   }
 
   public async getChannelInvites(channelID: string): Promise<Array<Invite>> {
-    const fetched = await this.handler.fetch({
+    const fetched = await this.handler.fetch<IInvite[]>({
       endpoint: `channels/${channelID}/invites`,
       method: "GET",
     });
@@ -250,7 +246,7 @@ export class RestAPI {
     guildID: string,
     options: ChannelOptions
   ): Promise<ChannelTypes> {
-    const c = await this.handler.fetch({
+    const c = await this.handler.fetch<any>({
       endpoint: `guilds/${guildID}/channels`,
       method: "POST",
       postType: "Channel",
@@ -264,13 +260,13 @@ export class RestAPI {
   }
 
   public async deleteChannel(channelID: string): Promise<void> {
-    return await this.handler.fetch({
+    return await this.handler.fetch<void>({
       endpoint: `channels/${channelID}`,
       method: "DELETE",
     });
   }
   public async getGuildWebhooks(guildID: string): Promise<Webhook[]> {
-    const fetched = await this.handler.fetch({
+    const fetched = await this.handler.fetch<IWebhook[]>({
       endpoint: `/guilds/${guildID}/webhooks`,
       method: "GET",
     });
@@ -286,7 +282,7 @@ export class RestAPI {
 
   public async getWebhook(webhookID: string): Promise<Webhook> {
     return new Webhook(
-      await this.handler.fetch({
+      await this.handler.fetch<IWebhook>({
         endpoint: `/webhooks/${webhookID}`,
         method: "GET",
       }),
@@ -295,7 +291,7 @@ export class RestAPI {
   }
 
   public async getChannelWebhooks(channelID: string): Promise<Webhook[]> {
-    const fetched = await this.handler.fetch({
+    const fetched = await this.handler.fetch<IWebhook[]>({
       endpoint: `/channels/${channelID}/webhooks`,
       method: "GET",
     });
@@ -310,7 +306,7 @@ export class RestAPI {
   }
 
   public async deleteWebhook(webhookID: string): Promise<void> {
-    return await this.handler.fetch({
+    return await this.handler.fetch<void>({
       endpoint: `/webhooks/${webhookID}`,
       method: "DELETE",
     });
@@ -320,7 +316,7 @@ export class RestAPI {
     channelID: string,
     channel: ChannelOptions
   ): Promise<ChannelTypes> {
-    const fetched = await this.handler.fetch({
+    const fetched = await this.handler.fetch<any>({
       endpoint: `/channels/${channelID}`,
       method: "PATCH",
       postType: "Channel",
@@ -334,7 +330,7 @@ export class RestAPI {
 
   public async getChannelMessages(channelID: string): Promise<Message[]> {
     const mArray: Message[] = [];
-    const fetched = await this.handler.fetch({
+    const fetched = await this.handler.fetch<IMessage[]>({
       endpoint: `/channels/${channelID}/messages`,
       method: "GET",
     });
@@ -349,7 +345,7 @@ export class RestAPI {
     messageID: string
   ): Promise<Message> {
     return await Message.handle(
-      await this.handler.fetch({
+      await this.handler.fetch<IMessage>({
         endpoint: `/channels/${channelID}/messages/${messageID}`,
         method: "GET",
       }),
@@ -362,7 +358,7 @@ export class RestAPI {
     messageID: string
   ): Promise<Message> {
     return await Message.handle(
-      await this.handler.fetch({
+      await this.handler.fetch<IMessage>({
         endpoint: `/channels/${channelID}/messages/${messageID}/crosspost`,
         method: "POST",
       }),
@@ -374,13 +370,13 @@ export class RestAPI {
     channelID: string,
     messageID: string,
     emoji: string
-  ): Promise<void> {
-    return this.handler.fetch({
+  ): Promise<MessageReaction> {
+    return new MessageReaction(await this.handler.fetch<IMessageReaction>({
       endpoint: `/channels/${channelID}/messages/${messageID}/reactions/${encodeURI(
         emoji
       )}/@me`,
       method: "PUT",
-    });
+    }), this.client);
   }
 
   public async deleteReaction(
@@ -388,7 +384,7 @@ export class RestAPI {
     messageID: string,
     emoji: string
   ): Promise<void> {
-    return this.handler.fetch({
+    return this.handler.fetch<void>({
       endpoint: `/channels/${channelID}/messages/${messageID}/reactions/${encodeURI(
         emoji
       )}/@me`,
@@ -402,7 +398,7 @@ export class RestAPI {
     emoji: string,
     userID: string
   ): Promise<void> {
-    return this.handler.fetch({
+    return this.handler.fetch<void>({
       endpoint: `/channels/${channelID}/messages/${messageID}/reactions/${encodeURI(
         emoji
       )}/${userID}`,
@@ -416,7 +412,7 @@ export class RestAPI {
     emoji: string
   ): Promise<User[]> {
     const userArray: User[] = [];
-    const fetched = await this.handler.fetch({
+    const fetched = await this.handler.fetch<IUser[]>({
       endpoint: `/channels/${channelID}/messages/${messageID}/reactions/${encodeURI(
         emoji
       )}`,
@@ -432,7 +428,7 @@ export class RestAPI {
     channelID: string,
     messageID: string
   ): Promise<void> {
-    return this.handler.fetch({
+    return this.handler.fetch<void>({
       endpoint: `/channels/${channelID}/messages/${messageID}/reactions`,
       method: "DELETE",
     });
@@ -443,7 +439,7 @@ export class RestAPI {
     messageID: string,
     emoji: string
   ): Promise<void> {
-    return this.handler.fetch({
+    return this.handler.fetch<void>({
       endpoint: `/channels/${channelID}/messages/${messageID}/reactions/${encodeURI(
         emoji
       )}`,
@@ -457,7 +453,7 @@ export class RestAPI {
     content: string | MessageEmbed
   ): Promise<Message> {
     return await Message.handle(
-      await this.handler.fetch({
+      await this.handler.fetch<IMessage>({
         endpoint: `/channels/${channelID}/messages/${messageID}`,
         method: "PATCH",
         postType: "Message",
@@ -489,7 +485,7 @@ export class RestAPI {
     channelID: string,
     overwrite: Overwrite
   ): Promise<void> {
-    return await this.handler.fetch({
+    return await this.handler.fetch<void>({
       endpoint: `/channels/${channelID}/permissions/${overwrite.id}`,
       method: "PUT",
       postType: "JSON",
@@ -513,7 +509,7 @@ export class RestAPI {
     } = {}
   ): Promise<Invite> {
     return new Invite(
-      await this.handler.fetch({
+      await this.handler.fetch<IInvite>({
         endpoint: `/channels/${channelID}/invites`,
         method: "POST",
         postType: "JSON",
@@ -527,7 +523,7 @@ export class RestAPI {
     channelID: string,
     overwriteID: string
   ): Promise<void> {
-    return await this.handler.fetch({
+    return await this.handler.fetch<void>({
       endpoint: `/channels/${channelID}/permissions/${overwriteID}`,
       method: "DELETE",
     });
@@ -538,7 +534,7 @@ export class RestAPI {
     webhookChannelID: string
   ): Promise<NewsChannel> {
     return new NewsChannel(
-      await this.handler.fetch({
+      await this.handler.fetch<INewsChannel>({
         endpoint: `/channels/${channelID}/followers`,
         method: "POST",
         postType: "JSON",
@@ -551,7 +547,7 @@ export class RestAPI {
   }
 
   public async triggerTyping(channelID: string): Promise<void> {
-    return await this.handler.fetch({
+    return await this.handler.fetch<void>({
       endpoint: `/channels/${channelID}/typing`,
       method: "POST",
     });
@@ -559,7 +555,7 @@ export class RestAPI {
 
   public async getPinnedMessages(channelID: string): Promise<Message[]> {
     const mArray: Message[] = [];
-    const fetched = await this.handler.fetch({
+    const fetched = await this.handler.fetch<IMessage[]>({
       endpoint: `/channels/${channelID}/pins`,
       method: "GET",
     });
@@ -570,7 +566,7 @@ export class RestAPI {
   }
 
   public async pinMessage(channelID: string, messageID: string): Promise<void> {
-    return await this.handler.fetch({
+    return await this.handler.fetch<void>({
       endpoint: `/channels/${channelID}/pins/${messageID}`,
       method: "PUT",
     });
@@ -580,7 +576,7 @@ export class RestAPI {
     channelID: string,
     messageID: string
   ): Promise<void> {
-    return await this.handler.fetch({
+    return await this.handler.fetch<void>({
       endpoint: `/channels/${channelID}/pins/${messageID}`,
       method: "DELETE",
     });

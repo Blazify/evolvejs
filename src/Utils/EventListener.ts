@@ -1,4 +1,5 @@
 import { Objex } from "@evolvejs/objex";
+import { EvolveClient } from "../Client/EvolveClient";
 import { listeners } from "../Decorators/Events";
 import { EVENTS } from "./Constants";
 
@@ -9,9 +10,12 @@ export class EventListener {
   public listenerCount(eventName: string): number {
     let size = this._funcListeners.filter((name: string) => name === eventName)
       .size;
-    for (const listner of this._objListeners) {
-      if (Object.getOwnPropertyNames(listeners).includes(eventName)) size += 1;
+    for (const listener of this._objListeners) {
+      if (Object.getOwnPropertyNames(listener).includes(eventName)) size += 1;
     }
+    size += listeners.filter(
+      (_: EvolveClient, key: string[]) => key[0] === eventName
+    ).size;
     return size;
   }
 
