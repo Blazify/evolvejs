@@ -6,7 +6,7 @@ import DiscordRejection from "./DiscordRejection";
 import { EVENTS } from "../..";
 
 export class RestAPIHandler {
-  private _cooldown: number | null = null;
+  private _cooldown: number = 0;
   constructor(public client: EvolveClient) {}
 
   public async fetch<T>(options: IAPIParams): Promise<T> {
@@ -24,10 +24,8 @@ export class RestAPIHandler {
         body = JSON.stringify(options.json_params);
       } else body = undefined;
 
-      if (this._cooldown) {
-        await promisify(setTimeout)(this._cooldown);
-        this._cooldown = null;
-      }
+      await promisify(setTimeout)(this._cooldown);
+      this._cooldown = 0;
 
       const fetched = await fetch(`${CONSTANTS.Api}/${options.endpoint}`, {
         method: options.method,
@@ -37,28 +35,27 @@ export class RestAPIHandler {
         },
         body,
       });
-      if (fetched.headers && fetched.status === 429) {
-        const json = await fetched.json();
-        const remaining = Number(
-          fetched.headers.get("x-ratelimit-remaining") ?? "1"
-        );
-        let resetAfter: number =
+      const json = await fetched.json();
+      if (fetched.headers && !fetched.ok) {
+        this._cooldown =
           Number(
             fetched.headers.get("x-ratelimit-reset-after") ?? json.retry_after
           ) * 1000;
-        if (remaining == 0) {
-          this._cooldown = resetAfter;
-          await promisify(setTimeout)(resetAfter);
-          this._cooldown = null;
-          return await this.fetch(options);
-        }
+        const check: boolean = this._cooldown !== 0;
+        const loop: () => Promise<boolean> = async (): Promise<boolean> => {
+          if (check) {
+            await promisify(setTimeout)(this._cooldown);
+            return loop();
+          } else return true;
+        };
+
+        if (await loop()) return await this.fetch(options);
       }
 
-      if (!fetched.status.toString().startsWith("20")) {
-        const err = await fetched.json();
+      if (!fetched.ok) {
         const rejection = new DiscordRejection({
-          code: err.code,
-          msg: err.message,
+          code: json.code,
+          msg: json.message,
           http: fetched.status,
           path: options.endpoint,
         });
@@ -67,20 +64,11 @@ export class RestAPIHandler {
           throw rejection;
         } else throw this.client.emit(EVENTS.API_ERROR, rejection);
       }
-      if (!(await fetched.json())) {
-        const rejection =
-          "Fetched JSON returned undefined! This should NOT occur under any circumstance";
-        if (this.client.listenerCount(EVENTS.API_ERROR) < 1) {
-          throw rejection;
-        } else throw this.client.emit(EVENTS.API_ERROR, rejection);
-      }
-      return await fetched.json();
+      return json;
     } catch (e) {
-      this.client.emit(EVENTS.API_ERROR, e);
       if (this.client.listenerCount(EVENTS.API_ERROR) < 1)
         throw this.client.logger.error(e);
+      else throw this.client.emit(EVENTS.API_ERROR, e);
     }
-
-    return this.fetch(options);
   }
 }
