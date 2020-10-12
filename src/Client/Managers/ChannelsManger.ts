@@ -46,8 +46,8 @@ export class ChannelsManager extends Objex<string, ChannelTypes> {
     return channel;
   }
 
-  public deleteChannel(id: string): boolean {
-    this.client.rest.deleteChannel(id);
+  public delete(id: string, onlyFromCache: boolean = false): boolean {
+    if (!onlyFromCache) this.client.rest.deleteChannel(id);
     return super.delete(id);
   }
 }

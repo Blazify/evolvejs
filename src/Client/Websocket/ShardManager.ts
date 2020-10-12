@@ -5,11 +5,15 @@ import { EvolveBuilder } from "../EvolveBuilder";
 import { EvolveSocket } from "./Websocket";
 
 export class ShardManager extends EventListener {
-  public builder: EvolveBuilder;
+  public builder!: EvolveBuilder;
   public connections: Objex<number, EvolveSocket> = new Objex();
   constructor(builder: EvolveBuilder) {
     super();
-    this.builder = builder;
+    Object.defineProperty(this, "builder", {
+      value: builder,
+      enumerable: false,
+      writable: false,
+    });
   }
 
   public spawnAll(): void {
