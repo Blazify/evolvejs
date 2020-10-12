@@ -13,25 +13,25 @@ export class EmbedFooterBuilder {
   private proxyIconUrl!: string;
 
   public setText(text: string): EmbedFooterBuilder {
-  	this.text = text;
-  	return this;
+    this.text = text;
+    return this;
   }
 
   public setIconUrl(url: URL): EmbedFooterBuilder {
-  	this.iconUrl = url.toString();
-  	return this;
+    this.iconUrl = url.toString();
+    return this;
   }
 
   public setProxyIconUrl(url: URL): EmbedFooterBuilder {
-  	this.proxyIconUrl = url.toString();
-  	return this;
+    this.proxyIconUrl = url.toString();
+    return this;
   }
 
   public build(): IEmbedFooter {
-  	return {
-  		text: this.text,
-  		icon_url: this.iconUrl,
-  		proxy_icon_url: this.proxyIconUrl,
-  	};
+    return {
+      text: this.text,
+      icon_url: this.iconUrl,
+      proxy_icon_url: this.proxyIconUrl,
+    };
   }
 }

@@ -24,14 +24,16 @@ import {
   IEmoji,
   IInvite,
   IWebhook,
-  MessageReaction, IMessageReaction, INewsChannel,
+  MessageReaction,
+  IMessageReaction,
+  INewsChannel,
 } from "../..";
 import { RestAPIHandler } from "./RestAPIHandler";
 import { EvolveClient } from "../EvolveClient";
 import { IGuildIntegration } from "../../Interfaces/Integration";
 import { Overwrite } from "../..";
 import { NewsChannel } from "../..";
-import {promisify} from "util";
+import { promisify } from "util";
 
 /**
  * RestAPI Class
@@ -159,8 +161,8 @@ export class RestAPI {
       endpoint: `/channels/${channelID}/messages`,
       method: "POST",
       postType: "Message",
-      message: typeof content === "string" ? { content } : { embed: content }
-    })
+      message: typeof content === "string" ? { content } : { embed: content },
+    });
     return Message.handle(fetched, this.client);
   }
 
@@ -371,12 +373,15 @@ export class RestAPI {
     messageID: string,
     emoji: string
   ): Promise<MessageReaction> {
-    return new MessageReaction(await this.handler.fetch<IMessageReaction>({
-      endpoint: `/channels/${channelID}/messages/${messageID}/reactions/${encodeURI(
-        emoji
-      )}/@me`,
-      method: "PUT",
-    }), this.client);
+    return new MessageReaction(
+      await this.handler.fetch<IMessageReaction>({
+        endpoint: `/channels/${channelID}/messages/${messageID}/reactions/${encodeURI(
+          emoji
+        )}/@me`,
+        method: "PUT",
+      }),
+      this.client
+    );
   }
 
   public async deleteReaction(

@@ -8,17 +8,17 @@ export class ShardManager extends EventListener {
   public builder: EvolveBuilder;
   public connections: Objex<number, EvolveSocket> = new Objex();
   constructor(builder: EvolveBuilder) {
-  	super();
-  	this.builder = builder;
+    super();
+    this.builder = builder;
   }
 
   public spawnAll(): void {
-  	for (let i = 0; i < this.builder.shards; i++) {
-  		promisify(setTimeout)(5000 * i).then(() => {
-  			const socket = new EvolveSocket(this, i);
-  			this.connections.set(i, socket);
-  		});
-  	}
+    for (let i = 0; i < this.builder.shards; i++) {
+      promisify(setTimeout)(5000 * i).then(() => {
+        const socket = new EvolveSocket(this, i);
+        this.connections.set(i, socket);
+      });
+    }
   }
 
   public destroy(id: number): void {
@@ -30,42 +30,42 @@ export class ShardManager extends EventListener {
   }
 
   public destroyAll(code = 0): void {
-  	const initialLastShardConnection = this.connections.size - 1;
-  	for (const [k, v] of this.connections) {
-  		v.gateway.destroy();
+    const initialLastShardConnection = this.connections.size - 1;
+    for (const [k, v] of this.connections) {
+      v.gateway.destroy();
 
-  		if (k === initialLastShardConnection) {
-  			process.exit(code);
-  		}
-  	}
+      if (k === initialLastShardConnection) {
+        process.exit(code);
+      }
+    }
   }
 
   get ping(): number {
-  	return (
-  		this._reduceConnections<number>((a, b) => a + b.shardPing) /
+    return (
+      this._reduceConnections<number>((a, b) => a + b.shardPing) /
       this.connections.size
-  	);
+    );
   }
 
   public getguildShardId(guildID: string): number {
-  	return (Number(guildID) >> 22) % this.connections.size;
+    return (Number(guildID) >> 22) % this.connections.size;
   }
 
   private _reduceConnections<T>(
-  	fn: (accumulator: T, value: EvolveSocket, key: number) => T
+    fn: (accumulator: T, value: EvolveSocket, key: number) => T
   ): T {
-  	let accumulator!: T;
+    let accumulator!: T;
 
-  	let first = true;
-  	for (const [key, val] of this.connections) {
-  		if (first) {
-  			accumulator = (val as unknown) as T;
-  			first = false;
-  			continue;
-  		}
-  		accumulator = fn(accumulator, val, key);
-  	}
+    let first = true;
+    for (const [key, val] of this.connections) {
+      if (first) {
+        accumulator = (val as unknown) as T;
+        first = false;
+        continue;
+      }
+      accumulator = fn(accumulator, val, key);
+    }
 
-  	return accumulator;
+    return accumulator;
   }
 }

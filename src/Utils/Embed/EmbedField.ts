@@ -11,25 +11,25 @@ export class EmbedFieldBuilder {
   private inline = false;
 
   public setName(name: string): EmbedFieldBuilder {
-  	this.name = name;
-  	return this;
+    this.name = name;
+    return this;
   }
 
   public setValue(value: string): EmbedFieldBuilder {
-  	this.value = value;
-  	return this;
+    this.value = value;
+    return this;
   }
 
   public enableInline(inline: boolean): EmbedFieldBuilder {
-  	this.inline = inline;
-  	return this;
+    this.inline = inline;
+    return this;
   }
 
   public build(): IEmbedField {
-  	return {
-  		name: this.name,
-  		value: this.value,
-  		inline: this.inline,
-  	};
+    return {
+      name: this.name,
+      value: this.value,
+      inline: this.inline,
+    };
   }
 }

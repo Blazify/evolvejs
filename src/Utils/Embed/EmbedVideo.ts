@@ -13,25 +13,25 @@ export class EmbedVideoBuilder {
   private width!: number;
 
   public setURL(url: URL): EmbedVideoBuilder {
-  	this.url = url.toString();
-  	return this;
+    this.url = url.toString();
+    return this;
   }
 
   public setHeight(height: number): EmbedVideoBuilder {
-  	this.height = height;
-  	return this;
+    this.height = height;
+    return this;
   }
 
   public setWidth(width: number): EmbedVideoBuilder {
-  	this.width = width;
-  	return this;
+    this.width = width;
+    return this;
   }
 
   public build(): IEmbedVideo {
-  	return {
-  		url: this.url,
-  		height: this.height,
-  		width: this.width,
-  	};
+    return {
+      url: this.url,
+      height: this.height,
+      width: this.width,
+    };
   }
 }

@@ -15,31 +15,31 @@ export class EmbedImageBuilder {
   private width!: number;
 
   public setURL(url: URL): EmbedImageBuilder {
-  	this.url = url.toString();
-  	return this;
+    this.url = url.toString();
+    return this;
   }
 
   public setProxyURL(url: URL): EmbedImageBuilder {
-  	this.proxyURl = url.toString();
-  	return this;
+    this.proxyURl = url.toString();
+    return this;
   }
 
   public setHeight(height: number): EmbedImageBuilder {
-  	this.height = height;
-  	return this;
+    this.height = height;
+    return this;
   }
 
   public setWidth(width: number): EmbedImageBuilder {
-  	this.width = width;
-  	return this;
+    this.width = width;
+    return this;
   }
 
   public build(): IEmbedImage {
-  	return {
-  		url: this.url,
-  		proxy_url: this.proxyURl,
-  		height: this.height,
-  		width: this.width,
-  	};
+    return {
+      url: this.url,
+      proxy_url: this.proxyURl,
+      height: this.height,
+      width: this.width,
+    };
   }
 }

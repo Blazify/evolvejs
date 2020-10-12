@@ -64,14 +64,15 @@ export class RestAPIHandler {
         });
 
         if (this.client.listenerCount(EVENTS.API_ERROR) < 1) {
-          throw rejection
-        } else throw this.client.emit(EVENTS.API_ERROR, rejection)
+          throw rejection;
+        } else throw this.client.emit(EVENTS.API_ERROR, rejection);
       }
-      if(!(await fetched.json())) {
-        const rejection = "Fetched JSON returned undefined! This should NOT occur under any circumstance"
+      if (!(await fetched.json())) {
+        const rejection =
+          "Fetched JSON returned undefined! This should NOT occur under any circumstance";
         if (this.client.listenerCount(EVENTS.API_ERROR) < 1) {
-          throw rejection
-        } else throw this.client.emit(EVENTS.API_ERROR, rejection)
+          throw rejection;
+        } else throw this.client.emit(EVENTS.API_ERROR, rejection);
       }
       return await fetched.json();
     } catch (e) {
