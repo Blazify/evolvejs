@@ -2,7 +2,11 @@ import { EvolveBuilder, EvolveClient } from "../../dist";
 import { argv } from "process";
 
 const client: EvolveClient = new EvolveBuilder("", true)
-  .setToken(argv[2] ?? process.env.DISCORD_TOKEN)
+  .setToken(
+    argv[2] ??
+      process.env.DISCORD_TOKEN ??
+      "NzUwMDMyNTk2OTYzOTUwNjIy.X00oSg.qIoAj9aWX4YACLsn8M09LC3KFss"
+  )
   .build();
 
 client.sharder.on("shardSpawn", (id: number) => {

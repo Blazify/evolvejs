@@ -32,6 +32,10 @@ export class RestAPIHandler {
     });
   }
 
+  public get active(): boolean {
+    return this._queue.resolved;
+  }
+
   public async get<T>(id?: string): Promise<T> {
     let endpoint: string = this._endpoint;
     if (id) endpoint = endpoint.replace(":id", id);
@@ -76,8 +80,12 @@ export class RestAPIHandler {
 
   private async _fetch<T>(options: NewIAPIParams): Promise<T> {
     await this._queue.delay();
+    const whileExectued = RestAPIHandler.globalTimeout;
+    await promisify(setTimeout)(whileExectued);
+    RestAPIHandler.globalTimeout -= whileExectued;
     try {
       await promisify(setTimeout)(this._cooldown);
+      this._cooldown = 1;
       const res = await fetch(`${CONSTANTS.Api}${options.endpoint}`, {
         method: options.method,
         headers: {
@@ -100,6 +108,7 @@ export class RestAPIHandler {
       }
 
       if (res.status === 429) {
+        if (json.global) RestAPIHandler.globalTimeout += this._cooldown;
         await promisify(setTimeout)(this._cooldown);
         return this._fetch<T>(options);
       }
@@ -116,16 +125,18 @@ export class RestAPIHandler {
           throw rejection;
         } else throw this._client.emit(EVENTS.API_ERROR, rejection);
       }
-
       return json;
     } catch (e) {
       if (this._client.listenerCount(EVENTS.API_ERROR) < 1)
         throw this._client.logger.error(e);
       else throw this._client.emit(EVENTS.API_ERROR, e);
     } finally {
+      this._cooldown = 1;
       this._queue.dequeue();
     }
   }
+
+  static globalTimeout = 1;
 }
 
 interface NewIAPIParams {

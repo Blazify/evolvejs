@@ -42,7 +42,7 @@ import { Objex } from "@evolvejs/objex";
  * @param {client} - Your EvolveClient
  */
 export class RestAPI {
-  private client!: EvolveClient;
+  private _client!: EvolveClient;
   private _handler!: Objex<string, RestAPIHandler>;
 
   constructor(client: EvolveClient) {
@@ -68,8 +68,26 @@ export class RestAPI {
   public get(endpoint: string): RestAPIHandler {
     if (this._handler.has(endpoint)) return this._handler.get(endpoint)!!;
     else {
-      this._handler.set(endpoint, new RestAPIHandler(this.client, endpoint));
+      this._handler.set(endpoint, new RestAPIHandler(this._client, endpoint));
       return this._handler.get(endpoint)!!;
     }
+  }
+
+  public get active(): boolean {
+    for (const [_, v] of this._handler) {
+      if (v.active) return false;
+    }
+    return true;
+  }
+
+  public get activeRequests(): RestAPIHandler[] {
+    const activeArray: RestAPIHandler[] = [];
+    for (const [_, v] of this._handler.filter(
+      (handler) => handler.active === true
+    )) {
+      activeArray.push(v);
+    }
+
+    return activeArray;
   }
 }

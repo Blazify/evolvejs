@@ -1,6 +1,10 @@
 export class AsyncronousQueue {
   private _promises: QueuePromise[] = [];
 
+  public get resolved(): boolean {
+    return this._promises.length === 0;
+  }
+
   public get notResolved(): number {
     return this._promises.length;
   }

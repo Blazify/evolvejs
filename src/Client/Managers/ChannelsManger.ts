@@ -22,10 +22,12 @@ export class ChannelsManager extends Objex<string, ChannelTypes> {
   public get(id: string): ChannelTypes | undefined {
     let channel = super.get(id);
     (async () => {
+      const request = async () =>
+        await this.client.rest.get(Endpoints.CHANNEL).get<any>(id);
       channel =
         channel ??
-        new ChannelResolver[channel!!.type](
-          await this.client.rest.get(Endpoints.CHANNEL).get<any>(id),
+        new ChannelResolver[(await request()).type](
+          await request(),
           this.client
         );
       return channel;
