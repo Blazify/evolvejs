@@ -80,3 +80,5 @@ export * from "./Utils/Collectors/MessageCollector";
 export * from "./Utils/Collectors/MessageReactionCollector";
 export * from "./Utils/Constants";
 export * from "./Utils/EventListener";
+export * from "./Utils/AsyncronousQueue";
+export * from "./Utils/Endpoints";

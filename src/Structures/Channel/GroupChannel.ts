@@ -1,6 +1,7 @@
-import { User, IGroupChannel, EvolveClient, CHANNELTYPES } from "../..";
+import { User, IGroupChannel, EvolveClient, CHANNELTYPES, IUser } from "../..";
 import { Objex } from "@evolvejs/objex";
 import { Channel } from "./Channel";
+import { Endpoints } from "../../Utils/Endpoints";
 
 export class GroupChannel extends Channel {
   public recipients: Objex<string, User> = new Objex();
@@ -26,7 +27,9 @@ export class GroupChannel extends Channel {
   private _handle() {
     if (!this.data) return;
     (async (data: IGroupChannel) => {
-      this.owner = await this.client.rest.getUser(data.owner_id);
+      this.owner = new User(
+        await this.client.rest.get(Endpoints.USER).get<IUser>(data.owner_id)
+      );
     })(this.data);
 
     this.name = this.data.name;

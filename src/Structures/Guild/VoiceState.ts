@@ -1,6 +1,15 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
-import { Guild, User, GuildMember, IVoiceState, EvolveClient } from "../..";
+import {
+  Guild,
+  User,
+  GuildMember,
+  IVoiceState,
+  EvolveClient,
+  IUser,
+  IGuild,
+} from "../..";
+import { Endpoints } from "../../Utils/Endpoints";
 import { Channel } from "../Channel/Channel";
 
 export class VoiceState {
@@ -37,10 +46,19 @@ export class VoiceState {
     if (!this.data) return;
     (async () => {
       if (this.data.guild_id)
-        this.guild = await this.client.rest.getGuild(this.data.guild_id);
+        this.guild = new Guild(
+          await this.client.rest
+            .get(Endpoints.GUILD)
+            .get<IGuild>(this.data.guild_id),
+          this.client
+        );
       if (this.data.channel_id)
-        this.channel = await this.client.rest.getChannel(this.data.channel_id);
-      this.user = await this.client.rest.getUser(this.data.user_id);
+        this.channel = await this.client.rest
+          .get(Endpoints.CHANNEL)
+          .get<Channel>(this.data.channel_id);
+      this.user = new User(
+        await this.client.rest.get(Endpoints.USER).get<IUser>(this.data.user_id)
+      );
     })();
     this.member = new GuildMember(this.data.member!);
     this.sessionID = this.data.session_id;

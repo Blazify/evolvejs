@@ -1,74 +1,135 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import fetch from "node-fetch";
 import { EvolveClient, IAPIParams, CONSTANTS } from "../..";
 import { promisify } from "util";
 import DiscordRejection from "./DiscordRejection";
 import { EVENTS } from "../..";
+import { AsyncronousQueue } from "../../Utils/AsyncronousQueue";
 
 export class RestAPIHandler {
   private _cooldown: number = 0;
-  constructor(public client: EvolveClient) {}
+  private _queue!: AsyncronousQueue;
+  private _endpoint!: string;
+  private _client!: EvolveClient;
 
-  public async fetch<T>(options: IAPIParams): Promise<T> {
+  constructor(client: EvolveClient, endpoint: string) {
+    Object.defineProperty(this, "_client", {
+      value: client,
+      enumerable: false,
+      writable: false,
+      configurable: false,
+    });
+    Object.defineProperty(this, "_endpoint", {
+      value: endpoint,
+      enumerable: false,
+      writable: false,
+      configurable: false,
+    });
+    Object.defineProperty(this, "_queue", {
+      value: new AsyncronousQueue(),
+      enumerable: false,
+      writable: false,
+      configurable: false,
+    });
+  }
+
+  public async get<T>(id?: string): Promise<T> {
+    let endpoint: string = this._endpoint;
+    if (id) endpoint = endpoint.replace(":id", id);
+    return this._fetch({ endpoint, method: "GET", json_params: undefined });
+  }
+
+  public async put<T>(json: Object, id?: string): Promise<T> {
+    let endpoint: string = this._endpoint;
+    if (id) endpoint = endpoint.replace(":id", id);
+    return this._fetch({
+      endpoint,
+      method: "PUT",
+      json_params: JSON.stringify(json),
+    });
+  }
+
+  public async delete(id?: string): Promise<void> {
+    let endpoint: string = this._endpoint;
+    if (id) endpoint = endpoint.replace(":id", id);
+    return this._fetch({ endpoint, method: "DELETE", json_params: undefined });
+  }
+
+  public async post<T>(json: Object, id?: string): Promise<T> {
+    let endpoint: string = this._endpoint;
+    if (id) endpoint = endpoint.replace(":id", id);
+    return this._fetch({
+      endpoint,
+      method: "POST",
+      json_params: JSON.stringify(json),
+    });
+  }
+
+  public async patch<T>(json: Object, id?: string): Promise<T> {
+    let endpoint: string = this._endpoint;
+    if (id) endpoint = endpoint.replace(":id", id);
+    return this._fetch({
+      endpoint,
+      method: "PATCH",
+      json_params: JSON.stringify(json),
+    });
+  }
+
+  private async _fetch<T>(options: NewIAPIParams): Promise<T> {
+    await this._queue.delay();
     try {
-      let body;
-      if (options.postType == "Message") {
-        body = JSON.stringify(options.message);
-      } else if (options.postType === "Channel") {
-        body = JSON.stringify(options.channel);
-      } else if (options.postType === "Integration") {
-        body = JSON.stringify(options.integration);
-      } else if (options.postType === "[Message]") {
-        body = JSON.stringify(options.messages);
-      } else if (options.postType === "JSON") {
-        body = JSON.stringify(options.json_params);
-      } else body = undefined;
-
       await promisify(setTimeout)(this._cooldown);
-      this._cooldown = 0;
-
-      const fetched = await fetch(`${CONSTANTS.Api}/${options.endpoint}`, {
+      const res = await fetch(`${CONSTANTS.Api}${options.endpoint}`, {
         method: options.method,
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bot ${this.client.token}`,
+          Authorization: `Bot ${this._client.token}`,
         },
-        body,
+        body: options.json_params,
       });
-      const json = await fetched.json();
-      if (fetched.headers && !fetched.ok) {
-        this._cooldown =
-          Number(
-            fetched.headers.get("x-ratelimit-reset-after") ?? json.retry_after
-          ) * 1000;
-        const check: boolean = this._cooldown !== 0;
-        const loop: () => Promise<boolean> = async (): Promise<boolean> => {
-          if (check) {
-            await promisify(setTimeout)(this._cooldown);
-            return loop();
-          } else return true;
-        };
 
-        if (await loop()) return await this.fetch(options);
+      const json = await res.json();
+
+      if (res.headers) {
+        const resetAfter =
+          Number(
+            res.headers.get("x-ratelimit-reset-after") ?? json.retry_after
+          ) * 1000;
+        if (this._cooldown !== 0) {
+          this._cooldown += resetAfter;
+        } else this._cooldown = resetAfter;
       }
 
-      if (!fetched.ok) {
+      if (res.status === 429) {
+        await promisify(setTimeout)(this._cooldown);
+        return this._fetch<T>(options);
+      }
+
+      if (!res.ok) {
         const rejection = new DiscordRejection({
           code: json.code,
           msg: json.message,
-          http: fetched.status,
+          http: res.status,
           path: options.endpoint,
         });
 
-        if (this.client.listenerCount(EVENTS.API_ERROR) < 1) {
+        if (this._client.listenerCount(EVENTS.API_ERROR) < 1) {
           throw rejection;
-        } else throw this.client.emit(EVENTS.API_ERROR, rejection);
+        } else throw this._client.emit(EVENTS.API_ERROR, rejection);
       }
+
       return json;
     } catch (e) {
-      if (this.client.listenerCount(EVENTS.API_ERROR) < 1)
-        throw this.client.logger.error(e);
-      else throw this.client.emit(EVENTS.API_ERROR, e);
+      if (this._client.listenerCount(EVENTS.API_ERROR) < 1)
+        throw this._client.logger.error(e);
+      else throw this._client.emit(EVENTS.API_ERROR, e);
+    } finally {
+      this._queue.dequeue();
     }
   }
+}
+
+interface NewIAPIParams {
+  endpoint: string;
+  method: "GET" | "POST" | "DELETE" | "PUT" | "PATCH";
+  json_params: string | undefined;
 }

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
-import { EvolveClient, Payload, EVENTS, ClientUser } from "../../..";
+import { EvolveClient, Payload, EVENTS, ClientUser, Endpoints } from "../../..";
+import { IGuild } from "../../../Interfaces/GuildOptions";
 import { Guild } from "../../../Structures/Guild/Guild";
 
 export default class {
@@ -31,7 +32,10 @@ export default class {
     );
 
     for (const guild of guilds) {
-      const fetched: Guild = await this.client.rest.getGuild(guild.id);
+      const fetched: Guild = new Guild(
+        await this.client.rest.get(Endpoints.GUILD).get<IGuild>(guild.id),
+        this.client
+      );
 
       for (const [k, v] of fetched.members) {
         if (this.client.options.enableUsersCache)

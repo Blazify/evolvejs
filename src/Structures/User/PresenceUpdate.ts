@@ -7,8 +7,10 @@ import {
   ClientStatus,
   IPresenceUpdate,
   EvolveClient,
+  IGuild,
 } from "../..";
 import { Objex } from "@evolvejs/objex";
+import { Endpoints } from "../../Utils/Endpoints";
 
 export class PresenceUpdate {
   public user!: User;
@@ -44,7 +46,12 @@ export class PresenceUpdate {
     );
     if (this.data.game) this.game = new Activity(this.data.game);
     (async () => {
-      this.guild = await this.client.rest.getGuild(this.data.guild_id);
+      this.guild = new Guild(
+        await this.client.rest
+          .get(Endpoints.GUILD)
+          .get<IGuild>(this.data.guild_id),
+        this.client
+      );
     })();
     this.status = this.data.status;
     this.activities = this.data.activities;

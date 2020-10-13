@@ -12,6 +12,9 @@ import {
 import { Objex } from "@evolvejs/objex";
 import { Channel } from "../Channel/Channel";
 import { ChannelsManager } from "../../Client/Managers/ChannelsManger";
+import { Endpoints } from "../../Utils/Endpoints";
+import { ChannelResolver, ChannelTypes } from "../../Utils/Constants";
+import { IGuildMember } from "../../Interfaces/GuildMemberOptions";
 
 export class Guild {
   public client!: EvolveClient;
@@ -87,14 +90,18 @@ export class Guild {
     });
 
     (async () => {
-      const cArray = await this.client.rest.getGuildChannels(this.data.id);
+      const cArray = await this.client.rest
+        .get(Endpoints.GUILD_CHANNELS)
+        .get<any[]>(this.data.id);
       for (const c of cArray) {
-        this.channels.set(c.id, c);
+        this.channels.set(c.id, new ChannelResolver[c.type](c, this.client));
       }
 
-      const mArray = await this.client.rest.getGuildMembers(this.data.id);
+      const mArray = await this.client.rest
+        .get(Endpoints.GUILD_MEMBERS)
+        .get<IGuildMember[]>(this.data.id);
       for (const m of mArray) {
-        if (m.user) this.members.set(m.user.id, m);
+        if (m.user) this.members.set(m.user.id!!, new GuildMember(m));
       }
     })();
 

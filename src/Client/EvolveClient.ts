@@ -57,11 +57,11 @@ export class EvolveClient extends EventListener {
     super();
     this.token = token;
     this.options = options;
-    this.readyAt = Date.now();
     if (!this.token) throw this.logger.error("No token provided");
   }
 
   get uptime(): number {
+    if (!this.readyAt) throw this.logger.error("EvolveClient not ready yet...");
     return Date.now() - this.readyAt;
   }
 }

@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable no-mixed-spaces-and-tabs */
 
-import { User, GuildMember, Guild, IMessage } from "../..";
+import { User, GuildMember, Guild, IMessage, Endpoints } from "../..";
 import { TextChannel } from "../Channel/TextChannel";
 import { EvolveClient } from "../../Client/EvolveClient";
+import { promisify } from "util";
+import { IGuild } from "../../Interfaces/GuildOptions";
 
 export class Message {
   public sentAt!: string;
@@ -45,7 +47,8 @@ export class Message {
       }
     this.channel = channel;
     if (guild) this.guild = guild;
-    if (this.data.guild_id) this.client.rest.getGuild(this.data.guild_id);
+    if (this.data.guild_id)
+      this.client.rest.get(Endpoints.GUILD).get<Guild>(this.data.guild_id);
     this.sentAt = this.data.sent_at;
     this.id = this.data.id;
     this.pinned = this.data.pinned;
@@ -60,8 +63,11 @@ export class Message {
     return this;
   }
 
-  public delete(time = 0): Promise<void> {
-    return this.client.rest.deleteMessage(this.id, this.channel.id, time);
+  public async delete(time = 0): Promise<void> {
+    await promisify(setTimeout)(time);
+    return await this.client.rest
+      .get(Endpoints.CHANNEL_MESSAGE(this.channel.id))
+      .delete(this.id);
   }
 
   static async handle(data: IMessage, client: EvolveClient): Promise<Message> {
@@ -73,7 +79,10 @@ export class Message {
     if (data.guild_id) {
       guild =
         client.guilds.get(data.guild_id) ??
-        (await client.rest.getGuild(data.guild_id));
+        new Guild(
+          await client.rest.get(Endpoints.GUILD).get<IGuild>(data.guild_id),
+          client
+        );
       message = new Message(data, client, channel, guild);
     } else message = new Message(data, client, channel);
     return message;

@@ -1,4 +1,12 @@
-import { EvolveClient, EVENTS, Payload, User } from "../../..";
+import {
+  EvolveClient,
+  EVENTS,
+  Payload,
+  User,
+  Endpoints,
+  Guild,
+} from "../../..";
+import { IGuild } from "../../../Interfaces/GuildOptions";
 import { GuildBanEvents } from "../../Events/GuildBanEvents";
 
 export default class {
@@ -6,7 +14,10 @@ export default class {
     (async () => {
       // eslint-disable-next-line prefer-const
       let { guild_id, user } = payload.d;
-      const guild = await client.rest.getGuild(guild_id);
+      const guild = new Guild(
+        await client.rest.get(Endpoints.GUILD).get<IGuild>(guild_id),
+        client
+      );
       user = new User(user);
       client.emit(
         EVENTS.GUILD_BAN_ADD,
