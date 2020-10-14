@@ -9,6 +9,7 @@ import { ITextChannel } from "../../Interfaces/TextChannelOptions";
 import { CHANNELTYPES } from "../../Utils/Constants";
 import { EvolveClient } from "../../Client/EvolveClient";
 import { Endpoints } from "../../Utils/Endpoints";
+import { IMessage } from "../../Interfaces/MessageOptions";
 
 export class TextChannel extends Channel {
   public overwrites: Objex<string, Overwrite> = new Objex();
@@ -48,13 +49,15 @@ export class TextChannel extends Channel {
       : undefined;
     this.lastPin = this.data.last_pin_timestamp;
     this.send = async (content: string | MessageEmbed): Promise<Message> => {
-      return this.client.rest
-        .get(Endpoints.CHANNEL_MESSAGES)
-        .post<Message>(
-          typeof content === "string" ? { content } : { embed: content },
-          this.id
-        );
+      return await Message.handle(
+        await this.client.rest
+          .endpoint(Endpoints.CHANNEL_MESSAGES)
+          .post<IMessage>(
+            typeof content === "string" ? { content } : { embed: content },
+            this.id
+          ),
+        this.client
+      );
     };
-    return this;
   }
 }

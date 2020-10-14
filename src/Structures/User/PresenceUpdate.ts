@@ -48,7 +48,7 @@ export class PresenceUpdate {
     (async () => {
       this.guild = new Guild(
         await this.client.rest
-          .get(Endpoints.GUILD)
+          .endpoint(Endpoints.GUILD)
           .get<IGuild>(this.data.guild_id),
         this.client
       );

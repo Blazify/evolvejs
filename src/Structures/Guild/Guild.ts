@@ -91,14 +91,14 @@ export class Guild {
 
     (async () => {
       const cArray = await this.client.rest
-        .get(Endpoints.GUILD_CHANNELS)
+        .endpoint(Endpoints.GUILD_CHANNELS)
         .get<any[]>(this.data.id);
       for (const c of cArray) {
         this.channels.set(c.id, new ChannelResolver[c.type](c, this.client));
       }
 
       const mArray = await this.client.rest
-        .get(Endpoints.GUILD_MEMBERS)
+        .endpoint(Endpoints.GUILD_MEMBERS)
         .get<IGuildMember[]>(this.data.id);
       for (const m of mArray) {
         if (m.user) this.members.set(m.user.id!!, new GuildMember(m));

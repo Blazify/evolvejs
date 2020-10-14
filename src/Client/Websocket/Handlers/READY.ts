@@ -33,7 +33,7 @@ export default class {
 
     for (const guild of guilds) {
       const fetched: Guild = new Guild(
-        await this.client.rest.get(Endpoints.GUILD).get<IGuild>(guild.id),
+        await this.client.rest.endpoint(Endpoints.GUILD).get<IGuild>(guild.id),
         this.client
       );
 

@@ -7,7 +7,7 @@ export default class {
   constructor(client: EvolveClient, payload: Payload, shard: number) {
     (async () => {
       const channel = await client.rest
-        .get(Endpoints.CHANNEL)
+        .endpoint(Endpoints.CHANNEL)
         .get<any>(payload.d.channel.id);
       if (client.options.enableChannelCache)
         client.channels.set(

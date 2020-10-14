@@ -7,7 +7,7 @@ export default class {
   constructor(client: EvolveClient, payload: Payload, shard: number) {
     const { channel_id } = payload.d(async () => {
       const channel = await client.rest
-        .get(Endpoints.CHANNEL)
+        .endpoint(Endpoints.CHANNEL)
         .get<any>(channel_id);
       client.emit(
         EVENTS.CHANNEL_PINS_UPDATE,

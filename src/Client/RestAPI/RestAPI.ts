@@ -1,40 +1,9 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 
-import {
-  Channel,
-  ChannelOptions,
-  ChannelResolver,
-  ChannelTypes,
-  Emoji,
-  Guild,
-  GuildMember,
-  Invite,
-  Message,
-  MessageEmbed,
-  TextChannel,
-  User,
-  IRole,
-  Webhook,
-  IGuild,
-  Role,
-  ChannelResolvable,
-  IUser,
-  IGuildMember,
-  IMessage,
-  IEmoji,
-  IInvite,
-  IWebhook,
-  MessageReaction,
-  IMessageReaction,
-  INewsChannel,
-} from "../..";
 import { RestAPIHandler } from "./RestAPIHandler";
 import { EvolveClient } from "../EvolveClient";
-import { IGuildIntegration } from "../../Interfaces/Integration";
-import { Overwrite } from "../..";
-import { NewsChannel } from "../..";
-import { promisify } from "util";
 import { Objex } from "@evolvejs/objex";
+import { Endpoints } from "../../Utils/Endpoints";
 
 /**
  * RestAPI Class
@@ -65,7 +34,7 @@ export class RestAPI {
    * @param endpoint
    * Gets a Handler for the specific endpoint or creates a new one
    */
-  public get(endpoint: string): RestAPIHandler {
+  public endpoint(endpoint: string): RestAPIHandler {
     if (this._handler.has(endpoint)) return this._handler.get(endpoint)!!;
     else {
       this._handler.set(endpoint, new RestAPIHandler(this._client, endpoint));
@@ -74,10 +43,7 @@ export class RestAPI {
   }
 
   public get active(): boolean {
-    for (const [_, v] of this._handler) {
-      if (v.active) return false;
-    }
-    return true;
+    return this.activeRequests.length === 0;
   }
 
   public get activeRequests(): RestAPIHandler[] {

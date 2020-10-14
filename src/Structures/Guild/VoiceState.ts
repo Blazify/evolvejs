@@ -48,16 +48,18 @@ export class VoiceState {
       if (this.data.guild_id)
         this.guild = new Guild(
           await this.client.rest
-            .get(Endpoints.GUILD)
+            .endpoint(Endpoints.GUILD)
             .get<IGuild>(this.data.guild_id),
           this.client
         );
       if (this.data.channel_id)
         this.channel = await this.client.rest
-          .get(Endpoints.CHANNEL)
+          .endpoint(Endpoints.CHANNEL)
           .get<Channel>(this.data.channel_id);
       this.user = new User(
-        await this.client.rest.get(Endpoints.USER).get<IUser>(this.data.user_id)
+        await this.client.rest
+          .endpoint(Endpoints.USER)
+          .get<IUser>(this.data.user_id)
       );
     })();
     this.member = new GuildMember(this.data.member!);

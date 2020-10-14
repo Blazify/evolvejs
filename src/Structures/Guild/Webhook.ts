@@ -38,11 +38,11 @@ export class Webhook {
     async () => {
       if (this.data.guild_id)
         this.guild = await this.client.rest
-          .get(Endpoints.GUILD)
+          .endpoint(Endpoints.GUILD)
           .get<Guild>(this.data.guild_id);
       this.channel = new TextChannel(
         await this.client.rest
-          .get(Endpoints.CHANNEL)
+          .endpoint(Endpoints.CHANNEL)
           .get<ITextChannel>(this.data.channel_id),
         this.client
       );

@@ -5,6 +5,9 @@ function editFile(filename) {
   readFile(`${filename}`, (err, data) => {
     if (err) throw err;
     let stringedData = data.toString();
+    if (stringedData.includes("process")) {
+      stringedData = stringedData.replace("process", "Deno");
+    }
     if (stringedData.includes('import { URL } from "url";')) {
       stringedData = stringedData.replace('import { URL } from "url";', "");
     }

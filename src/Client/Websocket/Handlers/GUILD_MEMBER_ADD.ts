@@ -15,7 +15,7 @@ export default class {
     const member = new GuildMember(payload.d);
     (async () => {
       const o = await client.rest
-        .get(Endpoints.GUILD)
+        .endpoint(Endpoints.GUILD)
         .get<IGuild>(payload.d.guild_id);
       if (client.options.enableUsersCache)
         client.users.set(member.user?.id as string, member.user as User);

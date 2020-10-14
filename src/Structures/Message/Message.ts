@@ -48,7 +48,7 @@ export class Message {
     this.channel = channel;
     if (guild) this.guild = guild;
     if (this.data.guild_id)
-      this.client.rest.get(Endpoints.GUILD).get<Guild>(this.data.guild_id);
+      this.client.rest.endpoint(Endpoints.GUILD).get<Guild>(this.data.guild_id);
     this.sentAt = this.data.sent_at;
     this.id = this.data.id;
     this.pinned = this.data.pinned;
@@ -66,25 +66,27 @@ export class Message {
   public async delete(time = 0): Promise<void> {
     await promisify(setTimeout)(time);
     return await this.client.rest
-      .get(Endpoints.CHANNEL_MESSAGE(this.channel.id))
+      .endpoint(Endpoints.CHANNEL_MESSAGE(this.channel.id))
       .delete(this.id);
   }
 
   static async handle(data: IMessage, client: EvolveClient): Promise<Message> {
     let message: Message;
     let guild: Guild;
-    const channel: TextChannel = client.channels.get(
-      data.channel_id
-    ) as TextChannel;
+    let channel: any = client.channels.get(data.channel_id);
     if (data.guild_id) {
       guild =
         client.guilds.get(data.guild_id) ??
         new Guild(
-          await client.rest.get(Endpoints.GUILD).get<IGuild>(data.guild_id),
+          await client.rest
+            .endpoint(Endpoints.GUILD)
+            .get<IGuild>(data.guild_id),
           client
         );
+      channel = channel ?? guild.channels.get(data.channel_id);
       message = new Message(data, client, channel, guild);
     } else message = new Message(data, client, channel);
+    console.log(message);
     return message;
   }
 }

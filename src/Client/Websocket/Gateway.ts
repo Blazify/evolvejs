@@ -48,7 +48,6 @@ export class Gateway {
           this.ws.send(Heartbeat);
         }, d.heartbeat_interval);
       } else if (op === OPCODE.Reconnect) {
-        this.ws.manager.connections.clear();
         this.ws.manager.connections.set(
           this.shard,
           new EvolveSocket(this.ws.manager, this.shard)

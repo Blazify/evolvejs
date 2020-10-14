@@ -28,7 +28,9 @@ export class GroupChannel extends Channel {
     if (!this.data) return;
     (async (data: IGroupChannel) => {
       this.owner = new User(
-        await this.client.rest.get(Endpoints.USER).get<IUser>(data.owner_id)
+        await this.client.rest
+          .endpoint(Endpoints.USER)
+          .get<IUser>(data.owner_id)
       );
     })(this.data);
 

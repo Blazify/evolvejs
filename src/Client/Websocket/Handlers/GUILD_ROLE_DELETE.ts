@@ -8,7 +8,7 @@ export default class {
     (async () => {
       const { guild_id, role_id } = payload.d;
       const guild = await client.rest
-        .get(Endpoints.GUILD)
+        .endpoint(Endpoints.GUILD)
         .get<IGuild>(guild_id);
       const role = client.roles.get(role_id);
 

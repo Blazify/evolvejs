@@ -41,10 +41,17 @@ export class EvolveSocket extends ws {
     });
 
     this.on("close", (code: number, res: string) => {
-      this.manager.builder.client.logger.error(
-        `Code: ${code}, Response: ${res}\n Destroying Shards and Exitting Process...`
-      );
-      if (code == 4004) {
+      if (code == 4009) {
+        this.manager.connections.set(
+          this.shard,
+          new EvolveSocket(this.manager, this.shard)
+        );
+        this.gateway.reconnect();
+        this.close();
+      } else if (code == 4004) {
+        this.manager.builder.client.logger.error(
+          `Code: ${code}, Response: ${res}\n Destroying Shards and Exitting Process...`
+        );
         this.manager.destroyAll();
       }
     });

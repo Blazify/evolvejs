@@ -23,7 +23,7 @@ export class ChannelsManager extends Objex<string, ChannelTypes> {
     let channel = super.get(id);
     (async () => {
       const request = async () =>
-        await this.client.rest.get(Endpoints.CHANNEL).get<any>(id);
+        await this.client.rest.endpoint(Endpoints.CHANNEL).get<any>(id);
       channel =
         channel ??
         new ChannelResolver[(await request()).type](
@@ -41,7 +41,7 @@ export class ChannelsManager extends Objex<string, ChannelTypes> {
       throw this.client.logger.error("No Guild Found for Creating the Channel");
     let channel: ChannelTypes = ({} as unknown) as ChannelTypes;
     this.client.rest
-      .get(Endpoints.GUILD_CHANNELS)
+      .endpoint(Endpoints.GUILD_CHANNELS)
       .post<any>(options, this.guild.id)
       .then((c) => {
         channel = new ChannelResolver[c.type](c, this.client);
@@ -57,7 +57,7 @@ export class ChannelsManager extends Objex<string, ChannelTypes> {
   }
 
   public delete(id: string, onlyFromCache: boolean = false): boolean {
-    if (!onlyFromCache) this.client.rest.get(Endpoints.CHANNEL).delete(id);
+    if (!onlyFromCache) this.client.rest.endpoint(Endpoints.CHANNEL).delete(id);
     return super.delete(id);
   }
 }

@@ -81,7 +81,7 @@ export class Endpoints {
     `/channels/${channelId}/recipients/:id`;
   static GUILD_EMOJI = (guildId: string) => `/guilds/${guildId}/emojis/:id`;
 
-  WEBHOOK_TOKEN = (webhookId: string) => `/webhooks/${webhookId}/:id`;
+  static WEBHOOK_TOKEN = (webhookId: string) => `/webhooks/${webhookId}/:id`;
   static WEBHOOK_SLACK = (webhookId: string) =>
     `/webhooks/${webhookId}/:id/slack`;
   static WEBHOOK_GITHUB = (webhookId: string) =>

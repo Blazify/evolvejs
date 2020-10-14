@@ -7,7 +7,7 @@ export default class {
   constructor(client: EvolveClient, payload: Payload, shard: number) {
     (async () => {
       const guild = await client.rest
-        .get(Endpoints.GUILD)
+        .endpoint(Endpoints.GUILD)
         .get<IGuild>(payload.d.guild_id);
       if (client.options.enableUsersCache)
         client.users.delete(payload.d.user.id);

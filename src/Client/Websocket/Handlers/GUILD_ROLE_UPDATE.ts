@@ -14,7 +14,7 @@ export default class {
     (async () => {
       const { guild_id, role } = payload.d;
       const guild = new Guild(
-        await client.rest.get(Endpoints.GUILD).get<IGuild>(guild_id),
+        await client.rest.endpoint(Endpoints.GUILD).get<IGuild>(guild_id),
         client
       );
 

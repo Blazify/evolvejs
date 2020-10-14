@@ -9,7 +9,7 @@ export default class {
       // eslint-disable-next-line prefer-const
       let { guild_id, user } = payload.d;
       const guild = await client.rest
-        .get(Endpoints.GUILD)
+        .endpoint(Endpoints.GUILD)
         .get<IGuild>(guild_id);
       user = new User(user);
       client.emit(

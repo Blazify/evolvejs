@@ -15,7 +15,7 @@ export default class {
       // eslint-disable-next-line prefer-const
       let { guild_id, user } = payload.d;
       const guild = new Guild(
-        await client.rest.get(Endpoints.GUILD).get<IGuild>(guild_id),
+        await client.rest.endpoint(Endpoints.GUILD).get<IGuild>(guild_id),
         client
       );
       user = new User(user);

@@ -5,7 +5,7 @@ const client: EvolveClient = new EvolveBuilder("", true)
   .setToken(
     argv[2] ??
       process.env.DISCORD_TOKEN ??
-      "NzUwMDMyNTk2OTYzOTUwNjIy.X00oSg.qIoAj9aWX4YACLsn8M09LC3KFss"
+      "NzUwMDMyNTk2OTYzOTUwNjIy.X00oSg.vjn5DFvhEj3IbYnSJp3kj49tdaA"
   )
   .build();
 

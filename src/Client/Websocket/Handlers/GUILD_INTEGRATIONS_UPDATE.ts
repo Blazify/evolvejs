@@ -7,7 +7,9 @@ export default class {
   constructor(client: EvolveClient, payload: Payload, shard: number) {
     (async () => {
       const guild = new Guild(
-        await client.rest.get(Endpoints.GUILD).get<IGuild>(payload.d.guild),
+        await client.rest
+          .endpoint(Endpoints.GUILD)
+          .get<IGuild>(payload.d.guild),
         client
       );
       client.emit(

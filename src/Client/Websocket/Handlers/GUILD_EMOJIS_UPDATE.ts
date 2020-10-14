@@ -16,7 +16,7 @@ export default class {
 
     (async () => {
       const guild = await client.rest
-        .get(Endpoints.GUILD)
+        .endpoint(Endpoints.GUILD)
         .get<IGuild>(guild_id);
       const emojiObjex: Objex<string | null, Emoji> = new Objex();
       for (const emoji of emojis) {

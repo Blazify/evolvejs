@@ -42,13 +42,13 @@ export class RestAPIHandler {
     return this._fetch({ endpoint, method: "GET", json_params: undefined });
   }
 
-  public async put<T>(json: Object, id?: string): Promise<T> {
+  public async put<T>(json: object | string, id?: string): Promise<T> {
     let endpoint: string = this._endpoint;
     if (id) endpoint = endpoint.replace(":id", id);
     return this._fetch({
       endpoint,
       method: "PUT",
-      json_params: JSON.stringify(json),
+      json_params: typeof json == "object" ? JSON.stringify(json) : json,
     });
   }
 
@@ -58,23 +58,23 @@ export class RestAPIHandler {
     return this._fetch({ endpoint, method: "DELETE", json_params: undefined });
   }
 
-  public async post<T>(json: Object, id?: string): Promise<T> {
+  public async post<T>(json: object | string, id?: string): Promise<T> {
     let endpoint: string = this._endpoint;
     if (id) endpoint = endpoint.replace(":id", id);
     return this._fetch({
       endpoint,
       method: "POST",
-      json_params: JSON.stringify(json),
+      json_params: typeof json == "object" ? JSON.stringify(json) : json,
     });
   }
 
-  public async patch<T>(json: Object, id?: string): Promise<T> {
+  public async patch<T>(json: object | string, id?: string): Promise<T> {
     let endpoint: string = this._endpoint;
     if (id) endpoint = endpoint.replace(":id", id);
     return this._fetch({
       endpoint,
       method: "PATCH",
-      json_params: JSON.stringify(json),
+      json_params: typeof json == "object" ? JSON.stringify(json) : json,
     });
   }
 
@@ -133,6 +133,24 @@ export class RestAPIHandler {
     } finally {
       this._cooldown = 1;
       this._queue.dequeue();
+    }
+  }
+
+  public dequeueAll(logging = true) {
+    try {
+      for (let i = 0; i < this._queue.notResolved; i++) {
+        try {
+          this._queue.dequeue();
+          if (logging)
+            this._client.logger.info(
+              `Promise with index ${i} in the ${this._endpoint} rest endpoint...`
+            );
+        } catch (e) {
+          throw new Error(e);
+        }
+      }
+    } catch (e) {
+      throw this._client.logger.error(e);
     }
   }
 
