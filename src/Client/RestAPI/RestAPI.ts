@@ -3,7 +3,6 @@
 import { RestAPIHandler } from "./RestAPIHandler";
 import { EvolveClient } from "../EvolveClient";
 import { Objex } from "@evolvejs/objex";
-import { Endpoints } from "../../Utils/Endpoints";
 
 /**
  * RestAPI Class
@@ -43,7 +42,7 @@ export class RestAPI {
   }
 
   public get active(): boolean {
-    return this.activeRequests.length === 0;
+    return this.activeRequests.length !== 0;
   }
 
   public get activeRequests(): RestAPIHandler[] {

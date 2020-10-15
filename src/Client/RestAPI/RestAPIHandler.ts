@@ -5,6 +5,12 @@ import DiscordRejection from "./DiscordRejection";
 import { EVENTS } from "../..";
 import { AsyncronousQueue } from "../../Utils/AsyncronousQueue";
 
+/**
+ * RestAPIHandler
+ * A promise based queued rest api handler
+ * @param client Your EvolveClient
+ * @param endpoint The endpoint from which to fetch
+ */
 export class RestAPIHandler {
   private _cooldown: number = 0;
   private _queue!: AsyncronousQueue;
@@ -39,12 +45,20 @@ export class RestAPIHandler {
   public async get<T>(id?: string): Promise<T> {
     let endpoint: string = this._endpoint;
     if (id) endpoint = endpoint.replace(":id", id);
+    if (!id && endpoint.includes(":id"))
+      throw this._client.logger.error(
+        `Id parameter is required as the ${this._endpoint} has a ':id' which needs to be replaced...`
+      );
     return this._fetch({ endpoint, method: "GET", json_params: undefined });
   }
 
   public async put<T>(json: object | string, id?: string): Promise<T> {
     let endpoint: string = this._endpoint;
     if (id) endpoint = endpoint.replace(":id", id);
+    if (!id && endpoint.includes(":id"))
+      throw this._client.logger.error(
+        `Id parameter is required as the ${this._endpoint} has a ':id' which needs to be replaced...`
+      );
     return this._fetch({
       endpoint,
       method: "PUT",
@@ -55,12 +69,20 @@ export class RestAPIHandler {
   public async delete(id?: string): Promise<void> {
     let endpoint: string = this._endpoint;
     if (id) endpoint = endpoint.replace(":id", id);
+    if (!id && endpoint.includes(":id"))
+      throw this._client.logger.error(
+        `Id parameter is required as the ${this._endpoint} has a ':id' which needs to be replaced...`
+      );
     return this._fetch({ endpoint, method: "DELETE", json_params: undefined });
   }
 
   public async post<T>(json: object | string, id?: string): Promise<T> {
     let endpoint: string = this._endpoint;
     if (id) endpoint = endpoint.replace(":id", id);
+    if (!id && endpoint.includes(":id"))
+      throw this._client.logger.error(
+        `Id parameter is required as the ${this._endpoint} has a ':id' which needs to be replaced...`
+      );
     return this._fetch({
       endpoint,
       method: "POST",
@@ -71,6 +93,10 @@ export class RestAPIHandler {
   public async patch<T>(json: object | string, id?: string): Promise<T> {
     let endpoint: string = this._endpoint;
     if (id) endpoint = endpoint.replace(":id", id);
+    if (!id && endpoint.includes(":id"))
+      throw this._client.logger.error(
+        `Id parameter is required as the ${this._endpoint} has a ':id' which needs to be replaced...`
+      );
     return this._fetch({
       endpoint,
       method: "PATCH",
