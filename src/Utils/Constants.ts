@@ -95,6 +95,8 @@ export enum CacheOptions {
   EMOJI,
   ALL,
 }
+export type Events = "rawEvent" | "packetReady" | "clientReady" | "resumed" | "reconnect" | "invalidSession" | "newChannel" | "channelUpdate" | "removeChannel"
+    | "channelPinsUpdate" | "addedGuild" | "guildUpdate" | "removeGuild" | "voiceStateUpdate" | "voiceServerUpdate" | "newMessage" 
 
 export enum EVENTS {
   RAW = "rawEvent",
