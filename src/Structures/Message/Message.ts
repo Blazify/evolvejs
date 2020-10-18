@@ -66,11 +66,18 @@ export class Message {
   public async delete(time = 0): Promise<void> {
     await promisify(setTimeout)(time);
     return await this.client.rest
-      .endpoint(Endpoints.CHANNEL_MESSAGE(this.channel.id))
+      .endpoint(Endpoints.CHANNEL_MESSAGE(this.channel.id));
       .delete(this.id);
   }
 
-  static async handle(data: IMessage, client: EvolveClient): Promise<Message> {
+  public async edit(content: string, time = 0): Promise<void> {
+    await promisify(setTimeout)(time);
+    return await this.client.rest
+      .endpoint(Endpoints.CHANNEL_MESSAGE(this.channel.id));
+      .patch({ content, id: this.id });
+  }
+
+  public static async handle(data: IMessage, client: EvolveClient): Promise<Message> {
     let message: Message;
     let guild: Guild;
     let channel: any = client.channels.get(data.channel_id);
