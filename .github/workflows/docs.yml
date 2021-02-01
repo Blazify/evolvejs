@@ -15,17 +15,17 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: 12
+          node-version: 14
           registry-url: https://registry.npmjs.org/
       - name: Install dependencies
         run: yarn
       - name: Extract and save tag in env
-        run: echo ::set-env name=VERSION::${GITHUB_REF#refs/*/}
+        run: echo VERSION=${GITHUB_REF#refs/*/} >> $GITHUB_PATH
       - name: Generate docs
         run: yarn docs ${{ env.VERSION }}
       - name: Set JSON file's base64 in env
         id: json-file
-        run: echo "::set-env name=json::$(cat ${{ env.VERSION }}.json | base64 -w 0 -)"
+        run: echo "json::$(cat ${{ env.VERSION }}.json | base64 -w 0 -)" >> $GITHUB_PATH
       - name: Checkout the docs branch
         run: |
           git fetch
