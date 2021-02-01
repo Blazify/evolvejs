@@ -1,16 +1,8 @@
 {
     "breaking_changes": [
-        "Replaced `<ShardManager>.shutdown()` with `<ShardManager>.destroyAll(code)`",
-        "`<ShardManager>.reconnect(shardId)`",
-        "`<ShardManager>.destroy(shardId)`"
+        
     ],
     "changes": [
-        "Fixed API RateLimiting",
-        "Fixed newMessage not being emitted",
-        "Fixed Decorator Errors",
-        "Some large unnecessary properties are now non-enumerable and non-writable",
-        "All shards are destroued and process is exitted on invalid token",
-        "No 404s are emmitted but if exceptions occur, we handle.",
-        "Deno Releases are Instant"
+       
     ]
 }
