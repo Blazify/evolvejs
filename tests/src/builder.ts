@@ -15,7 +15,7 @@ client.sharder.on("shardDestroy", (id: number) => {
 
 client.on("clientReady", () => {
 	console.log("[Client: EvolveClient] => Ready");
-	for (const [k] of client.guilds) {
+	for (const [k, _] of client.guilds) {
 		client.logger.debug(client.sharder.getguildShardId(k).toString());
 	}
 });
