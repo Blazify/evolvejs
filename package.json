@@ -1,12 +1,12 @@
 {
-  "name": "@evolvejs/evolvejs",
-  "version": "0.3.1-alpha",
-  "description": "An advanced discord API wrapper with TS and JS support",
+  "name": "@evolvejs/core",
+  "version": "0.3.2-alpha",
+  "description": "An advanced Discord API wrapper with TS and JS support",
   "main": "dist/index.js",
   "scripts": {
+    "install": "echo Thanks for installing EvolveJS",
     "build": "tsc",
     "build:test": "cd tests/ && tsc && cd ..",
-    "lint": "eslint .",
     "prettier": "prettier ./ --write",
     "docs": "node scripts/gendocs.js",
     "build:dev": "tsc --watch",
@@ -50,7 +50,7 @@
   "dependencies": {
     "@evolvejs/objex": "^1.0.5",
     "node-fetch": "^2.6.1",
-    "sign-logger": "^2.2.0",
+    "sign-logger": "^2.2.6",
     "ws": "^7.4.2"
   },
   "optionalDependencies": {
@@ -60,7 +60,7 @@
     "@types/node": "^14.0.23",
     "@types/node-fetch": "^2.5.7",
     "@types/ws": "^7.2.6",
-    "typedoc": "^0.20.0",
-    "typedoc-plugin-markdown": "^3.4.5"
+    "typedoc": "^0.20.20",
+    "typescript": "^4.1.3"
   }
 }

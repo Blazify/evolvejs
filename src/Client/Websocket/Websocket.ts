@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-import ws, { Data } from "ws";
-import { CONSTANTS, Payload } from "../..";
+import ws from "ws";
+import { CONSTANTS } from "../..";
 import { Gateway } from "./Gateway";
 import { ShardManager } from "./ShardManager";
 
@@ -13,7 +13,7 @@ export class EvolveSocket extends ws {
 		this._init();
 	}
 
-	public send(data: Payload): void {
+	public async send(data: any): Promise<void> {
 		let payload;
 		if (this.manager.builder.encoding == "json") {
 			payload = JSON.stringify(data);
@@ -37,7 +37,7 @@ export class EvolveSocket extends ws {
 
 	private _init(): void {
 		this.on("error", (err: Error) => {
-			this.manager.builder.client.transformer.error(err.message);
+			throw this.manager.builder.client.transformer.error(err.message);
 		});
 
 		this.on("close", (code: number, res: string) => {
@@ -49,15 +49,14 @@ export class EvolveSocket extends ws {
 				this.gateway.reconnect();
 				this.close();
 			} else if (code == 4004) {
-				this.manager.builder.client.transformer.error(
+				throw this.manager.builder.client.transformer.error(
 					`Code: ${code}, Response: ${res}\n Destroying Shards and Exitting Process...`
 				);
-				this.manager.destroyAll();
 			}
 		});
 
-		this.on("message", (data: Data) => {
-			this.gateway.init(data, this);
+		this.on("message", async (data: string) => {
+			await this.gateway.init(data, this);
 		});
 	}
 }

@@ -1,4 +1,4 @@
-import { Transformer } from "sign-logger/dist/Transformer";
+import { Transformer } from "sign-logger";
 import { Oauth2 } from "../Oauth2/Oauth2";
 import { Structures } from "../Structures/Structures";
 import { EventListener } from "../Utils/EventListener";
@@ -95,7 +95,10 @@ export class EvolveClient extends EventListener {
 	 * Sign Logger for customized logging
 	 * @type {Transformer}
 	 */
-	public readonly transformer: Transformer = new Transformer();
+	public readonly transformer: Transformer = new Transformer().setSymbols([
+		"[",
+		"]",
+	]);
 	/**
 	 * The Session ID which was collected in the READY Event
 	 * @type {string}

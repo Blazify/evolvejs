@@ -22,7 +22,7 @@ function getConvertedType(type) {
 function getSignature(signature) {
 	if (
 		signature.flags &&
-    (!signature.flags.isExported || signature.flags.isPrivate)
+		(!signature.flags.isExported || signature.flags.isPrivate)
 	) {
 		return;
 	}
@@ -57,7 +57,7 @@ function getParameters(object) {
 		const parameter = object.parameters[i];
 		if (
 			parameter.flags &&
-      (!parameter.flags.isExported || parameter.flags.isPrivate)
+			(!parameter.flags.isExported || parameter.flags.isPrivate)
 		) {
 			continue;
 		}
@@ -101,7 +101,7 @@ function getChildren(object) {
 	const children = [];
 	for (let i = 0; i < object.children.length; i++) {
 		const child = object.children[i];
-		if (child.flags && (!child.flags.isExported || child.flags.isPrivate)) {
+		if (!(child.flags.isExported ?? true) || (child.flags.isPrivate ?? false)) {
 			continue;
 		}
 		if (child.children) {
@@ -110,7 +110,7 @@ function getChildren(object) {
 		}
 		if (
 			child.sources &&
-      child.sources.every((x) => x.fileName.startsWith("node_modules"))
+			child.sources.every((x) => x.fileName.startsWith("node_modules"))
 		) {
 			continue;
 		}
@@ -147,7 +147,7 @@ function getChildren(object) {
 
 		children.push(child);
 	}
-	return children;
+	return children.sort((a, b) => a.id - b.id);
 }
 
 function cleanNames(json) {
@@ -158,24 +158,27 @@ function cleanNames(json) {
 		if (json[i].name.endsWith("ts"))
 			json[i].name = json[i].name.split(".").pop();
 
-		if (json[i].name.includes("\""))
-			json[i].name = json[i].name.replace("\"", "");
+		if (json[i].name.includes('"'))
+			json[i].name = json[i].name.replace('"', "");
 
 		newJson.push(json[i]);
 	}
 	return newJson;
 }
 
-const result = app.bootstrap();
-const src = app.expandInputFiles(result.inputFiles);
-const project = app.convert(src);
+app.bootstrap({
+	tsconfig: path.join(__dirname, "..", "tsconfig.json"),
+	entryPoints: [path.join(__dirname, "..", "src/")],
+});
+
+const project = app.convert();
 if (project) {
 	const outputJson = app.serializer.projectToObject(project);
 	let customJson = getChildren(outputJson);
 	customJson = cleanNames(customJson);
 	fs.writeFile(
 		path.join(__dirname, "..", `${process.argv[2] || version}.json`),
-		JSON.stringify(customJson),
+		JSON.stringify(customJson, null, 4),
 		(err) => {
 			if (err) console.error(err);
 			else console.log("Success");

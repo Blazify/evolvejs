@@ -3,13 +3,12 @@
 import { EvolveSocket } from "./Websocket";
 import { OPCODE, Heartbeat, Identify, VoiceStateUpdate } from "../..";
 import { Payload } from "../../Interfaces/Interfaces";
-import { Data } from "ws";
 import { VoiceGateway } from "./Voice/VoiceGateway";
 import { EVENTS } from "../../Utils/Constants";
 import { VoiceState } from "../../Structures/Guild/VoiceState";
 
 export class Gateway {
-	public data!: Data;
+	public data!: string;
 	public ws!: EvolveSocket;
 	public launchedShards: Set<number> = new Set();
 	public voice!: VoiceGateway;
@@ -18,7 +17,7 @@ export class Gateway {
 	public shard!: number;
 	public lastPingTimeStamp!: number;
 
-	public init(data: Data, ws: EvolveSocket): void {
+	public async init(data: string, ws: EvolveSocket): Promise<void> {
 		this.data = data;
 		this.ws = ws;
 		this.shard = this.ws.shard;
@@ -61,10 +60,8 @@ export class Gateway {
 					shard: this.shard,
 				});
 				try {
-					(async () => {
-						const { default: handler } = await import(`./Handlers/${t}`);
-						new handler(this.ws.manager.builder.client, payload, this.shard);
-					})();
+					const { default: handler } = await import(`./Handlers/${t}`);
+					new handler(this.ws.manager.builder.client, payload, this.shard);
 				} catch (e) {
 					this.ws.manager.builder.client.transformer.error(e);
 				}

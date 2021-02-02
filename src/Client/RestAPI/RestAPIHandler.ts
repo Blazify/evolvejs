@@ -162,15 +162,11 @@ export class RestAPIHandler {
 		}
 	}
 
-	public dequeueAll(logging = true) {
+	public dequeueAll() {
 		try {
 			for (let i = 0; i < this._queue.notResolved; i++) {
 				try {
 					this._queue.dequeue();
-					if (logging)
-						this._client.transformer.info(
-							`Promise with index ${i} in the ${this._endpoint} rest endpoint...`
-						);
 				} catch (e) {
 					throw new Error(e);
 				}
