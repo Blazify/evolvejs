@@ -7,10 +7,11 @@ export default class {
 		const { id, guild_id, channel_id } = payload.d;
 		const message = client.messages.get(id);
 		const guild = client.guilds.get(guild_id);
-		const channel = client.channels.get(channel_id) as TextChannel;
-		client.emit(
-			EVENTS.MESSAGE_DELETE,
-			new MessageEvents(client, message, guild, channel, shard)
-		);
+		if (client.options.enableMessageCache) client.messages.delete(id);
+		(async () =>
+			client.emit(
+				EVENTS.MESSAGE_DELETE,
+				new MessageEvents(client, message, shard)
+			))();
 	}
 }

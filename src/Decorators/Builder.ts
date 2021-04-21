@@ -4,8 +4,6 @@ import { CacheProviders } from "../Interfaces/Interfaces";
 import { Structures } from "../Structures/Structures";
 import { CacheOptions, GatewayIntents } from "../Utils/Constants";
 
-let built = false;
-
 export function Builder(options: BuilderDecoratorOptions) {
 	return (target: typeof EvolveClient): void => {
 		const builder: EvolveBuilder = new EvolveBuilder(
@@ -22,21 +20,19 @@ export function Builder(options: BuilderDecoratorOptions) {
 		if (options.structure) builder.setStructureClass(options.structure);
 		if (options.cacheProvider) builder.setCacheProviders(options.cacheProvider);
 
-		if (built) throw new Error("Decorator Builder Error");
 		builder.build();
-		built = true;
 	};
 }
 
 interface BuilderDecoratorOptions {
-  intents?: GatewayIntents[];
-  cache?: CacheOptions[];
-  useDefaultSetting?: boolean;
-  token: string;
-  secret?: string;
-  activity?: Object;
-  encoding?: "json" | "etf";
-  shards?: number;
-  structure?: Structures;
-  cacheProvider?: CacheProviders;
+	intents?: GatewayIntents[];
+	cache?: CacheOptions[];
+	useDefaultSetting?: boolean;
+	token: string;
+	secret?: string;
+	activity?: Object;
+	encoding?: "json" | "etf";
+	shards?: number;
+	structure?: Structures;
+	cacheProvider?: CacheProviders;
 }

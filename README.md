@@ -18,23 +18,32 @@
 **EvolveJS is a Discord Library in which bots can be made. We provide high control over the module so that the customizability can be the top of the level.
 Have fun with the library and happy coding :)**
 
+# Node and Deno Support
+**Often times people ask node and deno are different in many ways so how can a library be present in both? Well in our case we have a [simple script](https://github.com/EvolveJS/EvolveJS/blob/master/scripts/nodetodeno.js) which just changes some of the internals of the library and pushed to the [deno-master](https://github.com/EvolveJS/EvolveJS/blob/deno-master) branch... Note: The Docs are valid for both node and deno as the user experience is same...**
+
 # Installation
 
-**Using the Node Package Manager (NPM)**
+**Node Usage**
 
 ```shell script
 npm install @evolvejs/evolvejs
 ```
+**Deno Usage**
+- **Import from `https://deno.land/x/evolvejs`**
 
 # Important
 
 **You need the following things before you can kick off with EvolveJS:**
 
-- [**NodeJS v14 Installed**](https://www.nodejs.org)
+**Node:**
+- [**NodeJS v15 Installed**](https://www.nodejs.org)
+
+**Deno**
+- [**Deno Installed**](https://deno.land)
 
 # Documentation and Support
 
-- **[Official Docs](https://evolvejs.js.org)**
+- **[Official Docs](https://evolve.js.org)**
 Note :- The Docs aren't completed
 - **For any further query and support join us at [EvolveJS](https://discord.gg/9bnpjqY) discord.**
 
@@ -57,18 +66,8 @@ client.on("clientReady", () => {
 
 client.sharder.on("shardSpawn", (id) => console.log(`${id} shard is now online`))
 client.sharder.on("shardDestroy", (id) => console.log(`${id} shard is destryed`))
-
-client.on("newMessage", (event) => {
-  if(event.message.content == "ping") { // checks if the message sent was "ping"
-    event.channel.send("Pong") // sends a message with content of "Pong"
-    console.log(event.shard) //logs the entire shard websocket in which the event was triggered
-  } else if(event.message.content == "shutdown") {
-    event.channel.send("Shutting Down");// sends message saying client is shutting down
-    client.sharder.shutdown();//proper shard destryoing returns multiple shard destroy event if multiple shards
-  })
-
-
 ```
+**Incase of Deno use https://deno.land/x/evolvejs instead of @evolvejs/evolvejs**
 
 # More Information
 - **If you want to use ETF for Payloads Sending, just use EvolveBuilder#setEncoding, make sure to install erlpack, as it's a dev dependency of the package**
@@ -76,12 +75,12 @@ client.on("newMessage", (event) => {
 
 # Author(s)
 
-- [**Echo-3-1**](https://github.com/Echo-3-1) 
+- [**RoMeAh**](https://github.com/RoMeAh)
 
-- [Creeper](https://github.com/CreeperPlanet26)
+- [**Collbrothers**](https://github.com/Collbrothers)
 
-- [Zihad](https://github.com/zihadmahiuddin)
+- **[nerdthatnoonelikes](https://github.com/nerdthatnoonelikes)**
 
-# Contributor
+## Contributor
 
-- [**Olyno**](https://github.com/Olyno)
+- **[Olyno](https://github.com/Olyno)**

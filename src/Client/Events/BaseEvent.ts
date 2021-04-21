@@ -7,7 +7,7 @@ export class BaseEvent {
 	get shard(): EvolveSocket {
 		const shardConnection = this._client.sharder.connections.get(this._shard);
 		if (!shardConnection) {
-			throw this.client.logger.error(
+			throw this.client.transformer.error(
 				"Internal Error (Shard Websocket Not Found)"
 			);
 		}

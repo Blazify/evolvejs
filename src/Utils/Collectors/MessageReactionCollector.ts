@@ -5,8 +5,8 @@ import { Message, MessageReaction } from "../..";
 
 export class MessageReactionCollector extends BaseCollector {
 	constructor(public message: Message, public filter: Function) {
-		super(message.channel.client, filter);
-		this.message.channel.client.on(
+		super(message["client"], filter);
+		this.message["client"].on(
 			"reactionAdd",
 			(this.listener = (msg: MessageReaction) => {
 				filter(msg);
@@ -15,7 +15,7 @@ export class MessageReactionCollector extends BaseCollector {
 	}
 
 	public end(): Objex<string, Message | MessageReaction> {
-		this.message.channel.client.off("reactionAdd", this.listener);
+		this.message["client"].off("reactionAdd", this.listener);
 		return this.collected;
 	}
 

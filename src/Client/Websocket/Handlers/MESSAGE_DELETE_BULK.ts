@@ -9,17 +9,14 @@ export default class {
 		const messageObjex: Objex<string, Message | undefined> = new Objex();
 		for (const id of ids) {
 			messageObjex.set(id, client.messages.get(id));
+			if (client.options.enableMessageCache) client.messages.delete(id);
 		}
 
-		client.emit(
-			EVENTS.MESSAGE_DELETE_BULK,
-			new MessageEvents(
-				client,
-				messageObjex,
-				client.guilds.get(guild_id),
-        client.channels.get(channel_id) as TextChannel,
-        shard
-			)
-		);
+		(async () => {
+			client.emit(
+				EVENTS.MESSAGE_DELETE_BULK,
+				new MessageEvents(client, messageObjex, shard)
+			);
+		})();
 	}
 }

@@ -10,21 +10,21 @@ export class DMChannel extends Channel {
   public data!: IDMChannel;
 
   constructor(data: IDMChannel, client: EvolveClient) {
-  	super(data.id, CHANNELTYPES.Direct, client);
-  	Object.defineProperty(this, "data", {
-  		value: data,
-  		enumerable: false,
-  		writable: false,
-  	});
+    super(data.id, CHANNELTYPES.Direct, client);
+    Object.defineProperty(this, "data", {
+      value: data,
+      enumerable: false,
+      writable: false,
+    });
 
-  	this._handle();
+    this._handle();
   }
 
   private _handle() {
-  	if (!this.data) return;
-  	this.lastMessage = this.data.last_message_id || undefined;
-  	this.lastPin = this.data.last_pin_timestamp;
+    if (!this.data) return;
+    this.lastMessage = this.data.last_message_id || undefined;
+    this.lastPin = this.data.last_pin_timestamp;
 
-  	return this;
+    return this;
   }
 }

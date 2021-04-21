@@ -1,11 +1,8 @@
-import {
-	EvolveBuilder,
-	EvolveClient
-} from "../../";
+import { EvolveBuilder, EvolveClient, EVENTS } from "../../dist";
 import { argv } from "process";
 
-const client: EvolveClient = new EvolveBuilder("", true)
-	.setToken(argv[2] ?? process.env.DISCORD_TOKEN)
+const client: EvolveClient = new EvolveBuilder()
+	.setToken(argv[2] ?? process.env.DISCORD_TOKEN ?? "...")
 	.build();
 
 client.sharder.on("shardSpawn", (id: number) => {
@@ -18,9 +15,9 @@ client.sharder.on("shardDestroy", (id: number) => {
 
 client.on("clientReady", () => {
 	console.log("[Client: EvolveClient] => Ready");
-	for(const [k, _] of client.guilds) {
+	for (const [k, _] of client.guilds) {
 		client.logger.debug(client.sharder.getguildShardId(k).toString());
 	}
-	client.sharder.destroyAll(0);
-	process.exit(0); // due to idiot github, that they always respawn, you dont need to do this
 });
+
+client.on(EVENTS.MESSAGE_CREATE, console.log);

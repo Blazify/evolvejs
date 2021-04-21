@@ -10,10 +10,10 @@ export class BaseCollector extends EventListener {
 
   private _collected: Objex<string, Message | MessageReaction> = new Objex();
   constructor(public client: EvolveClient, public filter: Function) {
-  	super();
+    super();
   }
 
   get collected(): Objex<string, Message | MessageReaction> {
-  	return this._collected;
+    return this._collected;
   }
 }

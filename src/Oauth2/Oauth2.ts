@@ -5,7 +5,9 @@ import fetch from "node-fetch";
 export class Oauth2 {
 	constructor(public client: EvolveClient) {
 		if (!this.client.secret)
-			this.client.logger.error("No Client Secret Provided in EvolveBuilder");
+			throw this.client.transformer.error(
+				"No Client Secret Provided in EvolveBuilder"
+			);
 	}
 
 	public async requestOauth2Token(options: TokenAccessOptions): Promise<JSON> {

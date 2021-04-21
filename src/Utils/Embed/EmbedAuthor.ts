@@ -15,31 +15,31 @@ export class EmbedAuthorBuilder {
   private proxyiconUrl!: string;
 
   public setName(name: string): EmbedAuthorBuilder {
-  	this.name = name;
-  	return this;
+    this.name = name;
+    return this;
   }
 
   public setURL(url: URL): EmbedAuthorBuilder {
-  	this.url = url.toString();
-  	return this;
+    this.url = url.toString();
+    return this;
   }
 
   public setIconURL(url: URL): EmbedAuthorBuilder {
-  	this.iconUrl = url.toString();
-  	return this;
+    this.iconUrl = url.toString();
+    return this;
   }
 
   public setProxyIconURL(url: URL): EmbedAuthorBuilder {
-  	this.proxyiconUrl = url.toString();
-  	return this;
+    this.proxyiconUrl = url.toString();
+    return this;
   }
 
   public build(): IEmbedAuthor {
-  	return {
-  		name: this.name,
-  		url: this.url,
-  		icon_url: this.iconUrl,
-  		proxy_icon_url: this.proxyiconUrl,
-  	};
+    return {
+      name: this.name,
+      url: this.url,
+      icon_url: this.iconUrl,
+      proxy_icon_url: this.proxyiconUrl,
+    };
   }
 }
