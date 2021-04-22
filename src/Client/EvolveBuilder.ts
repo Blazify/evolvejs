@@ -84,7 +84,7 @@ export class EvolveBuilder {
 
 	/**
 	 *
-	 * @param cache
+	 * @param caches
 	 * @enables The Cache Options for the library
 	 * @returns The EvolveBuilder Client
 	 */
@@ -97,7 +97,7 @@ export class EvolveBuilder {
 
 	/**
 	 *
-	 * @param cache
+	 * @param caches
 	 * @disables The Cache Options for the Library
 	 * @returns EvolveBuilder Class
 	 */

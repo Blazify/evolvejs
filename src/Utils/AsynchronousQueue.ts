@@ -1,4 +1,4 @@
-export class AsyncronousQueue {
+export class AsynchronousQueue {
   private _promises: QueuePromise[] = [];
 
   public get resolved(): boolean {

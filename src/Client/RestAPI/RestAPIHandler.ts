@@ -3,7 +3,7 @@ import { EvolveClient, IAPIParams, CONSTANTS } from "../..";
 import { promisify } from "util";
 import DiscordRejection from "./DiscordRejection";
 import { EVENTS } from "../..";
-import { AsyncronousQueue } from "../../Utils/AsyncronousQueue";
+import { AsynchronousQueue } from "../../Utils/AsynchronousQueue";
 
 /**
  * RestAPIHandler
@@ -13,7 +13,7 @@ import { AsyncronousQueue } from "../../Utils/AsyncronousQueue";
  */
 export class RestAPIHandler {
 	private _cooldown: number = 0;
-	private _queue!: AsyncronousQueue;
+	private _queue!: AsynchronousQueue;
 	private _endpoint!: string;
 	private _client!: EvolveClient;
 
@@ -31,7 +31,7 @@ export class RestAPIHandler {
 			configurable: false,
 		});
 		Object.defineProperty(this, "_queue", {
-			value: new AsyncronousQueue(),
+			value: new AsynchronousQueue(),
 			enumerable: false,
 			writable: false,
 			configurable: false,

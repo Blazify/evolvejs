@@ -1,8 +1,9 @@
-import { EvolveBuilder, EvolveClient, EVENTS } from "../../dist";
+// @ts-ignore
+import {EvolveBuilder, EvolveClient, EVENTS, Message, MessageEvents} from "../../dist";
 import { argv } from "process";
 
 const client: EvolveClient = new EvolveBuilder()
-	.setToken(argv[2] ?? process.env.DISCORD_TOKEN ?? "...")
+	.setToken("" ?? process.env.DISCORD_TOKEN ?? "...")
 	.build();
 
 client.sharder.on("shardSpawn", (id: number) => {
@@ -16,8 +17,7 @@ client.sharder.on("shardDestroy", (id: number) => {
 client.on("clientReady", () => {
 	console.log("[Client: EvolveClient] => Ready");
 	for (const [k, _] of client.guilds) {
-		client.logger.debug(client.sharder.getguildShardId(k).toString());
+		console.log(client.transformer.debug(client.sharder.getGuildShardId(k).toString()))
 	}
 });
-
-client.on(EVENTS.MESSAGE_CREATE, console.log);
+	client.on(EVENTS.MESSAGE_CREATE, (m: MessageEvents<Message>) => console.log(m.message.content))

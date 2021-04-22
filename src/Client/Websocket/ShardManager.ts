@@ -51,7 +51,7 @@ export class ShardManager extends EventListener {
 		);
 	}
 
-	public getguildShardId(guildID: string): number {
+	public getGuildShardId(guildID: string): number {
 		return (Number(guildID) >> 22) % this.connections.size;
 	}
 }

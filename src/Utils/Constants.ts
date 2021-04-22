@@ -60,7 +60,6 @@ export type ChannelResolvable =
   | ICategoryChannel
   | INewsChannel
   | IStoreChannel;
-
 export type ChannelTypes =
   | TextChannel
   | VoiceChannel
